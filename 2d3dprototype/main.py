@@ -2,6 +2,8 @@ from render3d import render3d
 from dicom_viewer import dicom_viewer
 from multiprocessing import Process, Queue, Event, freeze_support
 
+import os
+
 directory = r'stanford-ct-new'
 
 def main():

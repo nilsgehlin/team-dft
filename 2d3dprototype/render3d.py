@@ -1,4 +1,5 @@
 import vtk
+import os
 
 # class CommandSubclass2(vtk.vtkCommand):
 #     def __init__(self, interactor):
@@ -31,7 +32,7 @@ def render3d(directory, mouse_queue, mouse_move_event):
     reader.SetDataDimensions(256, 256)
     reader.SetImageRange(1, 99)
     reader.SetDataByteOrderToLittleEndian()
-    reader.SetFilePrefix(directory + r'\image')
+    reader.SetFilePrefix(os.path.join(directory,'image'))
     data_spacing = (1, 1, 2)
     reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
 
