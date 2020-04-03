@@ -3,3 +3,5 @@ PYTHON GUI STUFF
 #Converting ui file to py file. OBS! Make sure that you are in the same directory as the ui file
 #and that you have activated your environment with PyQt5. Easiest to just press Terminal in Pycharm and do it there
 python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py
+or
+pyuic5 -x tutorial.ui -o tutorial.py
