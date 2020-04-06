@@ -5,7 +5,7 @@ import os
 def dicom_viewer(directory, slice_queue, mouse_move_event):
     filenames = vtk.vtkStringArray()
     for i, filename in enumerate(os.listdir(directory)):
-        filenames.InsertNextValue(os.path.join(directory,filename))
+        filenames.InsertNextValue(os.path.join(directory, filename))
 
     reader = vtk.vtkTIFFReader()
     reader.SetFileNames(filenames)
