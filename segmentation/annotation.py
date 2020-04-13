@@ -124,7 +124,7 @@ class annotationStore(vtkInformation):
         
 
     # Validates that the provided key is stored in the annotation store
-    def isStoredValidID(self, key):
+    def isStored(self, key):
         if self.Has(key):
             return True
         else:
@@ -163,7 +163,7 @@ class annotationStoreIterator(vtkInformationIterator):
         self.SetInformation(annot)
 
     # Moves the iterator to the first annotation key
-    # This is NOT necesarrily the firs stored annotation
+    # This is NOT necessarily the first stored annotation
     def GoToFirstKey(self):
         self.GoToFirstItem()
 
