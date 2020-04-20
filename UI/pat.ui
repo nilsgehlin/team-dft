@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>stacked_rad</class>
- <widget class="QStackedWidget" name="stacked_rad">
+ <class>pat</class>
+ <widget class="QStackedWidget" name="pat">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>763</width>
-    <height>598</height>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>StackedWidget</string>
+  </property>
+  <property name="currentIndex">
+   <number>4</number>
   </property>
   <widget class="QWidget" name="page_pat_home">
    <widget class="QPushButton" name="page_pat_home_logout">
@@ -73,6 +76,34 @@ p, li { white-space: pre-wrap; }
       <string>Status</string>
      </property>
     </column>
+    <item>
+     <property name="text">
+      <string>0000</string>
+     </property>
+     <property name="text">
+      <string>01-01-2020</string>
+     </property>
+     <property name="text">
+      <string>9999</string>
+     </property>
+     <property name="text">
+      <string>Pending</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>0000</string>
+     </property>
+     <property name="text">
+      <string>02-02-2020</string>
+     </property>
+     <property name="text">
+      <string>3333</string>
+     </property>
+     <property name="text">
+      <string>Complete</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="page_pat_home_button_my_profile">
     <property name="geometry">
@@ -88,6 +119,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_pat_home_button_proceed">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -368,7 +402,7 @@ p, li { white-space: pre-wrap; }
      <string>Previous Slice</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_pat_view_scan_button_previous_note_2">
+   <widget class="QPushButton" name="page_pat_view_scan_button_play_pause">
     <property name="geometry">
      <rect>
       <x>150</x>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>763</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,12 +19,12 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>800</width>
-      <height>559</height>
+      <width>763</width>
+      <height>598</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_login">
      <widget class="QPushButton" name="button_login">
@@ -67,20 +67,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_rad">
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>160</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RAD</string>
-      </property>
-     </widget>
-     <widget class="QStackedWidget" name="stacked_rad_temp">
+     <widget class="QStackedWidget" name="stacked_rad">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -92,7 +79,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_pat">
-     <widget class="QStackedWidget" name="stacked_pat_temp">
+     <widget class="QStackedWidget" name="stacked_pat">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -103,21 +90,8 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_doc">
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>170</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>DOC</string>
-      </property>
-     </widget>
-     <widget class="QStackedWidget" name="stacked_doc_temp">
+    <widget class="QWidget" name="page_sur">
+     <widget class="QStackedWidget" name="stacked_sur">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -135,7 +109,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>763</width>
      <height>21</height>
     </rect>
    </property>
