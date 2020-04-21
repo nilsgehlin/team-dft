@@ -3,7 +3,7 @@ import os
 
 from vtk import vtkDICOMImageReader
 from vtk import vtkImageShiftScale
-from vtk import vtkPNGWriter
+
 
 # class CommandSubclass2(vtk.vtkCommand):
 #     def __init__(self, interactor):
@@ -15,6 +15,11 @@ from vtk import vtkPNGWriter
 #             self.ExitCallback()
 
 def render3d(directory):
+    HULowerLimit = -100  # -1024 tp 4095
+    HUUpperLimit = 3000  # -1024 tp 4095
+
+
+
     # Create the renderer, the render window, and the interactor. The renderer
     # draws into the render window, the interactor enables mouse- and
     # keyboard-based interaction with the scene.
@@ -38,29 +43,11 @@ def render3d(directory):
     data_spacing = (1, 1, 2)
     reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
     # reader.update()
-    image = reader.GetOutput()
+    # image = reader.GetOutput()
 
     # pointData = image.GetPointData()
     # pointDataRange = pointData.GetScalars().GetRange()
     # print(pointDataRange)
-
-    shiftScaleFilter = vtkImageShiftScale()
-    shiftScaleFilter.SetOutputScalarTypeToUnsignedChar()
-    shiftScaleFilter.SetInputConnection(reader.GetOutputPort())
-
-    shiftScaleFilter.SetShift(-1.0 * image.GetScalarRange()[0])
-    oldRange = image.GetScalarRange()[1] - image.GetScalarRange()[0]
-    newRange = 255
-
-    shiftScaleFilter.SetScale(newRange / oldRange)
-    shiftScaleFilter.Update()
-
-    # reader.SetDataDimensions(256, 256)
-    # reader.SetImageRange(1, 203)
-    # reader.SetDataByteOrderToLittleEndian()
-    # reader.SetFilePrefix(os.path.join(directory,'MRbrain'))
-    # data_spacing = (1, 1, 2)
-    # reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
 
     volume_mapper = vtk.vtkSmartVolumeMapper()
     volume_mapper.SetInputConnection(reader.GetOutputPort())
@@ -86,30 +73,46 @@ def render3d(directory):
     planeActor.SetMapper(cutterMapper)
 
     volume_color = vtk.vtkColorTransferFunction()
-    # volume_color.AddRGBPoint(0, 0.0, 0.0, 0.0)
-    # volume_color.AddRGBPoint(500, 1.0, 0.5, 0.3)
-    # volume_color.AddRGBPoint(1000, 1.0, 0.5, 0.3)
-    # volume_color.AddRGBPoint(1150, 1.0, 1.0, 0.9)
 
-    volume_color.AddRGBPoint(0, 0.0, 0.0, 1.0) # soft tissue
-    volume_color.AddRGBPoint(500, 0.0, 1.0, 0.0) # bone
-    # volume_color.AddRGBPoint(250, 0.0, 1.0, 0.0)
-    volume_color.AddRGBPoint(1000, 0.0, 1.0, 0.0) # bone
-    volume_color.AddRGBPoint(1150, 0.0, 1.0, 0.0) # bone
+    volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+
+    volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
+    volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
+    volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
+    volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
+    volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
+    volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
+    volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
+    volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+
+
+
 
     # The opacity transfer function is used to control the opacity
     # of different tissue types.
     volume_scalar_opacity = vtk.vtkPiecewiseFunction()
-    volume_scalar_opacity.AddPoint(0, 0.00)
-    volume_scalar_opacity.AddPoint(500, 0.15)
-    volume_scalar_opacity.AddPoint(1000, 0.85)
-    volume_scalar_opacity.AddPoint(1150, 0.85)
-    # volume_scalar_opacity.AddPoint(0, 0.15)
-    # volume_scalar_opacity.AddPoint(100, 0.00)
-    # volume_scalar_opacity.AddPoint(200, 0.00)
-    # volume_scalar_opacity.AddPoint(300, 0.00)
-    # volume_scalar_opacity.AddPoint(400, 0.00)
-    # volume_scalar_opacity.AddPoint(500, 0.00)
+
+    if HULowerLimit > -1024:
+        volume_scalar_opacity.AddPoint(-1024, 0.00)
+        volume_scalar_opacity.AddPoint(HULowerLimit - 1, 0.00)
+    volume_scalar_opacity.AddPoint(HULowerLimit, 0.20)
+    volume_scalar_opacity.AddPoint(HUUpperLimit, 0.20)
+    if HUUpperLimit < 4095:
+        volume_scalar_opacity.AddPoint(HUUpperLimit + 1, 0.00)
+        volume_scalar_opacity.AddPoint(4095, 0.00)
 
 
 
