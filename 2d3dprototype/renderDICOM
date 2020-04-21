@@ -15,10 +15,23 @@ from vtk import vtkImageShiftScale
 #             self.ExitCallback()
 
 def render3d(directory):
+    # variables
+    usePresets = True  # either use presets or slider
+
+    # presets
+    bone = False
+    muscle = False
+    fat = False
+    softTissue = False
+
+    boneIsFalse = True
+    muscleIsFalse = True
+    fatIsFalse = True
+    softTissueIsFalse = True
+
+    # slider - only used if usePresets is False
     HULowerLimit = -100  # -1024 tp 4095
     HUUpperLimit = 3000  # -1024 tp 4095
-
-
 
     # Create the renderer, the render window, and the interactor. The renderer
     # draws into the render window, the interactor enables mouse- and
@@ -104,15 +117,50 @@ def render3d(directory):
     # The opacity transfer function is used to control the opacity
     # of different tissue types.
     volume_scalar_opacity = vtk.vtkPiecewiseFunction()
+    if usePresets:
+        if bone and boneIsFalse:
+            setOpacity((275, 3000), volume_scalar_opacity)
+            boneIsFalse = False
+        elif not bone and not boneIsFalse:
+            removeOpacityPoints((275, 3000), volume_scalar_opacity)
+            boneIsFalse = True
 
-    if HULowerLimit > -1024:
-        volume_scalar_opacity.AddPoint(-1024, 0.00)
-        volume_scalar_opacity.AddPoint(HULowerLimit - 1, 0.00)
-    volume_scalar_opacity.AddPoint(HULowerLimit, 0.20)
-    volume_scalar_opacity.AddPoint(HUUpperLimit, 0.20)
-    if HUUpperLimit < 4095:
-        volume_scalar_opacity.AddPoint(HUUpperLimit + 1, 0.00)
-        volume_scalar_opacity.AddPoint(4095, 0.00)
+        if softTissue and softTissueIsFalse:
+            setOpacity((75, 150), volume_scalar_opacity)
+            softTissueIsFalse = False
+        elif not softTissue and not softTissueIsFalse:
+            removeOpacityPoints((75, 150), volume_scalar_opacity)
+            softTissueIsFalse = True
+
+        if muscle and muscleIsFalse:
+            setOpacity((20, 40), volume_scalar_opacity)
+            muscleIsFalse = False
+        elif not muscle and not muscleIsFalse:
+            removeOpacityPoints((20, 40), volume_scalar_opacity)
+            muscleIsFalse = True
+
+        if fat and fatIsFalse:
+            setOpacity((-70, -30), volume_scalar_opacity)
+            fatIsFalse = False
+        elif not fat and not fatIsFalse:
+            removeOpacityPoints((-70, -30), volume_scalar_opacity)
+            fatIsFalse = True
+
+        if not bone and not softTissue and not muscle and not fat:  # show nothing
+            setOpacity((4096, 4096), volume_scalar_opacity)
+
+    elif not usePresets:
+        setOpacity((HULowerLimit, HUUpperLimit), volume_scalar_opacity)
+    # if HULowerLimit > -1024:
+    #     volume_scalar_opacity.AddPoint(-1024, 0.00)
+    #     volume_scalar_opacity.AddPoint(HULowerLimit - 1, 0.00)
+    # volume_scalar_opacity.AddPoint(HULowerLimit, 0.20)
+    # volume_scalar_opacity.AddPoint(HUUpperLimit, 0.20)
+    # if HUUpperLimit < 4095:
+    #     volume_scalar_opacity.AddPoint(HUUpperLimit + 1, 0.00)
+    #     volume_scalar_opacity.AddPoint(4095, 0.00)
+
+
 
 
 
@@ -187,6 +235,27 @@ def render3d(directory):
     render_window.Render()
     interactor.Start()
 
+def setOpacity(limits, volume_scalar_opacity):
+    print(limits[0])
+    print(limits[1])
+    if limits[0] > -1024:
+        volume_scalar_opacity.AddPoint(-1024, 0.00)
+        volume_scalar_opacity.AddPoint(limits[0] - 1, 0.00)
+    volume_scalar_opacity.AddPoint(limits[0], 0.20)
+    volume_scalar_opacity.AddPoint(limits[1], 0.20)
+    if limits[1] < 4095:
+        volume_scalar_opacity.AddPoint(limits[1] + 1, 0.00)
+        volume_scalar_opacity.AddPoint(4095, 0.00)
+
+def removeOpacityPoints(limits, volume_scalar_opacity):
+    if limits[0] > -1024:
+        volume_scalar_opacity.RemovePoint(-1024)
+        volume_scalar_opacity.RemovePoint(limits[0] - 1)
+    volume_scalar_opacity.RemovePoint(limits[0])
+    volume_scalar_opacity.RemovePoint(limits[1])
+    if limits[1] < 4095:
+        volume_scalar_opacity.RemovePoint(limits[1] + 1)
+        volume_scalar_opacity.RemovePoint(4095)
 
 if __name__ == '__main__':
     # directory = r"chestDICOM"
