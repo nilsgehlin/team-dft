@@ -1,15 +1,12 @@
 import vtk
 from vtk.util import keys
-from imageReader import imageReader
+from imageReader.imageReader import imageReader
 from segmentation.Segmentation import Segmentation
 from vtk.util.numpy_support import vtk_to_numpy
 import numpy as np
 
 # TODO: 
-#1. Fix initial image size calculation on SetupImageUI
-#   -Currently only gives out zeros
-#2. Fix key presses
-#   -Potentially pass over to UI team
+#1. Add MR volume properties
 
 class visualizationEngine(object):
     ##### Class Variables #####
@@ -25,7 +22,6 @@ class visualizationEngine(object):
     _volumeRenderer = "VOLUME_RENDERER"
     _rendererTypeKey = None
     _rendererNumKey = None
-    _initSizeKey = None
     _previousActiveRenderer = None
 
     # Interactor styles
@@ -52,7 +48,6 @@ class visualizationEngine(object):
         # Create the renderer type and number key
         self._rendererTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
         self._rendererNumKey = vtk.vtkDataObject().DATA_PIECE_NUMBER()
-        self._initSizeKey = keys.MakeKey(keys.IntegerVectorKey, "INIT_SIZE", "visualizationEngine")
 
         # Set the default interactor styles
         self._imageInteractor = vtk.vtkInteractorStyleImage()
@@ -61,15 +56,11 @@ class visualizationEngine(object):
         # Set the image reader
         self.SetDirectory(dir)
 
-        # Set default observers
-        # self.interactor.AddObserver("MouseMoveEvent", self.__on_mouse_move)
-        # self.interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 101.0)
-        # self.interactor.AddObserver("KeyReleaseEvent", self.__on_key_release)
-
     
     ##################################
     ##### Public class functions #####
     ##################################
+
 
     # Set the read DICOM information into the window
     def SetDirectory(self,dir):
@@ -100,9 +91,6 @@ class visualizationEngine(object):
 
         self.imageViewers.append(image_viewer)
 
-        # TODO: (1)
-        renderer.GetInformation().Set(self._initSizeKey, interactor.GetSize(), 2)
-
         picker = vtk.vtkPointPicker()
         interactor.SetPicker(picker)
 
@@ -130,7 +118,7 @@ class visualizationEngine(object):
         volume_mapper.SetInputConnection(self.reader.GetOutputPort())
         volume_mapper.SetBlendModeToComposite()
         
-        volumeProperty = self.__SetVolumeProperties()
+        volumeProperty = self.__SetVolumeProperties("ALL")
     
         # The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
         # and orientation of the volume in world coordinates.
@@ -153,9 +141,23 @@ class visualizationEngine(object):
         interactor.Initialize()
 
 
+    # Determines what tissue to show given the vtkWidget and the tissue name
+    def SetTissue(self, vtkWidget, tissue):
+        renderer = vtkWidget.FindPokedRenderer(1,1)
+        volume = renderer.GetViewProps().GetLastProp()
+        volumeProperty = self.__SetVolumeProperties(tissue)
+        volume.SetProperty(volumeProperty)
+
+        # Finally, add the volume to the renderer
+        renderer.AddViewProp(volume)
+
+        vtkWidget.Initialize() 
+
+
     ###################################
     ##### Private class functions #####
     ###################################
+
 
     ##### Event callback functions #####
 
@@ -203,7 +205,6 @@ class visualizationEngine(object):
         # Example
         # volume[new_segmentation.segmentation] = -1
         print(new_segmentation.segmentation)
-
         
 
 
@@ -229,9 +230,11 @@ class visualizationEngine(object):
     # decreased by increasing the Ambient coefficient while decreasing
     # the Diffuse and Specular coefficient.  To increase the impact
     # of shading, decrease the Ambient and increase the Diffuse and Specular.
-    def __SetVolumeProperties(self):
-        volume_color = self.__SetColor()
-        volume_scalar_opacity = self.__SetScalarOpacity('A')
+    def __SetVolumeProperties(self, *args):
+        modality = self.imageReader.getModality()
+
+        volume_color = self.__SetColor(modality)
+        volume_scalar_opacity = self.__SetScalarOpacity(modality, args)
         volume_gradient_opacity = self.__SetGradientOpacity()
         
         volumeProperty = vtk.vtkVolumeProperty()
@@ -247,63 +250,106 @@ class visualizationEngine(object):
 
 
     # Defines different volume colors
-    def __SetColor(self):
+    def __SetColor(self, modality):
         volume_color = vtk.vtkColorTransferFunction()
-        volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+        if modality == "CT":
+            volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
 
-        volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
-        volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
-        volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
 
-        volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
 
-        volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
-        volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
-        volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
+            volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
+            volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
 
-        volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
-        volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
-        volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
-        volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
+            volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
+            volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
+            volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
 
-        volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+            volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+        elif modality == "MR":
+            volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+
+            volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
+
+            volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
+
+            volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
+            volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
+            volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
+
+            volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
+            volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
+            volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
+            volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
+
+            volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
         return volume_color
 
 
     # The opacity transfer function is used to control the opacity
     # of different tissue types.
-    def __SetScalarOpacity(self, *args):
+    def __SetScalarOpacity(self, modality, opts):
         volume_scalar_opacity = vtk.vtkPiecewiseFunction()
-        volume_scalar_opacity.AddPoint(0, 0.00)
-        volume_scalar_opacity.AddPoint(500, 0.15)
-        volume_scalar_opacity.AddPoint(1000, 0.15)
-        volume_scalar_opacity.AddPoint(1150, 0.85)
+        if modality == "CT":
+            volume_scalar_opacity.AddPoint(-1024,0.00)
+            volume_scalar_opacity.AddPoint(4095, 0.00)
+            for opt in opts:
+                if opt == "ALL":
+                    self.__AddOpacityPoints([-100,3000], volume_scalar_opacity)
+                    break
+                if opt == "BONE":
+                    self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
+                if opt == "SOFT":
+                    self.__AddOpacityPoints([75, 150], volume_scalar_opacity)
+                if opt == "MUSCLE":
+                    self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
+                if opt == "FAT":
+                    self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
+        elif modality == "MR":
+            volume_scalar_opacity.AddPoint(-1024,0.00)
+            volume_scalar_opacity.AddPoint(4095, 0.00)
+            for opt in opts:
+                if opt == "ALL":
+                    self.__AddOpacityPoints([-100,3000], volume_scalar_opacity)
+                    break
+                if opt == "BONE":
+                    self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
+                if opt == "SOFT":
+                    self.__AddOpacityPoints([75, 150], volume_scalar_opacity)
+                if opt == "MUSCLE":
+                    self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
+                if opt == "FAT":
+                    self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
         return volume_scalar_opacity
 
-    def __AddOpacityPoints(limits, volume_scalar_opacity):
-        if limits[0] > -1024:
-            volume_scalar_opacity.AddPoint(-1024, 0.00)
-            volume_scalar_opacity.AddPoint(limits[0] - 1, 0.00)
+    def __AddOpacityPoints(self, limits, volume_scalar_opacity):
+        volume_scalar_opacity.AddPoint(limits[0] - 1, 0.00)
         volume_scalar_opacity.AddPoint(limits[0], 0.20)
         volume_scalar_opacity.AddPoint(limits[1], 0.20)
-        if limits[1] < 4095:
-            volume_scalar_opacity.AddPoint(limits[1] + 1, 0.00)
-            volume_scalar_opacity.AddPoint(4095, 0.00)
+        volume_scalar_opacity.AddPoint(limits[1] + 1, 0.00)
 
-    def __RemoveOpacityPoints(limits, volume_scalar_opacity):
-        if limits[0] > -1024:
-            volume_scalar_opacity.RemovePoint(-1024)
-            volume_scalar_opacity.RemovePoint(limits[0] - 1)
+    def __RemoveOpacityPoints(self, limits, volume_scalar_opacity):
+        volume_scalar_opacity.RemovePoint(limits[0] - 1)
         volume_scalar_opacity.RemovePoint(limits[0])
         volume_scalar_opacity.RemovePoint(limits[1])
-        if limits[1] < 4095:
-            volume_scalar_opacity.RemovePoint(limits[1] + 1)
-            volume_scalar_opacity.RemovePoint(4095)
+        volume_scalar_opacity.RemovePoint(limits[1] + 1)
 
 
     # The gradient opacity function is used to decrease the opacity
@@ -317,8 +363,6 @@ class visualizationEngine(object):
         volume_gradient_opacity.AddPoint(90, 0.5)
         volume_gradient_opacity.AddPoint(100, 1.0)
         return volume_gradient_opacity
-
-
 
 
 

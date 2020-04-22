@@ -1,15 +1,15 @@
 import os
+import pydicom
 from vtk import vtkDICOMImageReader, vtkTIFFReader, vtkStringArray
 
 #TODO:
-#1. Implement reading meta data
-#   - Update reading modality on readDicom function
 
 class imageReader():
     ##### Class Variables #####
     _directory = None
     _reader = None
     _modality = None
+    _metaData = None
 
     ##### General class functions #####
 
@@ -48,6 +48,7 @@ class imageReader():
 
         self._modality = None
         self.reader = reader
+
         return self._reader
 
 
@@ -66,7 +67,13 @@ class imageReader():
         reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
         reader.Update()
 
+        # Get image metadata
+        first_file_name = os.listdir(self._directory)[0]
+        first_file_loc = os.path.join(self._directory, first_file_name)
+        
+        self._metaData = pydicom.filereader.dcmread(first_file_loc)
         self._reader = reader
+
         return self._reader
 
 
@@ -78,9 +85,9 @@ class imageReader():
 
     # Returns the image reader object
     def getModality(self):
-        if self._modality is None:
+        if self._metaData is None:
             raise NameError("Please read a DICOM image for modality")
-        return self._modality
+        return self._metaData.Modality
 
 
     
