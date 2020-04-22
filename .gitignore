@@ -1,5 +1,6 @@
 venv/
 .idea/
 .vscode
-2d3dprototype/__pycache__/
+old_prototype/__pycache__/
 segmentation/__pycache__
+sample_dicom_2/

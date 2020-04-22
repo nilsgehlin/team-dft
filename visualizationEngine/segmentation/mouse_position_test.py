@@ -62,8 +62,8 @@ if __name__ == '__main__':
     # directory_dicom = os.path.join("..", "sample_files", "dicom")
     # reader = read_dicom(directory_dicom)
     
-    ## Reads the tiff images in 2d3dprototype/stanford-ct-new
-    directory = os.path.join("..", "2d3dprototype", "stanford-ct-new")
+    ## Reads the tiff images in old_prototype/stanford-ct-new
+    directory = os.path.join("..", "old_prototype", "stanford-ct-new")
     reader = read_tiff(directory)    
 
     ## Setsup display window and display images

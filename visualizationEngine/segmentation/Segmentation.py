@@ -2,8 +2,12 @@ import numpy as np
 import os
 import ctypes
 import random
-region_growing_C = np.ctypeslib.load_library("libregion_growing_lib",
-                                             os.path.join("region_growing", "cmake-build-debug"))
+lib_dir = os.path.join("region_growing", "cmake-build-debug")
+if __name__ == "segmentation.Segmentation":
+    lib_dir = os.path.join("segmentation", lib_dir)
+
+
+region_growing_C = np.ctypeslib.load_library("libregion_growing_lib", lib_dir)
 array_1d_double = np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags='CONTIGUOUS')
 array_1d_bool = np.ctypeslib.ndpointer(dtype=np.bool, ndim=1, flags='CONTIGUOUS')
 
@@ -13,7 +17,7 @@ region_growing_C.grow.argtypes = [ctypes.c_int,    ctypes.c_int,    ctypes.c_int
                                   ctypes.c_int,    ctypes.c_int,    ctypes.c_double]
 
 
-class Annotation:
+class Segmentation:
     def __init__(self, clicked_coordinate, volume, color=None, segmentation_threshold=0.2):
         """
         Constructor for annotation class. __grow runs 3D region growing when the constructor is run.
@@ -36,7 +40,7 @@ class Annotation:
         self.segmentation_threshold = segmentation_threshold
 
         # Setup actions
-        self.__grow(volume, clicked_coordinate)
+        self.__grow(volume, (int(clicked_coordinate[0]), int(clicked_coordinate[1]), int(clicked_coordinate[2])))
 
     def add_to_vol(self, volume):
         """
@@ -138,7 +142,7 @@ if __name__ == "__main__":
 
         def onclick(self, event):
             clicked_coordinate = (int(event.ydata), int(event.xdata), self.ind)
-            new_annotation = Annotation(clicked_coordinate, self.volume, segmentation_threshold=0.3)
+            new_annotation = Segmentation(clicked_coordinate, self.volume, segmentation_threshold=0.3)
             self.annotations += [new_annotation]
             new_annotation.add_to_vol(self.x)
             # self.x /= np.max(self.x)
@@ -159,7 +163,7 @@ if __name__ == "__main__":
         vol = (vol / np.max(vol)) * 255
         return vol
 
-    directory = os.path.join("..", "2d3dprototype", "stanford-ct-new")
+    directory = os.path.join("..", "old_prototype", "stanford-ct-new")
     vol = load_volume(directory) # (256, 256, 99)
 
     fig, ax = plt.subplots(1, 1)

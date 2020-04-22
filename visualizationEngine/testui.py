@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from vtk_test import VTK_Test
+# from vtk_test import VTK_Test
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 import os
@@ -62,8 +62,8 @@ if __name__ == "__main__":
     # DICOM file directory in sample_files/dicom
     directory = os.path.join("..", "sample_dicom_2")
     
-    ## Tiff images in 2d3dprototype/stanford-ct-new
-    #directory = os.path.join("..", "2d3dprototype", "stanford-ct-new")  
+    ## Tiff images in old_prototype/stanford-ct-new
+    #directory = os.path.join("..", "old_prototype", "stanford-ct-new")
 
     vtk_engine = visualizationEngine(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget)

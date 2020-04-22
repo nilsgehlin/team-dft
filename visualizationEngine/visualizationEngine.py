@@ -1,6 +1,9 @@
 import vtk
 from vtk.util import keys
 from imageReader import imageReader
+from segmentation.Segmentation import Segmentation
+from vtk.util.numpy_support import vtk_to_numpy
+import numpy as np
 
 # TODO: 
 #1. Fix initial image size calculation on SetupImageUI
@@ -112,7 +115,7 @@ class visualizationEngine(object):
     # Sets up a 3D volume window in the engine
     def SetupVolumeUI(self, vtkWidget):
         renderer = vtk.vtkRenderer()
-        renderer.GetInformation().Set(self._rendererTypeKey,self._volumeRenderer)
+        renderer.GetInformation().Set(self._rendererTypeKey, self._volumeRenderer)
         
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
@@ -188,14 +191,17 @@ class visualizationEngine(object):
     #   with the origin at the bottom left corner
     def __on_left_mouse_button_press(self, obj, event):
         mouse_pos = obj.GetEventPosition()
+        renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
+        obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
+        clicked_coordinate = obj.GetPicker().GetPickPosition()
+        image_data = self.reader.GetOutput()
+        rows, cols, _ = image_data.GetDimensions()
+        volume = vtk_to_numpy(image_data.GetPointData().GetScalars())
+        volume = volume.reshape(rows, cols, -1)
+        volume = (volume / np.max(volume)) * 255
+        new_segmentation = Segmentation(clicked_coordinate, volume)
+        print(new_segmentation.segmentation)
 
-        obj.GetPicker().Pick(mouse_pos[0],mouse_pos[1])
-
-        current_image_size = obj.GetSize()
-        init_image_size = obj.FindPokedRenderer(mouse_pos[0],mouse_pos[1]).GetInformation().Get(self._initSizeKey)
-        posX = int(round(mouse_pos[0] * init_image_size[0] / current_image_size[0]))
-        posY = int(round(mouse_pos[1] * init_image_size[1] / current_image_size[1]))
-        #print(posX,posY)
         
 
 
