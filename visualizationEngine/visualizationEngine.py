@@ -200,6 +200,8 @@ class visualizationEngine(object):
         volume = volume.reshape(rows, cols, -1)
         volume = (volume / np.max(volume)) * 255
         new_segmentation = Segmentation(clicked_coordinate, volume)
+        # Example
+        # volume[new_segmentation.segmentation] = -1
         print(new_segmentation.segmentation)
 
         
