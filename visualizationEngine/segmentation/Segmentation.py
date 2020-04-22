@@ -163,7 +163,7 @@ if __name__ == "__main__":
         vol = (vol / np.max(vol)) * 255
         return vol
 
-    directory = os.path.join("..", "old_prototype", "stanford-ct-new")
+    directory = os.path.join("..", "..", "old_prototype", "stanford-ct-new")
     vol = load_volume(directory) # (256, 256, 99)
 
     fig, ax = plt.subplots(1, 1)
