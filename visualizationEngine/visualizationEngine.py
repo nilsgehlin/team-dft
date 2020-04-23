@@ -277,29 +277,15 @@ class visualizationEngine(object):
 
             volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
         elif modality == "MR":
-            volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+            volume_color.AddRGBPoint(99, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(100, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(600, 0.74, 0.6, 0.5)
+            volume_color.AddRGBPoint(601, 0.0, 0.0, 0.0)
 
-            volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
-            volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
-            volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
-            volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
-            volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
-            volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
-            volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
-            volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+            volume_color.AddRGBPoint(599, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(600, 0.7, 0.7, 0.7)
+            volume_color.AddRGBPoint(2500, 0.9, 0.7, 0.9)
+            volume_color.AddRGBPoint(2501, 0.0, 0.0, 0.0)
         return volume_color
 
 
@@ -308,7 +294,7 @@ class visualizationEngine(object):
     def __SetScalarOpacity(self, modality, opts):
         volume_scalar_opacity = vtk.vtkPiecewiseFunction()
         if modality == "CT":
-            volume_scalar_opacity.AddPoint(-1024,0.00)
+            volume_scalar_opacity.AddPoint(-1024, 0.00)
             volume_scalar_opacity.AddPoint(4095, 0.00)
             for opt in opts:
                 if opt == "ALL":
@@ -323,20 +309,22 @@ class visualizationEngine(object):
                 if opt == "FAT":
                     self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
         elif modality == "MR":
-            volume_scalar_opacity.AddPoint(-1024,0.00)
-            volume_scalar_opacity.AddPoint(4095, 0.00)
+            volume_scalar_opacity.AddPoint(0, 0.00)
+            volume_scalar_opacity.AddPoint(2550, 0.00)
             for opt in opts:
                 if opt == "ALL":
-                    self.__AddOpacityPoints([-100,3000], volume_scalar_opacity)
+                    self.__AddOpacityPoints([50, 2500], volume_scalar_opacity)
                     break
-                if opt == "BONE":
-                    self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
+                # if opt == "BONE":
+                #     self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
                 if opt == "SOFT":
-                    self.__AddOpacityPoints([75, 150], volume_scalar_opacity)
-                if opt == "MUSCLE":
-                    self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
-                if opt == "FAT":
-                    self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
+                    self.__AddOpacityPoints([900, 2500], volume_scalar_opacity)
+                if opt == "SKIN":
+                    self.__AddOpacityPoints([100, 600], volume_scalar_opacity)
+                # if opt == "MUSCLE":
+                #     self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
+                # if opt == "FAT":
+                #     self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
         return volume_scalar_opacity
 
     def __AddOpacityPoints(self, limits, volume_scalar_opacity):

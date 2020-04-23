@@ -69,7 +69,7 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
 
     # DICOM file directory in sample_files/dicom
-    directory = os.path.join("..", "sample_dicom","2")
+    directory = os.path.join("..", "MRbrainTumour")
     
     ## Tiff images in old_prototype/stanford-ct-new
     #directory = os.path.join("..", "old_prototype", "stanford-ct-new")
