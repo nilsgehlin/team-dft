@@ -3,7 +3,10 @@ from vtk.util import keys
 from imageReader.imageReader import imageReader
 
 # TODO:
-#1. Add MR volume properties
+#1. Check rendering timer issues
+#   -Behaving as if duration is fixed at 10ms
+#2. Add color to cutting plane frames
+#3. Expand tissue selection to allow multiple tissues
 
 class visualizationEngine(object):
     ##### Class Variables #####
@@ -13,30 +16,36 @@ class visualizationEngine(object):
     # Reader
     imageReader = None
     reader = None
+    _pixelSpacing = None
 
     # Renderer Variables
     _imageRenderer = "IMAGE_RENDERER"
     _volumeRenderer = "VOLUME_RENDERER"
     _rendererTypeKey = None
     _rendererNumKey = None
-    _previousActiveRenderer = None
+    _rendererMPRKey = None
+    _rendererObserverKey = None
 
     # Interactor styles
-    _imageInteractor = None
-    _volumeInteractor = None
+    _imageInteractorStyle = None
+    _volumeInteractorStyle = None
 
     # Slice control
+    _masterID = None
+    _masterMPR = None
+    _slaves = None
     _cuttingPlaneState = False
+
+    # Slave Render Timer
+    _renderTimerID = 0
+    _renderTimeCount = 0
 
     # 2d image viewers array
     imageViewers = []
 
-    # CT tissue opacity ranges
-    CT_BONE = [275, 3000]
-    CT_MUSCLE = [20, 40]
-    CT_SOFT_TISSUE = [75, 150]
-    CT_FAT = [-70, -30]
-    
+    # 3D Transparency
+    _3DTransparency = 0.2
+
 
     ##### General class functions #####
 
@@ -45,10 +54,12 @@ class visualizationEngine(object):
         # Create the renderer type and number key
         self._rendererTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
         self._rendererNumKey = vtk.vtkDataObject().DATA_PIECE_NUMBER()
+        self._rendererObserverKey = keys.MakeKey(keys.IntegerKey, "OBSERVER", "Engine")
+        self._rendererMPRKey = keys.MakeKey(keys.StringKey, "ORIENTATION", "Engine")
 
         # Set the default interactor styles
-        self._imageInteractor = vtk.vtkInteractorStyleImage()
-        self._volumeInteractor = vtk.vtkInteractorStyleTrackballCamera()
+        self._imageInteractorStyle = vtk.vtkInteractorStyleImage()
+        self._volumeInteractorStyle = vtk.vtkInteractorStyleTrackballCamera()
 
         # Set the image reader
         self.SetDirectory(dir)
@@ -59,16 +70,27 @@ class visualizationEngine(object):
     ##################################
 
 
-    # Set the read DICOM information into the window
+    # Manually changes the read DICOM information into the engine
+    # AVOID CALLING IF WINDOWS HAVE BEEN SET UP
+    #   Parameters:
+    #       1. Directory, containing DICOM files
     def SetDirectory(self,dir):
         image_reader = imageReader(dir)
         self.reader = image_reader.readDicom()
+        self._pixelSpacing = image_reader.getPixelSpacing()
         #self.reader = image_reader.readTiff()
         self.imageReader = image_reader
 
 
-    # Sets up a 2D image window in the engine
-    def SetupImageUI(self, vtkWidget):
+    # Sets up a 2D image window for the given widget
+    #   Parameters: 
+    #       1. vtkWidget, 
+    #       2. (optional) plane orientation i.e AXIAL, SAGITTAL or CORONAL
+    #   Notes:
+    #       -If not orientation is provided it shows default orientation
+    #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
+    def SetupImageUI(self, vtkWidget, *args):
+        ## General Pipeline methods
         renderer = vtk.vtkRenderer()
         renderer.ResetCamera()
         renderer.GetInformation().Set(self._rendererTypeKey,self._imageRenderer)
@@ -86,33 +108,35 @@ class visualizationEngine(object):
         image_viewer.SetRenderer(renderer)
         image_viewer.Render()
 
+        ## Perform MPR if required
+        img_orien = self.imageReader.getPlaneOrientation()
+        if(len(args) > 0):
+            mpr = args[0]
+            plane_id = self.__GetPlaneID(img_orien, mpr)
+            image_viewer.SetSliceOrientation(plane_id)
+            renderer.GetInformation().Set(self._rendererMPRKey, mpr)
+        else:
+            renderer.GetInformation().Set(self._rendererMPRKey, img_orien)
+
         self.imageViewers.append(image_viewer)
-
-        picker = vtk.vtkPointPicker()
-        interactor.SetPicker(picker)
-
-        # Add interactor observers
-        interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 101.0)
 
         interactor.Initialize()
     
         
-    # Sets up a 3D volume window in the engine
+    # Sets up a 3D volume window for the given widget
+    #   Parameters: 
+    #       1. vtkWidget
+    #   Notes:
+    #       -This initial setup does not do any tissue selection
     def SetupVolumeUI(self, vtkWidget):
         renderer = vtk.vtkRenderer()
         renderer.GetInformation().Set(self._rendererTypeKey,self._volumeRenderer)
         
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
-
-        # extract data from the volume
-        # extract = vtk.vtkExtractVOI()
-        # extract.SetInputConnection(self.reader.GetOutputPort())
-        # extract.SetVOI(0, 200, 0, 100, 0, 90)
-        # extract.SetSampleRate(1, 1, 1)
-
+        
         volume_mapper = vtk.vtkSmartVolumeMapper()
-        volume_mapper.SetInputConnection(self.reader.GetOutputPort())
+        volume_mapper.SetInputConnection(self.reader.GetOutputPort())        
         volume_mapper.SetBlendModeToComposite()
         
         volumeProperty = self.__SetVolumeProperties("ALL")
@@ -135,12 +159,18 @@ class visualizationEngine(object):
         camera.SetPosition(c[0] + 1000, c[1], c[2])
         camera.SetViewUp(0, 0, -1)
 
+        interactor.SetInteractorStyle(self._volumeInteractorStyle)
         interactor.Initialize()
 
 
     # Determines what tissue to show given the vtkWidget and the tissue name
+    #   Parameters: 
+    #       1. vtkWidget
+    #       2. Tissue i.e. ALL, BONE, SOFT, MUSCLE or FAT
+    #   Notes:
+    #       -Currently only takes one tissue at a time, could expand for more
     def SetTissue(self, vtkWidget, tissue):
-        renderer = vtkWidget.FindPokedRenderer(1,1)
+        renderer = self.__GetRenderer(vtkWidget)
         volume = renderer.GetViewProps().GetLastProp()
         volumeProperty = self.__SetVolumeProperties(tissue)
         volume.SetProperty(volumeProperty)
@@ -148,7 +178,55 @@ class visualizationEngine(object):
         # Finally, add the volume to the renderer
         renderer.AddViewProp(volume)
 
-        vtkWidget.Initialize() 
+        vtkWidget.Initialize()
+
+
+    # Links scrolling of master window 'masterWidget' to slave windows in 'args'
+    # ONLY a 2D image window can be a master.
+    #   Parameters: 
+    #       1. vtkWidget - Master
+    #       2,3,4... vtkWidgets - Slaves
+    #   Notes:
+    #       -Provide each slave as its own arguments, NOT as an array
+    #       -There can be only one master window for any engine instance. Make sure
+    #           to unlink slaves before creating a new set of links. Unexpected behaviour
+    #           if a new set of links are made without unlinking previous links
+    def LinkWindows(self, masterWidget, *args):
+        master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
+        self._masterID = master_renderer_info.Get(self._rendererNumKey)
+        self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
+        if master_renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            self._slaves = []
+            for arg in args:
+                self._slaves.append(arg)
+            ob_id = masterWidget.AddObserver("MouseWheelForwardEvent", self.__on_scroll_event, 1)
+            masterWidget.AddObserver("MouseWheelBackwardEvent", self.__on_scroll_event, 1)
+            masterWidget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_scroll_event,1)
+            master_renderer_info.Set(self._rendererObserverKey, ob_id)
+
+
+    # Safely unlinks all window scrolling from the master window
+    #   Parameters: 
+    #       1. vtkWidget - Master
+    #   Notes:
+    #       -If a wrong master window is provided nothing happens
+    def UnlinkWindows(self, masterWidget):
+        master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
+        if master_renderer_info.Get(self._rendererNumKey) == self._masterID: 
+            self._masterID = None
+            self._masterMPR = None
+            ob_id = master_renderer_info.Get(self._rendererObserverKey)
+            masterWidget.RemoveObserver(ob_id)
+            masterWidget.RemoveObserver(ob_id+1)
+            masterWidget.RemoveObserver(ob_id+2)
+
+            for slave in self._slaves:
+                renderer_info = self.__GetRenderer(slave).GetInformation()
+                if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                    self.__CleanUpSlicePos(slave)
+                elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+                    self.__CleanUpCuttingPlanePos(slave)
+            self._slaves = None
 
 
     ###################################
@@ -156,33 +234,141 @@ class visualizationEngine(object):
     ###################################
 
 
-    ##### Event callback functions #####
+    ##### HELPER FUNCTIONS #####
+    
+    # Retrieves the renderer from the qvtkinteractor widget 
+    def __GetRenderer(self, widget):
+        # return widget.FindPokedRenderer(1,1)
+        return widget.GetRenderWindow().GetRenderers().GetFirstRenderer()
 
-    # Mouse move event call back:
-    # 1. Determines the right interactor style for the renderer
-    # 2. Sets the right mouse wheel response for the viewer
-    def __on_mouse_move(self, obj, event):
-        pos = obj.GetEventPosition()
-        renderer = self.interactor.FindPokedRenderer(pos[0],pos[1])
+
+    # Returns the plane ID depending on the original image orientation and
+    # requested orientation
+    def __GetPlaneID(self, img_orientation, win_orientation):
+        if img_orientation == "SAGITTAL": orientation = 4
+        elif img_orientation == "CORONAL": orientation = 3
+        elif img_orientation == "AXIAL": orientation = 2
+        else: orientation = 2
         
-        if(renderer is self._previousActiveRenderer):
-            return
+        if win_orientation == "SAGITTAL": orientation += 1
+        elif win_orientation == "CORONAL": orientation += 2
+        elif win_orientation == "AXIAL": orientation += 3
+
+        return orientation % 3
+
+
+    # Updates the position of the cutting plane in a 3D window
+    def __UpdateCuttingPlanePos(self, widget, active_slice, mpr):
+        img_orien = self.imageReader.getPlaneOrientation()
+        plane_id = self.__GetPlaneID(img_orien, mpr)
+        active_slice = active_slice * self._pixelSpacing[plane_id]
+        if (plane_id == 0): idx = 1
+        elif (plane_id == 1): idx = 3
+        elif (plane_id == 2): idx = 5
+        
+        renderer = self.__GetRenderer(widget)
+        volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
+        if volume_mapper.GetCropping() == 0:
+            volume_mapper.CroppingOn()
+            volume_mapper.SetCroppingRegionFlagsToFence()
+            cropping = [0,0.1,0,0.1,0,0.1]
+            cropping[idx] = active_slice
+            cropping = tuple(cropping)
+            volume_mapper.SetCroppingRegionPlanes(cropping)
         else:
-            self._previousActiveRenderer = renderer
-        
-        renderer_type = renderer.GetInformation().Get(self._rendererTypeKey)
-        
-        if(renderer_type == self._imageRenderer):
-            self.interactor.SetInteractorStyle(self._imageInteractor)
-            for viewer in self.imageViewers:
-                viewer.SliceScrollOnMouseWheelOff()
-            num = renderer.GetInformation().Get(self._rendererNumKey)
-            self.imageViewers[num].SliceScrollOnMouseWheelOn()
-        elif (renderer_type == self._volumeRenderer):
-            for viewer in self.imageViewers:
-                viewer.SliceScrollOnMouseWheelOff()
-            self.interactor.SetInteractorStyle(self._volumeInteractor)
+            cropping = list(volume_mapper.GetCroppingRegionPlanes())
+            cropping[idx] = active_slice
+            cropping = tuple(cropping)
+            volume_mapper.SetCroppingRegionPlanes(cropping)
 
+    
+    # Cleans up 3D window to remove cutting plane 
+    def __CleanUpCuttingPlanePos(self, widget):
+        renderer = self.__GetRenderer(widget)
+        volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
+        volume_mapper.CroppingOff()
+        widget.GetRenderWindow().Render()
+
+
+    # Updates the position of the cutting plane line in a 2D window
+    # If two images are the same orientation, it just reconciles the slices
+    def __UpdateSlicePos(self, widget, active_slice, mpr):
+        renderer_info = self.__GetRenderer(widget).GetInformation()
+
+        widget_orien = renderer_info.Get(self._rendererMPRKey)
+        
+        viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+        
+        if widget_orien == mpr:
+            viewer.SetSlice(active_slice)
+        else:
+            bounds = list(self.imageViewers[self._masterID].GetImageActor().GetBounds())
+
+            renderer = self.__GetRenderer(widget)
+            frame_actor = renderer.GetActors().GetLastActor()
+            if frame_actor != None:
+                renderer.RemoveActor(frame_actor)
+
+            frame_actor = self.__CreateFrame(bounds)
+            renderer.AddActor(frame_actor)
+
+            viewer.Render()
+
+
+    # Cleans up 2D window to remove cutting plane line
+    def __CleanUpSlicePos(self, widget):
+        renderer = self.__GetRenderer(widget)
+        frame_actor = renderer.GetActors().GetLastActor()
+        if frame_actor != None:
+            renderer.RemoveActor(frame_actor)
+        viewer = self.imageViewers[renderer.GetInformation().Get(self._rendererNumKey)]
+        viewer.Render()
+        
+
+    # Creates a 3D frame around the bounding points
+    def __CreateFrame(self, bounds):
+        linesPolyData = vtk.vtkPolyData()
+
+        pt0 = [bounds[0],bounds[2], bounds[4]]
+        pt1 = [bounds[1],bounds[2], bounds[4]]
+        pt2 = [bounds[1],bounds[3], bounds[4]]
+        pt3 = [bounds[1],bounds[3], bounds[5]]
+        pt4 = [bounds[0],bounds[3], bounds[5]]
+        pt5 = [bounds[0],bounds[2], bounds[5]]
+        pt6 = [bounds[0],bounds[2], bounds[4]]
+
+        pts = vtk.vtkPoints()
+        pts.InsertNextPoint(pt0)
+        pts.InsertNextPoint(pt1)
+        pts.InsertNextPoint(pt2)
+        pts.InsertNextPoint(pt3)
+        pts.InsertNextPoint(pt4)
+        pts.InsertNextPoint(pt5)
+        pts.InsertNextPoint(pt6)
+
+        lines = vtk.vtkCellArray()
+        for i in range(5):
+            line = vtk.vtkLine()
+            line.GetPointIds().SetId(0, i)  # the second 0 is the index of Start in linesPolyData's points
+            line.GetPointIds().SetId(1, i+1)  # the second 1 is the index of End in linesPolyData's points
+            lines.InsertNextCell(line)
+
+        linesPolyData.SetPoints(pts)
+        linesPolyData.SetLines(lines)
+
+        ## Setup the visualization pipeline
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(linesPolyData)
+
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetLineWidth(2)
+        # actor.GetProperty().SetColor(vtk.vtkNamedColors().GetColor3d("Peacock").GetData())
+
+        return actor
+
+
+    ##### EVENT CALLBACK FUNCTIONS #####
 
     # Listener for left mouse button press:
     #   Gets mouse position in current window pixels and converts 
@@ -194,10 +380,36 @@ class visualizationEngine(object):
         obj.GetPicker().Pick(mouse_pos[0],mouse_pos[1])
 
         current_image_size = obj.GetSize()
-        init_image_size = obj.FindPokedRenderer(mouse_pos[0],mouse_pos[1]).GetInformation().Get(self._initSizeKey)
-        posX = int(round(mouse_pos[0] * init_image_size[0] / current_image_size[0]))
-        posY = int(round(mouse_pos[1] * init_image_size[1] / current_image_size[1]))
+        # init_image_size = obj.FindPokedRenderer(mouse_pos[0],mouse_pos[1]).GetInformation().Get(self._initSizeKey)
+        # posX = int(round(mouse_pos[0] * init_image_size[0] / current_image_size[0]))
+        # posY = int(round(mouse_pos[1] * init_image_size[1] / current_image_size[1]))
+
+
+    # Listener for scroll event:
+    #   This performs the cutting plane reconciliation between the master widget
+    #   and the slaves. For speed, A 3D slave is only rendered after a time interval
+    def __on_scroll_event(self, obj, event):
+        active_slice = self.imageViewers[self._masterID].GetSlice()
+        mpr = self._masterMPR
+
+        for slave in self._slaves:
+            renderer_info = self.__GetRenderer(slave).GetInformation()
+
+            if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                self.__UpdateSlicePos(slave, active_slice, mpr)
+            elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+                self.__UpdateCuttingPlanePos(slave, active_slice, mpr)
+
+            if(event == "TimerEvent"):
+                self._renderTimeCount += 1
+                if self._renderTimeCount == 10:
+                    self._renderTimeCount = 0
+                    if renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+                        slave.GetRenderWindow().Render()
+                        obj.DestroyTimer(self._renderTimerID)
         
+        if self._renderTimeCount == 0:
+            self._renderTimerID = obj.CreateOneShotTimer(1000)
 
 
     ##### Image display functions #####
@@ -269,29 +481,15 @@ class visualizationEngine(object):
 
             volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
         elif modality == "MR":
-            volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+            volume_color.AddRGBPoint(99, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(100, 0.94, 0.8, 0.7)
+            volume_color.AddRGBPoint(600, 0.74, 0.6, 0.5)
+            volume_color.AddRGBPoint(601, 0.0, 0.0, 0.0)
 
-            volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
-            volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
-            volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
-            volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
-            volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
-            volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
-            volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
-            volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
-            volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
-
-            volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+            volume_color.AddRGBPoint(599, 0.0, 0.0, 0.0)
+            volume_color.AddRGBPoint(600, 0.7, 0.7, 0.7)
+            volume_color.AddRGBPoint(2500, 0.9, 0.7, 0.9)
+            volume_color.AddRGBPoint(2501, 0.0, 0.0, 0.0)
         return volume_color
 
 
@@ -315,28 +513,33 @@ class visualizationEngine(object):
                 if opt == "FAT":
                     self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
         elif modality == "MR":
-            volume_scalar_opacity.AddPoint(-1024,0.00)
-            volume_scalar_opacity.AddPoint(4095, 0.00)
+            volume_scalar_opacity.AddPoint(0, 0.00)
+            volume_scalar_opacity.AddPoint(2550, 0.00)
             for opt in opts:
                 if opt == "ALL":
-                    self.__AddOpacityPoints([-100,3000], volume_scalar_opacity)
+                    self.__AddOpacityPoints([50,2500], volume_scalar_opacity)
                     break
-                if opt == "BONE":
-                    self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
+                # if opt == "BONE":
+                #     self.__AddOpacityPoints([275, 3000], volume_scalar_opacity)
                 if opt == "SOFT":
-                    self.__AddOpacityPoints([75, 150], volume_scalar_opacity)
-                if opt == "MUSCLE":
-                    self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
-                if opt == "FAT":
-                    self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
+                    self.__AddOpacityPoints([900, 2500], volume_scalar_opacity)
+                if opt == "SKIN":
+                    self.__AddOpacityPoints([100, 600], volume_scalar_opacity)
+                # if opt == "MUSCLE":
+                #     self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
+                # if opt == "FAT":
+                #     self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
         return volume_scalar_opacity
 
+    # Adds opacity points to the transfer funtion
     def __AddOpacityPoints(self, limits, volume_scalar_opacity):
+        transparency = self._3DTransparency
         volume_scalar_opacity.AddPoint(limits[0] - 1, 0.00)
-        volume_scalar_opacity.AddPoint(limits[0], 0.20)
-        volume_scalar_opacity.AddPoint(limits[1], 0.20)
+        volume_scalar_opacity.AddPoint(limits[0], transparency)
+        volume_scalar_opacity.AddPoint(limits[1], transparency)
         volume_scalar_opacity.AddPoint(limits[1] + 1, 0.00)
 
+    # Removes opacity points to the transfer funtions
     def __RemoveOpacityPoints(self, limits, volume_scalar_opacity):
         volume_scalar_opacity.RemovePoint(limits[0] - 1)
         volume_scalar_opacity.RemovePoint(limits[0])
@@ -355,9 +558,5 @@ class visualizationEngine(object):
         volume_gradient_opacity.AddPoint(90, 0.5)
         volume_gradient_opacity.AddPoint(100, 1.0)
         return volume_gradient_opacity
-
-
-
-
 
 

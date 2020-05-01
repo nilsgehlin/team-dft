@@ -3,3 +3,4 @@ venv/
 .vscode
 2d3dprototype/__pycache__/
 sample_dicom
+*.pyc

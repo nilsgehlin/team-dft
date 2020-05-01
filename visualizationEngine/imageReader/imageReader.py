@@ -8,7 +8,6 @@ class imageReader():
     ##### Class Variables #####
     _directory = None
     _reader = None
-    _modality = None
     _metaData = None
 
     ##### General class functions #####
@@ -46,7 +45,6 @@ class imageReader():
         reader.SetFileNames(filenames)
         reader.Update()
 
-        self._modality = None
         self.reader = reader
 
         return self._reader
@@ -58,20 +56,20 @@ class imageReader():
         if self._directory is None:
             raise NameError("Please set image directory")
 
+        # Get image metadata
+        first_file_name = os.listdir(self._directory)[0]
+        first_file_loc = os.path.join(self._directory, first_file_name)
+        self._metaData = pydicom.filereader.dcmread(first_file_loc)
+        
         # Create reader object ans set directory name
         reader = vtkDICOMImageReader()
         reader.SetDirectoryName(self._directory)
         # Set other settings and update
         reader.SetDataByteOrderToLittleEndian()
-        data_spacing = (1, 1, 2)
-        reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
+        # data_spacing = (1, 1, 2)
+        # reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
         reader.Update()
 
-        # Get image metadata
-        first_file_name = os.listdir(self._directory)[0]
-        first_file_loc = os.path.join(self._directory, first_file_name)
-        
-        self._metaData = pydicom.filereader.dcmread(first_file_loc)
         self._reader = reader
         
         return self._reader
@@ -83,8 +81,31 @@ class imageReader():
             raise NameError("Please read a DICOM or TIFF image directory")
         return self._reader
 
+
     # Returns the image modality
     def getModality(self):
         if self._metaData is None:
             raise NameError("Please read a DICOM image for modality")
         return self._metaData.Modality
+
+
+    # Returns the plane orientation
+    def getPlaneOrientation(self):
+        if self._metaData is None:
+            raise NameError("Please read a DICOM image for orientation")
+        arr = self._reader.GetImageOrientationPatient()
+        if arr[2] == 0 and arr[5] == 0:
+            return "AXIAL"
+        if arr[0] == 0 and arr[3] == 0:
+            return "SAGITTAL"
+        if arr[1] == 0 and arr[4] == 0:
+            return "CORONAL"
+        return "OBLIQUE"
+
+    
+    # Returns image pixel spacing
+    def getPixelSpacing(self):
+        if self._metaData is None:
+            raise NameError("Please read a DICOM image for pixel spacing")
+        return self._reader.GetPixelSpacing()
+
