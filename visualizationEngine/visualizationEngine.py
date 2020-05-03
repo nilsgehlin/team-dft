@@ -34,7 +34,8 @@ class visualizationEngine(object):
     _masterID = None
     _masterMPR = None
     _slaves = None
-    _cuttingPlaneState = False
+    _showActiveSlice = True
+    _crop3D = True
 
     # Slave Render Timer
     _renderTimerID = 0
@@ -43,8 +44,9 @@ class visualizationEngine(object):
     # 2d image viewers array
     imageViewers = []
 
-    # 3D Transparency
+    # 3D Properties
     _3DTransparency = 0.2
+    _3DTissue = "ALL"
 
 
     ##### General class functions #####
@@ -170,15 +172,30 @@ class visualizationEngine(object):
     #   Notes:
     #       -Currently only takes one tissue at a time, could expand for more
     def SetTissue(self, vtkWidget, tissue):
+        self._3DTissue = tissue
         renderer = self.__GetRenderer(vtkWidget)
-        volume = renderer.GetViewProps().GetLastProp()
+        props = renderer.GetViewProps()
+        props.InitTraversal()
+        volume = props.GetNextProp()
         volumeProperty = self.__SetVolumeProperties(tissue)
         volume.SetProperty(volumeProperty)
+        vtkWidget.GetRenderWindow().Render()
 
-        # Finally, add the volume to the renderer
-        renderer.AddViewProp(volume)
 
-        vtkWidget.Initialize()
+    # Changes the transparency of the tissue to show given the vtkWidget and the tissue name
+    #   Parameters: 
+    #       1. vtkWidget
+    #       2. Transparency value
+    #   Notes:
+    def SetTransparency(self, vtkWidget, transparency):
+        self._3DTransparency = transparency
+        renderer = self.__GetRenderer(vtkWidget)
+        props = renderer.GetViewProps()
+        props.InitTraversal()
+        volume = props.GetNextProp()
+        volumeProperty = self.__SetVolumeProperties(self._3DTissue)
+        volume.SetProperty(volumeProperty)
+        vtkWidget.GetRenderWindow().Render()
 
 
     # Links scrolling of master window 'masterWidget' to slave windows in 'args'
@@ -259,27 +276,49 @@ class visualizationEngine(object):
 
     # Updates the position of the cutting plane in a 3D window
     def __UpdateCuttingPlanePos(self, widget, active_slice, mpr):
-        img_orien = self.imageReader.getPlaneOrientation()
-        plane_id = self.__GetPlaneID(img_orien, mpr)
-        active_slice = active_slice * self._pixelSpacing[plane_id]
-        if (plane_id == 0): idx = 1
-        elif (plane_id == 1): idx = 3
-        elif (plane_id == 2): idx = 5
-        
         renderer = self.__GetRenderer(widget)
-        volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
-        if volume_mapper.GetCropping() == 0:
-            volume_mapper.CroppingOn()
-            volume_mapper.SetCroppingRegionFlagsToFence()
-            cropping = [0,0.1,0,0.1,0,0.1]
-            cropping[idx] = active_slice
-            cropping = tuple(cropping)
-            volume_mapper.SetCroppingRegionPlanes(cropping)
+        
+        if (self._showActiveSlice):
+            self.__addSliceToVolume(renderer)
+
+        if (self._crop3D):
+            img_orien = self.imageReader.getPlaneOrientation()
+            plane_id = self.__GetPlaneID(img_orien, mpr)
+            active_slice = active_slice * self._pixelSpacing[plane_id]
+            if (plane_id == 0): idx = 1
+            elif (plane_id == 1): idx = 3
+            elif (plane_id == 2): idx = 5
+            
+            volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
+            if volume_mapper.GetCropping() == 0:
+                volume_mapper.CroppingOn()
+                volume_mapper.SetCroppingRegionFlagsToFence()
+                cropping = [0,0.1,0,0.1,0,0.1]
+                cropping[idx] = active_slice
+                cropping = tuple(cropping)
+                volume_mapper.SetCroppingRegionPlanes(cropping)
+            else:
+                cropping = list(volume_mapper.GetCroppingRegionPlanes())
+                cropping[idx] = active_slice
+                cropping = tuple(cropping)
+                volume_mapper.SetCroppingRegionPlanes(cropping)
+
+
+    # Adds the active slice of the master image viewer to the 3D renderer
+    def __addSliceToVolume(self, renderer):
+        props = renderer.GetViewProps()
+        viewer = self.imageViewers[self._masterID]
+
+        if( props.GetNumberOfItems() == 1 ):
+            image_actor = vtk.vtkImageActor()
+            renderer.AddActor(image_actor)
+            image_actor.SetInputData(viewer.GetInput())
         else:
-            cropping = list(volume_mapper.GetCroppingRegionPlanes())
-            cropping[idx] = active_slice
-            cropping = tuple(cropping)
-            volume_mapper.SetCroppingRegionPlanes(cropping)
+            image_actor = props.GetLastProp()
+
+        viewer_actor = viewer.GetImageActor()
+        image_actor.SetDisplayExtent(viewer_actor.GetDisplayExtent())
+        image_actor.Update()
 
     
     # Cleans up 3D window to remove cutting plane 
@@ -287,6 +326,11 @@ class visualizationEngine(object):
         renderer = self.__GetRenderer(widget)
         volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
         volume_mapper.CroppingOff()
+        
+        if (self._showActiveSlice):
+            slice_actor = renderer.GetViewProps().GetLastProp()
+            renderer.RemoveViewProp(slice_actor)
+
         widget.GetRenderWindow().Render()
 
 
@@ -413,14 +457,6 @@ class visualizationEngine(object):
 
 
     ##### Image display functions #####
-
-    # actor = vtk.vtkImageActor()
-    # actor.SetInputData(extract.GetOutput())
-    # actor.SetOrigin(0, 120, 0)
-    # actor.SetOrientation(90, 0, 0)
-    # actor.GetMapper().SetSliceNumber(25)
-
-    # renderer.AddActor(actor)
 
 
     # The VolumeProperty attaches the color and opacity functions to the

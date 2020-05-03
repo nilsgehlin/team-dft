@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     vtk_engine = visualizationEngine(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "CORONAL")
-    vtk_engine.SetupImageUI(ui.vtkWidget1, "AXIAL")
+    vtk_engine.SetupImageUI(ui.vtkWidget1, "SAGITTAL")
     #vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")
     vtk_engine.SetupVolumeUI(ui.vtkWidget2)
 
@@ -107,8 +107,10 @@ if __name__ == "__main__":
         if linked:
             linked = False
             vtk_engine.UnlinkWindows(ui.vtkWidget)
+            vtk_engine.SetTransparency(ui.vtkWidget2, 0.2)
         else:
             linked = True
+            vtk_engine.SetTransparency(ui.vtkWidget2, 0.08)
             vtk_engine.LinkWindows(ui.vtkWidget, ui.vtkWidget1, ui.vtkWidget2)
 
     ui.tissueButtonBox.button(ui.tissueButtonBox.Ok).clicked.connect(clicked_all)
