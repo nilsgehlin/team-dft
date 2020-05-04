@@ -1,6 +1,17 @@
 venv/
 .idea/
 .vscode
+<<<<<<< HEAD
 2d3dprototype/__pycache__/
 sample_dicom
 *.pyc
+=======
+old_prototype/__pycache__/
+segmentation/__pycache__
+sample_dicom_2/
+sample_dicom
+2d3dprototype/__pycache__
+visualizationEngine/imageReader/__pycache__
+visualizationEngine/segmentation/__pycache__
+visualizationEngine/__pycache__
+>>>>>>> segmentation
