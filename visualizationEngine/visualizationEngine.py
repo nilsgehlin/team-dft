@@ -1,9 +1,6 @@
 import vtk
 from vtk.util import keys
 from imageReader.imageReader import imageReader
-from segmentation.Segmentation import Segmentation
-from vtk.util.numpy_support import vtk_to_numpy
-import numpy as np
 
 # TODO:
 #1. Check rendering timer issues
@@ -124,12 +121,6 @@ class visualizationEngine(object):
             renderer.GetInformation().Set(self._rendererMPRKey, img_orien)
 
         self.imageViewers.append(image_viewer)
-
-        picker = vtk.vtkPointPicker()
-        interactor.SetPicker(picker)
-
-        # Add interactor observers
-        interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 101.0)
 
         interactor.Initialize()
     
@@ -429,18 +420,13 @@ class visualizationEngine(object):
     #   with the origin at the bottom left corner
     def __on_left_mouse_button_press(self, obj, event):
         mouse_pos = obj.GetEventPosition()
-        renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
-        obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
-        clicked_coordinate = obj.GetPicker().GetPickPosition()
-        image_data = self.reader.GetOutput()
-        rows, cols, _ = image_data.GetDimensions()
-        volume = vtk_to_numpy(image_data.GetPointData().GetScalars())
-        volume = volume.reshape(rows, cols, -1)
-        volume = (volume / np.max(volume)) * 255
-        new_segmentation = Segmentation(clicked_coordinate, volume)
-        # Example
-        # volume[new_segmentation.segmentation] = -1
-        print(new_segmentation.segmentation)
+
+        obj.GetPicker().Pick(mouse_pos[0],mouse_pos[1])
+
+        current_image_size = obj.GetSize()
+        # init_image_size = obj.FindPokedRenderer(mouse_pos[0],mouse_pos[1]).GetInformation().Get(self._initSizeKey)
+        # posX = int(round(mouse_pos[0] * init_image_size[0] / current_image_size[0]))
+        # posY = int(round(mouse_pos[1] * init_image_size[1] / current_image_size[1]))
 
 
     # Listener for scroll event:
