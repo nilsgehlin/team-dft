@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/region_growing.c
+region_growing.h
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/region_growing.h
+math.h
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/math.h
+
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/region_growing.h
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+stack.h
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/stack.h
+
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/stack.c
+stack.h
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/stack.h
+
+/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/stack.h
+stdlib.h
+-
+stdio.h
+-
+

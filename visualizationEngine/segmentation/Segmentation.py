@@ -2,7 +2,12 @@ import numpy as np
 import os
 import ctypes
 import random
-lib_dir = os.path.join("region_growing", "cmake-build-debug")
+from sys import platform
+if platform == "darwin":
+    lib_dir = os.path.join("region_growing", "mac_build")
+else:
+    lib_dir = os.path.join("region_growing", "cmake-build-debug")
+
 if __name__ == "segmentation.Segmentation":
     lib_dir = os.path.join("segmentation", lib_dir)
 
