@@ -1,0 +1,4 @@
+C:\Users\nilsg\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.6668.126\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\team-dft\segmentation\region_growing
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/team-dft/segmentation/region_growing/cmake-build-debug

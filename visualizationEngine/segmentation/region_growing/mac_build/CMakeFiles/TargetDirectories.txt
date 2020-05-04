@@ -1,4 +1,0 @@
-/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/mac_build/CMakeFiles/rebuild_cache.dir
-/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/mac_build/CMakeFiles/edit_cache.dir
-/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/mac_build/CMakeFiles/region_growing_lib.dir
-/Users/mosesswai/Box Sync/MechE/ME310/Code/Build/visualizationEngine/segmentation/region_growing/mac_build/CMakeFiles/region_growing.dir

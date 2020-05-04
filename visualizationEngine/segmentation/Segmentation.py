@@ -2,7 +2,7 @@ import numpy as np
 import os
 import ctypes
 import random
-lib_dir = "region_growing"#os.path.join("region_growing", "cmake-build-debug")
+lib_dir = os.path.join("region_growing", "cmake-build-debug")
 if __name__ == "segmentation.Segmentation":
     lib_dir = os.path.join("segmentation", lib_dir)
 
