@@ -1,6 +1,10 @@
 import vtk
 from vtk.util import keys
 from imageReader.imageReader import imageReader
+from segmentation.Segmentation import Segmentation
+# from vtk.util.numpy_support import vtk_to_numpy
+from vtk.util import numpy_support
+import numpy as np
 
 # TODO:
 #1. Check rendering timer issues
@@ -121,6 +125,12 @@ class visualizationEngine(object):
             renderer.GetInformation().Set(self._rendererMPRKey, img_orien)
 
         self.imageViewers.append(image_viewer)
+
+        picker = vtk.vtkPointPicker()
+        interactor.SetPicker(picker)
+
+        # Add interactor observers
+        interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 101.0)
 
         interactor.Initialize()
     
@@ -420,13 +430,32 @@ class visualizationEngine(object):
     #   with the origin at the bottom left corner
     def __on_left_mouse_button_press(self, obj, event):
         mouse_pos = obj.GetEventPosition()
+        renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
+        obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
+        clicked_coordinate = obj.GetPicker().GetPickPosition()
+        image_data = self.reader.GetOutput()
+        rows, cols, _ = image_data.GetDimensions()
+        volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
+        volume = volume.reshape(rows, cols, -1)
+        volume = (volume / np.max(volume)) * 255
+        new_segmentation = Segmentation(clicked_coordinate, volume)
+        print("segmented")
+        # Example
+        volume[new_segmentation.segmentation] = 5000
 
-        obj.GetPicker().Pick(mouse_pos[0],mouse_pos[1])
+        #self.__depthImageData = vtk.vtkImageData()
+        print(volume.dtype)
+        volume_vtk = numpy_support.numpy_to_vtk(volume.ravel(), deep=True, array_type=vtk.VTK_DOUBLE) 
+        # .transpose(2, 0, 1) may be required depending on numpy array order see - https://github.com/quentan/Test_ImageData/blob/master/TestImageData.py
+        print("copied")
+        #volume_vtk.SetDimensions(volume.shape)
+        # #assume 0,0 origin and 1,1 spacing.
+        #__depthImageData.SetSpacing([1,1])
+        # __depthImageData.SetOrigin([0,0])
+        image_data.GetPointData().SetScalars(volume_vtk)
+        obj.GetRenderWindow().Render()
 
-        current_image_size = obj.GetSize()
-        # init_image_size = obj.FindPokedRenderer(mouse_pos[0],mouse_pos[1]).GetInformation().Get(self._initSizeKey)
-        # posX = int(round(mouse_pos[0] * init_image_size[0] / current_image_size[0]))
-        # posY = int(round(mouse_pos[1] * init_image_size[1] / current_image_size[1]))
+        print(new_segmentation.segmentation[new_segmentation.segmentation == False])
 
 
     # Listener for scroll event:
@@ -526,6 +555,11 @@ class visualizationEngine(object):
             volume_color.AddRGBPoint(600, 0.7, 0.7, 0.7)
             volume_color.AddRGBPoint(2500, 0.9, 0.7, 0.9)
             volume_color.AddRGBPoint(2501, 0.0, 0.0, 0.0)
+        
+        volume_color.AddRGBPoint(4998, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(4999, 1.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(5001, 1.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(5002, 0.0, 0.0, 0.0)
         return volume_color
 
 
@@ -565,6 +599,10 @@ class visualizationEngine(object):
                 #     self.__AddOpacityPoints([20, 40], volume_scalar_opacity)
                 # if opt == "FAT":
                 #     self.__AddOpacityPoints([-70, -30], volume_scalar_opacity)
+        volume_scalar_opacity.AddPoint(4998, 0.0)
+        volume_scalar_opacity.AddPoint(4999, 1.0)
+        volume_scalar_opacity.AddPoint(5001, 1.0)
+        volume_scalar_opacity.AddPoint(5002, 0.0)
         return volume_scalar_opacity
 
     # Adds opacity points to the transfer funtion

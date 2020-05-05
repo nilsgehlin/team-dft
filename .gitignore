@@ -1,17 +1,14 @@
+# Environment
 venv/
+
+# IDE
 .idea/
 .vscode
-<<<<<<< HEAD
-2d3dprototype/__pycache__/
-sample_dicom
+
+# Cache
+*/__pycache__/
 *.pyc
-=======
-old_prototype/__pycache__/
-segmentation/__pycache__
-sample_dicom_2/
+
+# Sample dicom
 sample_dicom
-2d3dprototype/__pycache__
-visualizationEngine/imageReader/__pycache__
-visualizationEngine/segmentation/__pycache__
-visualizationEngine/__pycache__
->>>>>>> segmentation
+*.dcm
