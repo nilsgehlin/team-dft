@@ -6,7 +6,7 @@ from sys import platform
 if platform == "darwin":
     lib_dir = os.path.join("region_growing", "mac_build")
 else:
-    lib_dir = os.path.join("region_growing", "cmake-build-debug")
+    lib_dir = os.path.join("region_growing", "windows_build")
 
 if __name__ == "segmentation.Segmentation":
     lib_dir = os.path.join("segmentation", lib_dir)

@@ -1,4 +1,0 @@
-Cannot generate into D:\team-dft\visualizationEngine\segmentation\region_growing
-It is already used for project \Users\mosesswai\Box Sync\MechE\ME310\Code\Build\visualizationEngine\segmentation\region_growing
-
-Please either delete it manually or select another generation directory

@@ -1,4 +1,0 @@
-D:/team-dft/segmentation/region_growing/build/CMakeFiles/region_growing_lib.dir
-D:/team-dft/segmentation/region_growing/build/CMakeFiles/region_growing.dir
-D:/team-dft/segmentation/region_growing/build/CMakeFiles/edit_cache.dir
-D:/team-dft/segmentation/region_growing/build/CMakeFiles/rebuild_cache.dir
