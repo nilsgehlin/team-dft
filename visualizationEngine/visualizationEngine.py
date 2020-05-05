@@ -112,14 +112,26 @@ class visualizationEngine(object):
         ## General Pipeline methods
         renderer = vtk.vtkRenderer()
         renderer.ResetCamera()
-        renderer.GetInformation().Set(self._rendererTypeKey,self._imageRenderer)
-        renderer.GetInformation().Set(self._rendererNumKey,len(self.imageViewers))
+        renderer.GetInformation().Set(self._rendererTypeKey, self._imageRenderer)
+        renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
 
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
 
+        # # Convert imageData to RGB
+        # rgbConverter = vtk.vtkImageMapToColors()
+        # rgbConverter.SetOutputFormatToRGB()
+        # lookup = vtk.vtkScalarsToColors()
+        # lookup.SetRange(0.0, 3272.0)
+        #
+        # rgbConverter.SetLookupTable(lookup)
+        # rgbConverter.SetInputData(self.reader.GetOutput())
+        # rgbConverter.PassAlphaToOutputOn()
+
         image_viewer = vtk.vtkResliceImageViewer()
+        # image_viewer.SetInputData(rgbConverter.GetOutput())
         image_viewer.SetInputData(self.reader.GetOutput())
+
         # image_viewer.SetInputConnection(reader.GetOutputPort())
 
         image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
@@ -457,7 +469,7 @@ class visualizationEngine(object):
             volume[new_segmentation.segmentation] = 5000
 
             #self.__depthImageData = vtk.vtkImageData()
-            volume_vtk = numpy_support.numpy_to_vtk(volume.ravel(), deep=True, array_type=vtk.VTK_DOUBLE)
+            volume_vtk = numpy_support.numpy_to_vtk(volume, deep=True, array_type=vtk.VTK_DOUBLE)
             # .transpose(2, 0, 1) may be required depending on numpy array order see - https://github.com/quentan/Test_ImageData/blob/master/TestImageData.py
             #volume_vtk.SetDimensions(volume.shape)
             # #assume 0,0 origin and 1,1 spacing.
