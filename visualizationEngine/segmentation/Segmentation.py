@@ -2,6 +2,7 @@ import numpy as np
 import os
 import ctypes
 import random
+import time
 from sys import platform
 if platform == "darwin":
     lib_dir = os.path.join("region_growing", "mac_build")
@@ -23,7 +24,7 @@ region_growing_C.grow.argtypes = [ctypes.c_int,    ctypes.c_int,    ctypes.c_int
 
 
 class Segmentation:
-    def __init__(self, clicked_coordinate, volume, color=None, segmentation_threshold=0.2):
+    def __init__(self, clicked_coordinate, volume, color=None, segmentation_threshold=0.2, verbose=False):
         """
         Constructor for annotation class. __grow runs 3D region growing when the constructor is run.
         :param clicked_coordinate: Tuple conatining the coordinates of the point the user clicked on. Will be used
@@ -45,7 +46,13 @@ class Segmentation:
         self.segmentation_threshold = segmentation_threshold
 
         # Setup actions
-        self.__grow(volume, (int(clicked_coordinate[0]), int(clicked_coordinate[1]), int(clicked_coordinate[2])))
+        normalized_volume = self.__normalize_volume(volume)
+
+        self.__grow(normalized_volume,
+                    (int(clicked_coordinate[0]),
+                     int(clicked_coordinate[1]),
+                     int(clicked_coordinate[2])),
+                    verbose=verbose)
 
     def add_to_vol(self, volume):
         """
@@ -57,20 +64,34 @@ class Segmentation:
         volume[self.segmentation, 1] = self.color[1]/255
         volume[self.segmentation, 2] = self.color[2]/255
 
-    def __grow(self, volume, clicked_coordinate):
+    def __grow(self, volume, clicked_coordinate, verbose=False):
         """
-
         :param volume: 3D numpy array containing the volume to segment.
         :param clicked_coordinate: Tuple conatining the coordinates of the point from
         which to start the segementation.
         :return: None, the segmentation is stored in self.segmentation.
         """
-
+        if verbose:
+            print("Segmenting...")
+        start = time.time()
         seg = self.segmentation.flatten()
         region_growing_C.grow(volume.shape[0], volume.shape[1], volume.shape[2], volume.flatten(), seg,
                               clicked_coordinate[0], clicked_coordinate[1], clicked_coordinate[2],
                               self.segmentation_threshold)
         self.segmentation = np.reshape(seg, volume.shape)
+        stop = time.time()
+        time_elapsed = stop - start
+        if verbose:
+            percent_segmented = (np.count_nonzero(self.segmentation) / len(seg)) * 100
+            print("Done. \n"
+                  "Segmentation percentage of volume: {} %\n"
+                  "Time: {} s".format(np.round(percent_segmented), np.round(time_elapsed, 2)))
+
+    @staticmethod
+    def __normalize_volume(volume):
+        normalized_volume = volume - np.min(volume)
+        normalized_volume = (normalized_volume / np.max(normalized_volume)) * 255
+        return normalized_volume
 
     def __grow_py(self, clicked_coordinate, volume, t):
         """

@@ -1,6 +1,7 @@
 import os
 import pydicom
 from vtk import vtkDICOMImageReader, vtkTIFFReader, vtkStringArray
+import json
 
 #TODO:
 
@@ -38,15 +39,19 @@ class imageReader():
 
         # Accumulate file names
         filenames = vtkStringArray()
-        for filename in enumerate(os.listdir(self._directory)):
+        for filename in os.listdir(self._directory):
             filenames.InsertNextValue(os.path.join(self._directory, filename))
+
+        with open(os.path.join(self._directory, "meta_data.json")) as meta_data_file:
+            self._metaData = json.load(meta_data_file)
+
+
+
         # Create reader object with filenames
         reader = vtkTIFFReader()
         reader.SetFileNames(filenames)
         reader.Update()
-
-        self.reader = reader
-
+        self._reader = reader
         return self._reader
 
 
@@ -60,7 +65,6 @@ class imageReader():
         first_file_name = os.listdir(self._directory)[0]
         first_file_loc = os.path.join(self._directory, first_file_name)
         self._metaData = pydicom.filereader.dcmread(first_file_loc)
-        
         # Create reader object ans set directory name
         reader = vtkDICOMImageReader()
         reader.SetDirectoryName(self._directory)
@@ -86,6 +90,8 @@ class imageReader():
     def getModality(self):
         if self._metaData is None:
             raise NameError("Please read a DICOM image for modality")
+        elif type(self._metaData) is dict:
+            return self._metaData["modality"]
         return self._metaData.Modality
 
 
@@ -93,6 +99,8 @@ class imageReader():
     def getPlaneOrientation(self):
         if self._metaData is None:
             raise NameError("Please read a DICOM image for orientation")
+        elif type(self._metaData) is dict:
+            return self._metaData["orientation"]
         arr = self._reader.GetImageOrientationPatient()
         if arr[2] == 0 and arr[5] == 0:
             return "AXIAL"
@@ -106,6 +114,8 @@ class imageReader():
     # Returns image pixel spacing
     def getPixelSpacing(self):
         if self._metaData is None:
-            raise NameError("Please read a DICOM image for pixel spacing")
+            return 1
+        elif type(self._metaData) is dict:
+            return tuple(self._metaData["pixelSpacing"])
         return self._reader.GetPixelSpacing()
 

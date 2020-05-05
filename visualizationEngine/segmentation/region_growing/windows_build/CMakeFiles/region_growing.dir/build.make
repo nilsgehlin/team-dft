@@ -33,19 +33,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = C:\Users\nilsg\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.6668.126\bin\cmake\win\bin\cmake.exe
+CMAKE_COMMAND = C:\Users\nilsg\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7223.86\bin\cmake\win\bin\cmake.exe
 
 # The command to remove a file.
-RM = C:\Users\nilsg\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.6668.126\bin\cmake\win\bin\cmake.exe -E remove -f
+RM = C:\Users\nilsg\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7223.86\bin\cmake\win\bin\cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\team-dft\segmentation\region_growing
+CMAKE_SOURCE_DIR = D:\team-dft\visualizationEngine\segmentation\region_growing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\team-dft\segmentation\region_growing\cmake-build-debug
+CMAKE_BINARY_DIR = D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/region_growing.dir/depend.make
@@ -58,42 +58,42 @@ include CMakeFiles/region_growing.dir/flags.make
 
 CMakeFiles/region_growing.dir/main.c.obj: CMakeFiles/region_growing.dir/flags.make
 CMakeFiles/region_growing.dir/main.c.obj: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\segmentation\region_growing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/region_growing.dir/main.c.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\main.c.obj   -c D:\team-dft\segmentation\region_growing\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/region_growing.dir/main.c.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\main.c.obj   -c D:\team-dft\visualizationEngine\segmentation\region_growing\main.c
 
 CMakeFiles/region_growing.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/region_growing.dir/main.c.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\segmentation\region_growing\main.c > CMakeFiles\region_growing.dir\main.c.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\visualizationEngine\segmentation\region_growing\main.c > CMakeFiles\region_growing.dir\main.c.i
 
 CMakeFiles/region_growing.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/region_growing.dir/main.c.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\segmentation\region_growing\main.c -o CMakeFiles\region_growing.dir\main.c.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\visualizationEngine\segmentation\region_growing\main.c -o CMakeFiles\region_growing.dir\main.c.s
 
 CMakeFiles/region_growing.dir/region_growing.c.obj: CMakeFiles/region_growing.dir/flags.make
 CMakeFiles/region_growing.dir/region_growing.c.obj: ../region_growing.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\segmentation\region_growing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/region_growing.dir/region_growing.c.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\region_growing.c.obj   -c D:\team-dft\segmentation\region_growing\region_growing.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/region_growing.dir/region_growing.c.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\region_growing.c.obj   -c D:\team-dft\visualizationEngine\segmentation\region_growing\region_growing.c
 
 CMakeFiles/region_growing.dir/region_growing.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/region_growing.dir/region_growing.c.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\segmentation\region_growing\region_growing.c > CMakeFiles\region_growing.dir\region_growing.c.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\visualizationEngine\segmentation\region_growing\region_growing.c > CMakeFiles\region_growing.dir\region_growing.c.i
 
 CMakeFiles/region_growing.dir/region_growing.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/region_growing.dir/region_growing.c.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\segmentation\region_growing\region_growing.c -o CMakeFiles\region_growing.dir\region_growing.c.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\visualizationEngine\segmentation\region_growing\region_growing.c -o CMakeFiles\region_growing.dir\region_growing.c.s
 
 CMakeFiles/region_growing.dir/stack.c.obj: CMakeFiles/region_growing.dir/flags.make
 CMakeFiles/region_growing.dir/stack.c.obj: ../stack.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\segmentation\region_growing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/region_growing.dir/stack.c.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\stack.c.obj   -c D:\team-dft\segmentation\region_growing\stack.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/region_growing.dir/stack.c.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\region_growing.dir\stack.c.obj   -c D:\team-dft\visualizationEngine\segmentation\region_growing\stack.c
 
 CMakeFiles/region_growing.dir/stack.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/region_growing.dir/stack.c.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\segmentation\region_growing\stack.c > CMakeFiles\region_growing.dir\stack.c.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\team-dft\visualizationEngine\segmentation\region_growing\stack.c > CMakeFiles\region_growing.dir\stack.c.i
 
 CMakeFiles/region_growing.dir/stack.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/region_growing.dir/stack.c.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\segmentation\region_growing\stack.c -o CMakeFiles\region_growing.dir\stack.c.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\team-dft\visualizationEngine\segmentation\region_growing\stack.c -o CMakeFiles\region_growing.dir\stack.c.s
 
 # Object files for target region_growing
 region_growing_OBJECTS = \
@@ -111,7 +111,7 @@ region_growing.exe: CMakeFiles/region_growing.dir/build.make
 region_growing.exe: CMakeFiles/region_growing.dir/linklibs.rsp
 region_growing.exe: CMakeFiles/region_growing.dir/objects1.rsp
 region_growing.exe: CMakeFiles/region_growing.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\team-dft\segmentation\region_growing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable region_growing.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable region_growing.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\region_growing.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -124,6 +124,6 @@ CMakeFiles/region_growing.dir/clean:
 .PHONY : CMakeFiles/region_growing.dir/clean
 
 CMakeFiles/region_growing.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\team-dft\segmentation\region_growing D:\team-dft\segmentation\region_growing D:\team-dft\segmentation\region_growing\cmake-build-debug D:\team-dft\segmentation\region_growing\cmake-build-debug D:\team-dft\segmentation\region_growing\cmake-build-debug\CMakeFiles\region_growing.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\team-dft\visualizationEngine\segmentation\region_growing D:\team-dft\visualizationEngine\segmentation\region_growing D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build D:\team-dft\visualizationEngine\segmentation\region_growing\windows_build\CMakeFiles\region_growing.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/region_growing.dir/depend
 

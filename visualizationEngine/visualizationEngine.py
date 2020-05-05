@@ -5,6 +5,8 @@ from segmentation.Segmentation import Segmentation
 # from vtk.util.numpy_support import vtk_to_numpy
 from vtk.util import numpy_support
 import numpy as np
+import os
+import json
 
 # TODO:
 #1. Check rendering timer issues
@@ -80,12 +82,23 @@ class visualizationEngine(object):
     # AVOID CALLING IF WINDOWS HAVE BEEN SET UP
     #   Parameters:
     #       1. Directory, containing DICOM files
-    def SetDirectory(self,dir):
+    def SetDirectory(self, dir):
         image_reader = imageReader(dir)
-        self.reader = image_reader.readDicom()
+
+        first_file_loc = os.path.join(dir, os.listdir(dir)[0])
+        file_suffix = first_file_loc.split(".")[-1]
+        if file_suffix == "dcm":
+            self.reader = image_reader.readDicom()
+        elif file_suffix == "tif" or file_suffix == "1":
+            self.reader = image_reader.readTiff()
+        else:
+            raise NameError("File suffix {} is not known!".format(file_suffix))
+
         self._pixelSpacing = image_reader.getPixelSpacing()
-        #self.reader = image_reader.readTiff()
         self.imageReader = image_reader
+
+
+
 
 
     # Sets up a 2D image window for the given widget
@@ -383,13 +396,13 @@ class visualizationEngine(object):
     def __CreateFrame(self, bounds):
         linesPolyData = vtk.vtkPolyData()
 
-        pt0 = [bounds[0],bounds[2], bounds[4]]
-        pt1 = [bounds[1],bounds[2], bounds[4]]
-        pt2 = [bounds[1],bounds[3], bounds[4]]
-        pt3 = [bounds[1],bounds[3], bounds[5]]
-        pt4 = [bounds[0],bounds[3], bounds[5]]
-        pt5 = [bounds[0],bounds[2], bounds[5]]
-        pt6 = [bounds[0],bounds[2], bounds[4]]
+        pt0 = [bounds[0], bounds[2], bounds[4]]
+        pt1 = [bounds[1], bounds[2], bounds[4]]
+        pt2 = [bounds[1], bounds[3], bounds[4]]
+        pt3 = [bounds[1], bounds[3], bounds[5]]
+        pt4 = [bounds[0], bounds[3], bounds[5]]
+        pt5 = [bounds[0], bounds[2], bounds[5]]
+        pt6 = [bounds[0], bounds[2], bounds[4]]
 
         pts = vtk.vtkPoints()
         pts.InsertNextPoint(pt0)
@@ -429,33 +442,29 @@ class visualizationEngine(object):
     #   them to pixel position based on initial image size,
     #   with the origin at the bottom left corner
     def __on_left_mouse_button_press(self, obj, event):
-        mouse_pos = obj.GetEventPosition()
-        renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
-        obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
-        clicked_coordinate = obj.GetPicker().GetPickPosition()
-        image_data = self.reader.GetOutput()
-        rows, cols, _ = image_data.GetDimensions()
-        volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
-        volume = volume.reshape(rows, cols, -1)
-        volume = (volume / np.max(volume)) * 255
-        new_segmentation = Segmentation(clicked_coordinate, volume)
-        print("segmented")
-        # Example
-        volume[new_segmentation.segmentation] = 5000
+        if obj.GetShiftKey():
+            mouse_pos = obj.GetEventPosition()
+            renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
+            obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
+            clicked_coordinate = obj.GetPicker().GetPickPosition()
+            image_data = self.reader.GetOutput()
+            rows, cols, _ = image_data.GetDimensions()
+            volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
+            volume = volume.reshape(rows, cols, -1)
+            volume = (volume / np.max(volume)) * 255
+            new_segmentation = Segmentation(clicked_coordinate, volume, verbose=False)
+            # Example
+            volume[new_segmentation.segmentation] = 5000
 
-        #self.__depthImageData = vtk.vtkImageData()
-        print(volume.dtype)
-        volume_vtk = numpy_support.numpy_to_vtk(volume.ravel(), deep=True, array_type=vtk.VTK_DOUBLE) 
-        # .transpose(2, 0, 1) may be required depending on numpy array order see - https://github.com/quentan/Test_ImageData/blob/master/TestImageData.py
-        print("copied")
-        #volume_vtk.SetDimensions(volume.shape)
-        # #assume 0,0 origin and 1,1 spacing.
-        #__depthImageData.SetSpacing([1,1])
-        # __depthImageData.SetOrigin([0,0])
-        image_data.GetPointData().SetScalars(volume_vtk)
-        obj.GetRenderWindow().Render()
-
-        print(new_segmentation.segmentation[new_segmentation.segmentation == False])
+            #self.__depthImageData = vtk.vtkImageData()
+            volume_vtk = numpy_support.numpy_to_vtk(volume.ravel(), deep=True, array_type=vtk.VTK_DOUBLE)
+            # .transpose(2, 0, 1) may be required depending on numpy array order see - https://github.com/quentan/Test_ImageData/blob/master/TestImageData.py
+            #volume_vtk.SetDimensions(volume.shape)
+            # #assume 0,0 origin and 1,1 spacing.
+            #__depthImageData.SetSpacing([1,1])
+            # __depthImageData.SetOrigin([0,0])
+            image_data.GetPointData().SetScalars(volume_vtk)
+            obj.GetRenderWindow().Render()
 
 
     # Listener for scroll event:

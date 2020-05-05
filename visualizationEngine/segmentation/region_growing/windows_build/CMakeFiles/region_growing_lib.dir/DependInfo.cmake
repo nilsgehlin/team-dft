@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "D:/team-dft/segmentation/region_growing/region_growing.c" "D:/team-dft/segmentation/region_growing/cmake-build-debug/CMakeFiles/region_growing_lib.dir/region_growing.c.obj"
-  "D:/team-dft/segmentation/region_growing/stack.c" "D:/team-dft/segmentation/region_growing/cmake-build-debug/CMakeFiles/region_growing_lib.dir/stack.c.obj"
+  "D:/team-dft/visualizationEngine/segmentation/region_growing/region_growing.c" "D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/region_growing_lib.dir/region_growing.c.obj"
+  "D:/team-dft/visualizationEngine/segmentation/region_growing/stack.c" "D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/region_growing_lib.dir/stack.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

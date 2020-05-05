@@ -67,7 +67,6 @@ void add_neighbors(int i, int j, int k, int m, int n, int p,
 void grow(int m, int n, int p, double * img, bool * seg, int si, int sj, int sk, double t) {
     int l, i, j, k;
     bool * checked = malloc(sizeof(bool)*m*n*p);
-//    bool checked[m*n*p]; // Leads to stack overflow for larger arrays
     stack needs_check;
     element * el;
     for(int ii=0; ii < m*n*p; ii++) {
@@ -89,7 +88,6 @@ void grow(int m, int n, int p, double * img, bool * seg, int si, int sj, int sk,
     double init_aver = img[l];
     int aver_count = 1;
     while (to_average.n_elements > 0) {
-        printf("%d\n", aver_count);
         el = stack_pop(&to_average);
         i = el->i;
         j = el->j;
