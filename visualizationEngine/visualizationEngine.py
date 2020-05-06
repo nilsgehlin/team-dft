@@ -109,34 +109,40 @@ class visualizationEngine(object):
     #       -If not orientation is provided it shows default orientation
     #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
     def SetupImageUI(self, vtkWidget, *args):
-        ## General Pipeline methods
-        renderer = vtk.vtkRenderer()
-        renderer.ResetCamera()
-        renderer.GetInformation().Set(self._rendererTypeKey, self._imageRenderer)
-        renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
-
-        vtkWidget.GetRenderWindow().AddRenderer(renderer)
-        interactor = vtkWidget.GetRenderWindow().GetInteractor()
+        image_data = self.reader.GetOutput()
 
         # # Convert imageData to RGB
         # rgbConverter = vtk.vtkImageMapToColors()
         # rgbConverter.SetOutputFormatToRGB()
+        #
         # lookup = vtk.vtkScalarsToColors()
-        # lookup.SetRange(0.0, 3272.0)
+        # lookup.SetRange(image_data.GetScalarRange())
         #
         # rgbConverter.SetLookupTable(lookup)
-        # rgbConverter.SetInputData(self.reader.GetOutput())
-        # rgbConverter.PassAlphaToOutputOn()
+        # rgbConverter.SetInputData(image_data)
+        #
+        # print(rgbConverter.GetOutput().GetDimensions())
+        # print(rgbConverter.GetOutput().GetScalarRange())
 
+        # Creating image viewer
         image_viewer = vtk.vtkResliceImageViewer()
-        # image_viewer.SetInputData(rgbConverter.GetOutput())
         image_viewer.SetInputData(self.reader.GetOutput())
-
-        # image_viewer.SetInputConnection(reader.GetOutputPort())
-
+        # image_viewer.SetInputConnection(rgbConverter.GetOutputPort())
         image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
+
+        # Connecting interactor to image viewer
+        interactor = vtkWidget.GetRenderWindow().GetInteractor()
         image_viewer.SetupInteractor(interactor)
+
+        # Setting up a renderer and connecting it to the image viewer
+        renderer = vtk.vtkRenderer()
+        renderer.ResetCamera()
+        renderer.GetInformation().Set(self._rendererTypeKey, self._imageRenderer)
+        renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
+        vtkWidget.GetRenderWindow().AddRenderer(renderer)
         image_viewer.SetRenderer(renderer)
+
+        # Render the image_viewer
         image_viewer.Render()
 
         ## Perform MPR if required
@@ -466,7 +472,11 @@ class visualizationEngine(object):
             volume = (volume / np.max(volume)) * 255
             new_segmentation = Segmentation(clicked_coordinate, volume, verbose=False)
             # Example
-            volume[new_segmentation.segmentation] = 5000
+            print(volume.shape)
+            print(volume.shape)
+            volume[new_segmentation.segmentation, 0] = 1
+            volume[new_segmentation.segmentation, 1] = 0
+            volume[new_segmentation.segmentation, 2] = 0
 
             #self.__depthImageData = vtk.vtkImageData()
             volume_vtk = numpy_support.numpy_to_vtk(volume, deep=True, array_type=vtk.VTK_DOUBLE)
@@ -540,7 +550,7 @@ class visualizationEngine(object):
 
 
     # Defines different volume colors
-    def __SetColor(self,modality):
+    def __SetColor(self, modality):
         volume_color = vtk.vtkColorTransferFunction()
         if modality == "CT":
             volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)

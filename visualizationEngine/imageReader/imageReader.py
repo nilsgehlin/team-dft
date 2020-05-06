@@ -65,7 +65,7 @@ class imageReader():
         first_file_name = os.listdir(self._directory)[0]
         first_file_loc = os.path.join(self._directory, first_file_name)
         self._metaData = pydicom.filereader.dcmread(first_file_loc)
-        # Create reader object ans set directory name
+        # Create reader object and set directory name
         reader = vtkDICOMImageReader()
         reader.SetDirectoryName(self._directory)
         # Set other settings and update
