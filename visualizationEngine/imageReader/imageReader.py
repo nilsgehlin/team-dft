@@ -10,6 +10,7 @@ class imageReader():
     _directory = None
     _reader = None
     _metaData = None
+    _ext = None
 
     ##### General class functions #####
 
@@ -18,9 +19,9 @@ class imageReader():
     # for the directory (Throws an error if more than 1).
     def __init__(self, *args):
         if len(args) > 0:
-            self._directory = args[0]
+            self.setImageDirectory(args[0])
         if len(args) > 1:
-            raise NameError("More than one argument for !")
+            raise NameError("More than one argument for the constructor!")
         
     
     ##### Public class functions #####
@@ -29,6 +30,29 @@ class imageReader():
     # Sets the image directory to be read
     def setImageDirectory(self, dir):
         self._directory = dir
+
+        first_file_name = os.listdir(dir)[0]
+        file_suffix = first_file_name.split(".")[-1]
+        if file_suffix == "dcm":
+            self._ext = file_suffix
+        # elif file_suffix == "tif" or file_suffix.isdigit():
+        #     self._ext = "tif"
+        else:
+            # raise NameError("Unsupported image extension in the directory")
+            raise NameError("File suffix {} is not known!".format(file_suffix))
+        print(self._ext)
+
+
+    # Reads a directory of images disregarding extensions and returns an
+    # image reader object
+    def readImages(self):
+        if self._directory is None:
+            raise NameError("Please set image directory")
+        
+        if self._ext == 'dcm':
+            return self.readDicom()
+        if self._ext == 'tif':
+            return self.readTiff()
 
 
     # Reads a directory of TIFF images and returns an
@@ -44,8 +68,6 @@ class imageReader():
 
         with open(os.path.join(self._directory, "meta_data.json")) as meta_data_file:
             self._metaData = json.load(meta_data_file)
-
-
 
         # Create reader object with filenames
         reader = vtkTIFFReader()
@@ -70,8 +92,6 @@ class imageReader():
         reader.SetDirectoryName(self._directory)
         # Set other settings and update
         reader.SetDataByteOrderToLittleEndian()
-        # data_spacing = (1, 1, 2)
-        # reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
         reader.Update()
 
         self._reader = reader

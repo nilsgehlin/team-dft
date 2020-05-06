@@ -5,8 +5,6 @@ from segmentation.Segmentation import Segmentation
 # from vtk.util.numpy_support import vtk_to_numpy
 from vtk.util import numpy_support
 import numpy as np
-import os
-import json
 
 # TODO:
 #1. Check rendering timer issues
@@ -84,21 +82,9 @@ class visualizationEngine(object):
     #       1. Directory, containing DICOM files
     def SetDirectory(self, dir):
         image_reader = imageReader(dir)
-
-        first_file_loc = os.path.join(dir, os.listdir(dir)[0])
-        file_suffix = first_file_loc.split(".")[-1]
-        if file_suffix == "dcm":
-            self.reader = image_reader.readDicom()
-        elif file_suffix == "tif" or file_suffix == "1":
-            self.reader = image_reader.readTiff()
-        else:
-            raise NameError("File suffix {} is not known!".format(file_suffix))
-
+        self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
         self.imageReader = image_reader
-
-
-
 
 
     # Sets up a 2D image window for the given widget
