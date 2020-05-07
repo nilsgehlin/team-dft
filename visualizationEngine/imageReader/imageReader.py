@@ -2,6 +2,7 @@ import os
 import pydicom
 from vtk import vtkDICOMImageReader, vtkTIFFReader, vtkStringArray
 import json
+import pydicom
 
 #TODO:
 
