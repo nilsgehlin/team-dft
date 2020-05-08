@@ -273,6 +273,53 @@ class visualizationEngine(object):
             self._slaves = None
 
 
+    # Performs segmentation for the given
+    #   Parameters:
+    #       1. obj - vtkWidget
+    #       2. mouse_pos - Mouse poisition of click
+    #   Note:
+    #       -Still in development
+    def SegmentObject(self, obj, mouse_pos):
+
+        renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
+
+        # Get picked coordinate and convert viewer coordinate into pixel value coordinate
+        # Gets right coordinate as long as click is within bounds
+        # TODO: Add coordinate limits for negatives and out of bounds?
+        obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
+        clicked_coordinate = list(obj.GetPicker().GetPickPosition())
+        for i in range(3):
+            clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
+        clicked_coordinate = tuple(clicked_coordinate)
+
+        # Read the image data from vtk to numpy array
+        # Note: Biggest problem here is the scalars are integers/shorts which need a threshold
+        #       of >1, which leads to poor segmentation. 
+        # Can we read the image data differently so we can retrieve scalars as floats?
+        # Are negative scalars an issue or the segmentation does not care?
+        # Or alternatively create a separate function to read image data for segmentation? (like used in testing)
+        image_data = self.reader.GetOutput()
+        rows, cols, slc = image_data.GetDimensions()
+
+        # Transforms the vtk array to numpy array, reorganises the dimensions and scales the data
+        volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
+        volume = volume.reshape(slc, cols, rows)
+        volume = volume.transpose(2,1,0)
+        volume = (volume / np.max(volume)) * 255
+
+        new_segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
+        seg = new_segmentation.segmentation
+        col = new_segmentation.color
+        print("Number of point in segment: ", len(list(np.where(seg == True))[0]))
+
+        # Unbelieavably slow with big data!! will trying to optimize this or use different approach
+        segment_actor = self.__CreateSegmentationPoints(seg,col)
+        renderer = self.__GetRenderer(obj)
+        renderer.AddActor(segment_actor)
+
+        obj.GetRenderWindow().Render()
+
+
     ###################################
     ##### Private class functions #####
     ###################################
@@ -434,45 +481,54 @@ class visualizationEngine(object):
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
         actor.GetProperty().SetLineWidth(2)
-        # actor.GetProperty().SetColor(vtk.vtkNamedColors().GetColor3d("Peacock").GetData())
+        actor.GetProperty().SetColor(255,255,0)
+        actor.GetProperty().SetOpacity(0.0)
 
         return actor
 
 
+    # Creates a point cloud for where segmentation is true
+    # AWFULLY SLOW, will try alternative
+    def __CreateSegmentationPoints(self, segmentation,color):
+        array = np.zeros((500,400,300))
+        array[20:100, 20:100, 5:500] = 1
+
+        result = list(np.where(segmentation == True))
+        rows = result[0]
+        cols = result[1]
+        depth = result[2]
+
+        points = vtk.vtkPoints()
+        
+        for i in range(len(rows)):
+            points.InsertNextPoint([rows[i]*self._pixelSpacing[0],cols[i]*self._pixelSpacing[1],depth[i]*self._pixelSpacing[2]])
+
+        segmentPolyData = vtk.vtkPolyData()
+        segmentPolyData.SetPoints(points)
+
+        glyphFilter = vtk.vtkVertexGlyphFilter()
+        glyphFilter.SetInputData(segmentPolyData)
+        glyphFilter.Update()
+
+        ## Setup the visualization pipeline
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(glyphFilter.GetOutput())
+
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetColor(255,0,255)
+
+        return actor
+
     ##### EVENT CALLBACK FUNCTIONS #####
 
     # Listener for left mouse button press:
-    #   Gets mouse position in current window pixels and converts 
-    #   them to pixel position based on initial image size,
-    #   with the origin at the bottom left corner
+    #   Gets mouse position in current window pixels and passes
+    #   them to segmentation functions
     def __on_left_mouse_button_press(self, obj, event):
         if obj.GetShiftKey():
             mouse_pos = obj.GetEventPosition()
-            renderer = obj.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
-            obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
-            clicked_coordinate = obj.GetPicker().GetPickPosition()
-            image_data = self.reader.GetOutput()
-            rows, cols, _ = image_data.GetDimensions()
-            volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
-            volume = volume.reshape(rows, cols, -1)
-            volume = (volume / np.max(volume)) * 255
-            new_segmentation = Segmentation(clicked_coordinate, volume, verbose=False)
-            # Example
-            print(volume.shape)
-            print(volume.shape)
-            volume[new_segmentation.segmentation, 0] = 1
-            volume[new_segmentation.segmentation, 1] = 0
-            volume[new_segmentation.segmentation, 2] = 0
-
-            #self.__depthImageData = vtk.vtkImageData()
-            volume_vtk = numpy_support.numpy_to_vtk(volume, deep=True, array_type=vtk.VTK_DOUBLE)
-            # .transpose(2, 0, 1) may be required depending on numpy array order see - https://github.com/quentan/Test_ImageData/blob/master/TestImageData.py
-            #volume_vtk.SetDimensions(volume.shape)
-            # #assume 0,0 origin and 1,1 spacing.
-            #__depthImageData.SetSpacing([1,1])
-            # __depthImageData.SetOrigin([0,0])
-            image_data.GetPointData().SetScalars(volume_vtk)
-            obj.GetRenderWindow().Render()
+            self.SegmentObject(obj, mouse_pos)   
 
 
     # Listener for scroll event:

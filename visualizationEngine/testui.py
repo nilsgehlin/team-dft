@@ -85,8 +85,8 @@ if __name__ == "__main__":
     #directory = os.path.join("..", "2d3dprototype", "stanford-ct-new")  
 
     vtk_engine = visualizationEngine(directory)
-    vtk_engine.SetupImageUI(ui.vtkWidget, "CORONAL")
-    vtk_engine.SetupImageUI(ui.vtkWidget1, "SAGITTAL")
+    vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")
+    vtk_engine.SetupImageUI(ui.vtkWidget1, "CORONAL")
     #vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")
     vtk_engine.SetupVolumeUI(ui.vtkWidget2)
 

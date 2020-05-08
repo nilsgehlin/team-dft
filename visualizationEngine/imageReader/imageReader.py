@@ -36,12 +36,11 @@ class imageReader():
         file_suffix = first_file_name.split(".")[-1]
         if file_suffix == "dcm":
             self._ext = file_suffix
-        # elif file_suffix == "tif" or file_suffix.isdigit():
-        #     self._ext = "tif"
+        elif file_suffix == "tif" or file_suffix.isdigit():
+            self._ext = "tif"
         else:
             # raise NameError("Unsupported image extension in the directory")
-            raise NameError("File suffix {} is not known!".format(file_suffix))
-        print(self._ext)
+            raise NameError("File suffix {} is not supported!".format(file_suffix))
 
 
     # Reads a directory of images disregarding extensions and returns an
