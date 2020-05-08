@@ -293,11 +293,9 @@ class visualizationEngine(object):
         clicked_coordinate = tuple(clicked_coordinate)
 
         # Read the image data from vtk to numpy array
-        # Note: Biggest problem here is the scalars are integers/shorts which need a threshold
-        #       of >1, which leads to poor segmentation. 
-        # Can we read the image data differently so we can retrieve scalars as floats?
-        # Are negative scalars an issue or the segmentation does not care?
-        # Or alternatively create a separate function to read image data for segmentation? (like used in testing)
+        # Notes: 
+        #   -Is there a reason we are rescaling scalars by 255? 
+        #   -Are negative scalars an issue or the segmentation does not care?
         image_data = self.reader.GetOutput()
         rows, cols, slc = image_data.GetDimensions()
 
