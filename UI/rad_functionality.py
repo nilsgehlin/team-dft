@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMessageBox
 
-def setup_functionality(ui):
+def setup_functionality(app, ui):
     home_page_setup(ui)
     view_only_page_setup(ui)
     diagnose_page_setup(ui)
@@ -131,7 +131,7 @@ def select_item(ui):
 def login(ui):
     password = ui.ui_rad.page_rad_locked_insert_password.text()
     ui.ui_rad.page_rad_locked_insert_password.clear()
-    if password == "rad":
+    if password in ["rad", ""]:
         ui.ui_rad.page_rad_incorrect_password.clear()
         change_page(ui, ui.prev_page, False)
     else:

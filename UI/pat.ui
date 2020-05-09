@@ -56,6 +56,9 @@ p, li { white-space: pre-wrap; }
       <height>451</height>
      </rect>
     </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
     <column>
      <property name="text">
       <string>Patient ID</string>
@@ -76,34 +79,6 @@ p, li { white-space: pre-wrap; }
       <string>Status</string>
      </property>
     </column>
-    <item>
-     <property name="text">
-      <string>0000</string>
-     </property>
-     <property name="text">
-      <string>01-01-2020</string>
-     </property>
-     <property name="text">
-      <string>9999</string>
-     </property>
-     <property name="text">
-      <string>Pending</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>0000</string>
-     </property>
-     <property name="text">
-      <string>02-02-2020</string>
-     </property>
-     <property name="text">
-      <string>3333</string>
-     </property>
-     <property name="text">
-      <string>Complete</string>
-     </property>
-    </item>
    </widget>
    <widget class="QPushButton" name="page_pat_home_button_my_profile">
     <property name="geometry">
@@ -136,7 +111,7 @@ p, li { white-space: pre-wrap; }
    </widget>
   </widget>
   <widget class="QWidget" name="page_pat_errand">
-   <widget class="QTreeWidget" name="page_pat_errand_treeWidget_errand_list_2">
+   <widget class="QTreeWidget" name="page_pat_errand_treeWidget_errand_list">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -150,6 +125,9 @@ p, li { white-space: pre-wrap; }
       <width>331</width>
       <height>0</height>
      </size>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
     </property>
     <column>
      <property name="text">
@@ -230,6 +208,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_pat_errand_button_view">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -441,7 +422,7 @@ p, li { white-space: pre-wrap; }
      <string>Next Slice</string>
     </property>
    </widget>
-   <widget class="QOpenGLWidget" name="openGLWidget">
+   <widget class="QOpenGLWidget" name="page_pat_view_scan_3d_view">
     <property name="geometry">
      <rect>
       <x>400</x>

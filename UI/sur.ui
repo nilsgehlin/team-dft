@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>2</number>
   </property>
   <widget class="QWidget" name="page_sur_view_edit">
    <widget class="QPushButton" name="page_sur_view_edit_button_2d_zoom_in">
@@ -30,7 +30,7 @@
      <string>Zoom In</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_sur_view_edit_button_hide_3d">
+   <widget class="QPushButton" name="page_sur_view_edit_button_3d_hide">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -112,7 +112,7 @@ p, li { white-space: pre-wrap; }
      <string>Logout</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_sur_view_edit_button2d_zoom_out">
+   <widget class="QPushButton" name="page_sur_view_edit_button_2d_zoom_out">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -163,6 +163,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_sur_view_edit_button_preview_report">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>634</x>
@@ -188,7 +191,7 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_sur_view_edit_button_previous_note">
+   <widget class="QPushButton" name="page_sur_view_edit_button_2d_previous_note">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -305,7 +308,7 @@ p, li { white-space: pre-wrap; }
      <string>Down</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_sur_view_edit_3d_zoom_in">
+   <widget class="QPushButton" name="page_sur_view_edit_button_3d_zoom_in">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -331,7 +334,7 @@ p, li { white-space: pre-wrap; }
      <string>Zoom Out</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="page_sur_view_edit_3d_tissue_view">
+   <widget class="QPushButton" name="page_sur_view_edit_button_3d_tissue_view">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -424,20 +427,15 @@ p, li { white-space: pre-wrap; }
    <widget class="QTreeWidget" name="page_sur_patient_errand_errand_list">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>370</x>
       <y>100</y>
-      <width>301</width>
+      <width>371</width>
       <height>391</height>
      </rect>
     </property>
     <column>
      <property name="text">
       <string>Task</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>New Column</string>
      </property>
     </column>
     <column>
@@ -455,11 +453,25 @@ p, li { white-space: pre-wrap; }
       <string>Clinic</string>
      </property>
     </column>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+     <property name="text">
+      <string>01-01-2020</string>
+     </property>
+     <property name="text">
+      <string>MRI</string>
+     </property>
+     <property name="text">
+      <string>US</string>
+     </property>
+    </item>
    </widget>
    <widget class="QTextEdit" name="page_sur_patient_errand_search_box">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>600</x>
       <y>70</y>
       <width>141</width>
       <height>31</height>
@@ -500,6 +512,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_sur_patient_errand_button_view">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -514,17 +529,124 @@ p, li { white-space: pre-wrap; }
    </widget>
   </widget>
   <widget class="QWidget" name="page_sur_home">
-   <widget class="QLabel" name="label">
+   <widget class="QPushButton" name="page_sur_home_logout">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>170</y>
-      <width>201</width>
-      <height>181</height>
+      <x>680</x>
+      <y>10</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>SAMMA SOM patientens FÖRSTA</string>
+     <string>Logout</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="page_sur_home_button_my_profile">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>My profile </string>
+    </property>
+   </widget>
+   <widget class="QTreeWidget" name="page_sur_home_treeWidget_treatment_list">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>100</y>
+      <width>461</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Patient ID</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Date ordered</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Order ID</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Status</string>
+     </property>
+    </column>
+    <item>
+     <property name="text">
+      <string>0000</string>
+     </property>
+     <property name="text">
+      <string>01-01-2020</string>
+     </property>
+     <property name="text">
+      <string>9999</string>
+     </property>
+     <property name="text">
+      <string>Pending</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>0000</string>
+     </property>
+     <property name="text">
+      <string>02-02-2020</string>
+     </property>
+     <property name="text">
+      <string>3333</string>
+     </property>
+     <property name="text">
+      <string>Complete</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTextEdit" name="page_sur_home_textEdit_search">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Search box&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="page_sur_home_button_proceed">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>550</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Proceed</string>
     </property>
    </widget>
   </widget>

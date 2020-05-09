@@ -339,6 +339,7 @@ class Ui_rad(object):
         self.page_rad_locked_insert_password = QtWidgets.QLineEdit(self.page_rad_locked)
         self.page_rad_locked_insert_password.setGeometry(QtCore.QRect(330, 270, 113, 20))
         self.page_rad_locked_insert_password.setText("")
+        self.page_rad_locked_insert_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.page_rad_locked_insert_password.setObjectName("page_rad_locked_insert_password")
         self.page_rad_locked_text.raise_()
         self.page_rad_locked_button_login.raise_()
