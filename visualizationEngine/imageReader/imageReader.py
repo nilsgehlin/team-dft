@@ -63,7 +63,9 @@ class imageReader():
 
         # Accumulate file names
         filenames = vtkStringArray()
-        for filename in os.listdir(self._directory):
+        dir_list = os.listdir(self._directory)
+        dir_list.sort()
+        for filename in dir_list:
             filenames.InsertNextValue(os.path.join(self._directory, filename))
 
         with open(os.path.join(self._directory, "meta_data.json")) as meta_data_file:

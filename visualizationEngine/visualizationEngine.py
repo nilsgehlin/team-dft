@@ -2,9 +2,10 @@ import vtk
 from vtk.util import keys
 from imageReader.imageReader import imageReader
 from segmentation.Segmentation import Segmentation
-# from vtk.util.numpy_support import vtk_to_numpy
 from vtk.util import numpy_support
 import numpy as np
+import time
+import os
 
 # TODO:
 #1. Check rendering timer issues
@@ -287,31 +288,35 @@ class visualizationEngine(object):
         # Gets right coordinate as long as click is within bounds
         # TODO: Add coordinate limits for negatives and out of bounds?
         obj.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
-        clicked_coordinate = list(obj.GetPicker().GetPickPosition())
-        for i in range(3):
-            clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
-        clicked_coordinate = tuple(clicked_coordinate)
-
-        # Read the image data from vtk to numpy array
-        # Notes: 
-        #   -Is there a reason we are rescaling scalars by 255? 
-        #   -Are negative scalars an issue or the segmentation does not care?
         image_data = self.reader.GetOutput()
         rows, cols, slc = image_data.GetDimensions()
+        clicked_coordinate = list(obj.GetPicker().GetPickPosition())
+        # for i in range(3):
+        #     clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
+
+        # Clicked coordinate should be entered as (row, col, slice), not (x, y, z)
+        clicked_coordinate = (rows - clicked_coordinate[1], clicked_coordinate[0], clicked_coordinate[2])
+        print(clicked_coordinate)
+        # Read the image data from vtk to numpy array
+        # Notes:
+        #   -Is there a reason we are rescaling scalars by 255? Answer: We needed to normalize the data and 0-255 is
+        # standard. //Nils
+        #   -Are negative scalars an issue or the segmentation does not care? I suscpect negative scalars are an issue,
+        # that's why I normalize the data before sending it to segmentation //Nils
 
         # Transforms the vtk array to numpy array, reorganises the dimensions and scales the data
         volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
         volume = volume.reshape(slc, cols, rows)
-        volume = volume.transpose(2,1,0)
+        volume = volume.transpose(2, 1, 0)
         volume = (volume / np.max(volume)) * 255
 
         new_segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
         seg = new_segmentation.segmentation
+        # seg = np.load(os.path.join("segmentation", "reference_segmentation.npy")) # Use the reference segmentation
         col = new_segmentation.color
-        print("Number of point in segment: ", len(list(np.where(seg == True))[0]))
 
         # Unbelieavably slow with big data!! will trying to optimize this or use different approach
-        segment_actor = self.__CreateSegmentationPoints(seg,col)
+        segment_actor = self.__CreateSegmentationPoints(seg, col)
         renderer = self.__GetRenderer(obj)
         renderer.AddActor(segment_actor)
 
@@ -487,19 +492,28 @@ class visualizationEngine(object):
 
     # Creates a point cloud for where segmentation is true
     # AWFULLY SLOW, will try alternative
-    def __CreateSegmentationPoints(self, segmentation,color):
-        array = np.zeros((500,400,300))
-        array[20:100, 20:100, 5:500] = 1
+    def __CreateSegmentationPoints(self, segmentation, color):
+        # start = time.time()
+        # result = list(np.where(segmentation == True))
+        # print(np.where(segmentation == True))
+        # rows = result[0]
+        # cols = result[1]
+        # depth = result[2]
+        # points = vtk.vtkPoints()
+        # for i in range(len(rows)):
+        #     # points.InsertNextPoint([rows[i]*self._pixelSpacing[0], cols[i]*self._pixelSpacing[1], depth[i]*self._pixelSpacing[2]])
+        #     points.InsertNextPoint([rows[i], cols[i], depth[i]])
+        # stop = time.time()
+        # print("First implementation: {}".format(stop-start))
 
-        result = list(np.where(segmentation == True))
-        rows = result[0]
-        cols = result[1]
-        depth = result[2]
-
+        # Seems to be roughly 4-7 times faster.
+        start = time.time()
+        vtk_array = numpy_support.numpy_to_vtk(np.argwhere(segmentation), deep=True)
         points = vtk.vtkPoints()
-        
-        for i in range(len(rows)):
-            points.InsertNextPoint([rows[i]*self._pixelSpacing[0],cols[i]*self._pixelSpacing[1],depth[i]*self._pixelSpacing[2]])
+        points.SetData(vtk_array)
+        stop = time.time()
+        # print("Second implementation: {}".format(stop - start))
+
 
         segmentPolyData = vtk.vtkPolyData()
         segmentPolyData.SetPoints(points)
@@ -514,7 +528,7 @@ class visualizationEngine(object):
 
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
-        actor.GetProperty().SetColor(255,0,255)
+        actor.GetProperty().SetColor(255, 0, 255)
 
         return actor
 

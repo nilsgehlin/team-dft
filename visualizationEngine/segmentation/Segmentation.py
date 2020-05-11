@@ -84,8 +84,11 @@ class Segmentation:
         if verbose:
             percent_segmented = (np.count_nonzero(self.segmentation) / len(seg)) * 100
             print("Done. \n"
+                  "Number of point in segment: {}\n"
                   "Segmentation percentage of volume: {} %\n"
-                  "Time: {} s".format(np.round(percent_segmented), np.round(time_elapsed, 2)))
+                  "Time: {} s".format(len(list(np.where(seg))[0]),
+                                      np.round(percent_segmented),
+                                      np.round(time_elapsed, 2)))
 
     @staticmethod
     def __normalize_volume(volume):
@@ -169,6 +172,8 @@ if __name__ == "__main__":
         def onclick(self, event):
             clicked_coordinate = (int(event.ydata), int(event.xdata), self.ind)
             new_annotation = Segmentation(clicked_coordinate, self.volume, segmentation_threshold=0.3)
+            # np.save("reference_segmentation", new_annotation.segmentation)
+            # new_annotation.segmentation = np.load("reference_segmentation.npy")
             self.annotations += [new_annotation]
             new_annotation.add_to_vol(self.x)
             # self.x /= np.max(self.x)
@@ -180,16 +185,18 @@ if __name__ == "__main__":
             self.im.axes.figure.canvas.draw()
 
 
-    def load_volume(directory, no_slices=99):
-        slice_shape = np.array(PIL.Image.open(os.path.join(directory, "image.1"))).shape
-        vol_shape = slice_shape + (no_slices,)
+    def load_volume(directory):
+        slice_shape = np.array(PIL.Image.open(os.path.join(directory, "02.tif"))).shape
+        dir_list = os.listdir(directory)
+        dir_list = [item for item in dir_list if item.split(".")[-1] == "tif"]
+        vol_shape = slice_shape + (len(dir_list),)
         vol = np.zeros(vol_shape, dtype=np.double, order='C')
-        for vol_slice in range(no_slices):
-            vol[:, :, vol_slice] = np.array(PIL.Image.open(os.path.join(directory, "image.{}".format(vol_slice + 1))))
+        for vol_slice, filename in enumerate(dir_list):
+            vol[:, :, vol_slice] = np.array(PIL.Image.open(os.path.join(directory, filename)))
         vol = (vol / np.max(vol)) * 255
         return vol
 
-    directory = os.path.join("..", "..", "old_prototype", "stanford-ct-new")
+    directory = os.path.join("..", "..", "sample_dicom", "stanford-ct-new")
     vol = load_volume(directory) # (256, 256, 99)
 
     fig, ax = plt.subplots(1, 1)
