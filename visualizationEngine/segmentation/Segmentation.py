@@ -24,7 +24,8 @@ region_growing_C.grow.argtypes = [ctypes.c_int,    ctypes.c_int,    ctypes.c_int
 
 
 class Segmentation:
-    def __init__(self, clicked_coordinate, volume, color=None, segmentation_threshold=0.2, verbose=False):
+    def __init__(self, clicked_coordinate, volume, color=None, segmentation_threshold=0.2, verbose=False,
+                 normalize_data=False):
         """
         Constructor for annotation class. __grow runs 3D region growing when the constructor is run.
         :param clicked_coordinate: Tuple conatining the coordinates of the point the user clicked on. Will be used
@@ -44,11 +45,11 @@ class Segmentation:
             self.color = color
         self.segmentation = np.zeros_like(volume, dtype=np.bool)
         self.segmentation_threshold = segmentation_threshold
-
         # Setup actions
-        normalized_volume = self.__normalize_volume(volume)
+        if normalize_data:
+            volume = self.__normalize_volume(volume)
 
-        self.__grow(normalized_volume,
+        self.__grow(volume,
                     (int(clicked_coordinate[0]),
                      int(clicked_coordinate[1]),
                      int(clicked_coordinate[2])),
@@ -75,7 +76,8 @@ class Segmentation:
             print("Segmenting...")
         start = time.time()
         seg = self.segmentation.flatten()
-        region_growing_C.grow(volume.shape[0], volume.shape[1], volume.shape[2], volume.flatten(), seg,
+
+        region_growing_C.grow(volume.shape[0], volume.shape[1], volume.shape[2], volume.flatten().astype(np.float64), seg,
                               clicked_coordinate[0], clicked_coordinate[1], clicked_coordinate[2],
                               self.segmentation_threshold)
         self.segmentation = np.reshape(seg, volume.shape)

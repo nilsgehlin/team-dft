@@ -85,6 +85,7 @@ class visualizationEngine(object):
         image_reader = imageReader(dir)
         self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
+        print(self._pixelSpacing)
         self.imageReader = image_reader
 
 
@@ -128,7 +129,7 @@ class visualizationEngine(object):
         renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         image_viewer.SetRenderer(renderer)
-
+        print(image_viewer.GetInteractor())
         # Render the image_viewer
         image_viewer.Render()
 
@@ -291,11 +292,12 @@ class visualizationEngine(object):
         image_data = self.reader.GetOutput()
         rows, cols, slc = image_data.GetDimensions()
         clicked_coordinate = list(obj.GetPicker().GetPickPosition())
-        # for i in range(3):
-        #     clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
+        for i in range(3):
+            clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
 
+        print(self._pixelSpacing)
         # Clicked coordinate should be entered as (row, col, slice), not (x, y, z)
-        clicked_coordinate = (rows - clicked_coordinate[1], clicked_coordinate[0], clicked_coordinate[2])
+        clicked_coordinate = (clicked_coordinate[0], clicked_coordinate[1], clicked_coordinate[2])
         print(clicked_coordinate)
         # Read the image data from vtk to numpy array
         # Notes:
@@ -308,7 +310,6 @@ class visualizationEngine(object):
         volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
         volume = volume.reshape(slc, cols, rows)
         volume = volume.transpose(2, 1, 0)
-        volume = (volume / np.max(volume)) * 255
 
         new_segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
         seg = new_segmentation.segmentation
@@ -501,14 +502,19 @@ class visualizationEngine(object):
         # depth = result[2]
         # points = vtk.vtkPoints()
         # for i in range(len(rows)):
-        #     # points.InsertNextPoint([rows[i]*self._pixelSpacing[0], cols[i]*self._pixelSpacing[1], depth[i]*self._pixelSpacing[2]])
-        #     points.InsertNextPoint([rows[i], cols[i], depth[i]])
+        #     points.InsertNextPoint([rows[i]*self._pixelSpacing[0], cols[i]*self._pixelSpacing[1], depth[i]*self._pixelSpacing[2]])
+        #     # points.InsertNextPoint([rows[i], cols[i], depth[i]])
         # stop = time.time()
         # print("First implementation: {}".format(stop-start))
 
         # Seems to be roughly 4-7 times faster.
-        start = time.time()
-        vtk_array = numpy_support.numpy_to_vtk(np.argwhere(segmentation), deep=True)
+        # start = time.time()
+        coords = np.argwhere(segmentation)
+        coords[:, 0] = coords[:, 0] * self._pixelSpacing[0]
+        coords[:, 1] = coords[:, 1] * self._pixelSpacing[1]
+        coords[:, 2] = coords[:, 2] * self._pixelSpacing[2]
+
+        vtk_array = numpy_support.numpy_to_vtk(coords, deep=True)
         points = vtk.vtkPoints()
         points.SetData(vtk_array)
         stop = time.time()

@@ -74,7 +74,9 @@ class imageReader():
         # Create reader object with filenames
         reader = vtkTIFFReader()
         reader.SetFileNames(filenames)
+        reader.SetDataSpacing(self._metaData["pixelSpacing"])
         reader.Update()
+        print(reader.GetDataSpacing())
         self._reader = reader
         return self._reader
 
@@ -138,6 +140,7 @@ class imageReader():
         if self._metaData is None:
             return 1
         elif type(self._metaData) is dict:
-            return tuple(self._metaData["pixelSpacing"])
+            # return tuple(self._metaData["pixelSpacing"])
+            return self._reader.GetDataSpacing()
         return self._reader.GetPixelSpacing()
 
