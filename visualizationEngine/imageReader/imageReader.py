@@ -76,7 +76,6 @@ class imageReader():
         reader.SetFileNames(filenames)
         reader.SetDataSpacing(self._metaData["pixelSpacing"])
         reader.Update()
-        print(reader.GetDataSpacing())
         self._reader = reader
         return self._reader
 

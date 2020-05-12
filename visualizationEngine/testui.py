@@ -23,7 +23,7 @@ class Ui_Dialog(object):
         self.buttonBox.setObjectName("buttonBox")
 
         self.frame = QtWidgets.QFrame(Dialog)
-        self.frame.setGeometry(QtCore.QRect(640, 10, 600, 450))
+        self.frame.setGeometry(QtCore.QRect(640, 10, 600, 500))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -32,7 +32,7 @@ class Ui_Dialog(object):
         self.vtkWidget.setObjectName("vtkWidget")
 
         self.frame1 = QtWidgets.QFrame(Dialog)
-        self.frame1.setGeometry(QtCore.QRect(640, 475, 600, 450))
+        self.frame1.setGeometry(QtCore.QRect(640, 525, 600, 500))
         self.frame1.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame1.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame1.setObjectName("frame1")
@@ -79,10 +79,10 @@ if __name__ == "__main__":
 
     # DICOM file directory in sample_files/dicom
     # directory = os.path.join("..", "sample_dicom", "chestDICOM")
-    directory = os.path.join("..", "sample_dicom", "1")
+    directory = os.path.join("..", "sample_dicom", "MRI_3_Head")
     
     # Tiff images in 2d3dprototype/stanford-ct-new
-    #directory = os.path.join("..", "2d3dprototype", "stanford-ct-new")  
+    # directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  
 
     vtk_engine = visualizationEngine(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")

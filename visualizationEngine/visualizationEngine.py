@@ -85,7 +85,6 @@ class visualizationEngine(object):
         image_reader = imageReader(dir)
         self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
-        print(self._pixelSpacing)
         self.imageReader = image_reader
 
 
@@ -129,7 +128,7 @@ class visualizationEngine(object):
         renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         image_viewer.SetRenderer(renderer)
-        print(image_viewer.GetInteractor())
+        
         # Render the image_viewer
         image_viewer.Render()
 
@@ -292,13 +291,13 @@ class visualizationEngine(object):
         image_data = self.reader.GetOutput()
         rows, cols, slc = image_data.GetDimensions()
         clicked_coordinate = list(obj.GetPicker().GetPickPosition())
+        print(self._pixelSpacing)
         for i in range(3):
             clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
 
-        print(self._pixelSpacing)
         # Clicked coordinate should be entered as (row, col, slice), not (x, y, z)
         clicked_coordinate = (clicked_coordinate[0], clicked_coordinate[1], clicked_coordinate[2])
-        print(clicked_coordinate)
+        
         # Read the image data from vtk to numpy array
         # Notes:
         #   -Is there a reason we are rescaling scalars by 255? Answer: We needed to normalize the data and 0-255 is
@@ -311,7 +310,7 @@ class visualizationEngine(object):
         volume = volume.reshape(slc, cols, rows)
         volume = volume.transpose(2, 1, 0)
 
-        new_segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
+        new_segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.3, verbose=True)
         seg = new_segmentation.segmentation
         # seg = np.load(os.path.join("segmentation", "reference_segmentation.npy")) # Use the reference segmentation
         col = new_segmentation.color
@@ -509,11 +508,14 @@ class visualizationEngine(object):
 
         # Seems to be roughly 4-7 times faster.
         # start = time.time()
-        coords = np.argwhere(segmentation)
+        coords = np.argwhere(segmentation).astype(np.float32)
         coords[:, 0] = coords[:, 0] * self._pixelSpacing[0]
         coords[:, 1] = coords[:, 1] * self._pixelSpacing[1]
         coords[:, 2] = coords[:, 2] * self._pixelSpacing[2]
-
+        print("Coords after: ", coords)
+        print("x range: ", np.amin(coords[:,0]), np.amax(coords[:,0]))
+        print("y range: ", np.amin(coords[:,1]), np.amax(coords[:,1]))
+        print("z range: ", np.amin(coords[:,2]), np.amax(coords[:,2]))
         vtk_array = numpy_support.numpy_to_vtk(coords, deep=True)
         points = vtk.vtkPoints()
         points.SetData(vtk_array)
@@ -534,7 +536,7 @@ class visualizationEngine(object):
 
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
-        actor.GetProperty().SetColor(255, 0, 255)
+        actor.GetProperty().SetColor(255, 0, 0)
 
         return actor
 
@@ -546,7 +548,14 @@ class visualizationEngine(object):
     def __on_left_mouse_button_press(self, obj, event):
         if obj.GetShiftKey():
             mouse_pos = obj.GetEventPosition()
-            self.SegmentObject(obj, mouse_pos)   
+            self.SegmentObject(obj, mouse_pos)
+            
+        # print("Slice: ", self.imageViewers[0].GetSlice()*self._pixelSpacing[2])
+        # print("Slice Extent: ", self.imageViewers[0].GetImageActor().GetDisplayExtent())
+        # print("Slice Bounds: ", self.imageViewers[0].GetImageActor().GetBounds())
+        # print("Actors visible: ", self.imageViewers[0].GetRenderer().VisibleActorCount())
+        # print("Actors: ", self.imageViewers[0].GetRenderer().GetActors().GetLastActor())
+
 
 
     # Listener for scroll event:
