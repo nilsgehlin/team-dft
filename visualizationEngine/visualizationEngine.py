@@ -149,6 +149,8 @@ class visualizationEngine(object):
 
         # Add interactor observers
         interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 101.0)
+        
+        image_viewer.AddObserver("InteractionEvent", self.__on_slice_change, 10.0)
 
         interactor.Initialize()
     
@@ -493,50 +495,58 @@ class visualizationEngine(object):
     # Creates a point cloud for where segmentation is true
     # AWFULLY SLOW, will try alternative
     def __CreateSegmentationPoints(self, segmentation, color):
-        # start = time.time()
-        # result = list(np.where(segmentation == True))
-        # print(np.where(segmentation == True))
-        # rows = result[0]
-        # cols = result[1]
-        # depth = result[2]
-        # points = vtk.vtkPoints()
-        # for i in range(len(rows)):
-        #     points.InsertNextPoint([rows[i]*self._pixelSpacing[0], cols[i]*self._pixelSpacing[1], depth[i]*self._pixelSpacing[2]])
-        #     # points.InsertNextPoint([rows[i], cols[i], depth[i]])
-        # stop = time.time()
-        # print("First implementation: {}".format(stop-start))
+        
+        # Get the pixel coordinates
+        coords = np.argwhere(segmentation)
 
-        # Seems to be roughly 4-7 times faster.
-        # start = time.time()
-        coords = np.argwhere(segmentation).astype(np.float32)
-        coords[:, 0] = coords[:, 0] * self._pixelSpacing[0]
-        coords[:, 1] = coords[:, 1] * self._pixelSpacing[1]
-        coords[:, 2] = coords[:, 2] * self._pixelSpacing[2]
+        # Get the cordinates range
+        x_extent = [np.amin(coords[:,0]), np.amax(coords[:,0])]
+        y_extent = [np.amin(coords[:,1]), np.amax(coords[:,1])]
+        z_extent = [np.amin(coords[:,2]), np.amax(coords[:,2])]
+        extent = x_extent + y_extent + z_extent
+        
         print("Coords after: ", coords)
-        print("x range: ", np.amin(coords[:,0]), np.amax(coords[:,0]))
-        print("y range: ", np.amin(coords[:,1]), np.amax(coords[:,1]))
-        print("z range: ", np.amin(coords[:,2]), np.amax(coords[:,2]))
-        vtk_array = numpy_support.numpy_to_vtk(coords, deep=True)
-        points = vtk.vtkPoints()
-        points.SetData(vtk_array)
-        stop = time.time()
-        # print("Second implementation: {}".format(stop - start))
+        print("Extent: ", extent)
+        
+        # Create the image data
+        segment_data = vtk.vtkImageData()
+        segment_data.SetSpacing(self._pixelSpacing)
+        c, r, d = self.reader.GetOutput().GetDimensions()
+        segment_data.SetExtent(0,c,0,r,0,d)
+        segment_data.AllocateScalars(vtk.VTK_DOUBLE,1)
+        
+        # print(segment_data.GetPointData().GetScalars())
 
+        count = 0
+        for x in range(x_extent[0], x_extent[1]+1):
+            for y in range(y_extent[0], y_extent[1]+1):
+                for z in range(z_extent[0], z_extent[1]+1):
+                    # Trying to assign a scalar of 1 to only the segmentent ## not working
+                    if [x, y, z] in coords:
+                        count += 1
+                        print(segment_data.GetScalarComponentAsDouble(x,y,z,0))
+                        segment_data.SetScalarComponentFromDouble(x,y,z,0,1.0)
+                    
+        print("Count: ", count)
 
-        segmentPolyData = vtk.vtkPolyData()
-        segmentPolyData.SetPoints(points)
+        lookupTable = vtk.vtkLookupTable()
+        lookupTable.SetNumberOfTableValues(2)
+        lookupTable.SetRange(0.0,1.0)
+        lookupTable.SetTableValue( 0, 1.0, 0.0, 0.0, 0.0 ) #label 0 is transparent
+        lookupTable.SetTableValue( 1, 0.0, 1.0, 0.0, 1.0 ) #label 1 is opaque and green
+        lookupTable.Build()
 
-        glyphFilter = vtk.vtkVertexGlyphFilter()
-        glyphFilter.SetInputData(segmentPolyData)
-        glyphFilter.Update()
+        mapTransparency = vtk.vtkImageMapToColors()
+        mapTransparency.SetLookupTable(lookupTable)
+        mapTransparency.PassAlphaToOutputOn()
+        #mapTransparency.SetOutputFormatToRGBA()
+        mapTransparency.SetInputData(segment_data)
+        mapTransparency.Update()
 
-        ## Setup the visualization pipeline
-        mapper = vtk.vtkPolyDataMapper()
-        mapper.SetInputData(glyphFilter.GetOutput())
-
-        actor = vtk.vtkActor()
-        actor.SetMapper(mapper)
-        actor.GetProperty().SetColor(255, 0, 0)
+        actor = vtk.vtkImageActor()
+        actor.GetMapper().SetInputData(mapTransparency.GetOutput())
+        actor.AddPosition(0.0001,0.0001,0.0001)
+        actor.Update()
 
         return actor
 
@@ -583,6 +593,29 @@ class visualizationEngine(object):
         
         if self._renderTimeCount == 0:
             self._renderTimerID = obj.CreateOneShotTimer(1000)
+
+    
+    def __on_slice_change(self, obj, event):
+        print("slice changed...")
+        print("Slice Extent: ", obj.GetImageActor().GetDisplayExtent())
+        print("volumes: ", obj.GetRenderer().GetViewProps().GetNumberOfItems())
+        
+        renderer = obj.GetRenderer()
+        props = renderer.GetViewProps()
+
+        if(props.GetNumberOfItems() == 2):
+            image_actor = props.GetLastProp()
+
+            ext = list(obj.GetImageActor().GetDisplayExtent())
+            seg_ext = image_actor.GetDisplayExtent()
+            print("Mask ext: ", seg_ext)
+            
+            image_actor.SetDisplayExtent(ext)
+            image_actor.Update()
+
+        obj.Render()
+            
+
 
 
     ##### Image display functions #####
