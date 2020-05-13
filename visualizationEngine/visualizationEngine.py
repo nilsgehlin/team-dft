@@ -531,6 +531,9 @@ class visualizationEngine(object):
 
         # Creating a 3D array like segmentation, but with 1's and 0's instead of True and False
         np_segment_data_array = segmentation.astype(np.int)
+
+        np_segment_data_array = np_segment_data_array.transpose(2,1,0)
+
         # Copnvert numpy array to a vtkArray
         segment_data_array = numpy_support.numpy_to_vtk(np_segment_data_array.ravel(), deep=True)
         segment_data_array.SetNumberOfComponents(1)
