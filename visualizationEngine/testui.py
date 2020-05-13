@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     # DICOM file directory in sample_files/dicom
     # directory = os.path.join("..", "sample_dicom", "chestDICOM")
-    directory = os.path.join("..", "sample_dicom", "MRI_3_Head")
+    directory = os.path.join("..", "sample_dicom", "stanford-ct-new")
     
     # Tiff images in 2d3dprototype/stanford-ct-new
     # directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  

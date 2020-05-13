@@ -496,44 +496,60 @@ class visualizationEngine(object):
     # AWFULLY SLOW, will try alternative
     def __CreateSegmentationPoints(self, segmentation, color):
         
-        # Get the pixel coordinates
-        coords = np.argwhere(segmentation)
-
-        # Get the cordinates range
-        x_extent = [np.amin(coords[:,0]), np.amax(coords[:,0])]
-        y_extent = [np.amin(coords[:,1]), np.amax(coords[:,1])]
-        z_extent = [np.amin(coords[:,2]), np.amax(coords[:,2])]
-        extent = x_extent + y_extent + z_extent
+        # # Get the pixel coordinates
+        # coords = np.argwhere(segmentation)
+        #
+        # # Get the cordinates range
+        # x_extent = [np.amin(coords[:,0]), np.amax(coords[:,0])]
+        # y_extent = [np.amin(coords[:,1]), np.amax(coords[:,1])]
+        # z_extent = [np.amin(coords[:,2]), np.amax(coords[:,2])]
+        # extent = x_extent + y_extent + z_extent
+        #
+        # print("Coords after: ", coords)
+        # print("Extent: ", extent)
         
-        print("Coords after: ", coords)
-        print("Extent: ", extent)
-        
-        # Create the image data
-        segment_data = vtk.vtkImageData()
-        segment_data.SetSpacing(self._pixelSpacing)
-        c, r, d = self.reader.GetOutput().GetDimensions()
-        segment_data.SetExtent(0,c,0,r,0,d)
-        segment_data.AllocateScalars(vtk.VTK_DOUBLE,1)
+        # # Create the image data
+        # segment_data = vtk.vtkImageData()
+        # segment_data.SetSpacing(self._pixelSpacing)
+        # c, r, d = self.reader.GetOutput().GetDimensions()
+        # segment_data.SetExtent(0, c, 0, r, 0, d)
+        # segment_data.AllocateScalars(vtk.VTK_DOUBLE,1)
         
         # print(segment_data.GetPointData().GetScalars())
 
-        count = 0
-        for x in range(x_extent[0], x_extent[1]+1):
-            for y in range(y_extent[0], y_extent[1]+1):
-                for z in range(z_extent[0], z_extent[1]+1):
-                    # Trying to assign a scalar of 1 to only the segmentent ## not working
-                    if [x, y, z] in coords:
-                        count += 1
-                        print(segment_data.GetScalarComponentAsDouble(x,y,z,0))
-                        segment_data.SetScalarComponentFromDouble(x,y,z,0,1.0)
+        # count = 0
+        # for x in range(x_extent[0], x_extent[1]+1):
+        #     for y in range(y_extent[0], y_extent[1]+1):
+        #         for z in range(z_extent[0], z_extent[1]+1):
+        #             # Trying to assign a scalar of 1 to only the segmentent ## not working
+        #             if [x, y, z] in coords:
+        #                 count += 1
+        #                 print(segment_data.GetScalarComponentAsDouble(x,y,z,0))
+        #                 segment_data.SetScalarComponentFromDouble(x,y,z,0,1.0)
                     
-        print("Count: ", count)
+        # print("Count: ", count)
+
+        # Creating a 3D array like segmentation, but with 1's and 0's instead of True and False
+        np_segment_data_array = segmentation.astype(np.int)
+        # Copnvert numpy array to a vtkArray
+        segment_data_array = numpy_support.numpy_to_vtk(np_segment_data_array.ravel(), deep=True)
+        segment_data_array.SetNumberOfComponents(1)
+
+        # Create the image data
+        segment_data = vtk.vtkImageData()
+        segment_data.SetDimensions(np_segment_data_array.shape[1],
+                                   np_segment_data_array.shape[0],
+                                   np_segment_data_array.shape[-1])
+        segment_data.SetSpacing(self._pixelSpacing)
+        r, c, d = segmentation.shape
+        segment_data.SetExtent(0, c - 1, 0, r - 1, 0, d - 1)
+        segment_data.GetPointData().SetScalars(segment_data_array)
 
         lookupTable = vtk.vtkLookupTable()
         lookupTable.SetNumberOfTableValues(2)
-        lookupTable.SetRange(0.0,1.0)
-        lookupTable.SetTableValue( 0, 1.0, 0.0, 0.0, 0.0 ) #label 0 is transparent
-        lookupTable.SetTableValue( 1, 0.0, 1.0, 0.0, 1.0 ) #label 1 is opaque and green
+        lookupTable.SetRange(0.0, 1.0)
+        lookupTable.SetTableValue(0, 1.0, 0.0, 0.0, 0.0)  # label 0 is transparent
+        lookupTable.SetTableValue(1, 0.0, 1.0, 0.0, 1.0)  # label 1 is opaque and green
         lookupTable.Build()
 
         mapTransparency = vtk.vtkImageMapToColors()
@@ -545,7 +561,13 @@ class visualizationEngine(object):
 
         actor = vtk.vtkImageActor()
         actor.GetMapper().SetInputData(mapTransparency.GetOutput())
-        actor.AddPosition(0.0001,0.0001,0.0001)
+        actor.AddPosition(0.0001, 0.0001, 0.0001)
+
+        # image_actor = props.GetLastProp()
+        #
+        # ext = list(obj.GetImageActor().GetDisplayExtent())
+        # image_actor.SetDisplayExtent(ext)
+
         actor.Update()
 
         return actor
@@ -599,22 +621,21 @@ class visualizationEngine(object):
         print("slice changed...")
         print("Slice Extent: ", obj.GetImageActor().GetDisplayExtent())
         print("volumes: ", obj.GetRenderer().GetViewProps().GetNumberOfItems())
-        
+
         renderer = obj.GetRenderer()
         props = renderer.GetViewProps()
 
-        if(props.GetNumberOfItems() == 2):
+        if props.GetNumberOfItems() == 2:
             image_actor = props.GetLastProp()
 
             ext = list(obj.GetImageActor().GetDisplayExtent())
             seg_ext = image_actor.GetDisplayExtent()
             print("Mask ext: ", seg_ext)
-            
+
             image_actor.SetDisplayExtent(ext)
             image_actor.Update()
 
         obj.Render()
-            
 
 
 
