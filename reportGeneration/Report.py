@@ -12,6 +12,14 @@ class Report(QTextBrowser):
         self.setReadOnly(True)
         self.examination = examination
 
+        self.update()
+        with open(os.path.join("templates", template_name + ".css")) as style_sheet_file:
+            self.setStyleSheet(style_sheet_file.read())
+
+        self.setOpenLinks(False)
+        self.anchorClicked.connect(self.on_annotation_clicked)
+
+    def update(self):
         file_loader = jinja2.FileSystemLoader('templates')
         env = jinja2.Environment(loader=file_loader)
         env.trim_blocks = True
@@ -20,11 +28,6 @@ class Report(QTextBrowser):
         template = env.get_template('radiologist.html')
         output = template.render(examination=self.examination)
         self.setHtml(output)
-        with open(os.path.join("templates", template_name + ".css")) as style_sheet_file:
-            self.setStyleSheet(style_sheet_file.read())
-
-        self.setOpenLinks(False)
-        self.anchorClicked.connect(self.on_annotation_clicked)
 
     def on_annotation_clicked(self, url_input):
         annotation_id = int(url_input.toString())
@@ -102,6 +105,10 @@ if __name__ == "__main__":
         def keyPressEvent(self, event):
             if event.key() == 83:
                 self.report.save_to_pdf("test_pdf.pdf")
+            if event.key() == 78:
+                self.report.examination.add_annotation(Annotation(3, "Heart", "Blown up", (0, 0, 255)))
+                print(self.report.examination.annotations[-1])
+                self.report.update()
 
 
     App = QApplication(sys.argv)
