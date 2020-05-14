@@ -1,0 +1,15 @@
+<h1><center><b>{{ examination.modality }} Examination</b></center></h1>
+<p>
+    <b>Patient name:</b> {{ examination.patient.first_name }} {{ examination.patient.last_name }}
+</p>
+<p>
+    <b>Patient age:</b> {{ examination.patient.age }}
+</p>
+
+<h2> Findings </h2>
+{% for annotation in examination.annotations %}
+<p>
+    <b><a href={{ annotation.annot_id }} style="color: rgb{{ annotation.color }}">{{ annotation.location }}</a>:</b> <br/>
+    <b>*{{ annotation.finding }}</b><br/>
+</p>
+{%- endfor %}
