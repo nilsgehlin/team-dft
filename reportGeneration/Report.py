@@ -1,17 +1,17 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QApplication, QWidget, QTextBrowser, QVBoxLayout, QDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QTextBrowser, QVBoxLayout
 from PyQt5.QtPrintSupport import QPrintDialog
-import sys
+
 import jinja2
 import os
-
+import webbrowser
 
 class Report(QTextBrowser):
-    def __init__(self, template_name, examination):
+    def __init__(self, template_name, examination, show_wiki_on_click = True):
         super().__init__()
         self.setReadOnly(True)
         self.examination = examination
-
+        self.show_wiki_on_click = show_wiki_on_click
         self.update()
         with open(os.path.join("templates", template_name + ".css")) as style_sheet_file:
             self.setStyleSheet(style_sheet_file.read())
@@ -32,7 +32,10 @@ class Report(QTextBrowser):
     def on_annotation_clicked(self, url_input):
         annotation_id = int(url_input.toString())
         annotation_clicked = self.examination.get_annotation(annotation_id)
-        print(annotation_clicked)
+        if self.show_wiki_on_click:
+            search_term = annotation_clicked.location.replace(" ", "+")
+            search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
+            webbrowser.open(search_url)
 
     def save_to_pdf(self, filename):
         dialog = QPrintDialog()
@@ -41,6 +44,8 @@ class Report(QTextBrowser):
 
 
 if __name__ == "__main__":
+    import sys
+
     class Examination:
         def __init__(self, patient, modality):
             self.patient = patient
@@ -103,8 +108,12 @@ if __name__ == "__main__":
             self.show()
 
         def keyPressEvent(self, event):
+            print(event)
+            # Press S to save as pdf
             if event.key() == 83:
                 self.report.save_to_pdf("test_pdf.pdf")
+
+            # Press N to add a new dummy annotation dynamically
             if event.key() == 78:
                 self.report.examination.add_annotation(Annotation(3, "Heart", "Blown up", (0, 0, 255)))
                 print(self.report.examination.annotations[-1])
