@@ -5,7 +5,7 @@ from vtk.util import keys
 ############################
 ##### Annotation Class #####
 ############################
-class annotation(vtkInformation):
+class Annotation(vtkInformation):
     ##### Class Variables #####
     _annotInstance = None
 
@@ -13,17 +13,22 @@ class annotation(vtkInformation):
 
     _locationKey = None
 
+    _storeKey = None
+
+    _segmentData = None
+
     ##### General class functions #####
 
     def __init__(self):
         super().__init__()
 
         self._annotInstance = vtkAnnotation()
-        self._locationKey = keys.MakeKey(keys.IntegerVectorKey, "COORDINATES", "annotation")
+        self._locationKey = keys.MakeKey(keys.IntegerVectorKey, "COORDINATES", "Annotation")
 
         self.Set(self._annotInstance.DATA_TYPE_NAME(), self._dataTypeName)
         self.Enable()
         self.Show()
+        self.UnflagAsSegment()
     
     ##### Public class functions #####
 
@@ -41,21 +46,21 @@ class annotation(vtkInformation):
         return self.Get(self._locationKey)
 
     # Sets the opacity on the annotation object. 
-    def SetLocation(self, x,y,slice):
-        arr = [int(x), int(y), int(slice)]
-        self.Set(self._locationKey, arr, 3)
+    def SetLocation(self, loc):
+        loc = list(map(int, loc))
+        self.Set(self._locationKey, loc, 3)
 
     # Returns the color set for the annotation
     def GetColor(self):
-        return self.Get(self._annotInstance.COLOR())
+        return list(self.Get(self._annotInstance.COLOR()))
 
     # Sets the color on the annotation object.
     def SetColor(self, color):
-        self.Set(self._annotInstance.COLOR(), color)
+        self.Set(self._annotInstance.COLOR(), color, 3)
 
     # Returns the opacity set for the annotation
     def GetOpacity(self):
-        return self.Get(self._annotInstance.OPCAITY())
+        return self.Get(self._annotInstance.OPACITY())
 
     # Sets the opacity on the annotation object. 
     def SetOpacity(self, opacity):
@@ -85,11 +90,45 @@ class annotation(vtkInformation):
     def isVisible(self, text):
         return self.Get(self._annotInstance.HIDE())
 
+    # Flag to know that the annotation is a segmentation
+    def FlagAsSegment(self, seg_data):
+        self.Set(self._annotInstance.ICON_INDEX(), 1)
+        self._segmentData = seg_data
+
+    # Unflag annotation as a segmentation
+    def UnflagAsSegment(self):
+        self.Set(self._annotInstance.ICON_INDEX(), 0)
+
+    # Get the segmentation data array
+    def GetSegmentData(self):
+        return self._segmentData
+
+    # Check whether this annotation is a segmentation or not
+    def isSegment(self):
+        return bool(self.Get(self._annotInstance.ICON_INDEX()))
+
+    # Store this annotation's key to access from the store individually
+    def SetStoreKey(self, key):
+        self._storeKey = key
+
+    # Get this annotation's key to access from the store individually
+    def GetStoreKey(self):
+        return self._storeKey
+
+    # Retrieve this annotation's key in the annotation store
+    def RemoveStoreKey(self):
+        self._storeKey = None
+
+    # Determine whether this annotation is added to the store or not
+    def isStored(self):
+        if self._storeKey == None: return False
+        else: return True
+
 
 ##################################
 ##### Annotation Store Class #####
 ##################################
-class annotationStore(vtkInformation):
+class AnnotationStore(vtkInformation):
     ##### Class Variables #####
     _dataTypeName = "ANNOTATION STORE"
 
@@ -104,6 +143,7 @@ class annotationStore(vtkInformation):
     # Stores the annotation and returns the key to access it
     def StoreAnnotation(self, annot):
         key = keys.MakeKey(keys.InformationKey, "ANNOTATION", "annotationStore")
+        annot.SetStoreKey(key)
         self.Set(key, annot)
         return key
 
@@ -134,7 +174,7 @@ class annotationStore(vtkInformation):
 ###########################################
 ##### Annotation Store Iterator Class #####
 ###########################################
-class annotationStoreIterator(vtkInformationIterator):
+class AnnotationStoreIterator(vtkInformationIterator):
     ##### General class functions #####
 
     # Initiation options
@@ -193,11 +233,11 @@ class annotationStoreIterator(vtkInformationIterator):
 #####
 if __name__ == "__main__":
     ## Create annotation instance
-    annot = annotation()
+    annot = Annotation()
 
     # Set annotation attributes
     annot.SetText("first annotation")
-    annot.SetLocation(100,200,4)
+    annot.SetLocation([100,200,4])
 
     # Retreive stored text
     text = annot.GetText()
@@ -213,13 +253,13 @@ if __name__ == "__main__":
     print("The annotation location is:", coord)
 
     ## Create annotation store
-    annotStore = annotationStore()
+    annotStore = AnnotationStore()
     
     # Store the first annotation and keep the key
     annotK = annotStore.StoreAnnotation(annot)
 
     # Create second annotation and store it too
-    annot2 = annotation()
+    annot2 = Annotation()
     annot2.SetText("second annotation")
     annot2K = annotStore.StoreAnnotation(annot2)
 
@@ -228,18 +268,18 @@ if __name__ == "__main__":
     print("Second text is:", annotStore.GetAnnotation(annot2K).GetText())
 
     ## 100 annotation storage tester
-    store = annotationStore()
+    store = AnnotationStore()
 
     # Create 100 annotations
     for i in range(100):
-        a = annotation()
+        a = Annotation()
         a.SetText("annotation " + str(i))
         store.StoreAnnotation(a)
     
     print(str(store.GetNumberOfAnnotations()) + " annotations stored")
 
     # Print annotations using the annotation iterator
-    it = annotationStoreIterator(store)
+    it = AnnotationStoreIterator(store)
     for a in it:
         print(store.GetAnnotation(a).GetText())
 

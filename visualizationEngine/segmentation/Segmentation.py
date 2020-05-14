@@ -40,7 +40,7 @@ class Segmentation:
         """
         # Attribute initializationss
         if color is None:
-            self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            self.color = (round(random.random(),1), round(random.random(),1), round(random.random(),1))
         else:
             self.color = color
         self.segmentation = np.zeros_like(volume, dtype=np.bool)
@@ -55,6 +55,17 @@ class Segmentation:
                      int(clicked_coordinate[2])),
                     verbose=verbose)
 
+    
+    # Creating a 3D array like segmentation,
+    # but with 1's and 0's instead of True and False
+    def GetScalars(self):
+        return self.segmentation.astype(np.int)
+
+    
+    def GetColor(self):
+        return list(self.color)
+
+    
     def add_to_vol(self, volume):
         """
         Colorized the given volume with its segmentation

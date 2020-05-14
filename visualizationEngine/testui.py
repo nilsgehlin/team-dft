@@ -87,7 +87,7 @@ if __name__ == "__main__":
     vtk_engine = visualizationEngine(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")
     vtk_engine.SetupImageUI(ui.vtkWidget1, "CORONAL")
-    #vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")
+    # vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")
     vtk_engine.SetupVolumeUI(ui.vtkWidget2)
 
     linked = False
@@ -111,8 +111,9 @@ if __name__ == "__main__":
             vtk_engine.SetTransparency(ui.vtkWidget2, 0.2)
         else:
             linked = True
-            vtk_engine.SetTransparency(ui.vtkWidget2, 0.08)
+            vtk_engine.SetTransparency(ui.vtkWidget2, 0.02)
             vtk_engine.LinkWindows(ui.vtkWidget, ui.vtkWidget1, ui.vtkWidget2)
+            # vtk_engine.AddSegmentations(ui.vtkWidget2, vtk_engine.GetAllSegmentationKeys())
 
     ui.tissueButtonBox.button(ui.tissueButtonBox.Ok).clicked.connect(clicked_all)
     ui.tissueButtonBox.button(ui.tissueButtonBox.Cancel).clicked.connect(clicked_soft)
