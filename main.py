@@ -1,11 +1,20 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import os, sys
+path = os.path.join("UI")
+sys.path.insert(0, path)
 from ui import Ui
 import main_window_functionality as f_mw
 import pat_functionality as f_pat
 import rad_functionality as f_rad
 import sur_functionality as f_sur
 from patient import Patient
+
+import os, sys
+path = os.path.join("visualizationEngine")
+sys.path.insert(0, path)
+from visualizationEngine import visualizationEngine
 
 #TODO Patient database
 #TODO Patient profile database
@@ -15,6 +24,7 @@ class Application(object):
     def __init__(self):
         self.main_window = QtWidgets.QMainWindow()
         self.ui = Ui(self.main_window)
+        self.visEngine = visualizationEngine()
 
         self.pat_dict = self.import_patient_data()
         self.rad_dict = {}

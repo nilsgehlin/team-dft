@@ -1,5 +1,7 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
+import os
+from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)
@@ -60,6 +62,10 @@ def image_status_page_setup(app, ui):
 
 
 def go_to_view_scan_page(app, ui):
+    app.visEngine.SetDirectory(os.path.join("sample_dicom", "chestDICOM")) # TODO Add directory to the patient/errand class
+    app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view)
+    app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
+
     # ui.ui_pat.page_pat_view_scan_2d_view # TODO Add vtk 2d window here
     # ui.ui_pat.page_pat_view_scan_3d_view # TODO Add vtk 3d window here
     # ui.ui_pat.page_pat_view_scan_rad_annotations # TODO Radiologists annotation for selected object
@@ -67,6 +73,9 @@ def go_to_view_scan_page(app, ui):
 
 
 def view_scan_page_setup(app, ui):
+    ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
+    ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
+
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))
 
@@ -76,9 +85,9 @@ def view_scan_page_setup(app, ui):
     # ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_previous_slice.clicked.connect()# TODO Connect button with image functionality
     #
-    # ui.ui_pat.page_pat_view_scan_button_3d_bone_view.clicked.connect()# TODO Connect button with image functionality
+    ui.ui_pat.page_pat_view_scan_button_3d_bone_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "BONE"))# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_3d_tissue_view.clicked.connect()# TODO Connect button with image functionality
+    ui.ui_pat.page_pat_view_scan_button_3d_tissue_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "SOFT"))# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_down.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_left.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_right.clicked.connect()# TODO Connect button with image functionality
