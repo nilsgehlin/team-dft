@@ -5,3 +5,18 @@ venv/
 Martin/
 UI/John/
 UI/__pycache__/
+
+# Environment
+venv/
+
+# IDE
+.idea/
+.vscode
+
+# Cache
+*/__pycache__/
+*.pyc
+
+# Sample dicom
+sample_dicom
+*.dcm
