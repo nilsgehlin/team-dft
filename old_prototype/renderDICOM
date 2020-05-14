@@ -1,0 +1,263 @@
+import vtk
+import os
+
+from vtk import vtkDICOMImageReader
+from vtk import vtkImageShiftScale
+
+
+# class CommandSubclass2(vtk.vtkCommand):
+#     def __init__(self, interactor):
+#         self.interactor = interactor
+#         super().__init__()
+#
+#         def Execute(caller, eventId, callData):
+#             print("timer callback")
+#             self.ExitCallback()
+
+def render3d(directory):
+    # variables
+    usePresets = True  # either use presets or slider
+
+    # presets
+    bone = False
+    muscle = False
+    fat = False
+    softTissue = False
+
+    boneIsFalse = True
+    muscleIsFalse = True
+    fatIsFalse = True
+    softTissueIsFalse = True
+
+    # slider - only used if usePresets is False
+    HULowerLimit = -100  # -1024 tp 4095
+    HUUpperLimit = 3000  # -1024 tp 4095
+
+    # Create the renderer, the render window, and the interactor. The renderer
+    # draws into the render window, the interactor enables mouse- and
+    # keyboard-based interaction with the scene.
+    renderer = vtk.vtkRenderer()
+    render_window = vtk.vtkRenderWindow()
+    render_window.SetWindowName("Test")
+    render_window.AddRenderer(renderer)
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(render_window)
+
+    # The following reader is used to read a series of 2D slices (images)
+    # that compose the volume. The slice dimensions are set, and the
+    # pixel spacing. The data Endianness must also be specified. The reader
+    # usese the FilePrefix in combination with the slice number to construct
+    # filenames using the format FilePrefix.%d. (In this case the FilePrefix
+    # is the root name of the file: quarter.)
+    reader = vtkDICOMImageReader()
+    reader.SetDataByteOrderToLittleEndian()
+    # reader.SetFilePrefix(os.path.join(directory, "000"))
+    reader.SetDirectoryName(directory)
+    data_spacing = (1, 1, 2)
+    reader.SetDataSpacing(data_spacing[0], data_spacing[1], data_spacing[2])
+    # reader.update()
+    # image = reader.GetOutput()
+
+    # pointData = image.GetPointData()
+    # pointDataRange = pointData.GetScalars().GetRange()
+    # print(pointDataRange)
+
+    volume_mapper = vtk.vtkSmartVolumeMapper()
+    volume_mapper.SetInputConnection(reader.GetOutputPort())
+    volume_mapper.SetBlendModeToComposite()
+
+    # Cutting plane
+    plane = vtk.vtkPlane()
+    plane.SetOrigin(0, 0, 2)
+    plane.SetNormal(0, 0, 1)
+
+    # create cutter
+    cutter = vtk.vtkCutter()
+    cutter.SetCutFunction(plane)
+    cutter.SetInputConnection(reader.GetOutputPort())
+    cutter.Update()
+    cutterMapper = vtk.vtkPolyDataMapper()
+    cutterMapper.SetInputConnection(cutter.GetOutputPort())
+
+    # create plane actor
+    planeActor = vtk.vtkActor()
+    planeActor.GetProperty().SetColor(1.0, 1, 0)
+    planeActor.GetProperty().SetLineWidth(2)
+    planeActor.SetMapper(cutterMapper)
+
+    volume_color = vtk.vtkColorTransferFunction()
+
+    volume_color.AddRGBPoint(-1024, 0.0, 1.0, 0.0)
+
+    volume_color.AddRGBPoint(-71, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(-70, 0.94, 0.8, 0.7)
+    volume_color.AddRGBPoint(-30, 0.94, 0.8, 0.7)
+    volume_color.AddRGBPoint(-29, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(19, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(20, 1.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(40, 1.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(41, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(74, 0.0, 0.0, 0.0)
+    volume_color.AddRGBPoint(75, 1.0, 0.6, 1.0)
+    volume_color.AddRGBPoint(150, 1.0, 0.6, 1.0)
+    volume_color.AddRGBPoint(151, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(274, 0.0, 0.0, 0.0) # bone
+    volume_color.AddRGBPoint(275, 1.0, 0.9, 0.9)
+    volume_color.AddRGBPoint(3000, 1.0, 0.9, 0.9)
+    volume_color.AddRGBPoint(3001, 0.0, 0.0, 0.0)
+
+    volume_color.AddRGBPoint(4096, 0.0, 1.0, 0.0)
+
+
+
+
+    # The opacity transfer function is used to control the opacity
+    # of different tissue types.
+    volume_scalar_opacity = vtk.vtkPiecewiseFunction()
+    if usePresets:
+        if bone and boneIsFalse:
+            setOpacity((275, 3000), volume_scalar_opacity)
+            boneIsFalse = False
+        elif not bone and not boneIsFalse:
+            removeOpacityPoints((275, 3000), volume_scalar_opacity)
+            boneIsFalse = True
+
+        if softTissue and softTissueIsFalse:
+            setOpacity((75, 150), volume_scalar_opacity)
+            softTissueIsFalse = False
+        elif not softTissue and not softTissueIsFalse:
+            removeOpacityPoints((75, 150), volume_scalar_opacity)
+            softTissueIsFalse = True
+
+        if muscle and muscleIsFalse:
+            setOpacity((20, 40), volume_scalar_opacity)
+            muscleIsFalse = False
+        elif not muscle and not muscleIsFalse:
+            removeOpacityPoints((20, 40), volume_scalar_opacity)
+            muscleIsFalse = True
+
+        if fat and fatIsFalse:
+            setOpacity((-70, -30), volume_scalar_opacity)
+            fatIsFalse = False
+        elif not fat and not fatIsFalse:
+            removeOpacityPoints((-70, -30), volume_scalar_opacity)
+            fatIsFalse = True
+
+        if not bone and not softTissue and not muscle and not fat:  # show nothing
+            setOpacity((4096, 4096), volume_scalar_opacity)
+
+    elif not usePresets:
+        setOpacity((HULowerLimit, HUUpperLimit), volume_scalar_opacity)
+    # if HULowerLimit > -1024:
+    #     volume_scalar_opacity.AddPoint(-1024, 0.00)
+    #     volume_scalar_opacity.AddPoint(HULowerLimit - 1, 0.00)
+    # volume_scalar_opacity.AddPoint(HULowerLimit, 0.20)
+    # volume_scalar_opacity.AddPoint(HUUpperLimit, 0.20)
+    # if HUUpperLimit < 4095:
+    #     volume_scalar_opacity.AddPoint(HUUpperLimit + 1, 0.00)
+    #     volume_scalar_opacity.AddPoint(4095, 0.00)
+
+
+
+
+
+
+    # The gradient opacity function is used to decrease the opacity
+    # in the "flat" regions of the volume while maintaining the opacity
+    # at the boundaries between tissue types.  The gradient is measured
+    # as the amount by which the intensity changes over unit distance.
+    # For most medical data, the unit distance is 1mm.
+    volume_gradient_opacity = vtk.vtkPiecewiseFunction()
+    volume_gradient_opacity.AddPoint(0, 0.0)
+    volume_gradient_opacity.AddPoint(90, 0.5)
+    volume_gradient_opacity.AddPoint(100, 1.0)
+
+    # The VolumeProperty attaches the color and opacity functions to the
+    # volume, and sets other volume properties.  The interpolation should
+    # be set to linear to do a high-quality rendering.  The ShadeOn option
+    # turns on directional lighting, which will usually enhance the
+    # appearance of the volume and make it look more "3D".  However,
+    # the quality of the shading depends on how accurately the gradient
+    # of the volume can be calculated, and for noisy data the gradient
+    # estimation will be very poor.  The impact of the shading can be
+    # decreased by increasing the Ambient coefficient while decreasing
+    # the Diffuse and Specular coefficient.  To increase the impact
+    # of shading, decrease the Ambient and increase the Diffuse and Specular.
+    volumeProperty = vtk.vtkVolumeProperty()
+    volumeProperty.SetColor(volume_color)
+    volumeProperty.SetScalarOpacity(volume_scalar_opacity)
+    volumeProperty.SetGradientOpacity(volume_gradient_opacity)
+    volumeProperty.SetInterpolationTypeToLinear()
+    volumeProperty.ShadeOn()
+    volumeProperty.SetAmbient(0.4)
+    volumeProperty.SetDiffuse(0.6)
+    volumeProperty.SetSpecular(0.2)
+
+    # The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
+    # and orientation of the volume in world coordinates.
+    volume = vtk.vtkVolume()
+    volume.SetMapper(volume_mapper)
+    volume.SetProperty(volumeProperty)
+
+    # Finally, add the volume to the renderer
+    renderer.AddViewProp(volume)
+    renderer.AddActor(planeActor)
+
+    # Set up an initial view of the volume.  The focal point will be the
+    # center of the volume, and the camera position will be 400mm to the
+    # patient's left (which is our right).
+    camera = renderer.GetActiveCamera()
+    c = volume.GetCenter()
+    camera.SetFocalPoint(c[0], c[1], c[2])
+    camera.SetPosition(c[0] + 1000, c[1], c[2])
+    camera.SetViewUp(0, 0, -1)
+
+    # Increase the size of the render window
+    render_window.SetSize(640, 480)
+
+    # Interact with the data.
+    interactor.Initialize()
+
+    # def test(arg1, arg2):
+    #     slice_numbers = []
+    #     while not mouse_queue.empty():
+    #         slice_numbers += [mouse_queue.get()]
+    #     if len(slice_numbers) > 0:
+    #         slice = slice_numbers[-1]
+    #         plane.SetOrigin(0, 0, data_spacing[2] * slice)
+    #         render_window.Render()
+    #
+    # interactor.AddObserver(vtk.vtkCommand.TimerEvent, test)
+    # timerId = interactor.CreateRepeatingTimer(1)
+    render_window.Render()
+    interactor.Start()
+
+def setOpacity(limits, volume_scalar_opacity):
+    print(limits[0])
+    print(limits[1])
+    if limits[0] > -1024:
+        volume_scalar_opacity.AddPoint(-1024, 0.00)
+        volume_scalar_opacity.AddPoint(limits[0] - 1, 0.00)
+    volume_scalar_opacity.AddPoint(limits[0], 0.20)
+    volume_scalar_opacity.AddPoint(limits[1], 0.20)
+    if limits[1] < 4095:
+        volume_scalar_opacity.AddPoint(limits[1] + 1, 0.00)
+        volume_scalar_opacity.AddPoint(4095, 0.00)
+
+def removeOpacityPoints(limits, volume_scalar_opacity):
+    if limits[0] > -1024:
+        volume_scalar_opacity.RemovePoint(-1024)
+        volume_scalar_opacity.RemovePoint(limits[0] - 1)
+    volume_scalar_opacity.RemovePoint(limits[0])
+    volume_scalar_opacity.RemovePoint(limits[1])
+    if limits[1] < 4095:
+        volume_scalar_opacity.RemovePoint(limits[1] + 1)
+        volume_scalar_opacity.RemovePoint(4095)
+
+if __name__ == '__main__':
+    # directory = r"chestDICOM"
+    directory = r"chestDICOM"
+    render3d(directory)
