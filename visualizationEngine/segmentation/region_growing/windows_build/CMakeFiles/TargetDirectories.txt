@@ -1,0 +1,4 @@
+D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/region_growing_lib.dir
+D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/region_growing.dir
+D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/edit_cache.dir
+D:/team-dft/visualizationEngine/segmentation/region_growing/windows_build/CMakeFiles/rebuild_cache.dir

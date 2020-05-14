@@ -1,4 +1,14 @@
+# Environment
 venv/
+
+# IDE
 .idea/
 .vscode
-2d3dprototype/__pycache__/
+
+# Cache
+*/__pycache__/
+*.pyc
+
+# Sample dicom
+sample_dicom
+*.dcm
