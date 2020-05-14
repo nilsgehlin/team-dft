@@ -34,7 +34,8 @@ class Report(QTextBrowser):
         annotation_clicked = self.examination.get_annotation(annotation_id)
         if self.show_wiki_on_click:
             search_term = annotation_clicked.location.replace(" ", "+")
-            search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
+            search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting" \
+                         "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
             webbrowser.open(search_url)
 
     def save_to_pdf(self, filename):
