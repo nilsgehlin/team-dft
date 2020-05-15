@@ -63,12 +63,10 @@ def image_status_page_setup(app, ui):
 
 
 def go_to_view_scan_page(app, ui):
-    app.visEngine.SetDirectory(os.path.join("sample_dicom", "chestDICOM")) # TODO Add directory to the patient/errand class
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    app.visEngine.SetDirectory(errand.data_dir)
     app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
-
-    # ui.ui_pat.page_pat_view_scan_2d_view # TODO Add vtk 2d window here
-    # ui.ui_pat.page_pat_view_scan_3d_view # TODO Add vtk 3d window here
     # ui.ui_pat.page_pat_view_scan_rad_annotations # TODO Radiologists annotation for selected object
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
