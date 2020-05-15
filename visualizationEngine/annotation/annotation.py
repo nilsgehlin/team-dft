@@ -17,10 +17,18 @@ class Annotation(vtkInformation):
 
     _segmentData = None
 
+    _next_annot_id = 0
+
     ##### General class functions #####
 
-    def __init__(self):
+    def __init__(self, anatomical_location, rad_finding, color):
         super().__init__()
+
+        self.anatomical_location = anatomical_location
+        self.rad_finding = rad_finding
+        self.color = color
+        self.annot_id = Annotation._next_annot_id
+        Annotation._next_annot_id += 1
 
         self._annotInstance = vtkAnnotation()
         self._locationKey = keys.MakeKey(keys.IntegerVectorKey, "COORDINATES", "Annotation")

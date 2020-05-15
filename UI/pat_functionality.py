@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from reportGeneration.Report import Report
+import UI.patient
+import visualizationEngine.annotation.annotation
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)
@@ -70,53 +72,21 @@ def go_to_view_scan_page(app, ui):
     # ui.ui_pat.page_pat_view_scan_rad_annotations # TODO Radiologists annotation for selected object
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
-class Examination:
-    def __init__(self, patient, modality):
-        self.patient = patient
-        self.modality = modality
-        self.annotations = []
-
-    def add_annotation(self, annotation):
-        self.annotations += [annotation]
-
-    def get_annotation(self, annot_id):
-        for annot in self.annotations:
-            if annot.annot_id == annot_id:
-                return annot
-        return None
-
-class Patient:
-    def __init__(self, first_name, last_name, age):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
-
-class Annotation:
-    def __init__(self, annot_id, location, finding, color):
-        self.location = location
-        self.finding = finding
-        self.color = color
-        self.annot_id = annot_id
-
-    def __str__(self):
-        return "Location: {}\n" \
-               "Finding: {}\n" \
-               "Annotation ID: {}".format(self.location, self.finding, self.annot_id)
-
-
-
 def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
     ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
 
-    patient = Patient("Nils", "Gehlin", 26)
-    exam = Examination(patient, "CT")
-    exam.add_annotation(Annotation(1, "Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
-    exam.add_annotation(Annotation(2, "Skull", "Huge fracture", (0, 255, 0)))
+    # Creating random temporary dummy objects to feed to report
+    patient = UI.patient.Patient(0, "Nils", "Gehlin", 26)
+    errand = UI.patient.Errand("2", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+    errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
+    errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Skull", "Huge fracture", (0, 255, 0)))
+    patient.errands[errand.order_id] = errand
 
     ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
                                                           template_name="radiologist",
-                                                          examination=exam)
+                                                          patient=patient,
+                                                          order_id=errand.order_id)
 
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))

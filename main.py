@@ -14,7 +14,7 @@ from patient import Patient
 import os, sys
 path = os.path.join("visualizationEngine")
 sys.path.insert(0, path)
-from visualizationEngine import visualizationEngine
+from visualizationEngine.VisualizationEngine import VisualizationEngine
 
 #TODO Patient database
 #TODO Patient profile database
@@ -24,7 +24,7 @@ class Application(object):
     def __init__(self):
         self.main_window = QtWidgets.QMainWindow()
         self.ui = Ui(self.main_window)
-        self.visEngine = visualizationEngine()
+        self.visEngine = VisualizationEngine()
 
         self.pat_dict = self.import_patient_data()
         self.rad_dict = {}
@@ -52,7 +52,7 @@ class Application(object):
 
 
     def import_patient_data(self):
-        pat_dict = {"0000": Patient("0000")}
+        pat_dict = {"0000": Patient("0000", "Jane", "Smith", 26)}
         return pat_dict
 
 

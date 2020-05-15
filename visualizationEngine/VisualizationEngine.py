@@ -19,7 +19,7 @@ from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIt
 #   -In current implementations they update after the window is scrolled
 #7. Add opacity of 1 to the 3D viewer so segmentation show up, or change segmentaion scalar?
 
-class visualizationEngine(object):
+class VisualizationEngine(object):
     ##### Class Variables #####
     
     # Reader
@@ -313,7 +313,7 @@ class visualizationEngine(object):
         segment_actor.GetPropertyKeys().Set(self._propTypeKey, self._SegmentationProp)
 
         # Add segment as annotation
-        segment_annot = Annotation()
+        segment_annot = Annotation(None, None, None)
         segment_annot.SetLocation(clicked_coordinate)
         segment_annot.SetColor(segment_color)
         segment_annot.FlagAsSegment(segment_array)
