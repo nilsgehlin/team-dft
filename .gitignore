@@ -18,5 +18,5 @@ venv/
 *.pyc
 
 # Sample dicom
-sample_dicom
+sample_dicom/
 *.dcm
