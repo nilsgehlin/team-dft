@@ -6,26 +6,33 @@ import jinja2
 import os
 import webbrowser
 
+template_dir = "templates"
+if __name__ == "reportGeneration.Report":
+    template_dir = os.path.join("UI", "reportGeneration", template_dir)
+
 class Report(QTextBrowser):
-    def __init__(self, template_name, examination, show_wiki_on_click = True):
-        super().__init__()
+    def __init__(self, parent_widget, template_name, examination, show_wiki_on_click=True):
+        super().__init__(parent_widget)
         self.setReadOnly(True)
         self.examination = examination
         self.show_wiki_on_click = show_wiki_on_click
+        self.template_name = template_name
         self.update()
-        with open(os.path.join("templates", template_name + ".css")) as style_sheet_file:
+        with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
             self.setStyleSheet(style_sheet_file.read())
-
         self.setOpenLinks(False)
         self.anchorClicked.connect(self.on_annotation_clicked)
+        # print("Adding widghet")
+        # parent_widget.addWidget(self)
+        # print("done")
 
     def update(self):
-        file_loader = jinja2.FileSystemLoader('templates')
+        file_loader = jinja2.FileSystemLoader(template_dir)
         env = jinja2.Environment(loader=file_loader)
         env.trim_blocks = True
         env.lstrip_blocks = True
         env.rstrip_blocks = True
-        template = env.get_template('radiologist.html')
+        template = env.get_template(self.template_name + ".html")
         output = template.render(examination=self.examination)
         self.setHtml(output)
 

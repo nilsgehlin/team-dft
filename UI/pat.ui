@@ -490,16 +490,6 @@ p, li { white-space: pre-wrap; }
      <string>Zoom out</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="page_pat_view_scan_rad_annotations">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>330</y>
-      <width>301</width>
-      <height>231</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="page_pat_view_scan_button_3d_fullscreen">
     <property name="geometry">
      <rect>
@@ -613,6 +603,32 @@ p, li { white-space: pre-wrap; }
        <y>0</y>
        <width>301</width>
        <height>201</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>330</y>
+      <width>301</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="page_pat_view_scan_rad_annotations" native="true">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>-1</y>
+       <width>301</width>
+       <height>231</height>
       </rect>
      </property>
     </widget>
