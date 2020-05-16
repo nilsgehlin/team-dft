@@ -7,7 +7,6 @@ from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIt
 # TODO:
 #1. Check rendering timer issues
 #   -Behaving as if duration is fixed at 10ms
-#2. Add color to cutting plane frames
 #3. Expand tissue selection to allow multiple tissues
 #4. Add coordinate limits for negatives and out of bounds segmentation point
 #5. Way to know if segmentation in already in the renderer
@@ -50,6 +49,7 @@ class visualizationEngine(object):
     _slaves = None
     _showActiveSlice = True
     _crop3D = True
+    _sliceFrameColor = [1,0,0]
 
     # Slave Render Timer
     _renderTimerID = 0
@@ -233,19 +233,21 @@ class visualizationEngine(object):
     #       2,3,4... vtkWidgets - Slaves
     #   Notes:
     #       -Provide each slave as its own arguments, NOT as an array
-    #       -There can be only one master window for any engine instance. Make sure
-    #           to unlink slaves before creating a new set of links. Unexpected behaviour
-    #           if a new set of links are made without unlinking previous links
+    #       -There can be only one master window for any engine instance. You have
+    #           to unlink slaves before creating a new set of links.
     def LinkWindows(self, masterWidget, *args):
-        master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
-        self._masterID = master_renderer_info.Get(self._rendererNumKey)
-        self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
-        if master_renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
-            self._slaves = []
-            for arg in args:
-                self._slaves.append(arg)
-            ob_id = masterWidget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_cutting_plane_change,2)
-            master_renderer_info.Set(self._rendererObserverKey, ob_id)
+        if self._masterID == None:
+            master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
+            self._masterID = master_renderer_info.Get(self._rendererNumKey)
+            self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
+            if master_renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                self._slaves = []
+                for arg in args:
+                    self._slaves.append(arg)
+                ob_id = masterWidget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_cutting_plane_change,2)
+                master_renderer_info.Set(self._rendererObserverKey, ob_id)
+                self.__ShowFrameOnMaster(masterWidget)
+                self.__on_cutting_plane_change(masterWidget, "None")
 
 
     # Safely unlinks all window scrolling from the master window
@@ -256,6 +258,7 @@ class visualizationEngine(object):
     def UnlinkWindows(self, masterWidget):
         master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
         if master_renderer_info.Get(self._rendererNumKey) == self._masterID: 
+            self.__CleanUpSlicePos(masterWidget)
             self._masterID = None
             self._masterMPR = None
             ob_id = master_renderer_info.Get(self._rendererObserverKey)
@@ -400,13 +403,28 @@ class visualizationEngine(object):
 
         return orientation % 3
 
+    
+    # Adds the frame around the master widget to show linking is active
+    def __ShowFrameOnMaster(self, widget):    
+        viewer = self.imageViewers[self._masterID]
+        bounds = list(viewer.GetImageActor().GetBounds())
+        frame_actor = self.__CreateFrame(bounds)
+        frame_actor_info = vtk.vtkInformation()
+        frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+        frame_actor.SetPropertyKeys(frame_actor_info)
+        
+        renderer = self.__GetRenderer(widget)
+        renderer.AddActor(frame_actor)
+        
+        viewer.Render()
+
 
     # Updates the position of the cutting plane in a 3D window
     def __UpdateCuttingPlanePos(self, widget, active_slice, mpr):
         renderer = self.__GetRenderer(widget)
         
         if (self._showActiveSlice):
-            self.__addSliceToVolume(renderer)
+            self.__AddSliceToVolume(renderer)
 
         if (self._crop3D):
             img_orien = self.imageReader.getPlaneOrientation()
@@ -432,7 +450,7 @@ class visualizationEngine(object):
 
 
     # Adds the active slice of the master image viewer to the 3D renderer
-    def __addSliceToVolume(self, renderer):
+    def __AddSliceToVolume(self, renderer):
         props = renderer.GetViewProps()
         viewer = self.imageViewers[self._masterID]
 
@@ -456,6 +474,24 @@ class visualizationEngine(object):
         image_actor.SetDisplayExtent(viewer_actor.GetDisplayExtent())
         image_actor.Update()
 
+        self.__AddFrameToSlice(renderer, viewer_actor.GetBounds())
+    
+
+    # Adds a frame to the active slice in the 3D renderer
+    def __AddFrameToSlice(self, renderer, bounds):
+        actors = renderer.GetActors()
+        for actor in actors:
+            actor_property = actor.GetPropertyKeys()
+            if actor_property == None: continue
+            if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                renderer.RemoveActor(actor)
+                break
+        frame_actor = self.__CreateFrame(list(bounds))
+        frame_actor_info = vtk.vtkInformation()
+        frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+        frame_actor.SetPropertyKeys(frame_actor_info)
+        renderer.AddActor(frame_actor)
+
     
     # Cleans up 3D window to remove cutting plane 
     def __CleanUpCuttingPlanePos(self, widget):
@@ -470,7 +506,6 @@ class visualizationEngine(object):
                 if prop_property == None: continue
                 if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                     renderer.RemoveViewProp(prop)
-                    break
 
         widget.GetRenderWindow().Render()
 
@@ -487,14 +522,20 @@ class visualizationEngine(object):
         if widget_orien == mpr:
             viewer.SetSlice(active_slice)
         else:
-            bounds = list(self.imageViewers[self._masterID].GetImageActor().GetBounds())
-            
             renderer = self.__GetRenderer(widget)
-            frame_actor = renderer.GetActors().GetLastActor()
-            if frame_actor != None:
-                renderer.RemoveActor(frame_actor)
+            actors = renderer.GetActors()
+            for actor in actors:
+                actor_property = actor.GetPropertyKeys()
+                if actor_property == None: continue
+                if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                    renderer.RemoveActor(actor)
+                    break
 
+            bounds = list(self.imageViewers[self._masterID].GetImageActor().GetBounds())   
             frame_actor = self.__CreateFrame(bounds)
+            frame_actor_info = vtk.vtkInformation()
+            frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+            frame_actor.SetPropertyKeys(frame_actor_info)
             renderer.AddActor(frame_actor)
 
             viewer.Render()
@@ -503,9 +544,13 @@ class visualizationEngine(object):
     # Cleans up 2D window to remove cutting plane line
     def __CleanUpSlicePos(self, widget):
         renderer = self.__GetRenderer(widget)
-        frame_actor = renderer.GetActors().GetLastActor()
-        if frame_actor != None:
-            renderer.RemoveActor(frame_actor)
+        actors = renderer.GetActors()
+        for actor in actors:
+            actor_property = actor.GetPropertyKeys()
+            if actor_property == None: continue
+            if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                renderer.RemoveActor(actor)
+                break
         viewer = self.imageViewers[renderer.GetInformation().Get(self._rendererNumKey)]
         viewer.Render()
         
@@ -548,8 +593,7 @@ class visualizationEngine(object):
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
         actor.GetProperty().SetLineWidth(2)
-        actor.GetProperty().SetColor(255,255,255)
-        # actor.GetProperty().SetOpacity(0.5)
+        actor.GetProperty().SetColor(self._sliceFrameColor)
 
         return actor
 
