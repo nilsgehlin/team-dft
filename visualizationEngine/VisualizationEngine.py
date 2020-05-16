@@ -1,9 +1,5 @@
 import vtk
 from vtk.util import keys, numpy_support
-# import os, sys
-# path = os.path.join("imageReader")
-# sys.path.insert(0, path)
-# print(sys.path)
 from imageReader.imageReader import imageReader
 from segmentation.Segmentation import Segmentation
 from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIterator
@@ -85,6 +81,7 @@ class VisualizationEngine(object):
         # Set the annotation store
         self.annotationStore = AnnotationStore()
     
+
     ##################################
     ##### Public class functions #####
     ##################################
@@ -95,16 +92,10 @@ class VisualizationEngine(object):
     #   Parameters:
     #       1. Directory, containing DICOM files
     def SetDirectory(self, dir):
-        print("1")
         image_reader = imageReader(dir)
-        print("2")
-        print(dir)
         self.reader = image_reader.readImages()
-        print("3")
         self._pixelSpacing = image_reader.getPixelSpacing()
-        print("4")
         self.imageReader = image_reader
-        print("5")
 
 
     # Sets up a 2D image window for the given widget
