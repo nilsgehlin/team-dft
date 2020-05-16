@@ -5,8 +5,6 @@ from segmentation.Segmentation import Segmentation
 from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIterator
 
 # TODO:
-#3. Expand tissue selection to allow multiple tissues
-#4. Add coordinate limits for negatives and out of bounds segmentation point
 #5. Way to know if segmentation in already in the renderer
 #6. Find good way of updating display extent after creating actors
 #   -In current implementations they update after the window is scrolled
@@ -58,7 +56,7 @@ class visualizationEngine(object):
 
     # 3D Properties
     _3DTransparency = 0.2
-    _3DTissue = "ALL"
+    _3DTissue = ["ALL"]
 
 
     ##### General class functions #####
@@ -194,9 +192,9 @@ class visualizationEngine(object):
     # Determines what tissue to show given the vtkWidget and the tissue name
     #   Parameters: 
     #       1. vtkWidget
-    #       2. Tissue i.e. ALL, BONE, SOFT, MUSCLE or FAT
+    #       2. List of Tissues i.e. ALL, BONE, SOFT, MUSCLE or FAT
     #   Notes:
-    #       -Currently only takes one tissue at a time, could expand for more
+    #       -If only passing one tissue, make sure to put it in a list
     def SetTissue(self, vtkWidget, tissue):
         self._3DTissue = tissue
         renderer = self.__GetRenderer(vtkWidget)
@@ -282,6 +280,7 @@ class visualizationEngine(object):
     def SegmentObject(self, widget, mouse_pos):
         renderer = widget.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
         renderer_info = renderer.GetInformation()
+        
         if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
             image_data = self.reader.GetOutput()
 
@@ -291,6 +290,12 @@ class visualizationEngine(object):
             for i in range(3):
                 clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
             clicked_coordinate = tuple(clicked_coordinate)
+
+            # Returns NONE if the clicked coordinate is out of bounds
+            if any(coord < 0 for coord in clicked_coordinate) == True:
+                return
+            if any(not coord.is_integer() for coord in clicked_coordinate):
+                return
             
             # Read the image data from vtk to numpy array and
             # reorganises the dimensions and scales the data
@@ -716,11 +721,11 @@ class visualizationEngine(object):
     # decreased by increasing the Ambient coefficient while decreasing
     # the Diffuse and Specular coefficient.  To increase the impact
     # of shading, decrease the Ambient and increase the Diffuse and Specular.
-    def __SetVolumeProperties(self, *args):
+    def __SetVolumeProperties(self, tissue):
         modality = self.imageReader.getModality()
 
         volume_color = self.__SetColor(modality)
-        volume_scalar_opacity = self.__SetScalarOpacity(modality, args)
+        volume_scalar_opacity = self.__SetScalarOpacity(modality, tissue)
         volume_gradient_opacity = self.__SetGradientOpacity()
         
         volumeProperty = vtk.vtkVolumeProperty()

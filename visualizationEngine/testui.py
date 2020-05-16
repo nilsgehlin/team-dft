@@ -94,13 +94,13 @@ if __name__ == "__main__":
 
     # Rough implementation of button press for Part X demo
     def clicked_all():
-        vtk_engine.SetTissue(ui.vtkWidget2, "ALL")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["ALL"])
 
     def clicked_soft():
-        vtk_engine.SetTissue(ui.vtkWidget2, "SOFT")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["SOFT"])
 
     def clicked_bone():
-        vtk_engine.SetTissue(ui.vtkWidget2, "BONE")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["BONE"])
 
     def clicked_fat():
         #vtk_engine.SetTissue(ui.vtkWidget2, "FAT")
