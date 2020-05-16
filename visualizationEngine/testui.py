@@ -84,7 +84,8 @@ if __name__ == "__main__":
     # Tiff images in 2d3dprototype/stanford-ct-new
     # directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  
 
-    vtk_engine = visualizationEngine(directory)
+    vtk_engine = visualizationEngine()
+    vtk_engine.SetDirectory(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")
     vtk_engine.SetupImageUI(ui.vtkWidget1, "CORONAL")
     # vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")

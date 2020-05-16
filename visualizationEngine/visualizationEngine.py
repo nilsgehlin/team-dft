@@ -62,7 +62,7 @@ class visualizationEngine(object):
     ##### General class functions #####
 
     # Initializer for the image engine, takes the directory of the files as argument
-    def __init__(self, dir):
+    def __init__(self):
         # Create the renderer relevant keys for accessing information
         self._rendererTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
         self._rendererNumKey = vtk.vtkDataObject().DATA_PIECE_NUMBER()
@@ -76,9 +76,6 @@ class visualizationEngine(object):
 
         # Set the annotation store
         self.annotationStore = AnnotationStore()
-
-        # Set the image reader
-        self.SetDirectory(dir)
 
     
     ##################################
