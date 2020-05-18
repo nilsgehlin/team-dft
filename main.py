@@ -52,7 +52,10 @@ class Application(object):
 
 
     def import_patient_data(self):
-        pat_dict = {"0000": Patient("0000", "Jane", "Smith", 26)}
+        pat_dict = {"0000": Patient("0000", "Jane", "Smith", 26, "F"), "0001": Patient("0001", "Mark", "Johnson", 48, "M")}
+        pat_dict["0000"].add_errand("0", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        pat_dict["0000"].add_errand("1", "2020-03-03", "Pending", "MRI", "Hospital", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        pat_dict["0001"].add_errand("0", "2019-12-12", "Complete", "CT", "CT clinic", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
         return pat_dict
 
 

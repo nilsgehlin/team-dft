@@ -1,57 +1,70 @@
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
+from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from PyQt5.QtCore import Qt
+
+## SETUP FUNCTIONS ##
 
 def setup_functionality(app, ui):
-    home_page_setup(ui)
-    view_only_page_setup(ui)
-    diagnose_page_setup(ui)
-    patient_page_setup(ui)
-    report_page_setup(ui)
+    home_page_setup(app, ui)
+    view_only_page_setup(app, ui)
+    diagnose_page_setup(app, ui)
+    patient_page_setup(app, ui)
+    report_page_setup(app, ui)
     locked_page_setup(ui)
 
 
-def home_page_setup(ui):
+def home_page_setup(app, ui):
+    add_errands(app, ui)
     ui.ui_rad.page_rad_home_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_home_button_lock_screen.clicked.connect(lambda: show_lock_screen_popup(ui))
     # ui.ui_rad.page_rad_home_button_view_profile.clicked.connect(lambda: change_page(ui, )) # TODO add profile page
-    ui.ui_rad.page_rad_home_button_proceed.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page)) # TODO
+    ui.ui_rad.page_rad_home_button_proceed.clicked.connect(lambda: go_to_patient_page(app, ui)) # TODO
     ui.ui_rad.page_rad_home_patient_information.itemClicked.connect(lambda: select_item(ui)) # TODO
-    ui.ui_rad.page_rad_home_patient_information.itemDoubleClicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page)) # TODO
+    ui.ui_rad.page_rad_home_patient_information.itemDoubleClicked.connect(lambda: go_to_patient_page(app, ui)) # TODO
 
 
-def view_only_page_setup(ui):
+def patient_page_setup(app, ui):
+    ui.ui_rad.page_rad_patient_page_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_home))
+    ui.ui_rad.page_rad_patient_page_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    ui.ui_rad.page_rad_patient_page_button_lock_screen.clicked.connect(lambda: lock_screen(ui)) # TODO
+    ui.ui_rad.page_rad_patient_page_button_view_scan.clicked.connect(lambda: go_to_view_only_page(app, ui))
+
+
+def view_only_page_setup(app, ui):
+    ui.ui_rad.page_rad_view_only_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_2d_view_frame)
+    ui.ui_rad.page_rad_view_only_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_3d_view_frame)
+
     ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
-    ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose))
+    ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
     # ui.ui_rad.page_rad_view_only_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
 
 
-def diagnose_page_setup(ui):
+def diagnose_page_setup(app, ui):
+    ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
+    ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
+
     ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: change_page(ui, ui.prev_page))
-    ui.ui_rad.page_rad_diagnose_button_preview_report.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_report, False))
+    ui.ui_rad.page_rad_diagnose_button_preview_report.clicked.connect(lambda: go_to_report_page(app, ui))
     # ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
+    # ui.ui_rad.page_rad_diagnose_button_add_annotation.connect(lambda: )# TODO Add annotation functionality
 
 
-def patient_page_setup(ui):
-    ui.ui_rad.page_rad_patient_page_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_home))
-    ui.ui_rad.page_rad_patient_page_button_logout.clicked.connect(lambda: show_logout_popup(ui))
-    ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose))
-    ui.ui_rad.page_rad_patient_page_button_lock_screen.clicked.connect(lambda: lock_screen(ui)) # TODO
-    ui.ui_rad.page_rad_patient_page_button_view_scan.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_view_only))
+def report_page_setup(app, ui):
+    ui.ui_rad.page_rad_report_2d_image = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_report_2d_image_frame)
 
-
-def report_page_setup(ui):
     ui.ui_rad.page_rad_report_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose, False))
     ui.ui_rad.page_rad_report_button_logout.clicked.connect(lambda: show_logout_popup(ui))
-    # ui.ui_rad.page_rad_report_button_preview_report.clicked.connect(lambda: )# TODO Remove?
-    ui.ui_rad.page_rad_report_button_send_report.clicked.connect(lambda: show_send_report_popup(ui))
+    ui.ui_rad.page_rad_report_button_send_report.clicked.connect(lambda: show_send_report_popup(app, ui))
     # ui.ui_rad.page_rad_report_button_surgeon_view.clicked.connect(lambda: )# TODO connect to surgeon view
     # ui.ui_rad.page_rad_report_button_fullscreen.clicked.connect(lambda:)# TODO fullscreen
     # ui.ui_rad.page_rad_report_button_zoom_in.clicked.connect(lambda: )# TODO Connect button with image functionality
@@ -60,6 +73,61 @@ def report_page_setup(ui):
 
 def locked_page_setup(ui):
     ui.ui_rad.page_rad_locked_button_login.clicked.connect(lambda: login(ui))
+
+
+## GO TO FUNCTIONS ##
+
+def go_to_patient_page(app, ui):
+    app.current_pat_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(0)
+    app.current_errand_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(5)
+
+    ui.ui_rad.page_rad_patient_page_button_diagnose_patient.setEnabled(not is_patient_diagnosed(app))
+
+    # ui.ui_rad.page_rad_patient_page_patient_info # TODO add patient information
+    # ui.ui_rad.page_rad_patient_page_doctors_orders  # TODO add doctors orders information
+    # ui.ui_rad.page_rad_patient_page_scan_info  # TODO add scan information
+
+    change_page(ui, ui.ui_rad.page_rad_patient_page)
+
+
+def go_to_view_only_page(app, ui):
+    app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    app.visEngine.SetupImageUI(ui.ui_rad.page_rad_view_only_2d_view)
+    app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_view_only_3d_view)
+
+    ui.ui_rad.page_rad_view_only_button_diagnose.setEnabled(not is_patient_diagnosed(app))
+
+    # ui.ui_rad.page_rad_view_only_radiology_report # TODO add radiology report here (if available)
+
+    change_page(ui, ui.ui_rad.page_rad_view_only)
+
+
+def go_to_diagnose_page(app, ui):
+    app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    app.visEngine.SetupImageUI(ui.ui_rad.page_rad_diagnose_2d_view)
+    app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_diagnose_3d_view)
+
+    change_page(ui, ui.ui_rad.page_rad_diagnose)
+
+
+def go_to_report_page(app, ui):
+    app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    app.visEngine.SetupImageUI(ui.ui_rad.page_rad_report_2d_image)
+
+    change_page(ui, ui.ui_rad.page_rad_report, False)
+
+## HELP FUNCTIONS ##
+
+def is_patient_diagnosed(app):
+    return app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status == "Complete"
+
+def add_errands(app, ui):
+    ui.ui_rad.page_rad_home_patient_information.clear()
+    for pat in app.pat_dict.values():
+        for errand in pat.errands.values():
+            root_item = QTreeWidgetItem([pat.id, pat.sex, errand.date, errand.scan, errand.status, errand.order_id])
+            ui.ui_rad.page_rad_home_patient_information.addTopLevelItem(root_item)
+    ui.ui_rad.page_rad_home_patient_information.sortItems(2, Qt.DescendingOrder)
 
 
 def change_page(ui, new_page, change_prev_page=True):
@@ -104,24 +172,26 @@ def show_lock_screen_popup(ui):
         lock_screen(ui)
 
 
-def send_report(ui):
-    # TODO add functionality regarding sending the report here
-    change_page(ui, ui.ui_rad.page_rad_home)
-
-
-def show_send_report_popup(ui):
+def show_send_report_popup(app, ui):
     msg = QMessageBox()
     msg.setWindowTitle("Send Report")
     msg.setText("Are you sure you want to send the report?")
     msg.setIcon(msg.Question)
 
     msg.setStandardButtons(msg.Yes | msg.No)
-    msg.setDefaultButton(msg.No)
+    msg.setDefaultButton(msg.Yes)
     msg.setEscapeButton(msg.No)
 
     ret = msg.exec_()
     if ret == msg.Yes:
-        send_report(ui)
+        # TODO add functionality regarding sending the report here
+        # TODO save the radiology report to the current errand
+        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status = "Complete"
+
+        app.current_pat_id = None
+        app.current_errand_id = None
+        add_errands(app, ui)  # Update errands list
+        change_page(ui, ui.ui_rad.page_rad_home)
 
 
 def select_item(ui):
@@ -131,7 +201,7 @@ def select_item(ui):
 def login(ui):
     password = ui.ui_rad.page_rad_locked_insert_password.text()
     ui.ui_rad.page_rad_locked_insert_password.clear()
-    if password in ["rad", ""]:
+    if password in ["rad", "", "0000"]:
         ui.ui_rad.page_rad_incorrect_password.clear()
         change_page(ui, ui.prev_page, False)
     else:

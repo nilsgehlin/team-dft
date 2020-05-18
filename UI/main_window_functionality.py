@@ -20,11 +20,13 @@ def login(app, ui):
             app.init_pat()
             ui.stacked_main.setCurrentWidget(ui.page_pat)
     elif user_type == "Radiologist":
-        app.init_rad()
-        ui.stacked_main.setCurrentWidget(ui.page_rad)
+        if id == "0000" and password == "0000":
+            app.init_rad()
+            ui.stacked_main.setCurrentWidget(ui.page_rad)
     elif user_type == "Doctor":
-        app.init_sur()
-        ui.stacked_main.setCurrentWidget(ui.page_sur)
+        if id == "0000" and password == "0000":
+            app.init_sur()
+            ui.stacked_main.setCurrentWidget(ui.page_sur)
 
 
 def id_and_password_ok(data, id, password):

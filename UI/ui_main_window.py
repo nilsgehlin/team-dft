@@ -11,11 +11,23 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_main_window(object):
     def setupUi(self, main_window):
         main_window.setObjectName("main_window")
+        main_window.setWindowModality(QtCore.Qt.NonModal)
         main_window.resize(763, 639)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(main_window.sizePolicy().hasHeightForWidth())
+        main_window.setSizePolicy(sizePolicy)
+        main_window.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.central_widget = QtWidgets.QWidget(main_window)
         self.central_widget.setObjectName("central_widget")
         self.stacked_main = QtWidgets.QStackedWidget(self.central_widget)
         self.stacked_main.setGeometry(QtCore.QRect(0, 0, 763, 598))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.stacked_main.sizePolicy().hasHeightForWidth())
+        self.stacked_main.setSizePolicy(sizePolicy)
         self.stacked_main.setObjectName("stacked_main")
         self.page_login = QtWidgets.QWidget()
         self.page_login.setObjectName("page_login")
@@ -77,7 +89,7 @@ class Ui_main_window(object):
         self.page_login_button_login.setText(_translate("main_window", "Login"))
         self.page_login_combobox_user_type.setItemText(0, _translate("main_window", "Patient"))
         self.page_login_combobox_user_type.setItemText(1, _translate("main_window", "Radiologist"))
-        self.page_login_combobox_user_type.setItemText(2, _translate("main_window", "Doctor"))
+        self.page_login_combobox_user_type.setItemText(2, _translate("main_window", "Surgeon"))
         self.page_login_insert_id.setText(_translate("main_window", "0000"))
         self.page_login_insert_id.setPlaceholderText(_translate("main_window", "ID"))
         self.page_login_insert_password.setText(_translate("main_window", "0000"))
@@ -87,6 +99,13 @@ class Ui_main_window(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Patients:</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0001 pw: 0001</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Radiologist:</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Surgeon:</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p></body></html>"))
 
 
