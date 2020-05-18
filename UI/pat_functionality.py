@@ -32,7 +32,10 @@ def home_page_setup(app, ui):
 def go_to_errand_page(app, ui):
     print("Going to errand page")
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
-
+    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
+                                                          template_name="radiologist",
+                                                          patient=app.pat_dict[app.current_pat_id],
+                                                          order_id=app.current_errand_id)
     ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     root_item = QTreeWidgetItem([errand.task, errand.date, errand.scan, errand.status, errand.clinic])
@@ -67,10 +70,6 @@ def image_status_page_setup(app, ui):
 
 def go_to_view_scan_page(app, ui):
     print("Going to view scan page")
-    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
-                                                          template_name="radiologist",
-                                                          patient=app.pat_dict[app.current_pat_id],
-                                                          order_id=app.current_errand_id)
 
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     app.visEngine.SetDirectory(errand.data_dir)
