@@ -9,12 +9,13 @@ import main_window_functionality as f_mw
 import pat_functionality as f_pat
 import rad_functionality as f_rad
 import sur_functionality as f_sur
-from patient import Patient
+from patient import Patient, Errand
 
 import os, sys
 path = os.path.join("visualizationEngine")
 sys.path.insert(0, path)
 from visualizationEngine.VisualizationEngine import VisualizationEngine
+from visualizationEngine.annotation.annotation import Annotation
 
 #TODO Patient database
 #TODO Patient profile database
@@ -52,10 +53,24 @@ class Application(object):
 
 
     def import_patient_data(self):
-        pat_dict = {"0000": Patient("0000", "Jane", "Smith", 26, "F"), "0001": Patient("0001", "Mark", "Johnson", 48, "M")}
-        pat_dict["0000"].add_errand("0", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-        pat_dict["0000"].add_errand("1", "2020-03-03", "Pending", "MRI", "Hospital", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-        pat_dict["0001"].add_errand("0", "2019-12-12", "Complete", "CT", "CT clinic", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        jane_smith = Patient("Jane", "Smith", 26, "F")
+
+        jane_errand_1 = Errand("2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        jane_errand_2 = Errand("2020-03-03", "Pending", "MRI", "Hospital", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        jane_smith.add_errand(jane_errand_1)
+        jane_smith.add_errand(jane_errand_2)
+
+        # Dummy annotations until we can create annotations in the software
+        jane_errand_1.add_annotation(Annotation("Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
+        jane_errand_1.add_annotation(Annotation("Skull", "Huge fracture", (0, 255, 0)))
+        jane_errand_2.add_annotation(Annotation("Shoulder", "Tare", (0, 255, 0)))
+
+
+        mark_johnson = Patient("Mark", "Johnson", 48, "M")
+        mark_errand_1 = Errand("2019-12-12", "Complete", "CT", "CT clinic", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
+        mark_johnson.add_errand(mark_errand_1)
+
+        pat_dict = {jane_smith.id: jane_smith, mark_johnson.id: mark_johnson}
         return pat_dict
 
 

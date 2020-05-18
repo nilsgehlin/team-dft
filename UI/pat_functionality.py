@@ -30,6 +30,7 @@ def home_page_setup(app, ui):
         lambda: go_to_errand_page(app, ui))
 
 def go_to_errand_page(app, ui):
+    print("Going to errand page")
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
 
     ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
@@ -65,6 +66,12 @@ def image_status_page_setup(app, ui):
 
 
 def go_to_view_scan_page(app, ui):
+    print("Going to view scan page")
+    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
+                                                          template_name="radiologist",
+                                                          patient=app.pat_dict[app.current_pat_id],
+                                                          order_id=app.current_errand_id)
+
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     app.visEngine.SetDirectory(errand.data_dir)
     app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view)
@@ -75,18 +82,6 @@ def go_to_view_scan_page(app, ui):
 def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
     ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
-
-    # Creating random temporary dummy objects to feed to report
-    patient = UI.patient.Patient(0, "Nils", "Gehlin", 26)
-    errand = UI.patient.Errand("2", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-    errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
-    errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Skull", "Huge fracture", (0, 255, 0)))
-    patient.errands[errand.order_id] = errand
-
-    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
-                                                          template_name="radiologist",
-                                                          patient=patient,
-                                                          order_id=errand.order_id)
 
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))
