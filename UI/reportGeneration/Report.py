@@ -23,9 +23,6 @@ class Report(QTextBrowser):
             self.setStyleSheet(style_sheet_file.read())
         self.setOpenLinks(False)
         self.anchorClicked.connect(self.on_annotation_clicked)
-        # print("Adding widghet")
-        # parent_widget.addWidget(self)
-        # print("done")
 
     def update(self):
         file_loader = jinja2.FileSystemLoader(template_dir)
