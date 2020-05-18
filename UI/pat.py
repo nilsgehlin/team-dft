@@ -167,7 +167,7 @@ class Ui_pat(object):
         pat.addWidget(self.page_pat_view_scan)
 
         self.retranslateUi(pat)
-        pat.setCurrentIndex(4)
+        pat.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(pat)
 
     def retranslateUi(self, pat):
@@ -197,6 +197,7 @@ class Ui_pat(object):
         self.page_pat_errand_button_share.setText(_translate("pat", "Share"))
         self.page_pat_errand_button_download.setText(_translate("pat", "Download"))
         self.page_pat_errand_button_view.setText(_translate("pat", "View"))
+        self.page_pat_errand_report.setPlaceholderText(_translate("pat", "Display radiology report here"))
         self.page_pat_errand_logout.setText(_translate("pat", "Logout"))
         self.page_pat_errand_report_textEdit_search.setPlainText(_translate("pat", "Search"))
         self.page_pat_my_profile_button_back.setText(_translate("pat", "Back"))

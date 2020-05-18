@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>4</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="page_pat_home">
    <widget class="QPushButton" name="page_pat_home_logout">
@@ -231,6 +231,9 @@ p, li { white-space: pre-wrap; }
       <width>371</width>
       <height>401</height>
      </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Display radiology report here</string>
     </property>
    </widget>
    <widget class="QPushButton" name="page_pat_errand_logout">

@@ -77,7 +77,7 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
 
     # Creating random temporary dummy objects to feed to report
-    patient = UI.patient.Patient(0, "Nils", "Gehlin", 26)
+    patient = UI.patient.Patient(0, "Nils", "Gehlin", 26, "M")
     errand = UI.patient.Errand("2", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
     errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
     errand.add_annotation(visualizationEngine.annotation.annotation.Annotation("Skull", "Huge fracture", (0, 255, 0)))

@@ -2,7 +2,7 @@ import os
 
 
 class Patient(object):
-    def __init__(self, id, first_name, last_name, age, sex):
+    def __init__(self, id="N/A", first_name="N/A", last_name="N/A", age="N/A", sex="N/A"):
         self.id = id
         self.password = str(id).zfill(4)
         self.errands = {}

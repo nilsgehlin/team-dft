@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>2</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <widget class="QPushButton" name="page_rad_home_button_view_profile">

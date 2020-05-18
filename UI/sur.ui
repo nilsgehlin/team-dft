@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>2</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="page_sur_view_edit">
    <widget class="QPushButton" name="page_sur_view_edit_button_2d_zoom_in">
@@ -125,16 +125,6 @@ p, li { white-space: pre-wrap; }
      <string>Zoom Out</string>
     </property>
    </widget>
-   <widget class="QOpenGLWidget" name="page_sur_view_edit_2d_view">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>80</y>
-      <width>341</width>
-      <height>351</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTextBrowser" name="page_sur_view_edit_toolbar_help">
     <property name="geometry">
      <rect>
@@ -150,16 +140,6 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;TOOLBAR, NOT SURE HOW TO IMPLEMENT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QOpenGLWidget" name="page_sur_view_edit_3d_view">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>80</y>
-      <width>300</width>
-      <height>200</height>
-     </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="page_sur_view_edit_button_preview_report">
@@ -386,6 +366,58 @@ p, li { white-space: pre-wrap; }
      <string>Toogle Annotations</string>
     </property>
    </widget>
+   <widget class="QFrame" name="page_sur_view_edit_2d_view_frame">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>80</y>
+      <width>341</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="page_sur_view_edit_2d_view" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>341</width>
+       <height>351</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="page_sur_view_edit_3d_view_frame">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>80</y>
+      <width>301</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="page_sur_view_edit_3d_view" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>301</width>
+       <height>201</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QWidget" name="page_sur_patient_errand">
    <widget class="QPushButton" name="page_sur_patient_errand_button_back">
@@ -423,6 +455,9 @@ p, li { white-space: pre-wrap; }
       <height>391</height>
      </rect>
     </property>
+    <property name="placeholderText">
+     <string>Display radiology report here (if available)</string>
+    </property>
    </widget>
    <widget class="QTreeWidget" name="page_sur_patient_errand_errand_list">
     <property name="geometry">
@@ -435,7 +470,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <column>
      <property name="text">
-      <string>Task</string>
+      <string>ID</string>
      </property>
     </column>
     <column>
@@ -453,20 +488,11 @@ p, li { white-space: pre-wrap; }
       <string>Clinic</string>
      </property>
     </column>
-    <item>
+    <column>
      <property name="text">
-      <string>1</string>
+      <string>Status</string>
      </property>
-     <property name="text">
-      <string>01-01-2020</string>
-     </property>
-     <property name="text">
-      <string>MRI</string>
-     </property>
-     <property name="text">
-      <string>US</string>
-     </property>
-    </item>
+    </column>
    </widget>
    <widget class="QTextEdit" name="page_sur_patient_errand_search_box">
     <property name="geometry">
@@ -486,6 +512,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_sur_patient_errand_button_share">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -499,6 +528,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QPushButton" name="page_sur_patient_errand_button_download">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -548,8 +580,8 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>100</y>
+      <x>20</x>
+      <y>10</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -558,18 +590,36 @@ p, li { white-space: pre-wrap; }
      <string>My profile </string>
     </property>
    </widget>
-   <widget class="QTreeWidget" name="page_sur_home_treeWidget_treatment_list">
+   <widget class="QTreeWidget" name="page_sur_home_treatment_list">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>30</x>
       <y>100</y>
-      <width>461</width>
+      <width>701</width>
       <height>451</height>
      </rect>
     </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <column>
+     <property name="text">
+      <string>Surname</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>First name</string>
+     </property>
+    </column>
     <column>
      <property name="text">
       <string>Patient ID</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Sex</string>
      </property>
     </column>
     <column>
@@ -579,7 +629,7 @@ p, li { white-space: pre-wrap; }
     </column>
     <column>
      <property name="text">
-      <string>Order ID</string>
+      <string>Scan</string>
      </property>
     </column>
     <column>
@@ -587,39 +637,16 @@ p, li { white-space: pre-wrap; }
       <string>Status</string>
      </property>
     </column>
-    <item>
+    <column>
      <property name="text">
-      <string>0000</string>
+      <string>Order ID</string>
      </property>
-     <property name="text">
-      <string>01-01-2020</string>
-     </property>
-     <property name="text">
-      <string>9999</string>
-     </property>
-     <property name="text">
-      <string>Pending</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>0000</string>
-     </property>
-     <property name="text">
-      <string>02-02-2020</string>
-     </property>
-     <property name="text">
-      <string>3333</string>
-     </property>
-     <property name="text">
-      <string>Complete</string>
-     </property>
-    </item>
+    </column>
    </widget>
    <widget class="QTextEdit" name="page_sur_home_textEdit_search">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>590</x>
       <y>70</y>
       <width>141</width>
       <height>31</height>
@@ -639,8 +666,8 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>550</y>
+      <x>620</x>
+      <y>560</y>
       <width>75</width>
       <height>23</height>
      </rect>

@@ -23,7 +23,7 @@ def login(app, ui):
         if id == "0000" and password == "0000":
             app.init_rad()
             ui.stacked_main.setCurrentWidget(ui.page_rad)
-    elif user_type == "Doctor":
+    elif user_type == "Surgeon":
         if id == "0000" and password == "0000":
             app.init_sur()
             ui.stacked_main.setCurrentWidget(ui.page_sur)
