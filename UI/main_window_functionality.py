@@ -1,4 +1,3 @@
-from qtstyles import StylePicker, Sheet
 import os
 
 def setup_functionality(app, ui):
@@ -25,9 +24,9 @@ def change_style_sheet(app, ui, new_button, filename):
 
 
 def set_style_sheet(ui, filename):
-    sheet = Sheet(os.path.join("UI", "StyleSheets", filename))
-    sheet._load_contents()
-    ui.main_window.setStyleSheet(sheet._contents)
+    with open(os.path.join("UI", "StyleSheets", filename)) as style_sheet_file:
+        ui.main_window.setStyleSheet(style_sheet_file.read())
+
 
 
 def login(app, ui):
