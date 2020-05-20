@@ -1,0 +1,15 @@
+<h1><center><b>{{ errand.scan }} Examination</b></center></h1>
+<p>
+    <b>Patient name:</b> {{ patient.first_name }} {{ patient.last_name }}
+</p>
+<p>
+    <b>Patient age:</b> {{ patient.age }}
+</p>
+
+<h2> Findings </h2>
+{% for annotation in errand.annotations %}
+<p>
+    <b><a href={{ annotation.annot_id }} style="color: rgb{{ annotation.color }}">{{ annotation.anatomical_location }}</a>:</b> <br/>
+    <b>*{{ annotation.rad_finding }}</b><br/>
+</p>
+{%- endfor %}
