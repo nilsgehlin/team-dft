@@ -541,6 +541,13 @@ class Ui_main_window(object):
 "}\n"
 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
 "   background: none;\n"
+"}\n"
+"QTreeWidget{\n"
+"    border-width: 1px;\n"
+"    border-style: solid;\n"
+"    border-color: #4fa08b;\n"
+"    background-color: #222b2e;\n"
+"    color: #d3dae3;\n"
 "}")
         main_window.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.central_widget = QtWidgets.QWidget(main_window)

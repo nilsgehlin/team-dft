@@ -546,6 +546,13 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 }
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
    background: none;
+}
+QTreeWidget{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #4fa08b;
+	background-color: #222b2e;
+	color: #d3dae3;
 }</string>
   </property>
   <property name="locale">

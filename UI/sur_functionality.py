@@ -35,6 +35,8 @@ def patient_errand_page_setup(app, ui):
 
 
 def view_edit_page_setup(ui):
+    ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
+    ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(ui))
@@ -98,7 +100,14 @@ def go_to_patient_errand_page(app, ui):
 
 
 def go_to_view_edit_page(app, ui):
-    pass # HÄR ÄR DU MARTIN
+    app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
+
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    app.visEngine.SetDirectory(errand.data_dir)
+    app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
+    app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
+    change_page(ui, ui.ui_sur.page_sur_view_edit)
+
 
 
 
