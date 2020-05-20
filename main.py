@@ -33,6 +33,7 @@ class Application(object):
 
         self.current_pat_id = None
         self.current_errand_id = None
+        self.current_theme_button_pressed = self.ui.menu_bar_theme_button_night_mode
 
         self.setup_functionality()
 
@@ -72,6 +73,7 @@ class Application(object):
 
         pat_dict = {jane_smith.id: jane_smith, mark_johnson.id: mark_johnson}
         return pat_dict
+
 
 
 if __name__ == "__main__":

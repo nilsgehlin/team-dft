@@ -9,6 +9,7 @@ from sur import Ui_sur
 class Ui(Ui_main_window):
     def __init__(self, main_window):
         super(Ui_main_window, self).__init__()
+        self.main_window = main_window
         self.setupUi(main_window)
 
         self.ui_pat = Ui_pat()

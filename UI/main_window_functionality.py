@@ -1,11 +1,33 @@
-
+from qtstyles import StylePicker, Sheet
+import os
 
 def setup_functionality(app, ui):
     login_page_setup(app, ui)
+    menu_bar_setup(app, ui)
 
 
 def login_page_setup(app, ui):
     ui.page_login_button_login.clicked.connect(lambda: login(app, ui))
+
+
+def menu_bar_setup(app, ui):
+    ui.menu_bar_theme_button_day_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "Aqua.qss"))
+    ui.menu_bar_theme_button_night_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_night_mode, "ManjaroMix.qss"))
+
+
+def change_style_sheet(app, ui, new_button, filename):
+    if app.current_theme_button_pressed is new_button:
+        new_button.setChecked(True)
+    else:
+        app.current_theme_button_pressed.setChecked(False)
+        app.current_theme_button_pressed = new_button
+        set_style_sheet(ui, filename)
+
+
+def set_style_sheet(ui, filename):
+    sheet = Sheet(os.path.join("UI", "StyleSheets", filename))
+    sheet._load_contents()
+    ui.main_window.setStyleSheet(sheet._contents)
 
 
 def login(app, ui):

@@ -167,7 +167,7 @@ class Ui_pat(object):
         pat.addWidget(self.page_pat_view_scan)
 
         self.retranslateUi(pat)
-        pat.setCurrentIndex(1)
+        pat.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(pat)
 
     def retranslateUi(self, pat):
