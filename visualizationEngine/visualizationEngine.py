@@ -5,9 +5,9 @@ from segmentation.Segmentation import Segmentation
 from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIterator
 
 # TODO:
+#1. Figure out tissue selection options for MRI (minor)
 #5. Way to know if segmentation in already in the renderer
-#6. Find good way of updating display extent after creating actors
-#   -In current implementations they update after the window is scrolled
+#6. Fix updating display extent after creating segmentation, currently not consistent
 #7. Add opacity of 1 to the 3D viewer so segmentation show up, or change segmentaion scalar?
 
 class visualizationEngine(object):
@@ -162,13 +162,13 @@ class visualizationEngine(object):
         volume_mapper.SetInputConnection(self.reader.GetOutputPort())        
         volume_mapper.SetBlendModeToComposite()
         
-        volumeProperty = self.__SetVolumeProperties(self._3DTissue)
+        volume_property = self.__SetVolumeProperties(self._3DTissue)
     
         # The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
         # and orientation of the volume in world coordinates.
         volume = vtk.vtkVolume()
         volume.SetMapper(volume_mapper)
-        volume.SetProperty(volumeProperty)
+        volume.SetProperty(volume_property)
 
         # Finally, add the volume to the renderer
         renderer.AddViewProp(volume)
@@ -217,6 +217,17 @@ class visualizationEngine(object):
         volumeProperty = self.__SetVolumeProperties(self._3DTissue)
         volume.SetProperty(volumeProperty)
         vtkWidget.GetRenderWindow().Render()
+
+
+    # Sets the attributes of the cutting plane on a 3D window
+    # Parameters:
+    #       1. showSlice - This determines if the image of the active slice on the
+    #               master window is also shown on the 3d volume 
+    #       2. crop3D - This determines if the 3D volume is cropped to show the active
+    #               position on the master window
+    def ConfigureVolumeCuttingPlane(self, showSlice = True, crop3D = True):
+        self._showActiveSlice = showSlice
+        self._crop3D = crop3D
 
 
     # Links scrolling of master window 'masterWidget' to slave windows in 'args'
@@ -305,7 +316,7 @@ class visualizationEngine(object):
             segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
             segment_array = segmentation.GetScalars()
             segment_color = segmentation.GetColor()
-            segment_actor = self.__CreateSegmentationActor(segment_array, segment_color)
+            [segment_actor,_] = self.__CreateSegmentationActor(segment_array, segment_color)
             
             segment_actor_info = vtk.vtkInformation()
             segment_actor_info.Set(self._propTypeKey, self._SegmentationProp)
@@ -342,7 +353,7 @@ class visualizationEngine(object):
             if(annot.isSegment()):
                 segment_array = annot.GetSegmentData()
                 segment_color = annot.GetColor()
-                segment_actor = self.__CreateSegmentationActor(segment_array, segment_color)
+                [segment_actor, segment_data] = self.__CreateSegmentationActor(segment_array, segment_color)
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                     renderer.AddActor(segment_actor)            
@@ -350,11 +361,17 @@ class visualizationEngine(object):
                     segment_actor.GetPropertyKeys().Set(self._propTypeKey, self._SegmentationProp)
         
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                    segment_actor_info = vtk.vtkInformation()
-                    segment_actor_info.Set(self._propTypeKey, self._SegmentationProp)
-                    segment_actor.SetPropertyKeys(segment_actor_info)
+                    volume_mapper = vtk.vtkSmartVolumeMapper()
+                    volume_mapper.SetInputData(segment_data)        
+                    volume_mapper.SetBlendModeToComposite()
 
-                    renderer.AddActor(segment_actor)
+                    volume_property = self.__SetSegementPropety(segment_color)
+
+                    volume = vtk.vtkVolume()
+                    volume.SetMapper(volume_mapper)
+                    volume.SetProperty(volume_property)
+
+                    renderer.AddViewProp(volume)
         
         widget.GetRenderWindow().Render()
 
@@ -622,6 +639,9 @@ class visualizationEngine(object):
         segment_data.SetExtent(0, c - 1, 0, r - 1, 0, d - 1)
         segment_data.GetPointData().SetScalars(segment_data_array)
 
+        volume_segment_data = vtk.vtkImageData()
+        volume_segment_data.DeepCopy(segment_data)
+
         lookupTable = vtk.vtkLookupTable()
         lookupTable.SetNumberOfTableValues(2)
         lookupTable.SetRange(0.0, 1.0)
@@ -641,7 +661,7 @@ class visualizationEngine(object):
 
         actor.Update()
 
-        return actor
+        return [actor, volume_segment_data]
 
 
     ##### EVENT CALLBACK FUNCTIONS #####
@@ -705,6 +725,24 @@ class visualizationEngine(object):
 
 
     ##### Image display functions #####
+
+
+    def __SetSegementPropety(self, color):
+        # Color
+        volume_property = self.__SetVolumeProperties(self._3DTissue)
+        volume_color = volume_property.GetRGBTransferFunction()
+        volume_color.AddRGBPoint(0, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(1, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(2, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(3, 0.0, 0.0, 0.0)
+
+        volume_scalar_opacity = volume_property.GetScalarOpacity()
+        volume_scalar_opacity.AddPoint(0, 0.00)
+        volume_scalar_opacity.AddPoint(0.5, 1.0)
+        volume_scalar_opacity.AddPoint(1.5, 1.0)
+        volume_scalar_opacity.AddPoint(2, 0.00)
+        
+        return volume_property
 
 
     # The VolumeProperty attaches the color and opacity functions to the
