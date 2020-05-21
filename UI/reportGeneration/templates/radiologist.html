@@ -9,7 +9,7 @@
 <h2> Findings </h2>
 {% for annotation in errand.annotations %}
 <p>
-    <b><a href={{ annotation.annot_id }} style="color: rgb{{ annotation.color }}">{{ annotation.anatomical_location }}</a>:</b> <br/>
-    <b>*{{ annotation.rad_finding }}</b><br/>
+    <b><a href={{ annotation.GetID() }} style="color: rgb{{ annotation.GetColor() }}">{{ annotation.GetLocation() }}</a>:</b> <br/>
+    <b>*{{ annotation.GetFinding() }}</b><br/>
 </p>
 {%- endfor %}

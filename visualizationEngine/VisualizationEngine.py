@@ -1,19 +1,14 @@
 import vtk
 from vtk.util import keys, numpy_support
-from imageReader.imageReader import imageReader
+from imageReader.ImageReader import ImageReader
 from segmentation.Segmentation import Segmentation
-from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIterator
+from annotation.Annotation import Annotation
 
 # TODO:
-#1. Check rendering timer issues
-#   -Behaving as if duration is fixed at 10ms
-#2. Add color to cutting plane frames
-#3. Expand tissue selection to allow multiple tissues
-#4. Add coordinate limits for negatives and out of bounds segmentation point
-#5. Way to know if segmentation in already in the renderer
-#6. Find good way of updating display extent after creating actors
-#   -In current implementations they update after the window is scrolled
-#7. Add opacity of 1 to the 3D viewer so segmentation show up, or change segmentaion scalar?
+#1. Figure out tissue selection options for MRI (minor)
+#2. Way to know if segmentation in already in the renderer
+#3. Fix updating display extent after creating segmentation, currently not consistent
+#4. Improve opacity of the segmentation in the 3D viewer
 
 class VisualizationEngine(object):
     ##### Class Variables #####
@@ -50,6 +45,7 @@ class VisualizationEngine(object):
     _slaves = None
     _showActiveSlice = True
     _crop3D = True
+    _sliceFrameColor = [1,0,0]
 
     # Slave Render Timer
     _renderTimerID = 0
@@ -60,12 +56,12 @@ class VisualizationEngine(object):
 
     # 3D Properties
     _3DTransparency = 0.2
-    _3DTissue = "ALL"
+    _3DTissue = ["ALL"]
 
 
     ##### General class functions #####
 
-    # Initializer for the image engine
+    # Initializer for the image engine, takes the directory of the files as argument
     def __init__(self):
         # Create the renderer relevant keys for accessing information
         self._rendererTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
@@ -78,10 +74,7 @@ class VisualizationEngine(object):
         self._imageInteractorStyle = vtk.vtkInteractorStyleImage()
         self._volumeInteractorStyle = vtk.vtkInteractorStyleTrackballCamera()
 
-        # Set the annotation store
-        self.annotationStore = AnnotationStore()
     
-
     ##################################
     ##### Public class functions #####
     ##################################
@@ -92,7 +85,7 @@ class VisualizationEngine(object):
     #   Parameters:
     #       1. Directory, containing DICOM files
     def SetDirectory(self, dir):
-        image_reader = imageReader(dir)
+        image_reader = ImageReader(dir)
         self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
         self.imageReader = image_reader
@@ -166,13 +159,13 @@ class VisualizationEngine(object):
         volume_mapper.SetInputConnection(self.reader.GetOutputPort())        
         volume_mapper.SetBlendModeToComposite()
         
-        volumeProperty = self.__SetVolumeProperties(self._3DTissue)
+        volume_property = self.__SetVolumeProperties(self._3DTissue)
     
         # The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
         # and orientation of the volume in world coordinates.
         volume = vtk.vtkVolume()
         volume.SetMapper(volume_mapper)
-        volume.SetProperty(volumeProperty)
+        volume.SetProperty(volume_property)
 
         # Finally, add the volume to the renderer
         renderer.AddViewProp(volume)
@@ -193,9 +186,9 @@ class VisualizationEngine(object):
     # Determines what tissue to show given the vtkWidget and the tissue name
     #   Parameters: 
     #       1. vtkWidget
-    #       2. Tissue i.e. ALL, BONE, SOFT, MUSCLE or FAT
+    #       2. List of Tissues i.e. ALL, BONE, SOFT, MUSCLE or FAT
     #   Notes:
-    #       -Currently only takes one tissue at a time, could expand for more
+    #       -If only passing one tissue, make sure to put it in a list
     def SetTissue(self, vtkWidget, tissue):
         self._3DTissue = tissue
         renderer = self.__GetRenderer(vtkWidget)
@@ -223,6 +216,17 @@ class VisualizationEngine(object):
         vtkWidget.GetRenderWindow().Render()
 
 
+    # Sets the attributes of the cutting plane on a 3D window
+    # Parameters:
+    #       1. showSlice - This determines if the image of the active slice on the
+    #               master window is also shown on the 3d volume 
+    #       2. crop3D - This determines if the 3D volume is cropped to show the active
+    #               position on the master window
+    def ConfigureVolumeCuttingPlane(self, showSlice = True, crop3D = True):
+        self._showActiveSlice = showSlice
+        self._crop3D = crop3D
+
+
     # Links scrolling of master window 'masterWidget' to slave windows in 'args'
     # ONLY a 2D image window can be a master.
     #   Parameters: 
@@ -230,19 +234,21 @@ class VisualizationEngine(object):
     #       2,3,4... vtkWidgets - Slaves
     #   Notes:
     #       -Provide each slave as its own arguments, NOT as an array
-    #       -There can be only one master window for any engine instance. Make sure
-    #           to unlink slaves before creating a new set of links. Unexpected behaviour
-    #           if a new set of links are made without unlinking previous links
+    #       -There can be only one master window for any engine instance. You have
+    #           to unlink slaves before creating a new set of links.
     def LinkWindows(self, masterWidget, *args):
-        master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
-        self._masterID = master_renderer_info.Get(self._rendererNumKey)
-        self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
-        if master_renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
-            self._slaves = []
-            for arg in args:
-                self._slaves.append(arg)
-            ob_id = masterWidget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_cutting_plane_change,2)
-            master_renderer_info.Set(self._rendererObserverKey, ob_id)
+        if self._masterID == None:
+            master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
+            self._masterID = master_renderer_info.Get(self._rendererNumKey)
+            self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
+            if master_renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                self._slaves = []
+                for arg in args:
+                    self._slaves.append(arg)
+                ob_id = masterWidget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_cutting_plane_change,2)
+                master_renderer_info.Set(self._rendererObserverKey, ob_id)
+                self.__ShowFrameOnMaster(masterWidget)
+                self.__on_cutting_plane_change(masterWidget, "None")
 
 
     # Safely unlinks all window scrolling from the master window
@@ -253,6 +259,7 @@ class VisualizationEngine(object):
     def UnlinkWindows(self, masterWidget):
         master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
         if master_renderer_info.Get(self._rendererNumKey) == self._masterID: 
+            self.__CleanUpSlicePos(masterWidget)
             self._masterID = None
             self._masterMPR = None
             ob_id = master_renderer_info.Get(self._rendererObserverKey)
@@ -273,63 +280,74 @@ class VisualizationEngine(object):
     #       1. widget - vtkWidget
     #       2. mouse_pos - Mouse poisition of click
     #   Note:
-    #       -Still in development
+    #       -Will not segment if widget passed is a 3D window
+    #       -Still have to fix bug where some times segmentation does not show up immediately
     def SegmentObject(self, widget, mouse_pos):
-
         renderer = widget.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
-        image_data = self.reader.GetOutput()
-
-        # Get picked coordinate and convert viewer coordinate into pixel value coordinate
-        widget.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
-        clicked_coordinate = list(widget.GetPicker().GetPickPosition())
-        for i in range(3):
-            clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
-        clicked_coordinate = tuple(clicked_coordinate)
+        renderer_info = renderer.GetInformation()
         
-        # Read the image data from vtk to numpy array and
-        # reorganises the dimensions and scales the data
-        cols, rows, slc = image_data.GetDimensions()
-        volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
-        volume = volume.reshape(slc, rows, cols)
-        volume = volume.transpose(2, 1, 0)
+        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            image_data = self.reader.GetOutput()
 
-        # Create the segmentation
-        segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
-        segment_array = segmentation.GetScalars()
-        segment_color = segmentation.GetColor()
-        segment_actor = self.__CreateSegmentationActor(segment_array, segment_color)
-        
-        renderer.AddActor(segment_actor)
-        widget.GetRenderWindow().Render()
-        segment_actor.GetPropertyKeys().Set(self._propTypeKey, self._SegmentationProp)
+            # Get picked coordinate and convert viewer coordinate into pixel value coordinate
+            widget.GetPicker().Pick(mouse_pos[0], mouse_pos[1], 0, renderer)
+            clicked_coordinate = list(widget.GetPicker().GetPickPosition())
+            for i in range(3):
+                clicked_coordinate[i] = clicked_coordinate[i] / self._pixelSpacing[i]
+            clicked_coordinate = tuple(clicked_coordinate)
 
-        # Add segment as annotation
-        segment_annot = Annotation(None, None, None)
-        segment_annot.SetLocation(clicked_coordinate)
-        segment_annot.SetColor(segment_color)
-        segment_annot.FlagAsSegment(segment_array)
-        key = self.annotationStore.StoreAnnotation(segment_annot)
-        self.annotationKeys.append(key)
-        
-        return key
+            # Returns NONE if the clicked coordinate is out of bounds
+            if any(coord < 0 for coord in clicked_coordinate) == True:
+                return
+            if any(not coord.is_integer() for coord in clicked_coordinate):
+                return
+            
+            # Read the image data from vtk to numpy array and
+            # reorganises the dimensions and scales the data
+            cols, rows, slc = image_data.GetDimensions()
+            volume = numpy_support.vtk_to_numpy(image_data.GetPointData().GetScalars())
+            volume = volume.reshape(slc, rows, cols)
+            volume = volume.transpose(2, 1, 0)
+
+            # Create the segmentation
+            segmentation = Segmentation(clicked_coordinate, volume, segmentation_threshold=0.2, verbose=True)
+            segment_array = segmentation.GetScalars()
+            segment_color = segmentation.GetColor()
+            [segment_actor,_] = self.__CreateSegmentationActor(segment_array, segment_color)
+            
+            segment_actor_info = vtk.vtkInformation()
+            segment_actor_info.Set(self._propTypeKey, self._SegmentationProp)
+            segment_actor.SetPropertyKeys(segment_actor_info)
+
+            renderer.AddActor(segment_actor)
+            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+            viewer.UpdateDisplayExtent()
+            viewer.Render()
+
+            # Add segment as annotation
+            segment_annot = Annotation()
+            segment_annot.SetCoordinate(clicked_coordinate)
+            segment_annot.SetVtkColor(segment_color)
+            segment_annot.SetSegmentFlag(True, segment_array)
+            
+            return segment_annot
 
 
     # Displays the segmentations in the provided keys in the vtkWidget
     #   Parameters:
     #       1. vtkWidget - the target window
-    #       2. keys - an array of segmentation keys to be accessed from the store
+    #       2. annots - an array of segmentation annotations
     #   Notes:
-    #       -Have to update display extent after creating actor, not working for volume widgets
-    def AddSegmentations(self, widget, keys):
+    #       -Volume widgets show in a very light way
+    def AddSegmentations(self, widget, annots):
         renderer = self.__GetRenderer(widget)
         renderer_info = renderer.GetInformation()
 
-        for key in keys:
-            annot = self.annotationStore.GetAnnotation(key)
+        for annot in annots:
             if(annot.isSegment()):
                 segment_array = annot.GetSegmentData()
-                segment_color = annot.GetColor()
-                segment_actor = self.__CreateSegmentationActor(segment_array, segment_color)
+                segment_color = annot.GetVtkColor()
+                [segment_actor, segment_data] = self.__CreateSegmentationActor(segment_array, segment_color)
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                     renderer.AddActor(segment_actor)            
@@ -337,37 +355,19 @@ class VisualizationEngine(object):
                     segment_actor.GetPropertyKeys().Set(self._propTypeKey, self._SegmentationProp)
         
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                    segment_actor_info = vtk.vtkInformation()
-                    segment_actor_info.Set(self._propTypeKey, self._SegmentationProp)
-                    segment_actor.SetPropertyKeys(segment_actor_info)
+                    volume_mapper = vtk.vtkSmartVolumeMapper()
+                    volume_mapper.SetInputData(segment_data)        
+                    volume_mapper.SetBlendModeToComposite()
 
-                    renderer.AddActor(segment_actor)
+                    volume_property = self.__SetSegementPropety(segment_color)
+
+                    volume = vtk.vtkVolume()
+                    volume.SetMapper(volume_mapper)
+                    volume.SetProperty(volume_property)
+
+                    renderer.AddViewProp(volume)
         
-        widget.GetRenderWindow().Render()
-
-
-    # Returns all the annotation keys that are segmentations
-    #   Parameters: None
-    def GetAllSegmentationKeys(self):
-        arr = []
-        it = AnnotationStoreIterator(self.annotationStore)
-        for key in it:
-            if(self.annotationStore.GetAnnotation(key).isSegment()):
-                arr.append(key)
-        return arr
-
-
-    # Returns all the annotation keys regardless of annotation type
-    #   Parameters: None
-    def GetAllAnnotationKeys(self):
-        return self.annotationKeys
-
-
-    # Returns a copy of the annotation store
-    #   Parameters: None
-    def GetAnnotationStore(self):
-        store = AnnotationStore()
-        store.DeepCopy(self.annotationStore)     
+        widget.GetRenderWindow().Render()    
         
 
     ###################################
@@ -397,13 +397,28 @@ class VisualizationEngine(object):
 
         return orientation % 3
 
+    
+    # Adds the frame around the master widget to show linking is active
+    def __ShowFrameOnMaster(self, widget):    
+        viewer = self.imageViewers[self._masterID]
+        bounds = list(viewer.GetImageActor().GetBounds())
+        frame_actor = self.__CreateFrame(bounds)
+        frame_actor_info = vtk.vtkInformation()
+        frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+        frame_actor.SetPropertyKeys(frame_actor_info)
+        
+        renderer = self.__GetRenderer(widget)
+        renderer.AddActor(frame_actor)
+        
+        viewer.Render()
+
 
     # Updates the position of the cutting plane in a 3D window
     def __UpdateCuttingPlanePos(self, widget, active_slice, mpr):
         renderer = self.__GetRenderer(widget)
         
         if (self._showActiveSlice):
-            self.__addSliceToVolume(renderer)
+            self.__AddSliceToVolume(renderer)
 
         if (self._crop3D):
             img_orien = self.imageReader.getPlaneOrientation()
@@ -429,7 +444,7 @@ class VisualizationEngine(object):
 
 
     # Adds the active slice of the master image viewer to the 3D renderer
-    def __addSliceToVolume(self, renderer):
+    def __AddSliceToVolume(self, renderer):
         props = renderer.GetViewProps()
         viewer = self.imageViewers[self._masterID]
 
@@ -453,6 +468,24 @@ class VisualizationEngine(object):
         image_actor.SetDisplayExtent(viewer_actor.GetDisplayExtent())
         image_actor.Update()
 
+        self.__AddFrameToSlice(renderer, viewer_actor.GetBounds())
+    
+
+    # Adds a frame to the active slice in the 3D renderer
+    def __AddFrameToSlice(self, renderer, bounds):
+        actors = renderer.GetActors()
+        for actor in actors:
+            actor_property = actor.GetPropertyKeys()
+            if actor_property == None: continue
+            if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                renderer.RemoveActor(actor)
+                break
+        frame_actor = self.__CreateFrame(list(bounds))
+        frame_actor_info = vtk.vtkInformation()
+        frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+        frame_actor.SetPropertyKeys(frame_actor_info)
+        renderer.AddActor(frame_actor)
+
     
     # Cleans up 3D window to remove cutting plane 
     def __CleanUpCuttingPlanePos(self, widget):
@@ -467,7 +500,6 @@ class VisualizationEngine(object):
                 if prop_property == None: continue
                 if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                     renderer.RemoveViewProp(prop)
-                    break
 
         widget.GetRenderWindow().Render()
 
@@ -484,25 +516,36 @@ class VisualizationEngine(object):
         if widget_orien == mpr:
             viewer.SetSlice(active_slice)
         else:
-            bounds = list(self.imageViewers[self._masterID].GetImageActor().GetBounds())
-            
             renderer = self.__GetRenderer(widget)
-            frame_actor = renderer.GetActors().GetLastActor()
-            if frame_actor != None:
-                renderer.RemoveActor(frame_actor)
+            actors = renderer.GetActors()
+            for actor in actors:
+                actor_property = actor.GetPropertyKeys()
+                if actor_property == None: continue
+                if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                    renderer.RemoveActor(actor)
+                    break
 
+            bounds = list(self.imageViewers[self._masterID].GetImageActor().GetBounds())   
             frame_actor = self.__CreateFrame(bounds)
+            frame_actor_info = vtk.vtkInformation()
+            frame_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+            frame_actor.SetPropertyKeys(frame_actor_info)
             renderer.AddActor(frame_actor)
 
+            viewer.UpdateDisplayExtent()
             viewer.Render()
 
 
     # Cleans up 2D window to remove cutting plane line
     def __CleanUpSlicePos(self, widget):
         renderer = self.__GetRenderer(widget)
-        frame_actor = renderer.GetActors().GetLastActor()
-        if frame_actor != None:
-            renderer.RemoveActor(frame_actor)
+        actors = renderer.GetActors()
+        for actor in actors:
+            actor_property = actor.GetPropertyKeys()
+            if actor_property == None: continue
+            if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                renderer.RemoveActor(actor)
+                break
         viewer = self.imageViewers[renderer.GetInformation().Get(self._rendererNumKey)]
         viewer.Render()
         
@@ -545,8 +588,7 @@ class VisualizationEngine(object):
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
         actor.GetProperty().SetLineWidth(2)
-        actor.GetProperty().SetColor(255,255,255)
-        # actor.GetProperty().SetOpacity(0.5)
+        actor.GetProperty().SetColor(self._sliceFrameColor)
 
         return actor
 
@@ -567,6 +609,9 @@ class VisualizationEngine(object):
         segment_data.SetExtent(0, c - 1, 0, r - 1, 0, d - 1)
         segment_data.GetPointData().SetScalars(segment_data_array)
 
+        volume_segment_data = vtk.vtkImageData()
+        volume_segment_data.DeepCopy(segment_data)
+
         lookupTable = vtk.vtkLookupTable()
         lookupTable.SetNumberOfTableValues(2)
         lookupTable.SetRange(0.0, 1.0)
@@ -583,11 +628,10 @@ class VisualizationEngine(object):
 
         actor = vtk.vtkImageActor()
         actor.GetMapper().SetInputData(mapTransparency.GetOutput())
-        actor.AddPosition(0.0001, 0.0001, 0.0001)
 
         actor.Update()
 
-        return actor
+        return [actor, volume_segment_data]
 
 
     ##### EVENT CALLBACK FUNCTIONS #####
@@ -612,8 +656,9 @@ class VisualizationEngine(object):
         if props.GetNumberOfItems() > 1:
             # Only perform update for segmentation props
             for prop in props:
-                prop_type = prop.GetPropertyKeys().Get(self._propTypeKey)
-                if prop_type == self._SegmentationProp:                
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._SegmentationProp:                
                     prop.SetDisplayExtent(list(viewer.GetImageActor().GetDisplayExtent()))
                     prop.Update()
             viewer.Render()
@@ -629,6 +674,9 @@ class VisualizationEngine(object):
         active_slice = self.imageViewers[self._masterID].GetSlice()
         mpr = self._masterMPR
 
+        if self._renderTimeCount == 0:
+            self._renderTimerID = obj.CreateOneShotTimer(10)
+
         for slave in self._slaves:
             renderer_info = self.__GetRenderer(slave).GetInformation()
 
@@ -637,19 +685,33 @@ class VisualizationEngine(object):
             elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
                 self.__UpdateCuttingPlanePos(slave, active_slice, mpr)
 
-            if(event == "TimerEvent"):
-                self._renderTimeCount += 1
-                if self._renderTimeCount == 10:
-                    self._renderTimeCount = 0
-                    if renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+                if(event == "TimerEvent"):
+                    self._renderTimeCount += 1
+                    if self._renderTimeCount == 10:
+                        self._renderTimeCount = 0
                         slave.GetRenderWindow().Render()
                         obj.DestroyTimer(self._renderTimerID)
-        
-        if self._renderTimeCount == 0:
-            self._renderTimerID = obj.CreateOneShotTimer(1000)
 
 
     ##### Image display functions #####
+
+
+    def __SetSegementPropety(self, color):
+        # Color
+        volume_property = self.__SetVolumeProperties(self._3DTissue)
+        volume_color = volume_property.GetRGBTransferFunction()
+        volume_color.AddRGBPoint(0, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(1, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(2, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(3, 0.0, 0.0, 0.0)
+
+        volume_scalar_opacity = volume_property.GetScalarOpacity()
+        volume_scalar_opacity.AddPoint(0, 0.00)
+        volume_scalar_opacity.AddPoint(0.5, 1.0)
+        volume_scalar_opacity.AddPoint(1.5, 1.0)
+        volume_scalar_opacity.AddPoint(2, 0.00)
+        
+        return volume_property
 
 
     # The VolumeProperty attaches the color and opacity functions to the
@@ -663,11 +725,11 @@ class VisualizationEngine(object):
     # decreased by increasing the Ambient coefficient while decreasing
     # the Diffuse and Specular coefficient.  To increase the impact
     # of shading, decrease the Ambient and increase the Diffuse and Specular.
-    def __SetVolumeProperties(self, *args):
+    def __SetVolumeProperties(self, tissue):
         modality = self.imageReader.getModality()
 
         volume_color = self.__SetColor(modality)
-        volume_scalar_opacity = self.__SetScalarOpacity(modality, args)
+        volume_scalar_opacity = self.__SetScalarOpacity(modality, tissue)
         volume_gradient_opacity = self.__SetGradientOpacity()
         
         volumeProperty = vtk.vtkVolumeProperty()

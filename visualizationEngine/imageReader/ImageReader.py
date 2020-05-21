@@ -6,7 +6,7 @@ import pydicom
 
 #TODO:
 
-class imageReader():
+class ImageReader():
     ##### Class Variables #####
     _directory = None
     _reader = None

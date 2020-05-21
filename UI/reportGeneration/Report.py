@@ -41,10 +41,10 @@ class Report(QTextBrowser):
 
 
     def on_annotation_clicked(self, url_input):
-        annotation_id = int(url_input.toString())
+        annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
         if self.show_wiki_on_click:
-            search_term = annotation_clicked.anatomical_location.replace(" ", "+")
+            search_term = annotation_clicked.GetLocation().replace(" ", "+")
             search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting" \
                          "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
             webbrowser.open(search_url)

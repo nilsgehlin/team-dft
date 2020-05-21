@@ -1,6 +1,8 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+import json
+
 import os, sys
 path = os.path.join("UI")
 sys.path.insert(0, path)
@@ -11,11 +13,10 @@ import rad_functionality as f_rad
 import sur_functionality as f_sur
 from patient import Patient, Errand
 
-import os, sys
 path = os.path.join("visualizationEngine")
 sys.path.insert(0, path)
 from visualizationEngine.VisualizationEngine import VisualizationEngine
-from visualizationEngine.annotation.annotation import Annotation
+from visualizationEngine.annotation.Annotation import Annotation
 
 #TODO Patient database
 #TODO Patient profile database
@@ -54,22 +55,18 @@ class Application(object):
 
 
     def import_patient_data(self):
-        jane_smith = Patient("Jane", "Smith", 26, "F")
+        ### Now reads data from json files
+        with open('database/jane_smith.json') as json_file:
+            data = json.load(json_file)
+            jane_smith = Patient.fromJson(data)
 
-        jane_errand_1 = Errand("2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-        jane_errand_2 = Errand("2020-03-03", "Pending", "MRI", "Hospital", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-        jane_smith.add_errand(jane_errand_1)
-        jane_smith.add_errand(jane_errand_2)
+        with open('database/mark_johnson.json') as json_file:
+            data = json.load(json_file)
+            mark_johnson = Patient.fromJson(data)
 
-        # Dummy annotations until we can create annotations in the software
-        jane_errand_1.add_annotation(Annotation("Brain Parenchyma", "T2 hyperintense white matter lesions", (255, 0, 0)))
-        jane_errand_1.add_annotation(Annotation("Skull", "Huge fracture", (0, 255, 0)))
-        jane_errand_2.add_annotation(Annotation("Shoulder", "Tare", (0, 255, 0)))
-
-
-        mark_johnson = Patient("Mark", "Johnson", 48, "M")
-        mark_errand_1 = Errand("2019-12-12", "Complete", "CT", "CT clinic", "TASK??", os.path.join("sample_dicom", "chestDICOM"))
-        mark_johnson.add_errand(mark_errand_1)
+        ### Can also serialize/export the patient data as example below
+        # with open('database/mark_johnson.json', 'w') as outfile:
+        #     json.dump(mark_johnson.toJson(), outfile, indent = 4)
 
         pat_dict = {jane_smith.id: jane_smith, mark_johnson.id: mark_johnson}
         return pat_dict

@@ -11,6 +11,7 @@ else:
 
 if __name__ == "segmentation.Segmentation":
     lib_dir = os.path.join("visualizationEngine", "segmentation", lib_dir)
+    # lib_dir = os.path.join("segmentation", lib_dir)
 
 
 region_growing_C = np.ctypeslib.load_library("libregion_growing_lib", lib_dir)

@@ -1,0 +1,21 @@
+{
+    "id": "0001",
+    "password": "0001",
+    "first_name": "Mark",
+    "last_name": "Johnson",
+    "age": 48,
+    "sex": "M",
+    "errands": [
+        {
+            "order_id": "0",
+            "date": "2019-12-12",
+            "status": "Complete",
+            "scan": "CT",
+            "clinic": "CT clinic",
+            "task": "TASK??",
+            "data_dir": "sample_dicom/chestDICOM",
+            "report": null,
+            "annotations": []
+        }
+    ]
+}

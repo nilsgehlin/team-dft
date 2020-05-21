@@ -1,11 +1,3 @@
-venv/
-.idea/
-.vscode
-2d3dprototype/__pycache__/
-Martin/
-UI/John/
-UI/__pycache__/
-
 # Environment
 venv/
 
@@ -13,7 +5,13 @@ venv/
 .idea/
 .vscode
 
+# Personal
+Martin/
+UI/John/
+
 # Cache
+2d3dprototype/__pycache__/
+UI/__pycache__/
 */__pycache__/
 *.pyc
 

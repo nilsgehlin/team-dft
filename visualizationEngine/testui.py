@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 import os
-from visualizationEngine import VisualizationEngine
+from VisualizationEngine import VisualizationEngine
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -78,13 +78,14 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
 
     # DICOM file directory in sample_files/dicom
-    # directory = os.path.join("..", "sample_dicom", "chestDICOM")
+    directory = os.path.join("..", "sample_dicom", "chestDICOM")
     # directory = os.path.join("..", "sample_dicom", "MRI_3_Head")
     
     # Tiff images in 2d3dprototype/stanford-ct-new
-    directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  
+    # directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  
 
-    vtk_engine = VisualizationEngine(directory)
+    vtk_engine = VisualizationEngine()
+    vtk_engine.SetDirectory(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")
     vtk_engine.SetupImageUI(ui.vtkWidget1, "CORONAL")
     # vtk_engine.SetupImageUI(ui.vtkWidget2, "SAGITTAL")
@@ -94,13 +95,15 @@ if __name__ == "__main__":
 
     # Rough implementation of button press for Part X demo
     def clicked_all():
-        vtk_engine.SetTissue(ui.vtkWidget2, "ALL")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["ALL"])
 
     def clicked_soft():
-        vtk_engine.SetTissue(ui.vtkWidget2, "SOFT")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["SOFT"])
 
     def clicked_bone():
-        vtk_engine.SetTissue(ui.vtkWidget2, "BONE")
+        vtk_engine.SetTissue(ui.vtkWidget2, ["BONE"])
+        # vtk_engine.AddSegmentations(ui.vtkWidget2, [vtk_engine.SegmentObject(ui.vtkWidget, (402,328))])
+        vtk_engine.AddSegmentations(ui.vtkWidget2, [vtk_engine.SegmentObject(ui.vtkWidget, (426,410))])
 
     def clicked_fat():
         #vtk_engine.SetTissue(ui.vtkWidget2, "FAT")
@@ -111,9 +114,9 @@ if __name__ == "__main__":
             vtk_engine.SetTransparency(ui.vtkWidget2, 0.2)
         else:
             linked = True
+            vtk_engine.ConfigureVolumeCuttingPlane(crop3D = False)
             vtk_engine.SetTransparency(ui.vtkWidget2, 0.02)
             vtk_engine.LinkWindows(ui.vtkWidget, ui.vtkWidget1, ui.vtkWidget2)
-            # vtk_engine.AddSegmentations(ui.vtkWidget2, vtk_engine.GetAllSegmentationKeys())
 
     ui.tissueButtonBox.button(ui.tissueButtonBox.Ok).clicked.connect(clicked_all)
     ui.tissueButtonBox.button(ui.tissueButtonBox.Cancel).clicked.connect(clicked_soft)
