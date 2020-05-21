@@ -18,6 +18,8 @@ class Report(QTextBrowser):
         self.errand = None
         self.show_wiki_on_click = show_wiki_on_click
         self.template_name = None
+        self.vtk_widget_2d = None
+        self.vtk_widget_3d = None
         self.setOpenLinks(False)
         self.anchorClicked.connect(self.on_annotation_clicked)
 
@@ -31,23 +33,32 @@ class Report(QTextBrowser):
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
 
-    def load_report(self, template_name, patient, order_id):
+    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d):
         self.patient = patient
         self.errand = patient.errands[order_id]
         self.template_name = template_name
+        self.vtk_widget_2d = vtk_widget_2d
+        self.vtk_widget_3d = vtk_widget_3d
         self.update()
         with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
             self.setStyleSheet(style_sheet_file.read())
 
 
+    # def on_annotation_clicked(self, url_input):
+    #     #     annotation_id = url_input.toString()
+    #     #     annotation_clicked = self.errand.get_annotation(annotation_id)
+    #     #     if self.show_wiki_on_click:
+    #     #         search_term = annotation_clicked.GetLocation().replace(" ", "+")
+    #     #         search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting" \
+    #     #                      "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
+    #     #         webbrowser.open(search_url)
+
     def on_annotation_clicked(self, url_input):
         annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
-        if self.show_wiki_on_click:
-            search_term = annotation_clicked.GetLocation().replace(" ", "+")
-            search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting" \
-                         "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
-            webbrowser.open(search_url)
+        # self.visEngine.RemoveSegmentations(self.vtk_widget_2d, self.vtk_widget_3d)
+        # self.visEngine.AddSegmentation(annotation_clicked, self.vtk_widget_2d, vtk_widget_3d)
+
 
     def save_to_pdf(self, filename):
         dialog = QPrintDialog()

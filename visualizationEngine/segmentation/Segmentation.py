@@ -94,6 +94,7 @@ class Segmentation:
                               self.segmentation_threshold)
         self.segmentation = np.reshape(seg, volume.shape)
         stop = time.time()
+        print(self.segmentation.shape)
         time_elapsed = stop - start
         if verbose:
             percent_segmented = (np.count_nonzero(self.segmentation) / len(seg)) * 100

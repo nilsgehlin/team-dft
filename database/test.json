@@ -1,0 +1,38 @@
+{
+    "id": "0001",
+    "password": "0001",
+    "first_name": "Mark",
+    "last_name": "Johnson",
+    "age": 48,
+    "sex": "M",
+    "errands": [
+        {
+            "order_id": "0",
+            "date": "2019-12-12",
+            "status": "Pending",
+            "scan": "MRI",
+            "clinic": "MRI clinic",
+            "task": "TASK??",
+            "data_dir": "sample_dicom/MRI_brain_tumor",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "6fba27094a7e4a97ba0c4c1575b97980",
+                    "location": "Brain",
+                    "finding": "Fat tumor",
+                    "color": [
+                        76,
+                        25,
+                        51
+                    ],
+                    "coordinate": [
+                        135,
+                        153,
+                        52
+                    ],
+                    "isSegment": true
+                }
+            ]
+        }
+    ]
+}

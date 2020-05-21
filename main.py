@@ -26,7 +26,7 @@ class Application(object):
     def __init__(self):
         self.main_window = QtWidgets.QMainWindow()
         self.ui = Ui(self.main_window)
-        self.visEngine = VisualizationEngine()
+        self.visEngine = None
 
         self.pat_dict = self.import_patient_data()
         self.rad_dict = {}
@@ -45,12 +45,15 @@ class Application(object):
         f_mw.setup_functionality(self, self.ui)
 
     def init_pat(self):
+        self.visEngine = VisualizationEngine()
         f_pat.setup_functionality(self, self.ui)
 
     def init_rad(self):
+        self.visEngine = VisualizationEngine()
         f_rad.setup_functionality(self, self.ui)
 
     def init_sur(self):
+        self.visEngine = VisualizationEngine()
         f_sur.setup_functionality(self, self.ui)
 
 

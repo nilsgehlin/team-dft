@@ -1,8 +1,10 @@
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5.QtCore import Qt
+import json
 
-## SETUP FUNCTIONS ##
+# SETUP FUNCTIONS #
+
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)
@@ -32,15 +34,11 @@ def patient_page_setup(app, ui):
 
 
 def view_only_page_setup(app, ui):
-    ui.ui_rad.page_rad_view_only_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_2d_view_frame)
-    ui.ui_rad.page_rad_view_only_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_2d_view, 0, 0, 1, 1)
-
-    ui.ui_rad.page_rad_view_only_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_3d_view_frame)
-    ui.ui_rad.page_rad_view_only_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_3d_view, 0, 0, 1, 1)
-
     ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
     ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    ui.ui_rad.page_rad_view_only_button_hide_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_view_only_button_hide_link_windows,
+                                                                                              ui.ui_rad.page_rad_view_only_2d_view, ui.ui_rad.page_rad_view_only_3d_view))
     # ui.ui_rad.page_rad_view_only_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
@@ -48,28 +46,20 @@ def view_only_page_setup(app, ui):
 
 
 def diagnose_page_setup(app, ui):
-    ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
-    ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 1, 1)
-
-    ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
-    ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 0, 1, 1)
-
     ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(ui))
-    ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: change_page(ui, ui.prev_page))
+    ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: go_back(app, ui))
     ui.ui_rad.page_rad_diagnose_button_preview_report.clicked.connect(lambda: go_to_report_page(app, ui))
+    ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
+                                                                                              ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
     # ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
-    # ui.ui_rad.page_rad_diagnose_button_add_annotation.connect(lambda: )# TODO Add annotation functionality
+    ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))# TODO Add annotation functionality
 
 
 def report_page_setup(app, ui):
-    ui.ui_rad.page_rad_report_2d_image = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_report_2d_image_frame)
-    ui.ui_rad.page_rad_report_2d_image_frame_grid.addWidget(ui.ui_rad.page_rad_report_2d_image, 0, 0, 1, 1)
-
-
     ui.ui_rad.page_rad_report_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose, False))
     ui.ui_rad.page_rad_report_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_report_button_send_report.clicked.connect(lambda: show_send_report_popup(app, ui))
@@ -83,7 +73,17 @@ def locked_page_setup(ui):
     ui.ui_rad.page_rad_locked_button_login.clicked.connect(lambda: login(ui))
 
 
-## GO TO FUNCTIONS ##
+# GO TO FUNCTIONS #
+
+
+def go_back(app, ui):
+    if ui.prev_page is ui.ui_rad.page_rad_view_only:
+        go_to_view_only_page(app, ui)
+    elif ui.prev_page is ui.ui_rad.page_rad_patient_page:
+        go_to_patient_page(app, ui)
+    else:
+        change_page(ui, ui.prev_page)
+
 
 def go_to_patient_page(app, ui):
     app.current_pat_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(0)
@@ -99,6 +99,12 @@ def go_to_patient_page(app, ui):
 
 
 def go_to_view_only_page(app, ui):
+    ui.ui_rad.page_rad_view_only_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_2d_view_frame)
+    ui.ui_rad.page_rad_view_only_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_2d_view, 0, 0, 1, 1)
+
+    ui.ui_rad.page_rad_view_only_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_3d_view_frame)
+    ui.ui_rad.page_rad_view_only_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_3d_view, 0, 0, 1, 1)
+
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_view_only_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_view_only_3d_view)
@@ -111,6 +117,12 @@ def go_to_view_only_page(app, ui):
 
 
 def go_to_diagnose_page(app, ui):
+    ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
+    ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 1, 1)
+
+    ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
+    ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 0, 1, 1)
+
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_diagnose_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_diagnose_3d_view)
@@ -119,15 +131,41 @@ def go_to_diagnose_page(app, ui):
 
 
 def go_to_report_page(app, ui):
+    ui.ui_rad.page_rad_report_2d_image = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_report_2d_image_frame)
+    ui.ui_rad.page_rad_report_2d_image_frame_grid.addWidget(ui.ui_rad.page_rad_report_2d_image, 0, 0, 1, 1)
+
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_report_2d_image)
 
     change_page(ui, ui.ui_rad.page_rad_report, False)
 
-## HELP FUNCTIONS ##
+
+# HELP FUNCTIONS #
+
+
+def add_annotation(app, ui):
+    annotation = app.visEngine.annotationStore
+    print(annotation)
+    annotation.SetLocation(ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText())
+    annotation.SetFinding(ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText())
+    app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_annotation(annotation)
+    with open('database/test.json', 'w') as outfile:
+        json.dump(app.pat_dict[app.current_pat_id].toJson(), outfile, indent = 4)
+
+def change_link(app, ui, button, master_widget, slave_widget):
+    deactivate_str = "Deactivate\n2D-3D Link"
+    activate_str = "Activate\n2D-3D Link"
+    if button.text() == deactivate_str:
+        app.visEngine.UnlinkWindows(master_widget)
+        button.setText(activate_str)
+    elif button.text() == activate_str:
+        app.visEngine.LinkWindows(master_widget, slave_widget)
+        button.setText(deactivate_str)
+
 
 def is_patient_diagnosed(app):
     return app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status == "Complete"
+
 
 def add_errands(app, ui):
     ui.ui_rad.page_rad_home_patient_information.clear()

@@ -58,6 +58,9 @@ class VisualizationEngine(object):
     _3DTransparency = 0.2
     _3DTissue = ["ALL"]
 
+    # Directory
+    _dir = None
+
 
     ##### General class functions #####
 
@@ -85,6 +88,7 @@ class VisualizationEngine(object):
     #   Parameters:
     #       1. Directory, containing DICOM files
     def SetDirectory(self, dir):
+        self._dir = dir
         image_reader = ImageReader(dir)
         self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
@@ -642,7 +646,7 @@ class VisualizationEngine(object):
     def __on_left_mouse_button_press(self, obj, event):
         if obj.GetShiftKey():
             mouse_pos = obj.GetEventPosition()
-            self.SegmentObject(obj, mouse_pos)
+            self.annotationStore = self.SegmentObject(obj, mouse_pos)
 
 
     # Listener for slice change event:

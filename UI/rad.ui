@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>4</number>
+   <number>2</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -346,6 +346,26 @@ p, li { white-space: pre-wrap; }
     </item>
     <item row="1" column="2">
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="page_rad_view_only_button_hide_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
@@ -721,7 +741,20 @@ p, li { white-space: pre-wrap; }
     </item>
     <item row="2" column="5">
      <layout class="QGridLayout" name="gridLayout_11">
-      <item row="0" column="2">
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
        <widget class="QPushButton" name="page_rad_diagnose_button_3d_fullscreen">
         <property name="minimumSize">
          <size>
@@ -740,7 +773,7 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="0" column="2">
        <widget class="QPushButton" name="page_rad_diagnose_button_hide_3d">
         <property name="minimumSize">
          <size>
@@ -760,17 +793,24 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="0" column="0">
-       <spacer name="horizontalSpacer_10">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+       <widget class="QPushButton" name="page_rad_diagnose_button_link_windows">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>100</width>
+          <height>0</height>
          </size>
         </property>
-       </spacer>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -813,6 +853,22 @@ p, li { white-space: pre-wrap; }
          <string>Add Annotation</string>
         </property>
        </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>100</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="page_rad_diagnose_button_2d_zoom_out">
@@ -859,28 +915,12 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>100</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="4" rowspan="3">
-       <widget class="QTextEdit" name="page_rad_diagnose_insert_annotations">
+      <item row="2" column="4">
+       <widget class="QTextEdit" name="page_rad_diagnose_insert_findings">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>1000</height>
+          <height>300</height>
          </size>
         </property>
         <property name="layoutDirection">
@@ -894,7 +934,20 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="placeholderText">
-         <string>Insert annotation</string>
+         <string>Insert findings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4" rowspan="2">
+       <widget class="QTextEdit" name="page_rad_diagnose_insert_locations">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Insert location</string>
         </property>
        </widget>
       </item>
@@ -912,6 +965,9 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
      </layout>
+    </item>
+    <item row="0" column="2">
+     <layout class="QGridLayout" name="gridLayout_18"/>
     </item>
    </layout>
   </widget>

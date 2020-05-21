@@ -584,6 +584,12 @@ notifications</string>
       </item>
       <item row="6" column="1">
        <widget class="QPushButton" name="page_pat_view_scan_button_left">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>100</width>
@@ -597,9 +603,15 @@ notifications</string>
       </item>
       <item row="1" column="3">
        <widget class="QPushButton" name="page_pat_view_scan_button_3d_fullscreen">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>150</width>
+          <width>100</width>
           <height>16777215</height>
          </size>
         </property>
@@ -610,6 +622,18 @@ notifications</string>
       </item>
       <item row="6" column="2">
        <widget class="QPushButton" name="page_pat_view_scan_button_down">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Down</string>
         </property>
@@ -617,6 +641,18 @@ notifications</string>
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="page_pat_view_scan_button_zoom_out">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Zoom out</string>
         </property>
@@ -632,7 +668,7 @@ notifications</string>
         </property>
         <property name="maximumSize">
          <size>
-          <width>150</width>
+          <width>100</width>
           <height>16777215</height>
          </size>
         </property>
@@ -854,11 +890,17 @@ notifications</string>
     </item>
     <item row="0" column="1" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="8">
+      <item row="0" column="10">
        <widget class="QPushButton" name="page_pat_view_scan_button_3d_tissue_view">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>150</width>
+          <width>100</width>
           <height>16777215</height>
          </size>
         </property>
@@ -867,11 +909,30 @@ notifications</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="9">
        <widget class="QPushButton" name="page_pat_view_scan_button_3d_bone_view">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>150</width>
+          <width>100</width>
           <height>16777215</height>
          </size>
         </property>
@@ -880,7 +941,7 @@ notifications</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="0" column="8">
        <spacer name="horizontalSpacer_8">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -895,6 +956,18 @@ notifications</string>
       </item>
       <item row="0" column="3">
        <widget class="QPushButton" name="page_pat_view_scan_button_play_pause">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Play/Pause</string>
         </property>
@@ -902,6 +975,18 @@ notifications</string>
       </item>
       <item row="0" column="4">
        <widget class="QPushButton" name="page_pat_view_scan_button_next_note">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Next Note</string>
         </property>
@@ -909,6 +994,18 @@ notifications</string>
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="page_pat_view_scan_button_previous_slice">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Previous Slice</string>
         </property>
@@ -922,6 +1019,12 @@ notifications</string>
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Previous Note</string>
         </property>
@@ -929,12 +1032,24 @@ notifications</string>
       </item>
       <item row="0" column="5">
        <widget class="QPushButton" name="page_pat_view_scan_button_next_slice">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Next Slice</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="9">
+      <item row="0" column="11">
        <spacer name="horizontalSpacer_7">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -947,7 +1062,7 @@ notifications</string>
         </property>
        </spacer>
       </item>
-      <item row="0" column="10">
+      <item row="0" column="12">
        <widget class="QPushButton" name="page_pat_view_scan_button_logout">
         <property name="minimumSize">
          <size>
@@ -969,8 +1084,8 @@ notifications</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_6">
+      <item row="0" column="6">
+       <spacer name="horizontalSpacer_10">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -981,6 +1096,26 @@ notifications</string>
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="7">
+       <widget class="QPushButton" name="page_pat_view_scan_button_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

@@ -9,11 +9,11 @@
         {
             "order_id": "0",
             "date": "2019-12-12",
-            "status": "Complete",
-            "scan": "CT",
-            "clinic": "CT clinic",
+            "status": "Pending",
+            "scan": "MRI",
+            "clinic": "MRI clinic",
             "task": "TASK??",
-            "data_dir": "sample_dicom/chestDICOM",
+            "data_dir": "sample_dicom/MRI_brain_tumor",
             "report": null,
             "annotations": []
         }
