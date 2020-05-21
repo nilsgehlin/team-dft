@@ -102,7 +102,8 @@ if __name__ == "__main__":
 
     def clicked_bone():
         vtk_engine.SetTissue(ui.vtkWidget2, ["BONE"])
-        vtk_engine.AddSegmentations(ui.vtkWidget2, vtk_engine.GetAllSegmentationKeys())
+        # vtk_engine.AddSegmentations(ui.vtkWidget2, [vtk_engine.SegmentObject(ui.vtkWidget, (402,328))])
+        vtk_engine.AddSegmentations(ui.vtkWidget2, [vtk_engine.SegmentObject(ui.vtkWidget, (426,410))])
 
     def clicked_fat():
         #vtk_engine.SetTissue(ui.vtkWidget2, "FAT")
@@ -116,7 +117,6 @@ if __name__ == "__main__":
             vtk_engine.ConfigureVolumeCuttingPlane(crop3D = False)
             vtk_engine.SetTransparency(ui.vtkWidget2, 0.02)
             vtk_engine.LinkWindows(ui.vtkWidget, ui.vtkWidget1, ui.vtkWidget2)
-            # vtk_engine.AddSegmentations(ui.vtkWidget2, vtk_engine.GetAllSegmentationKeys())
 
     ui.tissueButtonBox.button(ui.tissueButtonBox.Ok).clicked.connect(clicked_all)
     ui.tissueButtonBox.button(ui.tissueButtonBox.Cancel).clicked.connect(clicked_soft)

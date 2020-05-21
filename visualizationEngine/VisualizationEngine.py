@@ -2,13 +2,13 @@ import vtk
 from vtk.util import keys, numpy_support
 from imageReader.ImageReader import ImageReader
 from segmentation.Segmentation import Segmentation
-from annotation.Annotation import Annotation, AnnotationList
+from annotation.Annotation import Annotation
 
 # TODO:
 #1. Figure out tissue selection options for MRI (minor)
-#5. Way to know if segmentation in already in the renderer
-#6. Fix updating display extent after creating segmentation, currently not consistent
-#7. Add opacity of 1 to the 3D viewer so segmentation show up, or change segmentaion scalar?
+#2. Way to know if segmentation in already in the renderer
+#3. Fix updating display extent after creating segmentation, currently not consistent
+#4. Improve opacity of the segmentation in the 3D viewer
 
 class VisualizationEngine(object):
     ##### Class Variables #####
@@ -326,30 +326,27 @@ class VisualizationEngine(object):
 
             # Add segment as annotation
             segment_annot = Annotation()
-            segment_annot.SetLocation(clicked_coordinate)
-            segment_annot.SetColor(segment_color)
-            segment_annot.FlagAsSegment(segment_array)
-            key = self.annotationStore.StoreAnnotation(segment_annot)
-            self.annotationKeys.append(key)
+            segment_annot.SetCoordinate(clicked_coordinate)
+            segment_annot.SetVtkColor(segment_color)
+            segment_annot.SetSegmentFlag(True, segment_array)
             
-            return key
+            return segment_annot
 
 
     # Displays the segmentations in the provided keys in the vtkWidget
     #   Parameters:
     #       1. vtkWidget - the target window
-    #       2. keys - an array of segmentation keys to be accessed from the store
+    #       2. annots - an array of segmentation annotations
     #   Notes:
-    #       -Have to update display extent after creating actor, not working for volume widgets
-    def AddSegmentations(self, widget, keys):
+    #       -Volume widgets show in a very light way
+    def AddSegmentations(self, widget, annots):
         renderer = self.__GetRenderer(widget)
         renderer_info = renderer.GetInformation()
 
-        for key in keys:
-            annot = self.annotationStore.GetAnnotation(key)
+        for annot in annots:
             if(annot.isSegment()):
                 segment_array = annot.GetSegmentData()
-                segment_color = annot.GetColor()
+                segment_color = annot.GetVtkColor()
                 [segment_actor, segment_data] = self.__CreateSegmentationActor(segment_array, segment_color)
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
@@ -692,7 +689,6 @@ class VisualizationEngine(object):
                     self._renderTimeCount += 1
                     if self._renderTimeCount == 10:
                         self._renderTimeCount = 0
-                        # if renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
                         slave.GetRenderWindow().Render()
                         obj.DestroyTimer(self._renderTimerID)
 
