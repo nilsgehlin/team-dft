@@ -138,6 +138,7 @@ def change_page(ui, new_page, change_prev_page=True):
 
 
 def logout(ui):
+    ui.current_sur_id = None
     ui.prev_page = None
     ui.stacked_sur.setCurrentWidget(ui.ui_sur.page_sur_home)
     ui.stacked_main.setCurrentWidget(ui.page_login)

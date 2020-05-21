@@ -17,7 +17,7 @@
             "report": null,
             "annotations": [
                 {
-                    "id": "1ff3baf16096470480f1f7e92cc81811",
+                    "id": "adb46068569e49fca55cd874ca84a003",
                     "location": "Brain Parenchyma",
                     "finding": "T2 hyperintense white matter lesions",
                     "color": [
@@ -29,7 +29,7 @@
                     "isSegment": false
                 },
                 {
-                    "id": "1ac70b2946ef485da7143803d0de07f3",
+                    "id": "fdc88a3729404fca9f42b0da4e044629",
                     "location": "Skull",
                     "finding": "Huge fracture",
                     "color": [

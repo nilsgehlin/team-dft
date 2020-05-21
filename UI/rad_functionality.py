@@ -148,6 +148,7 @@ def go_to_diagnose_page(app, ui):
     ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
     ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
     ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
+    ui.ui_rad.page_rad_diagnose_tab.setCurrentIndex(0)
 
     change_page(ui, ui.ui_rad.page_rad_diagnose)
 
@@ -171,7 +172,7 @@ def go_to_report_page(app, ui):
 # HELP FUNCTIONS #
 def add_impression(app, ui):
     if ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText() != "":
-        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_impression("DOCTOR",
+        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_impression(app.rad_dict[app.current_rad_id].get_signature(),
                                                                                        ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText()) # TODO Add doctor title
         ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
     else:
@@ -239,6 +240,7 @@ def logout(app, ui):
                     errand.impressions.remove(impr)
 
     ui.prev_page = None
+    ui.current_rad_id = None
     ui.stacked_rad.setCurrentWidget(ui.ui_rad.page_rad_home)
     ui.stacked_main.setCurrentWidget(ui.page_login)
 
@@ -296,14 +298,11 @@ def show_send_report_popup(app, ui):
 
     ret = msg.exec_()
     if ret == msg.Yes:
-        # TODO add functionality regarding sending the report here
-        # TODO save the radiology report to the current errand
         errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
         for annot in errand.annotations:
             annot.reviewed = True
         for impr in errand.impressions:
             impr.reviewed = True
-        app.export_patient_data()
         errand.status = "Complete"
 
         app.current_pat_id = None

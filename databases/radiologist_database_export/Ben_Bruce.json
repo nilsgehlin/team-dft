@@ -1,0 +1,12 @@
+{
+    "id": "0000",
+    "password": "0000",
+    "first_name": "Ben",
+    "last_name": "Bruce",
+    "age": 55,
+    "sex": "M",
+    "title": "Dr",
+    "profession": "Radiologist",
+    "clinic": "Stanford Medicine",
+    "department": "Radiology"
+}

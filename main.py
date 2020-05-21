@@ -12,6 +12,7 @@ import pat_functionality as f_pat
 import rad_functionality as f_rad
 import sur_functionality as f_sur
 from patient import Patient, Errand
+from doctor import Doctor
 
 path = os.path.join("visualizationEngine")
 sys.path.insert(0, path)
@@ -28,12 +29,18 @@ class Application(object):
         self.ui = Ui(self.main_window)
         self.visEngine = None
 
-        self.pat_dict = self.import_patient_data()
-        self.rad_dict = {}
-        self.sur_dict = {}
+        self.pat_dict = self.import_data("patient_database", Patient)
+        self.rad_dict = self.import_data("radiologist_database", Doctor)
+        self.sur_dict = self.import_data("surgeon_database", Doctor)
+
+        self.export_data("patient_database", self.pat_dict)
+        self.export_data("radiologist_database", self.rad_dict)
+        self.export_data("surgeon_database", self.sur_dict)
 
         self.current_pat_id = None
         self.current_errand_id = None
+        self.current_rad_id = None
+        self.current_sur_id = None
         self.current_theme_button_pressed = self.ui.menu_bar_theme_button_night_mode
 
         self.setup_functionality()
@@ -57,22 +64,24 @@ class Application(object):
         self.visEngine = VisualizationEngine()
         f_sur.setup_functionality(self, self.ui)
 
-    def import_patient_data(self):
-        pat_dict = {}
-        dir = "database"
-        for file in os.listdir(dir):
-            with open(os.path.join(dir, file)) as json_file:
+    def import_data(self, dir_, class_):
+        dict_ = {}
+        dir_ = os.path.join("databases", dir_)
+        for file in os.listdir(dir_):
+            with open(os.path.join(dir_, file)) as json_file:
                 data = json.load(json_file)
-                patient = Patient.fromJson(data)
-                pat_dict[patient.id] = patient
-        return pat_dict
+                object_ = class_.fromJson(data)
+                dict_[object_.id] = object_
+        return dict_
 
-    def export_patient_data(self):
-        dir = "export_database"
-        for patient in self.pat_dict.values():
-            filename = patient.first_name + "_" + patient.last_name + ".json"
-            with open(os.path.join(dir, filename), 'w') as outfile:
-                json.dump(patient.toJson(), outfile, indent=4)
+    def export_data(self, dir_, dict_):
+        dir_ = os.path.join("databases", dir_ + "_export")
+        if not os.path.exists(dir_):
+            os.makedirs(dir_)
+        for object_ in dict_.values():
+            filename = object_.first_name + "_" + object_.last_name + ".json"
+            with open(os.path.join(dir_, filename), 'w') as outfile:
+                json.dump(object_.toJson(), outfile, indent=4)
 
 
 if __name__ == "__main__":

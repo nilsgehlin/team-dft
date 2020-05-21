@@ -1,0 +1,12 @@
+{
+    "id": "0001",
+    "password": "0001",
+    "first_name": "Sarah",
+    "last_name": "Kent",
+    "age": 39,
+    "sex": "F",
+    "title": "Dr",
+    "profession": "Surgeon",
+    "clinic": "Stanford Medicine",
+    "department": "Surgery"
+}
