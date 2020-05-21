@@ -40,6 +40,7 @@ class Application(object):
 
     def run(self):
         self.main_window.show()
+        f_mw.set_style_sheet(self.ui, "ManjaroMix.qss")  # "ManjaroMix.qss", "Aqua.qss"
 
     def setup_functionality(self):
         f_mw.setup_functionality(self, self.ui)
@@ -56,24 +57,22 @@ class Application(object):
         self.visEngine = VisualizationEngine()
         f_sur.setup_functionality(self, self.ui)
 
-
     def import_patient_data(self):
-        ### Now reads data from json files
-        with open('database/jane_smith.json') as json_file:
-            data = json.load(json_file)
-            jane_smith = Patient.fromJson(data)
-
-        with open('database/mark_johnson.json') as json_file:
-            data = json.load(json_file)
-            mark_johnson = Patient.fromJson(data)
-
-        ### Can also serialize/export the patient data as example below
-        # with open('database/mark_johnson.json', 'w') as outfile:
-        #     json.dump(mark_johnson.toJson(), outfile, indent = 4)
-
-        pat_dict = {jane_smith.id: jane_smith, mark_johnson.id: mark_johnson}
+        pat_dict = {}
+        dir = "database"
+        for file in os.listdir(dir):
+            with open(os.path.join(dir, file)) as json_file:
+                data = json.load(json_file)
+                patient = Patient.fromJson(data)
+                pat_dict[patient.id] = patient
         return pat_dict
 
+    def export_patient_data(self):
+        dir = "export_database"
+        for patient in self.pat_dict.values():
+            filename = patient.first_name + "_" + patient.last_name + ".json"
+            with open(os.path.join(dir, filename), 'w') as outfile:
+                json.dump(patient.toJson(), outfile, indent=4)
 
 
 if __name__ == "__main__":

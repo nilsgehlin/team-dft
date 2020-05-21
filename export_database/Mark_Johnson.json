@@ -17,20 +17,26 @@
             "report": null,
             "annotations": [
                 {
-                    "id": "6fba27094a7e4a97ba0c4c1575b97980",
-                    "location": "Brain",
-                    "finding": "Fat tumor",
+                    "id": "e925c3d2ceed41f1be54db9facf3c5ae",
+                    "location": "asdasd",
+                    "finding": "asdads",
                     "color": [
-                        76,
-                        25,
-                        51
+                        0,
+                        153,
+                        153
                     ],
                     "coordinate": [
-                        135,
-                        153,
-                        52
+                        144,
+                        159,
+                        39
                     ],
                     "isSegment": true
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "DOCTOR",
+                    "impression": "asdasdsa"
                 }
             ]
         }

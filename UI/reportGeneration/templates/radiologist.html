@@ -13,3 +13,11 @@
     <b>*{{ annotation.GetFinding() }}</b><br/>
 </p>
 {%- endfor %}
+
+<h2> Impressions </h2>
+{% for impression in errand.impressions %}
+<p>
+    <b>{{ impression.GetDoctor() }}:</b> <br/>
+    <b>*{{ impression.GetImpression() }}</b><br/>
+</p>
+{%- endfor %}

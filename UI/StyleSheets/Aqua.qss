@@ -1,6 +1,9 @@
 QMainWindow {
 	background-color:#ececec;
 }
+QWidget{
+	font: 11pt "MS Shell Dlg 2";
+}
 QTextEdit {
 	border-width: 1px;
 	border-style: solid;
@@ -173,6 +176,7 @@ QMenu::item {
 	padding-right:7px;
 }
 QTabWidget {
+	font: 11pt "MS Shell Dlg 2";
 	color:rgb(0,0,0);
 	background-color:#000000;
 }

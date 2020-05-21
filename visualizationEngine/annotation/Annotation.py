@@ -39,6 +39,7 @@ class Annotation(vtkInformation):
         self.Enable()
         self.Show()
         self.SetSegmentFlag(False)
+        self.reviewed = False
     
 
     ##### Public class functions #####
@@ -170,6 +171,7 @@ class Annotation(vtkInformation):
         annot.SetColor(data['color'])
         annot.SetCoordinate(data['coordinate'])
         annot.SetSegmentFlag(data['isSegment'])
+        annot.reviewed = True
         return annot
         
 

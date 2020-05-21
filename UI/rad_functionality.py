@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5.QtCore import Qt
-import json
+from reportGeneration.Report import Report
 
 # SETUP FUNCTIONS #
 
@@ -17,7 +17,7 @@ def setup_functionality(app, ui):
 
 def home_page_setup(app, ui):
     add_errands(app, ui)
-    ui.ui_rad.page_rad_home_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_rad.page_rad_home_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_home_button_lock_screen.clicked.connect(lambda: show_lock_screen_popup(ui))
     # ui.ui_rad.page_rad_home_button_view_profile.clicked.connect(lambda: change_page(ui, )) # TODO add profile page
     ui.ui_rad.page_rad_home_button_proceed.clicked.connect(lambda: go_to_patient_page(app, ui)) # TODO
@@ -27,14 +27,14 @@ def home_page_setup(app, ui):
 
 def patient_page_setup(app, ui):
     ui.ui_rad.page_rad_patient_page_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_home))
-    ui.ui_rad.page_rad_patient_page_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_rad.page_rad_patient_page_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: go_to_diagnose_page(app, ui))
     ui.ui_rad.page_rad_patient_page_button_lock_screen.clicked.connect(lambda: lock_screen(ui)) # TODO
     ui.ui_rad.page_rad_patient_page_button_view_scan.clicked.connect(lambda: go_to_view_only_page(app, ui))
 
 
 def view_only_page_setup(app, ui):
-    ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
     ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
     ui.ui_rad.page_rad_view_only_button_hide_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_view_only_button_hide_link_windows,
@@ -46,8 +46,8 @@ def view_only_page_setup(app, ui):
 
 
 def diagnose_page_setup(app, ui):
-    ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(ui))
-    ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: go_back(app, ui))
+    ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
+    ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: go_back_from_diagnose_page(app, ui))
     ui.ui_rad.page_rad_diagnose_button_preview_report.clicked.connect(lambda: go_to_report_page(app, ui))
     ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
                                                                                               ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
@@ -56,12 +56,16 @@ def diagnose_page_setup(app, ui):
     # ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
-    ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))# TODO Add annotation functionality
+    ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
+    ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
 
 
 def report_page_setup(app, ui):
+    ui.ui_rad.page_rad_report_report_preview = Report(ui.ui_rad.page_rad_report_report_preview_frame)
+    ui.ui_rad.page_rad_report_report_preview_frame_grid.addWidget(ui.ui_rad.page_rad_report_report_preview, 0, 0, 1, 1)
+
     ui.ui_rad.page_rad_report_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose, False))
-    ui.ui_rad.page_rad_report_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_rad.page_rad_report_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_report_button_send_report.clicked.connect(lambda: show_send_report_popup(app, ui))
     # ui.ui_rad.page_rad_report_button_surgeon_view.clicked.connect(lambda: )# TODO connect to surgeon view
     # ui.ui_rad.page_rad_report_button_fullscreen.clicked.connect(lambda:)# TODO fullscreen
@@ -76,7 +80,13 @@ def locked_page_setup(ui):
 # GO TO FUNCTIONS #
 
 
-def go_back(app, ui):
+def go_back_from_diagnose_page(app, ui):
+    print("WARNING! ALL CHANGES WILL BE DISCARDED") # TODO Popup or something
+    annotations = app.pat_dict[app.current_pat_id].errands[app.current_errand_id].annotations
+    for annot in annotations:
+        if not annot.reviewed:
+            annotations.remove(annot)
+
     if ui.prev_page is ui.ui_rad.page_rad_view_only:
         go_to_view_only_page(app, ui)
     elif ui.prev_page is ui.ui_rad.page_rad_patient_page:
@@ -86,6 +96,14 @@ def go_back(app, ui):
 
 
 def go_to_patient_page(app, ui):
+    for pat in app.pat_dict.values():
+        for errand in pat.errands.values():
+            for annot in errand.annotations:
+                if not annot.reviewed:
+                    print("Annotation not reviewed")
+            for impr in errand.impressions:
+                if not impr.reviewed:
+                    print("Impression not reviewed")
     app.current_pat_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(0)
     app.current_errand_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(5)
 
@@ -127,6 +145,10 @@ def go_to_diagnose_page(app, ui):
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_diagnose_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_diagnose_3d_view)
 
+    ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
+    ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
+    ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
+
     change_page(ui, ui.ui_rad.page_rad_diagnose)
 
 
@@ -137,20 +159,44 @@ def go_to_report_page(app, ui):
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_report_2d_image)
 
+    ui.ui_rad.page_rad_report_report_preview.load_report(template_name="radiologist",
+                                                             patient=app.pat_dict[app.current_pat_id],
+                                                             order_id=app.current_errand_id,
+                                                             vtk_widget_2d=ui.ui_rad.page_rad_report_2d_image,
+                                                             vtk_widget_3d=None)
+
     change_page(ui, ui.ui_rad.page_rad_report, False)
 
 
 # HELP FUNCTIONS #
+def add_impression(app, ui):
+    if ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText() != "":
+        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_impression("DOCTOR",
+                                                                                       ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText()) # TODO Add doctor title
+        ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
+    else:
+        print("No impression inserted")
 
 
 def add_annotation(app, ui):
     annotation = app.visEngine.annotationStore
-    print(annotation)
-    annotation.SetLocation(ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText())
-    annotation.SetFinding(ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText())
-    app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_annotation(annotation)
-    with open('database/test.json', 'w') as outfile:
-        json.dump(app.pat_dict[app.current_pat_id].toJson(), outfile, indent = 4)
+    if annotation is not None:
+        if ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText() != "":
+            if ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText() != "":
+                annotation.SetLocation(ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText())
+                annotation.SetFinding(ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText())
+                app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_annotation(annotation)
+
+                app.visEngine.annotationStore = None
+                ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
+                ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
+            else:
+                print("No findings inserted")
+        else:
+            print("No location inserted")
+    else:
+        print("No Segmentation available")
+
 
 def change_link(app, ui, button, master_widget, slave_widget):
     deactivate_str = "Deactivate\n2D-3D Link"
@@ -182,13 +228,22 @@ def change_page(ui, new_page, change_prev_page=True):
     ui.stacked_rad.setCurrentWidget(new_page)
 
 
-def logout(ui):
+def logout(app, ui):
+    for pat in app.pat_dict.values():
+        for errand in pat.errands.values():
+            for annot in errand.annotations:
+                if not annot.reviewed:
+                    errand.annotations.remove(annot)
+            for impr in errand.impressions:
+                if not impr.reviewed:
+                    errand.impressions.remove(impr)
+
     ui.prev_page = None
     ui.stacked_rad.setCurrentWidget(ui.ui_rad.page_rad_home)
     ui.stacked_main.setCurrentWidget(ui.page_login)
 
 
-def show_logout_popup(ui):
+def show_logout_popup(app, ui):
     msg = QMessageBox()
     msg.setWindowTitle("Logout")
     msg.setText("Are you sure you want to logout?")
@@ -198,9 +253,20 @@ def show_logout_popup(ui):
     msg.setDefaultButton(msg.No)
     msg.setEscapeButton(msg.No)
 
+    for pat in app.pat_dict.values():
+        for errand in pat.errands.values():
+            for annot in errand.annotations:
+                if not annot.reviewed:
+                    msg.setText("Are you sure you want to logout?\nAll changes will be discarded")
+                    break
+            for impr in errand.impressions:
+                if not impr.reviewed:
+                    msg.setText("Are you sure you want to logout?\nAll changes will be discarded")
+                    break
+
     ret = msg.exec_()
     if ret == msg.Yes:
-        logout(ui)
+        logout(app, ui)
 
 
 def show_lock_screen_popup(ui):
@@ -232,7 +298,13 @@ def show_send_report_popup(app, ui):
     if ret == msg.Yes:
         # TODO add functionality regarding sending the report here
         # TODO save the radiology report to the current errand
-        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status = "Complete"
+        errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+        for annot in errand.annotations:
+            annot.reviewed = True
+        for impr in errand.impressions:
+            impr.reviewed = True
+        app.export_patient_data()
+        errand.status = "Complete"
 
         app.current_pat_id = None
         app.current_errand_id = None

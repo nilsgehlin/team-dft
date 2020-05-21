@@ -17,40 +17,40 @@
             "report": null,
             "annotations": [
                 {
-                    "id": "971589ed42c54fd19459af154e1ef705",
+                    "id": "1ff3baf16096470480f1f7e92cc81811",
                     "location": "Brain Parenchyma",
                     "finding": "T2 hyperintense white matter lesions",
                     "color": [
-                        255.0,
-                        0.0,
-                        0.0
+                        255,
+                        0,
+                        0
                     ],
                     "coordinate": null,
                     "isSegment": false
                 },
                 {
-                    "id": "43b6afc1dd6545acac412c8dec979fa6",
+                    "id": "1ac70b2946ef485da7143803d0de07f3",
                     "location": "Skull",
                     "finding": "Huge fracture",
                     "color": [
-                        0.0,
-                        255.0,
-                        0.0
+                        0,
+                        255,
+                        0
                     ],
                     "coordinate": null,
                     "isSegment": false
                 }
             ],
-			"impressions": [
-				{
-					"doctor": "Dr. Bruce, Radiology",
-					"impression": "Strongly recommend an MRI scan"
-			},
-				{
-					"doctor": "Dr. Andersson, Surgery",
-					"impression": "Hmmm..."
-			}
-			]
+            "impressions": [
+                {
+                    "doctor": "Dr. Bruce, Radiology",
+                    "impression": "Strongly recommend an MRI scan"
+                },
+                {
+                    "doctor": "Dr. Andersson, Surgery",
+                    "impression": "Hmmm..."
+                }
+            ]
         },
         {
             "order_id": "1",
@@ -62,7 +62,7 @@
             "data_dir": "sample_dicom/chestDICOM",
             "report": null,
             "annotations": [],
-			"impressions": []
+            "impressions": []
         }
     ]
 }

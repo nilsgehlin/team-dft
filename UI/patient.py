@@ -79,12 +79,23 @@ class Errand(object):
         self.data_dir = dir
         self.report = None
         self.annotations = AnnotationList()
+        self.temp_annotations = AnnotationList()
+        self.impressions = []
+        self.temp_impressions = []
 
     def add_annotation(self, annotation):
         self.annotations += [annotation]
 
     def get_annotation(self, annot_id):
         return self.annotations.GetAnnotationFromID(annot_id)
+
+    def add_impression(self, *args):
+        if len(args) == 1:
+            print(args)
+            self.impressions += [args[0]]
+        elif len(args) == 2:
+            print(args)
+            self.impressions += [Impression(args[0], args[1])]
     
 
     # Serializes the important class items to JSON compatible dictionary
@@ -92,6 +103,10 @@ class Errand(object):
         annots_json = []
         for annot in self.annotations:
             annots_json.append(annot.toJson())
+
+        imprs_json = []
+        for impr in self.impressions:
+            imprs_json.append(impr.toJson())
 
         errand_json = dict(order_id =  self.order_id, 
                      date = self.date,
@@ -102,6 +117,7 @@ class Errand(object):
                      data_dir = self.data_dir,
                      report = self.report,
                      annotations = annots_json,
+                     impressions = imprs_json
                      )
         return errand_json
 
@@ -109,13 +125,48 @@ class Errand(object):
     # Deserializes the items needed to instantiate the class from JSON dictionary
     @staticmethod
     def fromJson(data):
-        errand = Errand(data['date'],data['status'],data['scan'],data['clinic'],data['task'],data['data_dir'],)
+        errand = Errand(data['date'],data['status'],data['scan'],data['clinic'],data['task'],data['data_dir'])
         
         annots_data = data["annotations"]
         for annot_data in annots_data:
             errand.add_annotation(Annotation.fromJson(annot_data))
 
+        imprs_data = data["impressions"]
+        for impr_data in imprs_data:
+            errand.add_impression(Impression.fromJson(impr_data))
+
         return errand
+
+
+class Impression(object):
+    def __init__(self, doctor, impression):
+        self.doctor = doctor
+        self.impression = impression
+        self.reviewed = False
+
+    def GetDoctor(self):
+        return self.doctor
+
+    def GetImpression(self):
+        return self.impression
+
+    def SetDoctor(self, doctor):
+        self.doctor = doctor
+
+    def SetImpression(self, impression):
+        self.impression = impression
+
+    def toJson(self):
+        json = dict(doctor=self.GetDoctor(), impression=self.GetImpression())
+        return json
+
+    # Deserializes an annotation from Json
+    @staticmethod
+    def fromJson(data):
+        impr = Impression(data['doctor'], data['impression'])
+        impr.reviewed = True
+        return impr
+
 
 
 ######################

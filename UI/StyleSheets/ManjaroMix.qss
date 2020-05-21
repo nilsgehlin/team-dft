@@ -1,6 +1,9 @@
 QMainWindow {
 	background-color:#151a1e;
 }
+QWidget{
+	font: 11pt "MS Shell Dlg 2";
+}
 QCalendar {
 	background-color: #151a1e;
 }
@@ -154,6 +157,7 @@ QMenu::item {
 	background-color: #151a1e;
 }
 QTabWidget {
+	font: 11pt "MS Shell Dlg 2";
 	color:rgb(0,0,0);
 	background-color:#000000;
 }

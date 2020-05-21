@@ -15,7 +15,8 @@
             "task": "TASK??",
             "data_dir": "sample_dicom/MRI_brain_tumor",
             "report": null,
-            "annotations": []
+            "annotations": [],
+			"impressions": []
         }
     ]
 }
