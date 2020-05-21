@@ -3,6 +3,7 @@ from vtk.util import keys, numpy_support
 from imageReader.ImageReader import ImageReader
 from segmentation.Segmentation import Segmentation
 from annotation.Annotation import Annotation
+from measurement.Measurement import Measurement
 
 # TODO:
 #1. Figure out tissue selection options for MRI (minor)
@@ -333,7 +334,24 @@ class VisualizationEngine(object):
             segment_annot.SetCoordinate(clicked_coordinate)
             segment_annot.SetVtkColor(segment_color)
             segment_annot.SetSegmentFlag(True, segment_array)
-            
+
+            # Measure the segmentation
+            mesurement = Measurement(segmentation.GetScalars())
+            meas_point = mesurement.GetAxialMeasurement()[2]
+            pointA = list(list(meas_point)[0])[0].tolist()
+            pointB = list(list(meas_point)[0])[1].tolist()
+            z = mesurement.GetAxialMeasurement()[0]
+            print(type(pointA))
+            line_actor = self.__CreateMeasurementLine(pointA, pointB, z)
+
+            line_actor_info = vtk.vtkInformation()
+            line_actor_info.Set(self._propTypeKey, self._CuttingPlaneProp)
+            line_actor.SetPropertyKeys(line_actor_info)
+
+            renderer.AddActor(line_actor)
+            viewer.UpdateDisplayExtent()
+            viewer.Render()
+   
             return segment_annot
 
 
@@ -596,6 +614,46 @@ class VisualizationEngine(object):
 
         return actor
 
+    
+    # Creates a measurement line
+    def __CreateMeasurementLine(self, pointA, pointB,z):
+        linesPolyData = vtk.vtkPolyData()
+
+        pt0 = pointA+[z]
+        for i in range(3):
+            pt0[i] = pt0[i] * self._pixelSpacing[i]
+        print(pt0)
+
+        pt1 = pointB+[z]
+        for i in range(3):
+            pt1[i] = pt1[i] * self._pixelSpacing[i]
+        print(pt1)
+
+        pts = vtk.vtkPoints()
+        pts.InsertNextPoint(pt0)
+        pts.InsertNextPoint(pt1)
+
+        lines = vtk.vtkCellArray()
+        for i in range(1):
+            line = vtk.vtkLine()
+            line.GetPointIds().SetId(0, i)  # the second 0 is the index of Start in linesPolyData's points
+            line.GetPointIds().SetId(1, i+1)  # the second 1 is the index of End in linesPolyData's points
+            lines.InsertNextCell(line)
+
+        linesPolyData.SetPoints(pts)
+        linesPolyData.SetLines(lines)
+
+        ## Setup the visualization pipeline
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(linesPolyData)
+
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetLineWidth(2)
+        actor.GetProperty().SetColor(1.0,0.0,0.0)
+
+        return actor
+
 
     # Creates a an image actor with scalars from the segmentation
     def __CreateSegmentationActor(self, segmentation, color):
@@ -652,6 +710,8 @@ class VisualizationEngine(object):
     # Listener for slice change event:
     #   This updates the segmentations if any and cutting planes if the caller is the master    
     def __on_slice_change(self, viewer, event):
+        print(viewer.GetSlice())
+        
         # Get the viewer props and renderer
         renderer = viewer.GetRenderer()
         props = renderer.GetViewProps()
