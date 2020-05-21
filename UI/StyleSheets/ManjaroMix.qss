@@ -55,6 +55,7 @@ QToolButton:pressed{
 	background-color: rgb(142,142,142);
 }
 QPushButton{
+	font: 11pt "MS Shell Dlg 2";
 	border-style: solid;
 	border-color: #050a0e;
 	border-width: 1px;

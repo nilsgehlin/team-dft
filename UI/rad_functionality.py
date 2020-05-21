@@ -33,7 +33,10 @@ def patient_page_setup(app, ui):
 
 def view_only_page_setup(app, ui):
     ui.ui_rad.page_rad_view_only_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_2d_view_frame)
+    ui.ui_rad.page_rad_view_only_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_2d_view, 0, 0, 1, 1)
+
     ui.ui_rad.page_rad_view_only_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_3d_view_frame)
+    ui.ui_rad.page_rad_view_only_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_3d_view, 0, 0, 1, 1)
 
     ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
@@ -46,7 +49,10 @@ def view_only_page_setup(app, ui):
 
 def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
+    ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 1, 1)
+
     ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
+    ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 0, 1, 1)
 
     ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: change_page(ui, ui.prev_page))
@@ -61,6 +67,8 @@ def diagnose_page_setup(app, ui):
 
 def report_page_setup(app, ui):
     ui.ui_rad.page_rad_report_2d_image = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_report_2d_image_frame)
+    ui.ui_rad.page_rad_report_2d_image_frame_grid.addWidget(ui.ui_rad.page_rad_report_2d_image, 0, 0, 1, 1)
+
 
     ui.ui_rad.page_rad_report_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_diagnose, False))
     ui.ui_rad.page_rad_report_button_logout.clicked.connect(lambda: show_logout_popup(ui))

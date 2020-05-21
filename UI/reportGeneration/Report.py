@@ -1,5 +1,4 @@
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import QApplication, QWidget, QTextBrowser, QVBoxLayout
+from PyQt5.QtWidgets import QTextBrowser
 from PyQt5.QtPrintSupport import QPrintDialog
 
 import jinja2
@@ -10,17 +9,15 @@ template_dir = "templates"
 if __name__ == "reportGeneration.Report":
     template_dir = os.path.join("UI", "reportGeneration", template_dir)
 
+
 class Report(QTextBrowser):
-    def __init__(self, parent_widget, template_name, patient, order_id, show_wiki_on_click=True):
+    def __init__(self, parent_widget, show_wiki_on_click=True):
         super().__init__(parent_widget)
         self.setReadOnly(True)
-        self.patient = patient
-        self.errand = patient.errands[order_id]
+        self.patient = None
+        self.errand = None
         self.show_wiki_on_click = show_wiki_on_click
-        self.template_name = template_name
-        self.update()
-        with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
-            self.setStyleSheet(style_sheet_file.read())
+        self.template_name = None
         self.setOpenLinks(False)
         self.anchorClicked.connect(self.on_annotation_clicked)
 
@@ -33,6 +30,15 @@ class Report(QTextBrowser):
         template = env.get_template(self.template_name + ".html")
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
+
+    def load_report(self, template_name, patient, order_id):
+        self.patient = patient
+        self.errand = patient.errands[order_id]
+        self.template_name = template_name
+        self.update()
+        with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
+            self.setStyleSheet(style_sheet_file.read())
+
 
     def on_annotation_clicked(self, url_input):
         annotation_id = int(url_input.toString())

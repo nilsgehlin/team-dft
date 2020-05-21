@@ -30,12 +30,7 @@ def home_page_setup(app, ui):
         lambda: go_to_errand_page(app, ui))
 
 def go_to_errand_page(app, ui):
-    print("Going to errand page")
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
-    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame,
-                                                          template_name="radiologist",
-                                                          patient=app.pat_dict[app.current_pat_id],
-                                                          order_id=app.current_errand_id)
     ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     root_item = QTreeWidgetItem([errand.task, errand.date, errand.scan, errand.status, errand.clinic])
@@ -69,18 +64,24 @@ def image_status_page_setup(app, ui):
 
 
 def go_to_view_scan_page(app, ui):
-    print("Going to view scan page")
-
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     app.visEngine.SetDirectory(errand.data_dir)
     app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
-    # ui.ui_pat.page_pat_view_scan_rad_annotations # TODO Radiologists annotation for selected object
+    ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="radiologist",
+                                                          patient=app.pat_dict[app.current_pat_id],
+                                                          order_id=app.current_errand_id)
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
 def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
+    ui.ui_pat.page_pat_view_scan_2d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_2d_view, 0, 0, 1, 1)
+
     ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
+    ui.ui_pat.page_pat_view_scan_3d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_3d_view, 0, 0, 1, 1)
+
+    ui.ui_pat.page_pat_view_scan_rad_annotations = Report(ui.ui_pat.page_pat_view_scan_rad_annotations_frame)
+    ui.ui_pat.page_pat_view_scan_rad_annotations_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_rad_annotations, 0, 0, 1, 1)
 
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))

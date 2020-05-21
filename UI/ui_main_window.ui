@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>639</height>
+    <width>596</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -80,6 +80,7 @@ QToolButton:pressed{
 	background-color: rgb(142,142,142);
 }
 QPushButton{
+	font: 11pt &quot;MS Shell Dlg 2&quot;;
 	border-style: solid;
 	border-color: #050a0e;
 	border-width: 1px;
@@ -562,112 +563,37 @@ QTreeWidget{
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="QStackedWidget" name="stacked_main">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>763</width>
-      <height>598</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="page_login">
-     <widget class="QPushButton" name="page_login_button_login">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>310</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stacked_main">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="text">
-       <string>Login</string>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-     </widget>
-     <widget class="QComboBox" name="page_login_combobox_user_type">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>310</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Patient</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Radiologist</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Surgeon</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLineEdit" name="page_login_insert_id">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>240</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>0000</string>
-      </property>
-      <property name="placeholderText">
-       <string>ID</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="page_login_insert_password">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>270</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>0000</string>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
-      </property>
-      <property name="placeholderText">
-       <string>Password</string>
-      </property>
-      <property name="clearButtonEnabled">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="textEdit">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>50</y>
-        <width>201</width>
-        <height>241</height>
-       </rect>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <widget class="QWidget" name="page_login">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1" colspan="4">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="6" column="1" colspan="2">
+         <widget class="QTextEdit" name="textEdit">
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -680,53 +606,171 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Surgeon:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;id: 0000 pw: 0000&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="page_login_button_login">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Login</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="page_login_combobox_user_type">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Patient</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Radiologist</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Surgeon</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Password:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLineEdit" name="page_login_insert_password">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>0000</string>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+          <property name="placeholderText">
+           <string>Password</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLineEdit" name="page_login_insert_id">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>0000</string>
+          </property>
+          <property name="placeholderText">
+           <string>ID</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>User ID:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="6" column="3">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_rad">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QStackedWidget" name="stacked_rad"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_pat">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QStackedWidget" name="stacked_pat"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_sur">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <widget class="QStackedWidget" name="stacked_sur"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="page_rad">
-     <widget class="QStackedWidget" name="stacked_rad">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>800</width>
-        <height>559</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_pat">
-     <widget class="QStackedWidget" name="stacked_pat">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>800</width>
-        <height>559</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_sur">
-     <widget class="QStackedWidget" name="stacked_sur">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>800</width>
-        <height>559</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menu_bar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>763</width>
+     <width>596</width>
      <height>18</height>
     </rect>
    </property>
