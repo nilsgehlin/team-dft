@@ -4,7 +4,7 @@ import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from reportGeneration.Report import Report
 import UI.patient
-import visualizationEngine.annotation.annotation
+import visualizationEngine.annotation.Annotation
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)

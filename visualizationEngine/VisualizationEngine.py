@@ -1,8 +1,8 @@
 import vtk
 from vtk.util import keys, numpy_support
-from imageReader.imageReader import imageReader
+from imageReader.ImageReader import ImageReader
 from segmentation.Segmentation import Segmentation
-from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIterator
+from annotation.Annotation import Annotation, AnnotationList
 
 # TODO:
 #1. Figure out tissue selection options for MRI (minor)
@@ -10,7 +10,7 @@ from annotation.annotation import Annotation, AnnotationStore, AnnotationStoreIt
 #6. Fix updating display extent after creating segmentation, currently not consistent
 #7. Add opacity of 1 to the 3D viewer so segmentation show up, or change segmentaion scalar?
 
-class visualizationEngine(object):
+class VisualizationEngine(object):
     ##### Class Variables #####
     
     # Reader
@@ -74,9 +74,6 @@ class visualizationEngine(object):
         self._imageInteractorStyle = vtk.vtkInteractorStyleImage()
         self._volumeInteractorStyle = vtk.vtkInteractorStyleTrackballCamera()
 
-        # Set the annotation store
-        self.annotationStore = AnnotationStore()
-
     
     ##################################
     ##### Public class functions #####
@@ -88,7 +85,7 @@ class visualizationEngine(object):
     #   Parameters:
     #       1. Directory, containing DICOM files
     def SetDirectory(self, dir):
-        image_reader = imageReader(dir)
+        image_reader = ImageReader(dir)
         self.reader = image_reader.readImages()
         self._pixelSpacing = image_reader.getPixelSpacing()
         self.imageReader = image_reader
@@ -373,31 +370,7 @@ class visualizationEngine(object):
 
                     renderer.AddViewProp(volume)
         
-        widget.GetRenderWindow().Render()
-
-
-    # Returns all the annotation keys that are segmentations
-    #   Parameters: None
-    def GetAllSegmentationKeys(self):
-        arr = []
-        it = AnnotationStoreIterator(self.annotationStore)
-        for key in it:
-            if(self.annotationStore.GetAnnotation(key).isSegment()):
-                arr.append(key)
-        return arr
-
-
-    # Returns all the annotation keys regardless of annotation type
-    #   Parameters: None
-    def GetAllAnnotationKeys(self):
-        return self.annotationKeys
-
-
-    # Returns a copy of the annotation store
-    #   Parameters: None
-    def GetAnnotationStore(self):
-        store = AnnotationStore()
-        store.DeepCopy(self.annotationStore)     
+        widget.GetRenderWindow().Render()    
         
 
     ###################################

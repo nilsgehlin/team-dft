@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 import os
-from visualizationEngine import visualizationEngine
+from VisualizationEngine import VisualizationEngine
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     # Tiff images in 2d3dprototype/stanford-ct-new
     # directory = os.path.join("..", "sample_dicom", "stanford-ct-new")  
 
-    vtk_engine = visualizationEngine()
+    vtk_engine = VisualizationEngine()
     vtk_engine.SetDirectory(directory)
     vtk_engine.SetupImageUI(ui.vtkWidget, "AXIAL")
     vtk_engine.SetupImageUI(ui.vtkWidget1, "CORONAL")
