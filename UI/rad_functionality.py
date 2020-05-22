@@ -181,7 +181,7 @@ def add_impression(app, ui):
 
 
 def add_annotation(app, ui):
-    annotation = app.visEngine.activeAnnotation
+    annotation = app.visEngine.GetActiveAnnotation()
     if annotation is not None:
         if ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText() != "":
             if ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText() != "":
@@ -189,7 +189,7 @@ def add_annotation(app, ui):
                 annotation.SetFinding(ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText())
                 app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_annotation(annotation)
 
-                app.visEngine.activeAnnotation = None
+                app.visEngine.ClearActiveAnnotation()
                 ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
                 ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
                 ui.ui_rad.page_rad_diagnose_insert_locations.setFocus()

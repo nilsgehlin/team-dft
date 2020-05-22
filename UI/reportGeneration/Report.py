@@ -63,6 +63,7 @@ class Report(QTextBrowser):
         else:
             self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
             self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
+            self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
 
 
 

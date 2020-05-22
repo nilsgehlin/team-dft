@@ -597,6 +597,10 @@ class VisualizationEngine(object):
     # This is the most recent one added
     def GetActiveAnnotation(self):
         return self.activeAnnotation
+
+    # Clears the active annotation
+    def ClearActiveAnnotation(self):
+        self.activeAnnotation = None
         
 
     ###################################
