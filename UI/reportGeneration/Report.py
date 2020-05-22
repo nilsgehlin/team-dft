@@ -57,16 +57,9 @@ class Report(QTextBrowser):
     def on_annotation_clicked(self, url_input):
         annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
-
-        annot_list = self.vis_engine.activeAnnotations # TODO To be removed
         
-        # if annotation_clicked in self.vis_engine.activeAnnotations:
-        if annotation_clicked in annot_list: # TODO To be removed
-            annot_list.remove(annotation_clicked) # TODO To be removed
-            # self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
-            self.vis_engine.RemoveAllAnnotations(self.vtk_widget_2d) # TODO To be removed
-            self.vis_engine.AddSegmentations(self.vtk_widget_2d, annot_list) # TODO To be removed
-            self.vis_engine.AddMeasurements(self.vtk_widget_2d, annot_list) # TODO To be removed
+        if self.vis_engine.HasAnnotation(self.vtk_widget_2d, annotation_clicked):
+            self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
         else:
             self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
             self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])

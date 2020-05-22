@@ -434,6 +434,27 @@ class VisualizationEngine(object):
                     if prop_property.Get(self._propIDKey) == segment_id:
                         return True
         return False
+
+    
+    # Checks whether the annotation's segment or measurement is shown on the widget window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annot - a single annotation
+    def HasAnnotation(self, widget, annot):
+        renderer = self.__GetRenderer(widget)
+        
+        if (annot.isSegment()):
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                prop_type = prop_property.Get(self._propTypeKey)
+                if prop_type == self._SegmentationProp or prop_type == self._MeasurementProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        return True
+        return False
     
 
     # Removes the annotations' segments in the window
