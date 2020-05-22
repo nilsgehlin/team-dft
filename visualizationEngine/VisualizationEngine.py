@@ -571,6 +571,12 @@ class VisualizationEngine(object):
             elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
                 pass
         
+    
+    # Returns the currently active annotative.
+    # This is the most recent one added
+    def GetActiveAnnotation(self):
+        return self.activeAnnotation
+        
 
     ###################################
     ##### Private class functions #####
