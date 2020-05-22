@@ -175,6 +175,7 @@ def add_impression(app, ui):
         app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_impression(app.rad_dict[app.current_rad_id].get_signature(),
                                                                                        ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText()) # TODO Add doctor title
         ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
+        ui.ui_rad.page_rad_diagnose_button_preview_report.setFocus()
     else:
         print("No impression inserted")
 
@@ -191,6 +192,7 @@ def add_annotation(app, ui):
                 app.visEngine.annotationStore = None
                 ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
                 ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
+                ui.ui_rad.page_rad_diagnose_insert_locations.setFocus()
             else:
                 print("No findings inserted")
         else:

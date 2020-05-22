@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>888</width>
-    <height>789</height>
+    <height>787</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,23 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="3">
+     <widget class="QTextEdit" name="page_rad_home_search_bar">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Search&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QPushButton" name="page_rad_home_button_view_profile">
       <property name="minimumSize">
@@ -56,55 +73,18 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="6">
-     <widget class="QTextEdit" name="page_rad_home_search_bar">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>25</height>
-       </size>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Search&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2" colspan="4">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="5" column="2" colspan="4">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="2" colspan="5">
+    <item row="3" column="2" colspan="2">
      <widget class="QTreeWidget" name="page_rad_home_patient_information">
       <property name="minimumSize">
        <size>
         <width>371</width>
         <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
        </size>
       </property>
       <property name="sortingEnabled">
@@ -142,7 +122,29 @@ p, li { white-space: pre-wrap; }
       </column>
      </widget>
     </item>
-    <item row="0" column="8">
+    <item row="0" column="3">
+     <widget class="QPushButton" name="page_rad_home_button_lock_screen">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>Lock Screen</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
      <widget class="QPushButton" name="page_rad_home_button_logout">
       <property name="minimumSize">
        <size>
@@ -161,7 +163,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </item>
-    <item row="5" column="6">
+    <item row="5" column="3">
      <widget class="QPushButton" name="page_rad_home_button_proceed">
       <property name="enabled">
        <bool>false</bool>
@@ -183,28 +185,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>Proceed</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6">
-     <widget class="QPushButton" name="page_rad_home_button_lock_screen">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>Lock Screen</string>
       </property>
      </widget>
     </item>
@@ -563,6 +543,9 @@ p, li { white-space: pre-wrap; }
         <height>16777215</height>
        </size>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Back</string>
       </property>
@@ -587,6 +570,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>Preview Report</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -653,6 +639,9 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Fullscreen 3D</string>
         </property>
@@ -672,6 +661,9 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Hide 3D</string>
         </property>
@@ -690,6 +682,9 @@ p, li { white-space: pre-wrap; }
           <width>100</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Activate
@@ -722,6 +717,9 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Zoom In</string>
         </property>
@@ -740,6 +738,9 @@ p, li { white-space: pre-wrap; }
           <width>100</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Zoom Out</string>
@@ -774,6 +775,9 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="elideMode">
          <enum>Qt::ElideNone</enum>
+        </property>
+        <property name="usesScrollButtons">
+         <bool>false</bool>
         </property>
         <property name="documentMode">
          <bool>false</bool>
@@ -822,6 +826,9 @@ p, li { white-space: pre-wrap; }
             <property name="text">
              <string>Add Annotation</string>
             </property>
+            <property name="autoDefault">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item row="3" column="0">
@@ -848,6 +855,9 @@ p, li { white-space: pre-wrap; }
             <property name="layoutDirection">
              <enum>Qt::RightToLeft</enum>
             </property>
+            <property name="tabChangesFocus">
+             <bool>true</bool>
+            </property>
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -867,6 +877,9 @@ p, li { white-space: pre-wrap; }
               <width>16777215</width>
               <height>300</height>
              </size>
+            </property>
+            <property name="tabChangesFocus">
+             <bool>true</bool>
             </property>
             <property name="placeholderText">
              <string>Insert location</string>
@@ -910,6 +923,9 @@ p, li { white-space: pre-wrap; }
             <property name="text">
              <string>Add Impression</string>
             </property>
+            <property name="autoDefault">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item row="1" column="2">
@@ -932,6 +948,9 @@ p, li { white-space: pre-wrap; }
               <width>16777215</width>
               <height>600</height>
              </size>
+            </property>
+            <property name="tabChangesFocus">
+             <bool>true</bool>
             </property>
             <property name="placeholderText">
              <string>Insert impression</string>
@@ -1003,8 +1022,14 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Logout</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -1038,6 +1063,9 @@ p, li { white-space: pre-wrap; }
           <width>100</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Fullscreen 2D</string>
@@ -1218,64 +1246,41 @@ p, li { white-space: pre-wrap; }
   </widget>
   <widget class="QWidget" name="page_rad_report">
    <layout class="QGridLayout" name="gridLayout_14">
-    <item row="1" column="0" colspan="3">
-     <widget class="QFrame" name="page_rad_report_2d_image_frame">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>300</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="page_rad_report_2d_image_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_report_2d_image" native="true">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 170, 255);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="page_rad_report_button_back">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Back</string>
-      </property>
-     </widget>
+    <item row="0" column="3" colspan="2">
+     <layout class="QGridLayout" name="gridLayout_16">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="page_rad_report_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_14">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item row="2" column="0" colspan="3">
      <layout class="QGridLayout" name="gridLayout_17">
@@ -1403,100 +1408,6 @@ p, li { white-space: pre-wrap; }
       </item>
      </layout>
     </item>
-    <item row="0" column="3" colspan="2">
-     <layout class="QGridLayout" name="gridLayout_16">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="page_rad_report_button_logout">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Logout</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_14">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <layout class="QGridLayout" name="gridLayout_15">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="page_rad_report_button_fullscreen">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Fullscreen 2D</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_12">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="4">
-     <widget class="QPushButton" name="page_rad_report_button_send_report">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>Send Report</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="3" rowspan="2" colspan="2">
      <widget class="QFrame" name="page_rad_report_report_preview_frame">
       <property name="styleSheet">
@@ -1529,6 +1440,123 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <widget class="QFrame" name="page_rad_report_2d_image_frame">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>300</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="page_rad_report_2d_image_frame_grid">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QWidget" name="page_rad_report_2d_image" native="true">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 255);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="page_rad_report_button_back">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <layout class="QGridLayout" name="gridLayout_15">
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_12">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="page_rad_report_button_fullscreen">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Fullscreen 2D</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="4">
+     <widget class="QPushButton" name="page_rad_report_button_send_report">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>Send Report</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -2089,6 +2117,47 @@ p, li { white-space: pre-wrap; }
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>page_rad_diagnose_insert_locations</tabstop>
+  <tabstop>page_rad_diagnose_insert_findings</tabstop>
+  <tabstop>page_rad_diagnose_button_add_annotation</tabstop>
+  <tabstop>page_rad_diagnose_tab</tabstop>
+  <tabstop>page_rad_diagnose_insert_impression</tabstop>
+  <tabstop>page_rad_diagnose_button_add_impression</tabstop>
+  <tabstop>page_rad_diagnose_button_preview_report</tabstop>
+  <tabstop>page_rad_patient_page_scan_info</tabstop>
+  <tabstop>page_rad_report_button_send_report</tabstop>
+  <tabstop>page_rad_report_button_fullscreen</tabstop>
+  <tabstop>page_rad_report_button_logout</tabstop>
+  <tabstop>page_rad_report_button_zoom_in</tabstop>
+  <tabstop>page_rad_report_button_zoom_out</tabstop>
+  <tabstop>page_rad_report_button_surgeon_view</tabstop>
+  <tabstop>page_rad_report_button_back</tabstop>
+  <tabstop>page_rad_locked_insert_password</tabstop>
+  <tabstop>page_rad_locked_button_login</tabstop>
+  <tabstop>page_rad_locked_text</tabstop>
+  <tabstop>page_rad_home_patient_information</tabstop>
+  <tabstop>page_rad_home_button_proceed</tabstop>
+  <tabstop>page_rad_home_search_bar</tabstop>
+  <tabstop>page_rad_home_button_view_profile</tabstop>
+  <tabstop>page_rad_home_button_colleagues</tabstop>
+  <tabstop>page_rad_home_button_lock_screen</tabstop>
+  <tabstop>page_rad_home_button_logout</tabstop>
+  <tabstop>page_rad_view_only_button_diagnose</tabstop>
+  <tabstop>page_rad_view_only_button_logout</tabstop>
+  <tabstop>page_rad_view_only_button_2d_fullscreen</tabstop>
+  <tabstop>page_rad_view_only_button_hide_link_windows</tabstop>
+  <tabstop>page_rad_view_only_button_hide_3d</tabstop>
+  <tabstop>page_rad_view_only_button_3d_fullscreen</tabstop>
+  <tabstop>page_rad_view_only_button_back</tabstop>
+  <tabstop>page_rad_patient_page_button_diagnose_patient</tabstop>
+  <tabstop>page_rad_patient_page_button_view_scan</tabstop>
+  <tabstop>page_rad_patient_page_patient_infor</tabstop>
+  <tabstop>page_rad_patient_page_doctors_orders</tabstop>
+  <tabstop>page_rad_patient_page_button_back</tabstop>
+  <tabstop>page_rad_patient_page_button_lock_screen</tabstop>
+  <tabstop>page_rad_patient_page_button_logout</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

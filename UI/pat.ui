@@ -1122,6 +1122,50 @@ notifications</string>
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>page_pat_view_scan_button_logout</tabstop>
+  <tabstop>page_pat_home_textEdit_search</tabstop>
+  <tabstop>page_pat_home_treeWidget_treatment_list</tabstop>
+  <tabstop>page_pat_home_button_my_profile</tabstop>
+  <tabstop>page_pat_home_button_proceed</tabstop>
+  <tabstop>page_pat_errand_treeWidget_errand_list</tabstop>
+  <tabstop>page_pat_errand_button_back</tabstop>
+  <tabstop>page_pat_errand_button_view_status</tabstop>
+  <tabstop>page_pat_errand_button_share</tabstop>
+  <tabstop>page_pat_errand_button_download</tabstop>
+  <tabstop>page_pat_errand_button_view</tabstop>
+  <tabstop>page_pat_errand_report</tabstop>
+  <tabstop>page_pat_errand_logout</tabstop>
+  <tabstop>page_pat_errand_report_textEdit_search</tabstop>
+  <tabstop>page_pat_my_profile_button_back</tabstop>
+  <tabstop>page_pat_my_profile_textBrowser</tabstop>
+  <tabstop>page_pat_image_status_textBrowser_detailed_information</tabstop>
+  <tabstop>page_pat_image_status_button_back</tabstop>
+  <tabstop>page_pat_image_status_button_request_notification</tabstop>
+  <tabstop>page_pat_image_status_button_logout</tabstop>
+  <tabstop>page_pat_view_scan_button_previous_note</tabstop>
+  <tabstop>page_pat_view_scan_button_previous_slice</tabstop>
+  <tabstop>page_pat_view_scan_button_play_pause</tabstop>
+  <tabstop>page_pat_view_scan_button_next_note</tabstop>
+  <tabstop>page_pat_view_scan_button_next_slice</tabstop>
+  <tabstop>page_pat_view_scan_button_right</tabstop>
+  <tabstop>page_pat_view_scan_button_left</tabstop>
+  <tabstop>page_pat_view_scan_button_up</tabstop>
+  <tabstop>page_pat_view_scan_button_down</tabstop>
+  <tabstop>page_pat_view_scan_button_zoom_in</tabstop>
+  <tabstop>page_pat_view_scan_button_zoom_out</tabstop>
+  <tabstop>page_pat_view_scan_button_3d_fullscreen</tabstop>
+  <tabstop>page_pat_view_scan_button_3d_bone_view</tabstop>
+  <tabstop>page_pat_view_scan_button_3d_tissue_view</tabstop>
+  <tabstop>page_pat_home_logout</tabstop>
+  <tabstop>page_pat_view_scan_button_back</tabstop>
+  <tabstop>page_rad_diagnose_insert_annotations</tabstop>
+  <tabstop>page_rad_diagnose_button_2d_zoom_in</tabstop>
+  <tabstop>page_rad_diagnose_toolbar_help</tabstop>
+  <tabstop>page_rad_diagnose_button_2d_zoom_out</tabstop>
+  <tabstop>page_rad_diagnose_button_2d_fullscreen</tabstop>
+  <tabstop>page_pat_view_scan_button_link_windows</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
