@@ -164,7 +164,7 @@ def go_to_report_page(app, ui):
                                                              patient=app.pat_dict[app.current_pat_id],
                                                              order_id=app.current_errand_id,
                                                              vtk_widget_2d=ui.ui_rad.page_rad_report_2d_image,
-                                                             vtk_widget_3d=None)
+                                                             vtk_widget_3d=None, vis_engine=app.visEngine)
 
     change_page(ui, ui.ui_rad.page_rad_report, False)
 
@@ -181,7 +181,7 @@ def add_impression(app, ui):
 
 
 def add_annotation(app, ui):
-    annotation = app.visEngine.annotationStore
+    annotation = app.visEngine.activeAnnotation
     if annotation is not None:
         if ui.ui_rad.page_rad_diagnose_insert_locations.toPlainText() != "":
             if ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText() != "":
@@ -189,7 +189,7 @@ def add_annotation(app, ui):
                 annotation.SetFinding(ui.ui_rad.page_rad_diagnose_insert_findings.toPlainText())
                 app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_annotation(annotation)
 
-                app.visEngine.annotationStore = None
+                app.visEngine.activeAnnotation = None
                 ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
                 ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
                 ui.ui_rad.page_rad_diagnose_insert_locations.setFocus()

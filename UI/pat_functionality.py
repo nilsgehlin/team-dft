@@ -103,7 +103,7 @@ def go_to_view_scan_page(app, ui):
         ui.ui_pat.page_pat_view_scan_3d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_3d_view, 0, 0, 1, 1)
 
         app.visEngine.SetDirectory(errand.data_dir)
-        app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view)
+        app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view, do_segmentation=False)
         app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
 
         ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Activate\n2D-3D Link")
@@ -112,7 +112,8 @@ def go_to_view_scan_page(app, ui):
                                                              patient=app.pat_dict[app.current_pat_id],
                                                              order_id=app.current_errand_id,
                                                              vtk_widget_2d=ui.ui_pat.page_pat_view_scan_2d_view,
-                                                             vtk_widget_3d=ui.ui_pat.page_pat_view_scan_3d_view)
+                                                             vtk_widget_3d=ui.ui_pat.page_pat_view_scan_3d_view,
+                                                             vis_engine=app.visEngine)
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
 

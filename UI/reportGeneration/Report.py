@@ -33,12 +33,13 @@ class Report(QTextBrowser):
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
 
-    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d):
+    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d, vis_engine):
         self.patient = patient
         self.errand = patient.errands[order_id]
         self.template_name = template_name
         self.vtk_widget_2d = vtk_widget_2d
         self.vtk_widget_3d = vtk_widget_3d
+        self.vis_engine = vis_engine
         self.update()
         with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
             self.setStyleSheet(style_sheet_file.read())
@@ -56,8 +57,20 @@ class Report(QTextBrowser):
     def on_annotation_clicked(self, url_input):
         annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
-        # self.visEngine.RemoveSegmentations(self.vtk_widget_2d, self.vtk_widget_3d)
-        # self.visEngine.AddSegmentation(annotation_clicked, self.vtk_widget_2d, vtk_widget_3d)
+
+        annot_list = self.vis_engine.activeAnnotations # TODO To be removed
+        
+        # if annotation_clicked in self.vis_engine.activeAnnotations:
+        if annotation_clicked in annot_list: # TODO To be removed
+            annot_list.remove(annotation_clicked) # TODO To be removed
+            # self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
+            self.vis_engine.RemoveAllAnnotations(self.vtk_widget_2d) # TODO To be removed
+            self.vis_engine.AddSegmentations(self.vtk_widget_2d, annot_list) # TODO To be removed
+            self.vis_engine.AddMeasurements(self.vtk_widget_2d, annot_list) # TODO To be removed
+        else:
+            self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
+            self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
+
 
 
     def save_to_pdf(self, filename):

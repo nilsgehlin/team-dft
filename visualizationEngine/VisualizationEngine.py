@@ -20,6 +20,7 @@ class VisualizationEngine(object):
 
     # Annotations
     activeAnnotation = None
+    activeAnnotations = []
 
     # Renderer Variables
     _imageRenderer = "IMAGE_RENDERER"
@@ -102,7 +103,7 @@ class VisualizationEngine(object):
     #   Notes:
     #       -If not orientation is provided it shows default orientation
     #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
-    def SetupImageUI(self, vtkWidget, *args):
+    def SetupImageUI(self, vtkWidget, do_segmentation=True, *args):
         # Creating image viewer
         image_viewer = vtk.vtkResliceImageViewer()
         image_viewer.SetInputData(self.reader.GetOutput())
@@ -140,9 +141,10 @@ class VisualizationEngine(object):
         image_viewer.AddObserver("InteractionEvent", self.__on_slice_change, 1)
 
         # For now, add interactor ability for segmentation
-        picker = vtk.vtkPointPicker()
-        interactor.SetPicker(picker)
-        interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 1)
+        if do_segmentation:
+            picker = vtk.vtkPointPicker()
+            interactor.SetPicker(picker)
+            interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 1)
 
         interactor.Initialize()
     
@@ -331,11 +333,14 @@ class VisualizationEngine(object):
     #   Notes:
     #       -Volume widgets show in a very light way
     def AddSegmentations(self, widget, annots):
+
         renderer = self.__GetRenderer(widget)
         renderer_info = renderer.GetInformation()
 
         for annot in annots:
             if(annot.isSegment()):
+                if annot not in self.activeAnnotations:
+                    self.activeAnnotations += [annot]
                 segment_array = annot.GetSegmentData()
                 segment_color = annot.GetVtkColor()
 
@@ -403,12 +408,16 @@ class VisualizationEngine(object):
     #   Notes:
     #       -Measurements should be removed separately by calling RemoveMeasurements
     def RemoveSegmentations(self, widget):
+        print("widget")
         renderer = self.__GetRenderer(widget)
-        
+        print(type(renderer))
         props = renderer.GetViewProps()
+        print(type(props))
         for prop in props:
+            print("A")
             prop_property = prop.GetPropertyKeys()
             if prop_property == None: continue
+            print("A")
             if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                 renderer.RemoveViewProp(prop)
 
@@ -448,7 +457,7 @@ class VisualizationEngine(object):
                 continue
             if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
                 renderer.RemoveViewProp(prop)
-
+        self.activeAnnotations = []
         widget.GetRenderWindow().Render()
         
 
@@ -792,7 +801,7 @@ class VisualizationEngine(object):
         if obj.GetShiftKey():
             mouse_pos = obj.GetEventPosition()
             self.activeAnnotation = self.SegmentObject(obj, mouse_pos)
-            self.AddMeasurements(obj, [self.activeAnnotation])
+            # self.AddMeasurements(obj, [self.activeAnnotation])
 
 
     # Listener for slice change event:

@@ -33,9 +33,9 @@ class Application(object):
         self.rad_dict = self.import_data("radiologist_database", Doctor)
         self.sur_dict = self.import_data("surgeon_database", Doctor)
 
-        self.export_data("patient_database", self.pat_dict)
-        self.export_data("radiologist_database", self.rad_dict)
-        self.export_data("surgeon_database", self.sur_dict)
+        # self.export_data("patient_database", self.pat_dict)
+        # self.export_data("radiologist_database", self.rad_dict)
+        # self.export_data("surgeon_database", self.sur_dict)
 
         self.current_pat_id = None
         self.current_errand_id = None
