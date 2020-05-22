@@ -395,6 +395,61 @@ class VisualizationEngine(object):
                     measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], [1,0,0])
                     renderer.AddActor(measurement_actor)            
                     self.__on_slice_change(viewer, "None")
+
+    
+    # Removes all the segmentations in the window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #   Notes:
+    #       -Measurements should be removed separately by calling RemoveMeasurements
+    def RemoveSegmentations(self, widget):
+        renderer = self.__GetRenderer(widget)
+        
+        props = renderer.GetViewProps()
+        for prop in props:
+            prop_property = prop.GetPropertyKeys()
+            if prop_property == None: continue
+            if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                renderer.RemoveViewProp(prop)
+
+        widget.GetRenderWindow().Render()
+
+
+    # Removes all the measurements in the window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #   Notes:
+    #       -Segmentations should be removed separately by calling RemoveSegmentations
+    def RemoveMeasurements(self, widget):
+        renderer = self.__GetRenderer(widget)
+        
+        props = renderer.GetViewProps()
+        for prop in props:
+            prop_property = prop.GetPropertyKeys()
+            if prop_property == None: continue
+            if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
+                renderer.RemoveViewProp(prop)
+
+        widget.GetRenderWindow().Render()
+
+    
+    # Removes all the annotations in the window i.e segmentations and measurements
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    def RemoveAllAnnotations(self, widget):
+        renderer = self.__GetRenderer(widget)
+        
+        props = renderer.GetViewProps()
+        for prop in props:
+            prop_property = prop.GetPropertyKeys()
+            if prop_property == None: continue
+            if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                renderer.RemoveViewProp(prop)
+                continue
+            if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
+                renderer.RemoveViewProp(prop)
+
+        widget.GetRenderWindow().Render()
         
 
     ###################################
