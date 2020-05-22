@@ -6,9 +6,8 @@ from annotation.Annotation import Annotation
 from measurement.Measurement import Measurement
 
 # TODO:
-#1. Improve opacity of the segmentation in the 3D viewer
+#1. Implement all segmentation functionality in 3D as well
 #2. Define color for measurement line
-#3. Way to identify if particular annotation is already in the renderer
 
 class VisualizationEngine(object):
     ##### Class Variables #####
@@ -20,7 +19,6 @@ class VisualizationEngine(object):
 
     # Annotations
     activeAnnotation = None
-    activeAnnotations = []
 
     # Renderer Variables
     _imageRenderer = "IMAGE_RENDERER"
@@ -35,6 +33,7 @@ class VisualizationEngine(object):
     _MeasurementProp = "MEASUREMENT_PROP"
     _CuttingPlaneProp = "CUTTING_PLANE_PROP"
     _propTypeKey = None
+    _propIDKey = None
 
     # Interactor styles
     _imageInteractorStyle = None
@@ -73,6 +72,7 @@ class VisualizationEngine(object):
         self._rendererObserverKey = keys.MakeKey(keys.IntegerKey, "OBSERVER", "Engine")
         self._rendererMPRKey = keys.MakeKey(keys.StringKey, "ORIENTATION", "Engine")
         self._propTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
+        self._propIDKey = keys.MakeKey(keys.StringKey, "ANNOTATION_ID", 'Engine')
 
         # Set the default interactor styles
         self._imageInteractorStyle = vtk.vtkInteractorStyleImage()
@@ -103,7 +103,7 @@ class VisualizationEngine(object):
     #   Notes:
     #       -If not orientation is provided it shows default orientation
     #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
-    def SetupImageUI(self, vtkWidget, do_segmentation=True, *args):
+    def SetupImageUI(self, vtkWidget, *args, do_segmentation=True):
         # Creating image viewer
         image_viewer = vtk.vtkResliceImageViewer()
         image_viewer.SetInputData(self.reader.GetOutput())
@@ -287,7 +287,6 @@ class VisualizationEngine(object):
     #       2. mouse_pos - Mouse poisition of click
     #   Note:
     #       -Will not segment if widget passed is a 3D window
-    #       -Still have to fix bug where some times segmentation does not show up immediately
     def SegmentObject(self, widget, mouse_pos):
         renderer = widget.FindPokedRenderer(mouse_pos[0], mouse_pos[1])
         renderer_info = renderer.GetInformation()
@@ -311,18 +310,15 @@ class VisualizationEngine(object):
             segmentation = self.__CreateSegmentation(clicked_coordinate)
             segment_array = segmentation.GetScalars()
             segment_color = segmentation.GetColor()
-            [segment_image_actor,_] = self.__CreateSegmentationActor(segment_array, segment_color)
-
-            renderer.AddActor(segment_image_actor)
-            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
-            self.__on_slice_change(viewer, "None")
 
             # Make segment as annotation
             segment_annot = Annotation()
             segment_annot.SetCoordinate(clicked_coordinate)
             segment_annot.SetVtkColor(segment_color)
             segment_annot.SetSegmentFlag(True, segment_array)
-   
+
+            self.AddSegmentations(widget, [segment_annot])
+
             return segment_annot
 
 
@@ -333,14 +329,12 @@ class VisualizationEngine(object):
     #   Notes:
     #       -Volume widgets show in a very light way
     def AddSegmentations(self, widget, annots):
-
         renderer = self.__GetRenderer(widget)
         renderer_info = renderer.GetInformation()
 
         for annot in annots:
             if(annot.isSegment()):
-                if annot not in self.activeAnnotations:
-                    self.activeAnnotations += [annot]
+                segment_id = annot.GetID()
                 segment_array = annot.GetSegmentData()
                 segment_color = annot.GetVtkColor()
 
@@ -349,12 +343,12 @@ class VisualizationEngine(object):
                     segment_array = self.__CreateSegmentation(annot.GetCoordinate()).GetScalars()
                     annot.AddSegmentData(segment_array)
                 
-                [segment_image_actor, segment_image_data] = self.__CreateSegmentationActor(segment_array, segment_color)
+                [segment_image_actor, segment_image_data] = self.__CreateSegmentationActor(segment_array, segment_color, segment_id)
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                     renderer.AddActor(segment_image_actor)
                     viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
-                    viewer.UpdateDisplayExtent()           
+                    self.__on_slice_change(viewer, "None")           
         
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
                     volume_mapper = vtk.vtkSmartVolumeMapper()
@@ -368,8 +362,7 @@ class VisualizationEngine(object):
                     volume.SetProperty(volume_property)
 
                     renderer.AddViewProp(volume)
-        
-        widget.GetRenderWindow().Render()
+                    widget.GetRenderWindow().Render()
 
     
     # Displays the annotations' measurements in the provided the vtkWidget
@@ -384,6 +377,7 @@ class VisualizationEngine(object):
 
         for annot in annots:
             if(annot.isSegment()):
+                segment_id = annot.GetID()
                 segment_array = annot.GetSegmentData()
                 segment_color = annot.GetVtkColor()
 
@@ -397,39 +391,136 @@ class VisualizationEngine(object):
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                     viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
                     measurement_info = measurement.GetInfo(viewer.GetSliceOrientation())
-                    measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], [1,0,0])
+                    measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], [1,0,0], segment_id)
                     renderer.AddActor(measurement_actor)            
                     self.__on_slice_change(viewer, "None")
 
-    
-    # Removes all the segmentations in the window
+
+    # Checks whether the annotation's segment is shown on the widget window
     #   Parameters:
     #       1. vtkWidget - the target window
-    #   Notes:
-    #       -Measurements should be removed separately by calling RemoveMeasurements
-    def RemoveSegmentations(self, widget):
-        print("widget")
+    #       2. annot - a single annotation
+    def HasSegmentation(self, widget, annot):
         renderer = self.__GetRenderer(widget)
-        print(type(renderer))
+        
+        if (annot.isSegment()):
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        return True
+        return False
+
+    
+    # Checks whether the annotation's measurement is shown on the widget window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annot - a single annotation
+    def HasMeasurement(self, widget, annot):
+        renderer = self.__GetRenderer(widget)
+        
+        if (annot.isSegment()):
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        return True
+        return False
+    
+
+    # Removes the annotations' segments in the window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annots - an array of segmentation annotations
+    #   Notes:
+    def RemoveSegmentations(self, widget, annots):
+        renderer = self.__GetRenderer(widget)
+        
+        for annot in annots:
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        renderer.RemoveViewProp(prop)
+        
+        widget.GetRenderWindow().Render()
+
+    
+    # Removes the annotations' measurements in the window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annots - an array of segmentation annotations
+    def RemoveMeasurements(self, widget, annots):
+        renderer = self.__GetRenderer(widget)
+        
+        for annot in annots:
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        renderer.RemoveViewProp(prop)
+        
+        widget.GetRenderWindow().Render()
+
+    
+    # Removes the annotations in the window i.e segmentations and measurements
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annots - an array of segmentation annotations
+    def RemoveAnnotations(self, widget, annots):
+        renderer = self.__GetRenderer(widget)
+        
+        for annot in annots:
+            segment_id = annot.GetID()
+            
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                prop_type = prop_property.Get(self._propTypeKey)
+                if prop_type == self._SegmentationProp or prop_type == self._MeasurementProp:
+                    if prop_property.Get(self._propIDKey) == segment_id:
+                        renderer.RemoveViewProp(prop)
+        
+        widget.GetRenderWindow().Render()
+
+
+    # Removes all the segmentations in the widget window
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    def RemoveAllSegmentations(self, widget):
+        renderer = self.__GetRenderer(widget)
+
         props = renderer.GetViewProps()
-        print(type(props))
         for prop in props:
-            print("A")
             prop_property = prop.GetPropertyKeys()
             if prop_property == None: continue
-            print("A")
             if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                 renderer.RemoveViewProp(prop)
 
         widget.GetRenderWindow().Render()
 
 
-    # Removes all the measurements in the window
+    # Removes all the measurements in the widget window
     #   Parameters:
     #       1. vtkWidget - the target window
-    #   Notes:
-    #       -Segmentations should be removed separately by calling RemoveSegmentations
-    def RemoveMeasurements(self, widget):
+    def RemoveAllMeasurements(self, widget):
         renderer = self.__GetRenderer(widget)
         
         props = renderer.GetViewProps()
@@ -457,8 +548,28 @@ class VisualizationEngine(object):
                 continue
             if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
                 renderer.RemoveViewProp(prop)
-        self.activeAnnotations = []
+
         widget.GetRenderWindow().Render()
+
+    
+    # Make the widget focus on the annotation's coordinate slice or volume
+    #   Parameters:
+    #       1. vtkWidget - the target window
+    #       2. annot - a single annotation
+    def GoToAnnotation(self, widget, annot):
+        renderer = self.__GetRenderer(widget)
+        renderer_info = renderer.GetInformation()
+
+        if(annot.isSegment()):
+            segment_coordinate = annot.GetCoordinate()
+
+            if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+                viewer.SetSlice(segment_coordinate[viewer.GetSliceOrientation()])
+                self.__on_slice_change(viewer, "None")
+    
+            elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+                pass
         
 
     ###################################
@@ -707,7 +818,7 @@ class VisualizationEngine(object):
 
     
     # Creates a measurement line
-    def __CreateMeasurementLine(self, startPoint, endPoint, color):
+    def __CreateMeasurementLine(self, startPoint, endPoint, color, ID):
         linesPolyData = vtk.vtkPolyData()
 
         pt0 = startPoint
@@ -743,13 +854,14 @@ class VisualizationEngine(object):
 
         actor_info = vtk.vtkInformation()
         actor_info.Set(self._propTypeKey, self._MeasurementProp)
+        actor_info.Set(self._propIDKey, ID)
         actor.SetPropertyKeys(actor_info)
 
         return actor
 
 
     # Creates a an image actor with scalars from the segmentation
-    def __CreateSegmentationActor(self, segmentation, color):
+    def __CreateSegmentationActor(self, segmentation, color, ID):
         r, c, d = segmentation.shape
 
         # Copnvert numpy array to a vtkArray
@@ -787,6 +899,7 @@ class VisualizationEngine(object):
 
         actor_info = vtk.vtkInformation()
         actor_info.Set(self._propTypeKey, self._SegmentationProp)
+        actor_info.Set(self._propIDKey, ID)
         actor.SetPropertyKeys(actor_info)
 
         return [actor, volume_segment_data]
@@ -801,7 +914,6 @@ class VisualizationEngine(object):
         if obj.GetShiftKey():
             mouse_pos = obj.GetEventPosition()
             self.activeAnnotation = self.SegmentObject(obj, mouse_pos)
-            # self.AddMeasurements(obj, [self.activeAnnotation])
 
 
     # Listener for slice change event:
