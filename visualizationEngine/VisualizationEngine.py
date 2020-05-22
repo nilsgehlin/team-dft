@@ -6,9 +6,9 @@ from annotation.Annotation import Annotation
 from measurement.Measurement import Measurement
 
 # TODO:
-#1. Way to identify if segmentation in already in the renderer
-#4. Improve opacity of the segmentation in the 3D viewer
-#5. Define color for measurement line
+#1. Improve opacity of the segmentation in the 3D viewer
+#2. Define color for measurement line
+#3. Way to identify if particular annotation is already in the renderer
 
 class VisualizationEngine(object):
     ##### Class Variables #####
