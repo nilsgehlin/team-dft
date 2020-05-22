@@ -2,25 +2,39 @@ import numpy as np
 from scipy.stats import linregress
 
 class Measurement(object):
-    def __init__(self, segmentation):
+    def __init__(self, segmentation, pixel_spacing):
         self.sagittalMeas = None
         self.coronalMeas = None
         self.axialMeas = None
-
+        self.pixel_spacing = pixel_spacing
         self.measure(segmentation)
 
-    def GetSagittalMeasurement(self):
-        return self.sagittalMeas
 
-    def GetCoronalMeasurement(self):
-        return self.coronalMeas
+    def GetInfo(self, planeID):
+        if planeID == 0: 
+            info = self.sagittalMeas
+            startPoint = np.append( info[0], info[2][0][0] ) 
+            endPoint = np.append( info[0], info[2][0][1] )
 
-    def GetAxialMeasurement(self):
-        return self.axialMeas
+        if planeID == 1: 
+            info = self.coronalMeas
+            startPoint = np.flip( np.insert(info[2][0][0], 1, info[0]),  0)
+            endPoint = np.flip( np.insert(info[2][0][1], 1, info[0]), 0)
+
+        if planeID == 2: 
+            info = self.axialMeas
+            startPoint = np.append( info[2][0][0], info[0] ) 
+            endPoint = np.append( info[2][0][1], info[0] )
+
+        info = dict(major = list(info[1])[0],
+                    minor = list(info[1])[1],
+                    startPoint = startPoint.tolist(),
+                    endPoint = endPoint.tolist()
+        )
+        return info
 
     
     def measure(self, segmentation):
-        # segmentationOnesZeros = segmentation.astype(np.int)
         segmentationOnesZeros = segmentation
 
         sliceIndS = 0
