@@ -60,11 +60,11 @@ class Annotation(vtkInformation):
 
     # Returns the anatomical location of the annotation
     def GetLocation(self):
-        return self.anatomicalLocation
+        return self._anatomicalLocation
 
     # Sets the opacity on the annotation object. 
     def SetLocation(self, loc):
-        self.anatomicalLocation = loc
+        self._anatomicalLocation = loc
 
     # Returns the coordinates for the annotation
     def GetCoordinate(self):
@@ -173,6 +173,17 @@ class Annotation(vtkInformation):
         annot.SetSegmentFlag(data['isSegment'])
         annot.reviewed = True
         return annot
+
+    # String conversion
+    def __str__(self):
+        strn = dict(id =  self.annot_id, 
+                    location = self.GetLocation(),
+                    finding = self.GetFinding(),
+                    color = self.GetColor(),
+                    coordinate = self.GetCoordinate(),
+                    isSegment = self.isSegment()
+                    )
+        return str(strn)
         
 
 ##################################
