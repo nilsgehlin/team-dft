@@ -2,12 +2,18 @@ import numpy as np
 from scipy.stats import linregress
 
 class Measurement(object):
-    def __init__(self, segmentation, pixel_spacing):
+    def __init__(self, segmentation, color, pixel_spacing):
         self.sagittalMeas = None
         self.coronalMeas = None
         self.axialMeas = None
         self.pixel_spacing = pixel_spacing
         self.measure(segmentation)
+
+        #determine if default red color is okay for this measurement
+        self.color = [1,0,0]
+        euc_diff = np.linalg.norm(np.array(color) - np.array(self.color))
+        if euc_diff < 0.5:
+            self.color = [0,1,0]
 
 
     def GetInfo(self, planeID):
@@ -29,7 +35,8 @@ class Measurement(object):
         info = dict(major = list(info[1])[0],
                     minor = list(info[1])[1],
                     startPoint = startPoint.tolist(),
-                    endPoint = endPoint.tolist()
+                    endPoint = endPoint.tolist(),
+                    color = self.color
         )
         return info
 

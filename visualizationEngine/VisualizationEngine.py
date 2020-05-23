@@ -7,7 +7,6 @@ from measurement.Measurement import Measurement
 
 # TODO:
 #1. Implement all segmentation functionality in 3D as well
-#2. Define color for measurement line
 
 class VisualizationEngine(object):
     ##### Class Variables #####
@@ -386,12 +385,12 @@ class VisualizationEngine(object):
                     segment_array = self.__CreateSegmentation(annot.GetCoordinate()).GetScalars()
                     annot.AddSegmentData(segment_array)
                 
-                measurement = Measurement(segment_array, self._pixelSpacing)
+                measurement = Measurement(segment_array, segment_color, self._pixelSpacing)
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                     viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
                     measurement_info = measurement.GetInfo(viewer.GetSliceOrientation())
-                    measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], [1,0,0], segment_id)
+                    measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], measurement_info['color'], segment_id)
                     renderer.AddActor(measurement_actor)            
                     self.__on_slice_change(viewer, "None")
 
