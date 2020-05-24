@@ -7,6 +7,7 @@ class Measurement(object):
         self.coronalMeas = None
         self.axialMeas = None
         self.pixel_spacing = pixel_spacing
+        self.segment_array = segmentation
         self.measure(segmentation)
 
         #determine if default red color is okay for this measurement
@@ -36,7 +37,9 @@ class Measurement(object):
                     minor = list(info[1])[1],
                     startPoint = startPoint.tolist(),
                     endPoint = endPoint.tolist(),
-                    color = self.color
+                    color = self.color,
+                    area = info[3],
+                    volume = np.count_nonzero(self.segment_array) * self.pixel_spacing[0] * self.pixel_spacing[1] * self.pixel_spacing[2]
         )
         return info
 
@@ -57,21 +60,21 @@ class Measurement(object):
                 sagittalMeas[0] = sliceIndS
                 sagittalMeas[1] = majMinorMeas[0]
                 sagittalMeas[2] = majMinorMeas[1]
-                sagittalMeas[3] = np.count_nonzero(sagittalArray)
+                sagittalMeas[3] = np.count_nonzero(sagittalArray) * self.pixel_spacing[0] * self.pixel_spacing[2]
             sliceIndS += 1
         print(sagittalMeas)
         self.sagittalMeas = sagittalMeas
         # print("Sagittal max major length of " + str(sagittalMeas[0][0]) + " at slice " + str(sagittalMeas[0][1]))
         # print("Sagittal max minor length of " + str(sagittalMeas[1][0]) + " at slice " + str(sagittalMeas[1][1]))
 
-        segmentationOnesZerosC = np.transpose(segmentationOnesZeros, (0, 2, 1))
+        segmentationOnesZerosC = np.transpose(segmentationOnesZeros, (1, 2, 0))
         for coronalArray in segmentationOnesZerosC:
             majMinorMeas = self.measureOrth(coronalArray)
             if majMinorMeas[0][0] > coronalMeas[1][0]:
                 coronalMeas[0] = sliceIndC
                 coronalMeas[1] = majMinorMeas[0]
                 coronalMeas[2] = majMinorMeas[1]
-                coronalMeas[3] = np.count_nonzero(coronalArray)
+                coronalMeas[3] = np.count_nonzero(coronalArray) * self.pixel_spacing[1] * self.pixel_spacing[2]
             sliceIndC += 1
         print(coronalMeas)
         self.coronalMeas = coronalMeas
@@ -83,7 +86,7 @@ class Measurement(object):
                 axialMeas[0] = sliceIndA
                 axialMeas[1] = majMinorMeas[0]
                 axialMeas[2] = majMinorMeas[1]
-                axialMeas[3] = np.count_nonzero(axialArray)
+                axialMeas[3] = np.count_nonzero(axialArray) * self.pixel_spacing[0] * self.pixel_spacing[1]
             sliceIndA += 1
         print(axialMeas)
         self.axialMeas = axialMeas
