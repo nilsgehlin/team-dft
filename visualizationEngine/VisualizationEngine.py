@@ -6,11 +6,13 @@ from annotation.Annotation import Annotation
 from measurement.Measurement import Measurement
 
 # TODO:
-#1. Implement all segmentation functionality in 3D as well
 
 class VisualizationEngine(object):
     ##### Class Variables #####
     
+    # Directory
+    _dir = None
+
     # Reader
     imageReader = None
     reader = None
@@ -56,9 +58,8 @@ class VisualizationEngine(object):
     # 3D Properties
     _3DTransparency = 0.2
     _3DTissue = ["ALL"]
-
-    # Directory
-    _dir = None
+    _segmentTransparency = 0.4
+    _segmentScalar = 1000
 
 
     ##### General class functions #####
@@ -94,19 +95,22 @@ class VisualizationEngine(object):
         self._pixelSpacing = image_reader.getPixelSpacing()
         self.imageReader = image_reader
 
+    # Returns the current directory that the image reader is referencing
+    def GetDirectory(self):
+        return self._dir
+
 
     # Sets up a 2D image window for the given widget
     #   Parameters: 
     #       1. vtkWidget, 
     #       2. (optional) plane orientation i.e AXIAL, SAGITTAL or CORONAL
     #   Notes:
-    #       -If not orientation is provided it shows default orientation
+    #       -If no orientation is provided it shows default orientation
     #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
     def SetupImageUI(self, vtkWidget, *args, do_segmentation=True):
         # Creating image viewer
         image_viewer = vtk.vtkResliceImageViewer()
         image_viewer.SetInputData(self.reader.GetOutput())
-        # image_viewer.SetInputConnection(rgbConverter.GetOutputPort())
         image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
 
         # Connecting interactor to image viewer
@@ -208,7 +212,7 @@ class VisualizationEngine(object):
     # Changes the transparency of the tissue to show given the vtkWidget and the tissue name
     #   Parameters: 
     #       1. vtkWidget
-    #       2. Transparency value
+    #       2. Transparency value - between 0.0 - 1.0
     #   Notes:
     def SetTransparency(self, vtkWidget, transparency):
         self._3DTransparency = transparency
@@ -222,11 +226,13 @@ class VisualizationEngine(object):
 
 
     # Sets the attributes of the cutting plane on a 3D window
-    # Parameters:
+    #   Parameters:
     #       1. showSlice - This determines if the image of the active slice on the
     #               master window is also shown on the 3d volume 
     #       2. crop3D - This determines if the 3D volume is cropped to show the active
     #               position on the master window
+    #   Notes: 
+    #       -ONLY call this before linking windows. Unexpected behaviors when linking is active
     def ConfigureVolumeCuttingPlane(self, showSlice = True, crop3D = True):
         self._showActiveSlice = showSlice
         self._crop3D = crop3D
@@ -340,26 +346,16 @@ class VisualizationEngine(object):
                 # Create segmentation array if loading from file
                 if segment_array is None:
                     segment_array = self.__CreateSegmentation(annot.GetCoordinate()).GetScalars()
-                    annot.AddSegmentData(segment_array)
-                
-                [segment_image_actor, segment_image_data] = self.__CreateSegmentationActor(segment_array, segment_color, segment_id)
+                    annot.AddSegmentData(segment_array)  
 
                 if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                    segment_image_actor = self.__CreateSegmentationActor(segment_array, segment_color, segment_id)
                     renderer.AddActor(segment_image_actor)
                     viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
                     self.__on_slice_change(viewer, "None")           
         
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                    volume_mapper = vtk.vtkSmartVolumeMapper()
-                    volume_mapper.SetInputData(segment_image_data)        
-                    volume_mapper.SetBlendModeToComposite()
-
-                    volume_property = self.__SetSegementPropety(segment_color)
-
-                    volume = vtk.vtkVolume()
-                    volume.SetMapper(volume_mapper)
-                    volume.SetProperty(volume_property)
-
+                    volume = self.__CreateSegmentationVolume(segment_array, segment_color, segment_id)
                     renderer.AddViewProp(volume)
                     widget.GetRenderWindow().Render()
 
@@ -571,6 +567,56 @@ class VisualizationEngine(object):
 
         widget.GetRenderWindow().Render()
 
+
+    # Changes the transparency of all the segmentations in a 3D window
+    #   Parameters: 
+    #       1. widget
+    #       2. Transparency value - between 0.0 and 1.0
+    #   Notes:
+    #       -Only works on a 3D window, does nothing on 2D
+    def SetAllSegmentationTransparency(self, widget, transparency):
+        renderer = self.__GetRenderer(widget)
+        renderer_info = renderer.GetInformation()
+        
+        if renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+            self._segmentTransparency = transparency
+
+            props = renderer.GetViewProps()
+            for prop in props:
+                prop_property = prop.GetPropertyKeys()
+                if prop_property == None: continue
+                if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                    volume_property = prop.GetProperty()
+                    volume_property.SetScalarOpacity(self.__SetSegmentScalarOpacity(transparency))
+            
+            widget.GetRenderWindow().Render()
+
+    
+    # Changes the transparency of all the segmentations in a 3D window
+    #   Parameters: 
+    #       1. widget
+    #       2. Transparency value - between 0.0 and 1.0
+    #   Notes:
+    #       -Only works on a 3D window, does nothing on 2D
+    def SetSegmentationTransparency(self, widget, annots, transparency):
+        renderer = self.__GetRenderer(widget)
+        renderer_info = renderer.GetInformation()
+        
+        if renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
+            for annot in annots:
+                segment_id = annot.GetID()
+
+                props = renderer.GetViewProps()
+                for prop in props:
+                    prop_property = prop.GetPropertyKeys()
+                    if prop_property == None: continue
+                    if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
+                        if prop_property.Get(self._propIDKey) == segment_id:
+                            volume_property = prop.GetProperty()
+                            volume_property.SetScalarOpacity(self.__SetSegmentScalarOpacity(transparency))
+            
+            widget.GetRenderWindow().Render()
+
     
     # Make the widget focus on the annotation's coordinate slice or volume
     #   Parameters:
@@ -589,7 +635,12 @@ class VisualizationEngine(object):
                 self.__on_slice_change(viewer, "None")
     
             elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                pass
+                camera = renderer.GetActiveCamera()
+                c = segment_coordinate
+                camera.SetFocalPoint(c[0], c[1], c[2])
+                camera.SetPosition(c[0] + 300, c[1], c[2])
+                camera.SetViewUp(0, 0, -1)
+                widget.update()
         
     
     # Returns the currently active annotative.
@@ -890,7 +941,7 @@ class VisualizationEngine(object):
         return actor
 
 
-    # Creates a an image actor with scalars from the segmentation
+    # Creates an image actor with scalars from the segmentation
     def __CreateSegmentationActor(self, segmentation, color, ID):
         r, c, d = segmentation.shape
 
@@ -905,9 +956,6 @@ class VisualizationEngine(object):
         segment_data.SetSpacing(self._pixelSpacing)
         segment_data.SetExtent(0, c - 1, 0, r - 1, 0, d - 1)
         segment_data.GetPointData().SetScalars(segment_data_array)
-
-        volume_segment_data = vtk.vtkImageData()
-        volume_segment_data.DeepCopy(segment_data)
 
         lookupTable = vtk.vtkLookupTable()
         lookupTable.SetNumberOfTableValues(2)
@@ -932,7 +980,44 @@ class VisualizationEngine(object):
         actor_info.Set(self._propIDKey, ID)
         actor.SetPropertyKeys(actor_info)
 
-        return [actor, volume_segment_data]
+        return actor
+
+
+    # Creates 3D volume with scalars from the segmentation
+    def __CreateSegmentationVolume(self, segmentation, color, ID):
+        r, c, d = segmentation.shape
+
+        # Copnvert numpy array to a vtkArray
+        segmentation = segmentation.transpose(2,1,0)
+        segment_data_array = numpy_support.numpy_to_vtk(segmentation.ravel(), deep=True)
+        segment_data_array.SetNumberOfComponents(1)
+
+        # Create the volume data
+        volume_array = segmentation * self._segmentScalar
+        volume_data_array = numpy_support.numpy_to_vtk(volume_array.ravel(), deep=True)
+        volume_data_array.SetNumberOfComponents(1)
+        volume_data = vtk.vtkImageData()
+        volume_data.SetDimensions(segmentation.shape)
+        volume_data.SetSpacing(self._pixelSpacing)
+        volume_data.SetExtent(0, c - 1, 0, r - 1, 0, d - 1)
+        volume_data.GetPointData().SetScalars(volume_data_array)
+
+        volume_mapper = vtk.vtkSmartVolumeMapper()
+        volume_mapper.SetInputData(volume_data)        
+        volume_mapper.SetBlendModeToComposite()
+
+        volume_property = self.__SetSegementPropeties(color)
+
+        volume = vtk.vtkVolume()
+        volume.SetMapper(volume_mapper)
+        volume.SetProperty(volume_property)
+
+        volume_info = vtk.vtkInformation()
+        volume_info.Set(self._propTypeKey, self._SegmentationProp)
+        volume_info.Set(self._propIDKey, ID)
+        volume.SetPropertyKeys(volume_info)
+
+        return volume
 
 
     ##### EVENT CALLBACK FUNCTIONS #####
@@ -1009,22 +1094,42 @@ class VisualizationEngine(object):
     ##### VOLUME DISPLAY FUNCTIONS #####
 
 
-    def __SetSegementPropety(self, color):
+    # Sets the segmentation properties
+    def __SetSegementPropeties(self, color):
         # Color
-        volume_property = self.__SetVolumeProperties(self._3DTissue)
-        volume_color = volume_property.GetRGBTransferFunction()
-        volume_color.AddRGBPoint(0, 0.0, 0.0, 0.0)
-        volume_color.AddRGBPoint(1, color[0], color[1], color[2])
-        volume_color.AddRGBPoint(2, color[0], color[1], color[2])
-        volume_color.AddRGBPoint(3, 0.0, 0.0, 0.0)
+        volume_color = vtk.vtkColorTransferFunction()
+        volume_color.AddRGBPoint(self._segmentScalar-300, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(self._segmentScalar-250, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(self._segmentScalar-200, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(self._segmentScalar+200, color[0], color[1], color[2])
+        volume_color.AddRGBPoint(self._segmentScalar+250, 0.0, 0.0, 0.0)
+        volume_color.AddRGBPoint(self._segmentScalar+300, 0.0, 0.0, 0.0)
 
-        volume_scalar_opacity = volume_property.GetScalarOpacity()
-        volume_scalar_opacity.AddPoint(0, 0.00)
-        volume_scalar_opacity.AddPoint(0.5, 1.0)
-        volume_scalar_opacity.AddPoint(1.5, 1.0)
-        volume_scalar_opacity.AddPoint(2, 0.00)
+        #Scalar Opacity
+        volume_scalar_opacity = self.__SetSegmentScalarOpacity(self._segmentTransparency)
+
+        volume_property = vtk.vtkVolumeProperty()
+        volume_property.SetColor(volume_color)
+        volume_property.SetScalarOpacity(volume_scalar_opacity)
+        volume_property.SetGradientOpacity(self.__SetGradientOpacity())
+        volume_property.SetInterpolationTypeToLinear()
+        volume_property.SetAmbient(0.4)
+        volume_property.SetDiffuse(0.6)
+        volume_property.SetSpecular(0.2)
         
         return volume_property
+
+
+    # Adds opacity points for the segmentation volumes
+    def __SetSegmentScalarOpacity(self, transparency):        
+        volume_scalar_opacity = vtk.vtkPiecewiseFunction()
+        volume_scalar_opacity.AddPoint(self._segmentScalar-300,0.00)
+        volume_scalar_opacity.AddPoint(self._segmentScalar-250, 0.00)
+        volume_scalar_opacity.AddPoint(self._segmentScalar-200, transparency)
+        volume_scalar_opacity.AddPoint(self._segmentScalar+200, transparency)
+        volume_scalar_opacity.AddPoint(self._segmentScalar+250, 0.00)
+        volume_scalar_opacity.AddPoint(self._segmentScalar+300, 0.00)
+        return volume_scalar_opacity
 
 
     # The VolumeProperty attaches the color and opacity functions to the
