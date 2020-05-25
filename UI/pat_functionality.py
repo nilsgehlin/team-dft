@@ -66,15 +66,18 @@ def view_scan_page_setup(app, ui):
 
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows,
                                                                                          ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_button_3d_bone_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "BONE"))
+    # ui.ui_pat.page_pat_view_scan_button_3d_bone_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "BONE"))
     # ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect()# TODO Connect button with image functionality
-    ui.ui_pat.page_pat_view_scan_button_3d_tissue_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "SOFT"))
+    # ui.ui_pat.page_pat_view_scan_button_3d_tissue_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "SOFT"))
     # ui.ui_pat.page_pat_view_scan_button_down.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_left.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_right.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_up.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_zoom_in.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_zoom_out.clicked.connect()# TODO Connect button with image functionality
+
+    ui.ui_pat.page_pat_view_scan_radio_group_orientation.buttonClicked.connect(lambda: change_slice_orientation(app, ui, ui.ui_pat.page_pat_view_scan_radio_group_orientation,
+                                                                                         ui.ui_pat.page_pat_view_scan_2d_view))
 
 
 # GO TO FUNCTIONS #
@@ -169,5 +172,9 @@ def show_logout_popup(app, ui):
 def select_item(app, ui):
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
     ui.ui_pat.page_pat_home_button_proceed.setEnabled(True)
+
+
+def change_slice_orientation(app, ui, group, widget):
+    print("here")
 
 

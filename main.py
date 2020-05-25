@@ -47,7 +47,7 @@ class Application(object):
 
     def run(self):
         self.main_window.show()
-        f_mw.set_style_sheet(self.ui, "ManjaroMix.qss")  # "ManjaroMix.qss", "Aqua.qss"
+        f_mw.set_style_sheet(self.ui, "ManjaroMix_v2.qss")  # "ManjaroMix.qss", "Aqua.qss"
 
     def setup_functionality(self):
         f_mw.setup_functionality(self, self.ui)
