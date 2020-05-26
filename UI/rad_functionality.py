@@ -59,6 +59,18 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
     ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
 
+    ui.ui_rad.page_rad_diagnose_radio_group_orientation.buttonClicked.connect(lambda: change_slice_orientation(app, ui, ui.ui_rad.page_rad_diagnose_radio_group_orientation,
+                                                                                         ui.ui_rad.page_rad_diagnose_2d_view))
+    ui.ui_rad.page_rad_diagnose_check_group_tissue.buttonClicked.connect(lambda: change_volume_tissue(app, ui, ui.ui_rad.page_rad_diagnose_check_group_tissue,
+                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_check_group_link.buttonClicked.connect(lambda: change_link_configuration(app, ui, ui.ui_rad.page_rad_diagnose_check_group_link))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_volume.valueChanged.connect(lambda: change_volume_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_volume,
+                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation.valueChanged.connect(lambda: change_segmentation_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation,
+                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_active.valueChanged.connect(lambda: change_segment_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_active,
+                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))                                                                                                                                                                         
+
 
 def report_page_setup(app, ui):
     ui.ui_rad.page_rad_report_report_preview = Report(ui.ui_rad.page_rad_report_report_preview_frame)
@@ -207,9 +219,15 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
+        ui.ui_rad.radio_button_axial.setEnabled(True)
+        ui.ui_rad.radio_button_coronal.setEnabled(True)
+        ui.ui_rad.radio_button_sagittal.setEnabled(True)
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, slave_widget)
         button.setText(deactivate_str)
+        ui.ui_rad.radio_button_axial.setEnabled(False)
+        ui.ui_rad.radio_button_coronal.setEnabled(False)
+        ui.ui_rad.radio_button_sagittal.setEnabled(False)
 
 
 def is_patient_diagnosed(app):
@@ -329,5 +347,55 @@ def login(ui):
 
 def lock_screen(ui):
     change_page(ui, ui.ui_rad.page_rad_locked)
+
+
+def change_slice_orientation(app, ui, group, widget):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    current_annots = []
+    current_measurs =  []
+    for annot in errand.annotations:
+        if app.visEngine.HasSegmentation(widget, annot): 
+            current_annots += [annot]
+        if app.visEngine.HasMeasurement(widget,annot): 
+            current_measurs += [annot]
+    app.visEngine.SetupImageUI(widget, group.checkedButton().text())
+    app.visEngine.AddSegmentations(widget, current_annots)
+    app.visEngine.AddMeasurements(widget, current_measurs)  
+
+
+def change_volume_tissue(app, ui, group, widget):
+    tissues = []
+    for button in group.buttons():
+        if button.isChecked():
+            tissues += [button.text()]
+    app.visEngine.SetTissue(widget, tissues)
+    print(tissues)
+
+
+def change_volume_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    app.visEngine.SetTransparency(widget, val)
+
+
+def change_segmentation_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    app.visEngine.SetAllSegmentationTransparency(widget, val)
+
+
+def change_segment_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    annot = app.visEngine.GetActiveAnnotation()
+    if annot is not None:
+        app.visEngine.SetSegmentationTransparency(widget, [annot], val)
+
+
+def change_link_configuration(app, ui, group):
+    show_slice = group.buttons()[0].isChecked()
+    crop_3d = group.buttons()[1].isChecked()
+    app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
+    
 
 

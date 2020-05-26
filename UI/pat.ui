@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>3</number>
+   <number>4</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -1519,7 +1519,7 @@ notifications</string>
     <item row="4" column="1">
      <widget class="QToolBox" name="page_pat_view_scan_tools">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_pat_view_scan_tools_orientation">
        <property name="styleSheet">
@@ -1531,7 +1531,7 @@ color: #4fa08b</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="radio_button_axial">
           <property name="text">
            <string>AXIAL</string>
           </property>
@@ -1544,7 +1544,7 @@ color: #4fa08b</string>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="radio_button_sagittal">
           <property name="text">
            <string>SAGITTAL</string>
           </property>
@@ -1554,7 +1554,7 @@ color: #4fa08b</string>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_3">
+         <widget class="QRadioButton" name="radio_button_coronal">
           <property name="text">
            <string>CORONAL</string>
           </property>
@@ -1585,39 +1585,54 @@ color: #4fa08b</string>
         <item>
          <widget class="QCheckBox" name="checkBox_All">
           <property name="text">
-           <string>All</string>
+           <string>ALL</string>
           </property>
           <property name="checked">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_Soft">
           <property name="text">
-           <string>Soft</string>
+           <string>SOFT</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_Bone">
           <property name="text">
-           <string>Bone</string>
+           <string>BONE</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_Muscle">
           <property name="text">
-           <string>Muscle</string>
+           <string>MUSCLE</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_Fat">
           <property name="text">
-           <string>Fat</string>
+           <string>FAT</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -1626,8 +1641,11 @@ color: #4fa08b</string>
            <string notr="true">c</string>
           </property>
           <property name="text">
-           <string>Skin</string>
+           <string>SKIN</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_tissue</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -1845,6 +1863,9 @@ color: #4fa08b;</string>
           <property name="checked">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_link</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -1853,8 +1874,11 @@ color: #4fa08b;</string>
            <string>Show Full 3D Volume</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">page_pat_view_scan_check_group_link</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -1895,5 +1919,15 @@ color: #4fa08b;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
+  <buttongroup name="page_pat_view_scan_check_group_tissue">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="page_pat_view_scan_check_group_link">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
  </buttongroups>
 </ui>
