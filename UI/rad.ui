@@ -6,74 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>929</width>
-    <height>787</height>
+    <width>1366</width>
+    <height>813</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>6</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QPushButton" name="page_rad_home_button_colleagues">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Colleagues</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QTextEdit" name="page_rad_home_search_bar">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>25</height>
-       </size>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Search&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="page_rad_home_button_view_profile">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>View Profile</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2" colspan="2">
+    <item row="4" column="2" colspan="3">
      <widget class="QTreeWidget" name="page_rad_home_patient_information">
       <property name="minimumSize">
        <size>
@@ -122,49 +67,172 @@ p, li { white-space: pre-wrap; }
       </column>
      </widget>
     </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="page_rad_home_button_lock_screen">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
+    <item row="2" column="4">
+     <widget class="QTextEdit" name="page_rad_home_search_bar">
       <property name="maximumSize">
        <size>
-        <width>100</width>
-        <height>16777215</height>
+        <width>200</width>
+        <height>25</height>
        </size>
       </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>Lock Screen</string>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Search&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="5">
-     <widget class="QPushButton" name="page_rad_home_button_logout">
-      <property name="minimumSize">
+    <item row="1" column="2" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QToolButton" name="page_rad_home_button_colleagues">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Colleagues</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/colleagues.png</normaloff>icons/colleagues.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="page_rad_home_button_view_profile">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Profile</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/account.png</normaloff>icons/account.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="page_rad_home_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="page_rad_home_button_lock_screen">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>Lock Screen</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/lock.png</normaloff>icons/lock.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="3">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
        <size>
-        <width>100</width>
-        <height>0</height>
+        <width>40</width>
+        <height>20</height>
        </size>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
+     </spacer>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">font-size: 20pt;</string>
       </property>
       <property name="text">
-       <string>Logout</string>
+       <string>Patient Scans</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="3">
-     <widget class="QPushButton" name="page_rad_home_button_proceed">
+    <item row="6" column="4">
+     <widget class="QToolButton" name="page_rad_home_button_proceed">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -186,55 +254,31 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Proceed</string>
       </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/forward.png</normaloff>icons/forward.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_6">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(253, 147, 50);
+font: 30pt;</string>
+      </property>
+      <property name="text">
+       <string>CLARITY</string>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="page_rad_view_only">
    <layout class="QGridLayout" name="gridLayout_4">
-    <item row="0" column="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="page_rad_view_only_button_logout">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text">
-         <string>Logout</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="2">
+    <item row="1" column="2">
      <widget class="QFrame" name="page_rad_view_only_radiology_report_frame">
       <property name="minimumSize">
        <size>
@@ -272,62 +316,52 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QFrame" name="page_rad_view_only_3d_view_frame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item row="0" column="2" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="topMargin">
+       <number>0</number>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="page_rad_view_only_3d_view_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_view_only_3d_view" native="true">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 0, 0);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="page_rad_view_only_button_hide_link_windows">
+       <widget class="QToolButton" name="page_rad_view_only_button_back">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_20">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="page_rad_view_only_button_hide_link_windows">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -343,6 +377,13 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Activate
 2D-3D Link</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -360,7 +401,7 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="page_rad_view_only_button_hide_3d">
+       <widget class="QToolButton" name="page_rad_view_only_button_2d_fullscreen">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -373,16 +414,20 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
         <property name="text">
-         <string>Hide 3D</string>
+         <string>Fullscreen 2D</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="page_rad_view_only_button_3d_fullscreen">
+       <widget class="QToolButton" name="page_rad_view_only_button_3d_fullscreen">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -401,14 +446,17 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Fullscreen 3D</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="page_rad_view_only_button_2d_fullscreen">
+       <widget class="QToolButton" name="page_rad_view_only_button_hide_3d">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -421,13 +469,23 @@ p, li { white-space: pre-wrap; }
           <height>16777215</height>
          </size>
         </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
         <property name="text">
-         <string>Fullscreen 2D</string>
+         <string>Hide 3D</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/hide.png</normaloff>icons/hide.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
+       <spacer name="horizontalSpacer_5">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -439,29 +497,39 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QToolButton" name="page_rad_view_only_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="7" column="0">
-     <widget class="QPushButton" name="page_rad_view_only_button_back">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Back</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="2">
-     <widget class="QPushButton" name="page_rad_view_only_button_diagnose">
+    <item row="6" column="4">
+     <widget class="QToolButton" name="page_rad_view_only_button_diagnose">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -483,10 +551,133 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Diagnose</string>
       </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/diagnose.png</normaloff>icons/diagnose.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
      </widget>
     </item>
-    <item row="2" column="0" rowspan="2" colspan="2">
-     <widget class="QFrame" name="page_rad_view_only_2d_view_frame">
+    <item row="1" column="3" colspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QFrame" name="page_rad_view_only_2d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>400</width>
+          <height>400</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="page_rad_view_only_2d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_rad_view_only_2d_view" native="true">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(0, 255, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QFrame" name="page_rad_view_only_3d_view_frame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="page_rad_view_only_3d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_rad_view_only_3d_view" native="true">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="page_rad_diagnose">
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="1" column="0">
+     <widget class="QFrame" name="page_rad_diagnose_2d_view_frame">
       <property name="minimumSize">
        <size>
         <width>400</width>
@@ -502,7 +693,7 @@ p, li { white-space: pre-wrap; }
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="page_rad_view_only_2d_view_frame_grid">
+      <layout class="QGridLayout" name="page_rad_diagnose_2d_view_frame_grid">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -516,7 +707,7 @@ p, li { white-space: pre-wrap; }
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_view_only_2d_view" native="true">
+        <widget class="QWidget" name="page_rad_diagnose_2d_view" native="true">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(0, 255, 0);</string>
          </property>
@@ -525,108 +716,42 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="page_rad_diagnose">
-   <layout class="QGridLayout" name="gridLayout_10">
-    <item row="6" column="2">
-     <widget class="QPushButton" name="page_rad_diagnose_button_back">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
+    <item row="0" column="0" colspan="3">
+     <layout class="QGridLayout" name="gridLayout_9">
+      <property name="topMargin">
+       <number>0</number>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Back</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="5">
-     <widget class="QPushButton" name="page_rad_diagnose_button_preview_report">
-      <property name="minimumSize">
-       <size>
-        <width>125</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>125</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>Preview Report</string>
-      </property>
-      <property name="autoDefault">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="5">
-     <widget class="QFrame" name="page_rad_diagnose_3d_view_frame">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="page_rad_diagnose_3d_view_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_diagnose_3d_view" native="true">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 85, 0);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <layout class="QGridLayout" name="gridLayout_11">
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_10">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_rad_diagnose_button_2d_zoom_in">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>100</width>
+          <height>0</height>
          </size>
         </property>
-       </spacer>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Zoom In</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="page_rad_diagnose_button_3d_fullscreen">
+      <item row="0" column="8">
+       <widget class="QToolButton" name="page_rad_diagnose_button_3d_fullscreen">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -645,10 +770,104 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Fullscreen 3D</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="page_rad_diagnose_button_hide_3d">
+      <item row="0" column="11">
+       <widget class="QToolButton" name="page_rad_diagnose_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QToolButton" name="page_rad_diagnose_button_2d_zoom_out">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Zoom Out</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QToolButton" name="page_rad_diagnose_button_2d_fullscreen">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Fullscreen 2D</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <widget class="QToolButton" name="page_rad_diagnose_button_hide_3d">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -667,10 +886,59 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Hide 3D</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/hide.png</normaloff>icons/hide.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
       </item>
+      <item row="0" column="10">
+       <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="page_rad_diagnose_button_link_windows">
+       <widget class="QToolButton" name="page_rad_diagnose_button_back">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QToolButton" name="page_rad_diagnose_button_link_windows">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -690,64 +958,411 @@ p, li { white-space: pre-wrap; }
          <string>Activate
 2D-3D Link</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer_21">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="6">
+       <spacer name="horizontalSpacer_22">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>
-    <item row="5" column="5">
+    <item row="2" column="1">
+     <widget class="QToolBox" name="page_pat_view_scan_tools">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page_pat_view_scan_tools_orientation">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>655</width>
+         <height>113</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #151a1e;
+color: #4fa08b</string>
+       </property>
+       <attribute name="label">
+        <string>2D Orientation</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QRadioButton" name="radioButton">
+          <property name="text">
+           <string>AXIAL</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButton_2">
+          <property name="text">
+           <string>SAGITTAL</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButton_3">
+          <property name="text">
+           <string>CORONAL</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_pat_view_scan_tools_tissue">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>655</width>
+         <height>113</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #151a1e;
+color: #4fa08b</string>
+       </property>
+       <attribute name="label">
+        <string>3D Tissues</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QCheckBox" name="checkBox_All">
+          <property name="text">
+           <string>All</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_Soft">
+          <property name="text">
+           <string>Soft</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_Bone">
+          <property name="text">
+           <string>Bone</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_Muscle">
+          <property name="text">
+           <string>Muscle</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_Fat">
+          <property name="text">
+           <string>Fat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_Skin">
+          <property name="styleSheet">
+           <string notr="true">c</string>
+          </property>
+          <property name="text">
+           <string>Skin</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_pat_view_scan_tools_transparency">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>655</width>
+         <height>113</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #151a1e;
+color: #4fa08b;</string>
+       </property>
+       <attribute name="label">
+        <string>3D Transparency</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_volume">
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_volume">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
+            </property>
+            <property name="value">
+             <number>20</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::NoTicks</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="page_pat_view_scan_label_transparency_volume">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>3D Volume</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_segmentation">
+          <item>
+           <spacer name="verticalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_segmentation">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>33</number>
+            </property>
+            <property name="sliderPosition">
+             <number>33</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="page_pat_view_scan_label_transparency_segmentation">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Segmentations</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_active">
+          <item>
+           <spacer name="verticalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_active">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>40</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="page_pat_view_scan_label_transparency_active">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Active Segment</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_12">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_pat_view_scan_tools_link">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>655</width>
+         <height>113</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #151a1e;
+color: #4fa08b;</string>
+       </property>
+       <attribute name="label">
+        <string>3D Link </string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Show 2D Image</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_2">
+          <property name="text">
+           <string>Show Full 3D Volume</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="0" rowspan="2">
      <layout class="QGridLayout" name="gridLayout_8">
-      <item row="2" column="2">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;More tools&lt;/p&gt;&lt;p&gt;goes here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="page_rad_diagnose_button_2d_zoom_in">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>Zoom In</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="page_rad_diagnose_button_2d_zoom_out">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>Zoom Out</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3" rowspan="3">
+      <item row="1" column="2" rowspan="2">
        <widget class="QTabWidget" name="page_rad_diagnose_tab">
         <property name="minimumSize">
          <size>
@@ -793,56 +1408,21 @@ p, li { white-space: pre-wrap; }
           <string>Findings</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_19">
-          <item row="3" column="2">
-           <spacer name="horizontalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="page_rad_diagnose_button_add_annotation">
-            <property name="minimumSize">
-             <size>
-              <width>125</width>
-              <height>0</height>
-             </size>
-            </property>
+          <item row="0" column="0" colspan="3">
+           <widget class="QTextEdit" name="page_rad_diagnose_insert_locations">
             <property name="maximumSize">
              <size>
-              <width>125</width>
-              <height>16777215</height>
+              <width>16777215</width>
+              <height>300</height>
              </size>
             </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Add Annotation</string>
-            </property>
-            <property name="autoDefault">
+            <property name="tabChangesFocus">
              <bool>true</bool>
             </property>
+            <property name="placeholderText">
+             <string>Insert location</string>
+            </property>
            </widget>
-          </item>
-          <item row="3" column="0">
-           <spacer name="horizontalSpacer_17">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
           <item row="1" column="0" colspan="3">
            <widget class="QTextEdit" name="page_rad_diagnose_insert_findings">
@@ -870,21 +1450,60 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QTextEdit" name="page_rad_diagnose_insert_locations">
-            <property name="maximumSize">
+          <item row="3" column="2">
+           <spacer name="horizontalSpacer_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>16777215</width>
-              <height>300</height>
+              <width>40</width>
+              <height>20</height>
              </size>
             </property>
-            <property name="tabChangesFocus">
-             <bool>true</bool>
+           </spacer>
+          </item>
+          <item row="3" column="1">
+           <widget class="QToolButton" name="page_rad_diagnose_button_add_annotation">
+            <property name="minimumSize">
+             <size>
+              <width>125</width>
+              <height>0</height>
+             </size>
             </property>
-            <property name="placeholderText">
-             <string>Insert location</string>
+            <property name="maximumSize">
+             <size>
+              <width>125</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Add Annotation</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/add.png</normaloff>icons/add.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextUnderIcon</enum>
             </property>
            </widget>
+          </item>
+          <item row="3" column="0">
+           <spacer name="horizontalSpacer_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -905,28 +1524,6 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
            </spacer>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="page_rad_diagnose_button_add_impression">
-            <property name="minimumSize">
-             <size>
-              <width>125</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>125</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Add Impression</string>
-            </property>
-            <property name="autoDefault">
-             <bool>true</bool>
-            </property>
-           </widget>
           </item>
           <item row="1" column="2">
            <spacer name="horizontalSpacer_19">
@@ -957,20 +1554,40 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="page_rad_diagnose_button_add_impression">
+            <property name="minimumSize">
+             <size>
+              <width>125</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>125</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Add Impression</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/add.png</normaloff>icons/add.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextUnderIcon</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
       </item>
      </layout>
     </item>
-    <item row="4" column="2" rowspan="2">
-     <widget class="QFrame" name="page_rad_diagnose_2d_view_frame">
-      <property name="minimumSize">
-       <size>
-        <width>400</width>
-        <height>400</height>
-       </size>
-      </property>
+    <item row="1" column="1">
+     <widget class="QFrame" name="page_rad_diagnose_3d_view_frame">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(0, 0, 0);</string>
       </property>
@@ -980,7 +1597,7 @@ p, li { white-space: pre-wrap; }
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="page_rad_diagnose_2d_view_frame_grid">
+      <layout class="QGridLayout" name="page_rad_diagnose_3d_view_frame_grid">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -994,138 +1611,50 @@ p, li { white-space: pre-wrap; }
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_diagnose_2d_view" native="true">
+        <widget class="QWidget" name="page_rad_diagnose_3d_view" native="true">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 255, 0);</string>
+          <string notr="true">background-color: rgb(255, 85, 0);</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="0" column="5">
-     <layout class="QGridLayout" name="gridLayout_9">
-      <property name="topMargin">
-       <number>0</number>
+    <item row="3" column="1">
+     <widget class="QToolButton" name="page_rad_diagnose_button_preview_report">
+      <property name="minimumSize">
+       <size>
+        <width>125</width>
+        <height>0</height>
+       </size>
       </property>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="page_rad_diagnose_button_logout">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>Logout</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_9">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="2">
-     <layout class="QGridLayout" name="gridLayout_12">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="page_rad_diagnose_button_2d_fullscreen">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>Fullscreen 2D</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_11">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>Preview Report</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/view.png</normaloff>icons/view.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="page_rad_patient_page">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="2" column="2" colspan="2">
-     <widget class="QTextBrowser" name="page_rad_patient_page_scan_info">
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Scan information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" rowspan="2">
-     <widget class="QTextBrowser" name="page_rad_patient_page_patient_infor">
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Patient information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2" colspan="2">
-     <widget class="QTextBrowser" name="page_rad_patient_page_doctors_orders">
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Doctors orders&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <widget class="QPushButton" name="page_rad_patient_page_button_logout">
+    <item row="1" column="5">
+     <widget class="QToolButton" name="page_rad_patient_page_button_logout">
       <property name="minimumSize">
        <size>
         <width>100</width>
@@ -1141,10 +1670,39 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Logout</string>
       </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="page_rad_patient_page_button_back">
+    <item row="3" column="2" colspan="2">
+     <widget class="QTextBrowser" name="page_rad_patient_page_scan_info">
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Scan information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" rowspan="2">
+     <widget class="QTextBrowser" name="page_rad_patient_page_patient_infor">
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Patient information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QToolButton" name="page_rad_patient_page_button_back">
       <property name="minimumSize">
        <size>
         <width>100</width>
@@ -1160,31 +1718,43 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Back</string>
       </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
      </widget>
     </item>
-    <item row="3" column="3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(253, 147, 50);
+font: 30pt;</string>
+      </property>
+      <property name="text">
+       <string>CLARITY</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="2">
-       <widget class="QPushButton" name="page_rad_patient_page_button_view_scan">
-        <property name="minimumSize">
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>100</width>
-          <height>0</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>View Scan</string>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item row="0" column="3">
-       <widget class="QPushButton" name="page_rad_patient_page_button_diagnose_patient">
+       <widget class="QToolButton" name="page_rad_patient_page_button_diagnose_patient">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -1203,25 +1773,56 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Diagnose patient</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/diagnose.png</normaloff>icons/diagnose.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_rad_patient_page_button_view_scan">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>100</width>
+          <height>0</height>
          </size>
         </property>
-       </spacer>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>View Scan</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/view.png</normaloff>icons/view.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="page_rad_patient_page_button_lock_screen">
+    <item row="2" column="2" colspan="2">
+     <widget class="QTextBrowser" name="page_rad_patient_page_doctors_orders">
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;Doctors orders&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QToolButton" name="page_rad_patient_page_button_lock_screen">
       <property name="minimumSize">
        <size>
         <width>100</width>
@@ -1240,209 +1841,49 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Lock Screen</string>
       </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/lock.png</normaloff>icons/lock.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="page_rad_report">
    <layout class="QGridLayout" name="gridLayout_14">
-    <item row="0" column="3" colspan="2">
-     <layout class="QGridLayout" name="gridLayout_16">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="page_rad_report_button_logout">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Logout</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_14">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0" colspan="3">
-     <layout class="QGridLayout" name="gridLayout_17">
-      <item row="3" column="3">
-       <spacer name="verticalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="5">
-       <spacer name="horizontalSpacer_15">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer_16">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="page_rad_report_button_zoom_out">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Zoom Out</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>More tools goes here</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="page_rad_report_button_zoom_in">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Zoom In</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QPushButton" name="page_rad_report_button_surgeon_view">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Surgeon view</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <spacer name="verticalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="3" rowspan="2" colspan="2">
-     <widget class="QFrame" name="page_rad_report_report_preview_frame">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
+    <item row="3" column="3">
+     <widget class="QToolButton" name="page_rad_report_button_send_report">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
       </property>
-      <layout class="QGridLayout" name="page_rad_report_report_preview_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_rad_report_report_preview" native="true">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(85, 255, 0);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="text">
+       <string>Send Report</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/send.png</normaloff>icons/send.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="3">
+    <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QFrame" name="page_rad_report_2d_image_frame">
       <property name="minimumSize">
        <size>
@@ -1482,28 +1923,9 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="page_rad_report_button_back">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Back</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0" colspan="4">
      <layout class="QGridLayout" name="gridLayout_15">
-      <item row="0" column="1">
+      <item row="0" column="9">
        <spacer name="horizontalSpacer_12">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -1516,8 +1938,8 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="page_rad_report_button_fullscreen">
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_rad_report_button_fullscreen">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1533,42 +1955,191 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Fullscreen 2D</string>
         </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item row="3" column="4">
-     <widget class="QPushButton" name="page_rad_report_button_send_report">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>Send Report</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="page_rad_locked">
-   <layout class="QGridLayout" name="gridLayout_5">
-    <item row="0" column="1">
-     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_16">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="5">
+       <widget class="QToolButton" name="page_rad_report_button_zoom_in">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Zoom In</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QToolButton" name="page_rad_report_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_15">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="8">
+       <widget class="QToolButton" name="page_rad_report_button_surgeon_view">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Surgeon view</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/surgeon.png</normaloff>icons/surgeon.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
-       <spacer name="verticalSpacer_3">
+       <widget class="QToolButton" name="page_rad_report_button_back">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QToolButton" name="page_rad_report_button_zoom_out">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Zoom Out</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_14">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Preferred</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -1578,51 +2149,62 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
+     </layout>
+    </item>
+    <item row="1" column="2" rowspan="2" colspan="2">
+     <widget class="QFrame" name="page_rad_report_report_preview_frame">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="page_rad_report_report_preview_frame_grid">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QWidget" name="page_rad_report_report_preview" native="true">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 255, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="page_rad_locked">
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1">
+     <layout class="QGridLayout" name="gridLayout_7">
       <item row="3" column="0">
-       <widget class="QLineEdit" name="page_rad_locked_insert_password">
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-        <property name="placeholderText">
-         <string>Password</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="page_rad_locked_button_login">
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Login</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
        <widget class="QLabel" name="page_rad_incorrect_password">
         <property name="enabled">
          <bool>true</bool>
@@ -2080,7 +2662,45 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="4" column="0">
+       <widget class="QLineEdit" name="page_rad_locked_insert_password">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Password</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0">
        <widget class="QTextBrowser" name="page_rad_locked_text">
         <property name="maximumSize">
          <size>
@@ -2101,7 +2721,33 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="5" column="0">
-       <spacer name="verticalSpacer_4">
+       <widget class="QToolButton" name="page_rad_locked_button_login">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Login</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/unlock.png</normaloff>icons/unlock.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="verticalSpacer_3">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -2113,22 +2759,23 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(253, 147, 50);
+font: 30pt;</string>
+        </property>
+        <property name="text">
+         <string>CLARITY</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer_7">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="2">
+    <item row="1" column="2">
      <spacer name="horizontalSpacer_8">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -2143,13 +2790,6 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="page_rad_mdi">
-   <layout class="QGridLayout" name="gridLayout_6">
-    <item row="0" column="0">
-     <widget class="QMdiArea" name="mdiArea"/>
-    </item>
-   </layout>
-  </widget>
  </widget>
  <tabstops>
   <tabstop>page_rad_diagnose_insert_locations</tabstop>
@@ -2158,39 +2798,21 @@ p, li { white-space: pre-wrap; }
   <tabstop>page_rad_diagnose_tab</tabstop>
   <tabstop>page_rad_diagnose_insert_impression</tabstop>
   <tabstop>page_rad_diagnose_button_add_impression</tabstop>
-  <tabstop>page_rad_diagnose_button_preview_report</tabstop>
   <tabstop>page_rad_patient_page_scan_info</tabstop>
   <tabstop>page_rad_report_button_send_report</tabstop>
   <tabstop>page_rad_report_button_fullscreen</tabstop>
-  <tabstop>page_rad_report_button_logout</tabstop>
-  <tabstop>page_rad_report_button_zoom_in</tabstop>
-  <tabstop>page_rad_report_button_zoom_out</tabstop>
-  <tabstop>page_rad_report_button_surgeon_view</tabstop>
-  <tabstop>page_rad_report_button_back</tabstop>
   <tabstop>page_rad_locked_insert_password</tabstop>
   <tabstop>page_rad_locked_button_login</tabstop>
   <tabstop>page_rad_locked_text</tabstop>
   <tabstop>page_rad_home_patient_information</tabstop>
   <tabstop>page_rad_home_button_proceed</tabstop>
   <tabstop>page_rad_home_search_bar</tabstop>
-  <tabstop>page_rad_home_button_view_profile</tabstop>
-  <tabstop>page_rad_home_button_colleagues</tabstop>
-  <tabstop>page_rad_home_button_lock_screen</tabstop>
-  <tabstop>page_rad_home_button_logout</tabstop>
   <tabstop>page_rad_view_only_button_diagnose</tabstop>
   <tabstop>page_rad_view_only_button_logout</tabstop>
-  <tabstop>page_rad_view_only_button_2d_fullscreen</tabstop>
-  <tabstop>page_rad_view_only_button_hide_link_windows</tabstop>
-  <tabstop>page_rad_view_only_button_hide_3d</tabstop>
-  <tabstop>page_rad_view_only_button_3d_fullscreen</tabstop>
-  <tabstop>page_rad_view_only_button_back</tabstop>
   <tabstop>page_rad_patient_page_button_diagnose_patient</tabstop>
   <tabstop>page_rad_patient_page_button_view_scan</tabstop>
   <tabstop>page_rad_patient_page_patient_infor</tabstop>
   <tabstop>page_rad_patient_page_doctors_orders</tabstop>
-  <tabstop>page_rad_patient_page_button_back</tabstop>
-  <tabstop>page_rad_patient_page_button_lock_screen</tabstop>
-  <tabstop>page_rad_patient_page_button_logout</tabstop>
  </tabstops>
  <resources/>
  <connections/>

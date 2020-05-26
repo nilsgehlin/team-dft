@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>4</number>
+   <number>3</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -517,24 +517,8 @@ font: 30pt;</string>
   </widget>
   <widget class="QWidget" name="page_pat_my_profile">
    <layout class="QGridLayout" name="gridLayout_6">
-    <item row="0" column="3">
-     <widget class="QTextBrowser" name="page_pat_my_profile_textBrowser"/>
-    </item>
-    <item row="0" column="1">
-     <spacer name="verticalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="1" column="1">
-     <widget class="QPushButton" name="page_pat_my_profile_button_back">
+     <widget class="QToolButton" name="page_pat_my_profile_button_back">
       <property name="minimumSize">
        <size>
         <width>100</width>
@@ -549,6 +533,50 @@ font: 30pt;</string>
       </property>
       <property name="text">
        <string>Back</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QTextBrowser" name="page_pat_my_profile_textBrowser"/>
+    </item>
+    <item row="2" column="1">
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(253, 147, 50);
+font: 30pt;</string>
+      </property>
+      <property name="text">
+       <string>CLARITY</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">font: 20pt;</string>
+      </property>
+      <property name="text">
+       <string>Patient Profile</string>
       </property>
      </widget>
     </item>
@@ -1848,7 +1876,6 @@ color: #4fa08b;</string>
   <tabstop>page_pat_home_report</tabstop>
   <tabstop>page_pat_home_logout</tabstop>
   <tabstop>page_pat_home_report_textEdit_search</tabstop>
-  <tabstop>page_pat_my_profile_button_back</tabstop>
   <tabstop>page_pat_my_profile_textBrowser</tabstop>
   <tabstop>page_pat_image_status_textBrowser_detailed_information</tabstop>
   <tabstop>page_pat_image_status_button_request_notification</tabstop>

@@ -568,43 +568,53 @@ class Ui_main_window(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.page_login)
         self.gridLayout_2.setObjectName("gridLayout_2")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem, 0, 1, 1, 4)
-        self.textEdit = QtWidgets.QTextEdit(self.page_login)
-        self.textEdit.setObjectName("textEdit")
-        self.gridLayout_2.addWidget(self.textEdit, 6, 1, 1, 2)
-        self.page_login_button_login = QtWidgets.QPushButton(self.page_login)
-        self.page_login_button_login.setMaximumSize(QtCore.QSize(200, 16777215))
-        self.page_login_button_login.setObjectName("page_login_button_login")
-        self.gridLayout_2.addWidget(self.page_login_button_login, 4, 2, 1, 1)
+        self.gridLayout_2.addItem(spacerItem, 8, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem1, 4, 0, 1, 1)
+        self.gridLayout_2.addItem(spacerItem1, 7, 3, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem2, 5, 0, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.page_login)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 4, 1, 1, 1)
+        self.page_login_button_login = QtWidgets.QToolButton(self.page_login)
+        self.page_login_button_login.setMaximumSize(QtCore.QSize(200, 16777215))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("icons/unlock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.page_login_button_login.setIcon(icon)
+        self.page_login_button_login.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.page_login_button_login.setObjectName("page_login_button_login")
+        self.gridLayout_2.addWidget(self.page_login_button_login, 5, 2, 1, 1)
+        self.page_login_insert_id = QtWidgets.QLineEdit(self.page_login)
+        self.page_login_insert_id.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.page_login_insert_id.setObjectName("page_login_insert_id")
+        self.gridLayout_2.addWidget(self.page_login_insert_id, 3, 2, 1, 1)
         self.page_login_combobox_user_type = QtWidgets.QComboBox(self.page_login)
         self.page_login_combobox_user_type.setMinimumSize(QtCore.QSize(100, 0))
         self.page_login_combobox_user_type.setObjectName("page_login_combobox_user_type")
         self.page_login_combobox_user_type.addItem("")
         self.page_login_combobox_user_type.addItem("")
         self.page_login_combobox_user_type.addItem("")
-        self.gridLayout_2.addWidget(self.page_login_combobox_user_type, 4, 1, 1, 1)
-        self.label_2 = QtWidgets.QLabel(self.page_login)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout_2.addWidget(self.label_2, 3, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.page_login_combobox_user_type, 5, 1, 1, 1)
+        self.textEdit = QtWidgets.QTextEdit(self.page_login)
+        self.textEdit.setObjectName("textEdit")
+        self.gridLayout_2.addWidget(self.textEdit, 7, 1, 1, 2)
+        self.label = QtWidgets.QLabel(self.page_login)
+        self.label.setObjectName("label")
+        self.gridLayout_2.addWidget(self.label, 3, 1, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem3, 1, 1, 1, 4)
         self.page_login_insert_password = QtWidgets.QLineEdit(self.page_login)
         self.page_login_insert_password.setMaximumSize(QtCore.QSize(200, 16777215))
         self.page_login_insert_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.page_login_insert_password.setClearButtonEnabled(False)
         self.page_login_insert_password.setObjectName("page_login_insert_password")
-        self.gridLayout_2.addWidget(self.page_login_insert_password, 3, 2, 1, 1)
-        self.page_login_insert_id = QtWidgets.QLineEdit(self.page_login)
-        self.page_login_insert_id.setMaximumSize(QtCore.QSize(200, 16777215))
-        self.page_login_insert_id.setObjectName("page_login_insert_id")
-        self.gridLayout_2.addWidget(self.page_login_insert_id, 2, 2, 1, 1)
-        self.label = QtWidgets.QLabel(self.page_login)
-        self.label.setObjectName("label")
-        self.gridLayout_2.addWidget(self.label, 2, 1, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem2, 7, 1, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem3, 6, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.page_login_insert_password, 4, 2, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.page_login)
+        self.label_3.setStyleSheet("color: rgb(253, 147, 50);\n"
+"font: 30pt;")
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 2)
         self.stacked_main.addWidget(self.page_login)
         self.page_rad = QtWidgets.QWidget()
         self.page_rad.setObjectName("page_rad")
@@ -633,7 +643,7 @@ class Ui_main_window(object):
         self.gridLayout_5.addWidget(self.stacked_main, 0, 0, 1, 1)
         main_window.setCentralWidget(self.central_widget)
         self.menu_bar = QtWidgets.QMenuBar(main_window)
-        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 596, 18))
+        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 596, 22))
         self.menu_bar.setObjectName("menu_bar")
         self.menu_bar_theme = QtWidgets.QMenu(self.menu_bar)
         self.menu_bar_theme.setObjectName("menu_bar_theme")
@@ -660,29 +670,30 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "MainWindow"))
-        self.textEdit.setHtml(_translate("main_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Patients:</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0001 pw: 0001</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Radiologist:</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Surgeon:</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">id: 0000 pw: 0000</p></body></html>"))
+        self.label_2.setText(_translate("main_window", "Password:"))
         self.page_login_button_login.setText(_translate("main_window", "Login"))
+        self.page_login_insert_id.setText(_translate("main_window", "0000"))
+        self.page_login_insert_id.setPlaceholderText(_translate("main_window", "ID"))
         self.page_login_combobox_user_type.setItemText(0, _translate("main_window", "Patient"))
         self.page_login_combobox_user_type.setItemText(1, _translate("main_window", "Radiologist"))
         self.page_login_combobox_user_type.setItemText(2, _translate("main_window", "Surgeon"))
-        self.label_2.setText(_translate("main_window", "Password:"))
+        self.textEdit.setHtml(_translate("main_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">Patients:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">id: 0000 pw: 0000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">id: 0001 pw: 0001</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">Radiologist:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">id: 0000 pw: 0000</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">Surgeon:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt;\">id: 0000 pw: 0000</span></p></body></html>"))
+        self.label.setText(_translate("main_window", "User ID:"))
         self.page_login_insert_password.setText(_translate("main_window", "0000"))
         self.page_login_insert_password.setPlaceholderText(_translate("main_window", "Password"))
-        self.page_login_insert_id.setText(_translate("main_window", "0000"))
-        self.page_login_insert_id.setPlaceholderText(_translate("main_window", "ID"))
-        self.label.setText(_translate("main_window", "User ID:"))
+        self.label_3.setText(_translate("main_window", "CLARITY"))
         self.menu_bar_theme.setTitle(_translate("main_window", "Theme"))
         self.menu_bar_theme_button_night_mode.setText(_translate("main_window", "Night mode"))
         self.menu_bar_theme_button_day_mode.setText(_translate("main_window", "Day mode"))
