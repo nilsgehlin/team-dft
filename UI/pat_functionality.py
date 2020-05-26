@@ -12,10 +12,21 @@ import visualizationEngine.annotation.Annotation
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)
-    errand_page_setup(app, ui)
     my_profile_page_setup(ui)
     image_status_page_setup(app, ui)
     view_scan_page_setup(app, ui)
+
+
+# DEPRECATED
+# def home_page_setup(app, ui):
+#     add_errands(app, ui)
+
+#     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
+#     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
+#     ui.ui_pat.page_pat_home_button_proceed.clicked.connect(lambda: go_to_errand_page(app, ui))
+#     ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemClicked.connect(lambda: ui.ui_pat.page_pat_home_button_proceed.setEnabled(True))
+#     ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemDoubleClicked.connect(
+#         lambda: go_to_errand_page(app, ui))
 
 
 def home_page_setup(app, ui):
@@ -23,21 +34,13 @@ def home_page_setup(app, ui):
 
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
-    ui.ui_pat.page_pat_home_button_proceed.clicked.connect(lambda: go_to_errand_page(app, ui))
-    ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemClicked.connect(lambda: ui.ui_pat.page_pat_home_button_proceed.setEnabled(True))
-    ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemDoubleClicked.connect(
-        lambda: go_to_errand_page(app, ui))
-
-
-def errand_page_setup(app, ui):
-    ui.ui_pat.page_pat_errand_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    ui.ui_pat.page_pat_errand_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_home))
-    ui.ui_pat.page_pat_errand_button_view_status.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_image_status)) # TODO
-    # ui.ui_pat.page_pat_errand_button_share.clicked.connect() # TODO
-    # ui.ui_pat.page_pat_errand_button_download.clicked.connect() # TODO
-    ui.ui_pat.page_pat_errand_button_view.clicked.connect(lambda: go_to_view_scan_page(app, ui))
-    ui.ui_pat.page_pat_errand_treeWidget_errand_list.itemDoubleClicked.connect(
-        lambda: go_to_view_scan_page(app, ui) if ui.ui_pat.page_pat_errand_button_view.isEnabled() else None)
+    ui.ui_pat.page_pat_home_button_view_status.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_image_status)) # TODO
+    # ui.ui_pat.page_pat_home_button_share.clicked.connect() # TODO
+    # ui.ui_pat.page_pat_home_button_download.clicked.connect() # TODO
+    ui.ui_pat.page_pat_home_button_view.clicked.connect(lambda: go_to_view_scan_page(app, ui))
+    ui.ui_pat.page_pat_home_treeWidget_errand_list.itemClicked.connect(lambda: select_item(app, ui))
+    ui.ui_pat.page_pat_home_treeWidget_errand_list.itemDoubleClicked.connect(
+        lambda: go_to_view_scan_page(app, ui) if ui.ui_pat.page_pat_home_button_view.isEnabled() else None)
 
 
 def my_profile_page_setup(ui):
@@ -47,7 +50,7 @@ def my_profile_page_setup(ui):
 
 def image_status_page_setup(app, ui):
     ui.ui_pat.page_pat_image_status_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    ui.ui_pat.page_pat_image_status_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))
+    ui.ui_pat.page_pat_image_status_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_home))
     # ui.ui_pat.page_pat_image_status_button_request_notification.clicked.connect() # TODO
 
 
@@ -56,7 +59,7 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_rad_annotations_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_rad_annotations, 0, 0, 1, 1)
 
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_errand))
+    ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_home))
 
     # ui.ui_pat.page_pat_view_scan_button_next_note.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_next_slice.clicked.connect()# TODO Connect button with image functionality
@@ -83,17 +86,18 @@ def view_scan_page_setup(app, ui):
 # GO TO FUNCTIONS #
 
 
-def go_to_errand_page(app, ui):
-    app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
-    ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
-    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
-    root_item = QTreeWidgetItem([errand.task, errand.date, errand.scan, errand.status, errand.clinic])
-    ui.ui_pat.page_pat_errand_treeWidget_errand_list.addTopLevelItem(root_item)
-    ui.ui_pat.page_pat_errand_button_view.setEnabled(True if errand.status == "Complete" else False)
+# DEPRECATED
+# def go_to_errand_page(app, ui):
+#     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
+#     ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
+#     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+#     root_item = QTreeWidgetItem([errand.task, errand.date, errand.scan, errand.status, errand.clinic])
+#     ui.ui_pat.page_pat_errand_treeWidget_errand_list.addTopLevelItem(root_item)
+#     ui.ui_pat.page_pat_errand_button_view.setEnabled(True if errand.status == "Complete" else False)
 
-    # ui.ui_pat.page_pat_errand_report # TODO show radiology report here
+#     # ui.ui_pat.page_pat_errand_report # TODO show radiology report here
 
-    change_page(ui, ui.ui_pat.page_pat_errand)
+#     change_page(ui, ui.ui_pat.page_pat_errand)
 
 
 def go_to_view_scan_page(app, ui):
@@ -111,7 +115,7 @@ def go_to_view_scan_page(app, ui):
 
         ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Activate\n2D-3D Link")
 
-    ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="radiologist",
+    ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
                                                              order_id=app.current_errand_id,
                                                              vtk_widget_2d=ui.ui_pat.page_pat_view_scan_2d_view,
@@ -124,10 +128,10 @@ def go_to_view_scan_page(app, ui):
 
 
 def add_errands(app, ui):
-    ui.ui_pat.page_pat_home_treeWidget_treatment_list.clear()
+    ui.ui_pat.page_pat_home_treeWidget_errand_list.clear()
     for errand in app.pat_dict[app.current_pat_id].errands.values():
-        root_item = QTreeWidgetItem([app.current_pat_id, errand.date, errand.order_id, errand.status])
-        ui.ui_pat.page_pat_home_treeWidget_treatment_list.addTopLevelItem(root_item)
+        root_item = QTreeWidgetItem([errand.order_id, errand.date, errand.task, errand.scan, errand.status, errand.clinic])
+        ui.ui_pat.page_pat_home_treeWidget_errand_list.addTopLevelItem(root_item)
 
 
 def change_link(app, ui, button, master_widget, slave_widget):
@@ -148,7 +152,7 @@ def change_page(ui, new_page):
 
 def logout(ui):
     ui.prev_page = None
-    ui.ui_pat.page_pat_home_button_proceed.setEnabled(False)
+    ui.ui_pat.page_pat_home_button_view.setEnabled(False)
     ui.stacked_pat.setCurrentWidget(ui.ui_pat.page_pat_home)
     ui.stacked_main.setCurrentWidget(ui.page_login)
 
@@ -170,11 +174,26 @@ def show_logout_popup(app, ui):
 
 
 def select_item(app, ui):
-    app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
-    ui.ui_pat.page_pat_home_button_proceed.setEnabled(True)
+    app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_errand_list.currentItem().text(0)
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    ui.ui_pat.page_pat_home_button_view.setEnabled(True if errand.status == "Complete" else False)
+    if errand.status == "Complete":
+        ui.ui_pat.page_pat_home_report.setText("Show patient report here")
+    else:
+        ui.ui_pat.page_pat_home_report.clear()
+        ui.ui_pat.page_pat_home_report.setPlaceholderText("Select a completed errand to see radiology report")
 
 
 def change_slice_orientation(app, ui, group, widget):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    present_annots = []
+    present_measurs =  []
+    # for annot in errand.annotations:
+    #     if app.visEngine.HasSegmentation[]: 
+    #         present_annots += [annot]
+    #     if app.visEngine.HasMeasurement(widget,annot): 
+    #         present_measurs += [annot]
+    
     print("here")
 
 

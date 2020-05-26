@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QMdiSubWindow
+from PyQt5 import QtWidgets, QtCore
 from reportGeneration.Report import Report
 
 # SETUP FUNCTIONS #
@@ -13,6 +15,58 @@ def setup_functionality(app, ui):
     patient_page_setup(app, ui)
     report_page_setup(app, ui)
     locked_page_setup(ui)
+    # mdi_page_setup(app, ui)
+
+# def mdi_page_setup(app, ui):
+
+
+def go_to_mdi_page(app, ui):
+    sub = QMdiSubWindow()
+
+    # Dialog = QtWidgets.QDialog()
+
+    frame = QtWidgets.QFrame(sub)
+    # frame = QtWidgets.QFrame(Dialog)
+    frame.setMinimumSize(QtCore.QSize(400, 400))
+    frame.setStyleSheet("background-color: rgb(0, 0, 0);")
+    frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+    frame.setFrameShadow(QtWidgets.QFrame.Raised)
+
+    # vtkWidget = QVTKRenderWindowInteractor(frame)
+    # vtkWidget.setObjectName("vtkWidget")
+
+    # app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    # app.visEngine.SetupImageUI(vtkWidget)
+
+    sub.setWidget(frame)
+    ui.ui_rad.mdiArea.addSubWindow(sub)
+    sub.show()
+
+    vtkWidget = QVTKRenderWindowInteractor(frame)
+    # vtkWidget.setGeometry(QtCore.QRect(10, 10, 580, 480))
+    vtkWidget.setObjectName("vtkWidget")
+
+    app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    app.visEngine.SetupImageUI(vtkWidget)
+
+    
+    # ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
+    # ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 1, 1)
+
+    # ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
+    # ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 0, 1, 1)
+
+    # app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
+    # app.visEngine.SetupImageUI(ui.ui_rad.page_rad_diagnose_2d_view)
+    # app.visEngine.SetupVolumeUI(ui.ui_rad.page_rad_diagnose_3d_view)
+
+    # ui.ui_rad.page_rad_diagnose_insert_impression.setPlainText("")
+    # ui.ui_rad.page_rad_diagnose_insert_locations.setPlainText("")
+    # ui.ui_rad.page_rad_diagnose_insert_findings.setPlainText("")
+    # ui.ui_rad.page_rad_diagnose_tab.setCurrentIndex(0)
+
+    change_page(ui, ui.ui_rad.page_rad_mdi)
+
 
 
 def home_page_setup(app, ui):
@@ -28,7 +82,8 @@ def home_page_setup(app, ui):
 def patient_page_setup(app, ui):
     ui.ui_rad.page_rad_patient_page_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_home))
     ui.ui_rad.page_rad_patient_page_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    # ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    ui.ui_rad.page_rad_patient_page_button_diagnose_patient.clicked.connect(lambda: go_to_mdi_page(app, ui))
     ui.ui_rad.page_rad_patient_page_button_lock_screen.clicked.connect(lambda: lock_screen(ui)) # TODO
     ui.ui_rad.page_rad_patient_page_button_view_scan.clicked.connect(lambda: go_to_view_only_page(app, ui))
 
@@ -36,7 +91,8 @@ def patient_page_setup(app, ui):
 def view_only_page_setup(app, ui):
     ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
-    ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    # ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
+    ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_mdi_page(app, ui))
     ui.ui_rad.page_rad_view_only_button_hide_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_view_only_button_hide_link_windows,
                                                                                               ui.ui_rad.page_rad_view_only_2d_view, ui.ui_rad.page_rad_view_only_3d_view))
     # ui.ui_rad.page_rad_view_only_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
