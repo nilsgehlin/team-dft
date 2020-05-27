@@ -108,27 +108,40 @@ class VisualizationEngine(object):
     #       -If no orientation is provided it shows default orientation
     #       -Currently only does MPR with AXIAL, SAGITTAL and CORONAL only
     def SetupImageUI(self, vtkWidget, *args, do_segmentation=True):
-        # Creating image viewer
-        image_viewer = vtk.vtkResliceImageViewer()
-        image_viewer.SetInputData(self.reader.GetOutput())
-        image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
-
-        # Connecting interactor to image viewer
+        renderer = self.__GetRenderer(vtkWidget)
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
-        image_viewer.SetupInteractor(interactor)
 
-        # Setting up a renderer and connecting it to the image viewer
-        renderer = vtk.vtkRenderer()
-        renderer.ResetCamera()
-        renderer.GetInformation().Set(self._rendererTypeKey, self._imageRenderer)
-        renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
-        vtkWidget.GetRenderWindow().AddRenderer(renderer)
-        image_viewer.SetRenderer(renderer)
-        
-        # Render the image_viewer
-        image_viewer.Render()
+        if renderer is None:
+            # Creating image viewer
+            image_viewer = vtk.vtkResliceImageViewer()
+            image_viewer.SetInputData(self.reader.GetOutput())
+            image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
 
-        ## Perform MPR if required
+            # Connecting interactor to image viewer
+            image_viewer.SetupInteractor(interactor)
+
+            # Setting up a renderer and connecting it to the image viewer
+            renderer = vtk.vtkRenderer()
+            renderer.ResetCamera()
+            renderer.GetInformation().Set(self._rendererTypeKey, self._imageRenderer)
+            renderer.GetInformation().Set(self._rendererNumKey, len(self.imageViewers))
+            vtkWidget.GetRenderWindow().AddRenderer(renderer)
+            image_viewer.SetRenderer(renderer)
+
+            self.imageViewers.append(image_viewer)
+
+            # Add scroll listener to the viewer
+            image_viewer.AddObserver("InteractionEvent", self.__on_slice_change, 1)
+
+            # For now, add interactor ability for segmentation
+            if do_segmentation:
+                picker = vtk.vtkPointPicker()
+                interactor.SetPicker(picker)
+                interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 1)
+        else:
+            image_viewer = self.imageViewers[renderer.GetInformation().Get(self._rendererNumKey)]
+
+        # Perform MPR if required
         img_orien = self.imageReader.getPlaneOrientation()
         if(len(args) > 0):
             mpr = args[0]
@@ -138,16 +151,12 @@ class VisualizationEngine(object):
         else:
             renderer.GetInformation().Set(self._rendererMPRKey, img_orien)
 
-        self.imageViewers.append(image_viewer)
+        # Set initial color properties
+        image_viewer.SetColorWindow(9000)
+        image_viewer.SetColorLevel(900)
 
-        # Add scroll listener to the viewer
-        image_viewer.AddObserver("InteractionEvent", self.__on_slice_change, 1)
-
-        # For now, add interactor ability for segmentation
-        if do_segmentation:
-            picker = vtk.vtkPointPicker()
-            interactor.SetPicker(picker)
-            interactor.AddObserver("LeftButtonPressEvent", self.__on_left_mouse_button_press, 1)
+        # Render the image_viewer
+        image_viewer.Render()
 
         interactor.Initialize()
     
