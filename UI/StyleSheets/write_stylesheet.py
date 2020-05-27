@@ -1,9 +1,9 @@
 import json
 
 
-json_filename = "patient_pink.json"
+json_filename = "patient_mint.json"
 template_filename = "template.qss"
-output_filename = "patient_pink.qss"
+output_filename = "patient_mint.qss"
 with open(json_filename) as json_file:
     data = json.load(json_file)
     with open(output_filename, "w") as output_file:

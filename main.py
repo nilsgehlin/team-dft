@@ -47,7 +47,7 @@ class Application(object):
 
     def run(self):
         self.main_window.show()
-        f_mw.set_style_sheet(self.ui, "patient_pink.qss")  # "ManjaroMix.qss", "Aqua.qss", "patient_warm.qss"
+        f_mw.set_style_sheet(self.ui, "patient_mint_dark.qss")  # "ManjaroMix.qss", "Aqua.qss", "patient_warm.qss"
 
     def setup_functionality(self):
         f_mw.setup_functionality(self, self.ui)
@@ -55,7 +55,6 @@ class Application(object):
     def init_pat(self):
         self.visEngine = VisualizationEngine()
         f_pat.setup_functionality(self, self.ui)
-        f_mw.set_style_sheet(self.ui, "patient_pink.qss")
 
     def init_rad(self):
         self.visEngine = VisualizationEngine()
@@ -69,10 +68,11 @@ class Application(object):
         dict_ = {}
         dir_ = os.path.join("databases", dir_)
         for file in os.listdir(dir_):
-            with open(os.path.join(dir_, file)) as json_file:
-                data = json.load(json_file)
-                object_ = class_.fromJson(data)
-                dict_[object_.id] = object_
+            if file.endswith(".json"):
+                with open(os.path.join(dir_, file)) as json_file:
+                    data = json.load(json_file)
+                    object_ = class_.fromJson(data)
+                    dict_[object_.id] = object_
         return dict_
 
     def export_data(self, dir_, dict_):

@@ -1,4 +1,5 @@
 from PyQt5 import QtCore
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
@@ -31,6 +32,7 @@ def setup_functionality(app, ui):
 
 def home_page_setup(app, ui):
     add_errands(app, ui)
+    add_profile(app, ui)
 
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
@@ -135,6 +137,20 @@ def go_to_view_scan_page(app, ui):
 
 # HELP FUNCTIONS #
 
+def add_profile(app, ui):
+    patient = app.pat_dict[app.current_pat_id]
+    ui.ui_pat.page_pat_home_label_name.setText(patient.first_name + " " + patient.last_name)
+    ui.ui_pat.page_pat_home_label_age.setText(str(patient.age) + " years old")
+    ui.ui_pat.page_pat_home_label_social_security_number.setText("321-67-8194")
+    ui.ui_pat.page_pat_home_label_phone_number.setText("+1 415 201 4987")
+    ui.ui_pat.page_pat_home_label_address.setText("72 Sunshine St\nSan Francisco, CA 94114, USA")
+    ui.ui_pat.page_pat_home_label_email.setText(patient.first_name.lower() + "." + patient.last_name.lower() + "@gmail.com")
+    pixmap = QPixmap(os.path.join("databases", "patient_database", patient.first_name.lower() + "_" + patient.last_name.lower() + ".png"))
+    if pixmap.isNull():
+        ui.ui_pat.page_pat_home_label_profile_picture.setText("No profile picture available")
+    else:
+        ui.ui_pat.page_pat_home_label_profile_picture.setPixmap(pixmap)
+
 
 def add_errands(app, ui):
     ui.ui_pat.page_pat_home_treeWidget_errand_list.clear()
@@ -192,11 +208,11 @@ def select_item(app, ui):
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_errand_list.currentItem().text(0)
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     ui.ui_pat.page_pat_home_button_view.setEnabled(True if errand.status == "Complete" else False)
-    if errand.status == "Complete":
-        ui.ui_pat.page_pat_home_report.setText("Show patient report here")
-    else:
-        ui.ui_pat.page_pat_home_report.clear()
-        ui.ui_pat.page_pat_home_report.setPlaceholderText("Select a completed errand to see radiology report")
+    # if errand.status == "Complete":
+    #     ui.ui_pat.page_pat_home_report.setText("Show patient report here")
+    # else:
+    #     ui.ui_pat.page_pat_home_report.clear()
+    #     ui.ui_pat.page_pat_home_report.setPlaceholderText("Select a completed errand to see radiology report")
 
 
 def change_slice_orientation(app, ui, group, widget):

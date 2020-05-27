@@ -10,14 +10,13 @@ def login_page_setup(app, ui):
 
 
 def menu_bar_setup(app, ui):
-    ui.menu_bar_theme_button_day_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "Aqua.qss"))
-    ui.menu_bar_theme_button_night_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_night_mode, "ManjaroMix.qss"))
+    ui.menu_bar_theme_button_day_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "patient_mint.qss"))
+    ui.menu_bar_theme_button_night_mode.triggered.connect(lambda: change_style_sheet(app, ui, ui.menu_bar_theme_button_night_mode, "patient_mint_dark.qss"))
 
 
 def change_style_sheet(app, ui, new_button, filename):
-    if app.current_theme_button_pressed is new_button:
-        new_button.setChecked(True)
-    else:
+    new_button.setChecked(True)
+    if app.current_theme_button_pressed is not new_button:
         app.current_theme_button_pressed.setChecked(False)
         app.current_theme_button_pressed = new_button
         set_style_sheet(ui, filename)
@@ -39,6 +38,7 @@ def login(app, ui):
         if id_and_password_ok(app.pat_dict, id, password):
             app.current_pat_id = id
             app.init_pat()
+            change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "patient_mint.qss")
             ui.stacked_main.setCurrentWidget(ui.page_pat)
     elif user_type == "Radiologist":
         if id_and_password_ok(app.rad_dict, id, password):
@@ -46,7 +46,10 @@ def login(app, ui):
             app.init_rad()
             ui.stacked_main.setCurrentWidget(ui.page_rad)
     elif user_type == "Surgeon":
+        print(id)
+        print(password)
         if id_and_password_ok(app.sur_dict, id, password):
+            print("OK")
             app.current_sur_id = id
             app.init_sur()
             ui.stacked_main.setCurrentWidget(ui.page_sur)
