@@ -41,8 +41,8 @@ class Report(QTextBrowser):
         self.vtk_widget_3d = vtk_widget_3d
         self.vis_engine = vis_engine
         self.update()
-        with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
-            self.setStyleSheet(style_sheet_file.read())
+        # with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
+        #     self.setStyleSheet(style_sheet_file.read())
 
 
     # def on_annotation_clicked(self, url_input):

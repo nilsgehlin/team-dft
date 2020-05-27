@@ -47,7 +47,7 @@ class Application(object):
 
     def run(self):
         self.main_window.show()
-        f_mw.set_style_sheet(self.ui, "ManjaroMix_v2.qss")  # "ManjaroMix.qss", "Aqua.qss"
+        f_mw.set_style_sheet(self.ui, "patient_pink.qss")  # "ManjaroMix.qss", "Aqua.qss", "patient_warm.qss"
 
     def setup_functionality(self):
         f_mw.setup_functionality(self, self.ui)
@@ -55,6 +55,7 @@ class Application(object):
     def init_pat(self):
         self.visEngine = VisualizationEngine()
         f_pat.setup_functionality(self, self.ui)
+        f_mw.set_style_sheet(self.ui, "patient_pink.qss")
 
     def init_rad(self):
         self.visEngine = VisualizationEngine()
