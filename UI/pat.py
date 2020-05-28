@@ -601,7 +601,7 @@ class Ui_pat(object):
         pat.addWidget(self.page_pat_view_scan)
 
         self.retranslateUi(pat)
-        pat.setCurrentIndex(1)
+        pat.setCurrentIndex(4)
         self.page_pat_view_scan_tools.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(pat)
         pat.setTabOrder(self.page_pat_view_scan_button_logout, self.page_pat_home_textEdit_search_old)

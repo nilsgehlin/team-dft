@@ -38,7 +38,7 @@ def login(app, ui):
         if id_and_password_ok(app.pat_dict, id, password):
             app.current_pat_id = id
             app.init_pat()
-            change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "patient_mint.qss")
+            # change_style_sheet(app, ui, ui.menu_bar_theme_button_day_mode, "patient_mint.qss")
             ui.stacked_main.setCurrentWidget(ui.page_pat)
     elif user_type == "Radiologist":
         if id_and_password_ok(app.rad_dict, id, password):

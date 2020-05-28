@@ -32,7 +32,7 @@ def setup_functionality(app, ui):
 
 def home_page_setup(app, ui):
     add_errands(app, ui)
-    add_profile(app, ui)
+    # add_profile(app, ui)
 
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
