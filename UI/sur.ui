@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>2</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="page_sur_view_edit">
    <layout class="QGridLayout" name="gridLayout_4">
@@ -205,15 +205,18 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>30</width>
+          <width>105</width>
           <height>30</height>
          </size>
         </property>
         <property name="toolTip">
          <string>Logout</string>
         </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
         <property name="text">
-         <string>Logout</string>
+         <string>   Logout</string>
         </property>
         <property name="icon">
          <iconset>
@@ -226,7 +229,7 @@
          </size>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
@@ -559,8 +562,8 @@
        <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_slice">
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -717,7 +720,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -742,8 +745,8 @@
            <widget class="QToolButton" name="toolButton">
             <property name="minimumSize">
              <size>
-              <width>0</width>
-              <height>0</height>
+              <width>30</width>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -843,8 +846,8 @@
            <widget class="QToolButton" name="toolButton_2">
             <property name="minimumSize">
              <size>
-              <width>0</width>
-              <height>0</height>
+              <width>30</width>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -952,13 +955,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>30</width>
+          <width>75</width>
           <height>30</height>
          </size>
         </property>
@@ -988,7 +991,7 @@
          <enum>QToolButton::DelayedPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
@@ -999,8 +1002,8 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -1036,6 +1039,19 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="1" colspan="4">
+       <spacer name="horizontalSpacer_16">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
    </layout>
@@ -1052,7 +1068,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>30</width>
+        <width>105</width>
         <height>30</height>
        </size>
       </property>
@@ -1063,7 +1079,7 @@
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="text">
-       <string>Logout</string>
+       <string>   Logout</string>
       </property>
       <property name="icon">
        <iconset>
@@ -1074,6 +1090,9 @@
         <width>30</width>
         <height>30</height>
        </size>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
       </property>
      </widget>
     </item>
@@ -1369,7 +1388,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>30</width>
+          <width>75</width>
           <height>30</height>
          </size>
         </property>
@@ -1388,6 +1407,9 @@
           <width>30</width>
           <height>30</height>
          </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
@@ -1419,6 +1441,18 @@
      <layout class="QGridLayout" name="gridLayout_11">
       <item row="0" column="0">
        <widget class="QLabel" name="page_sur_patient_errand_label_patients_scans">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="styleSheet">
          <string notr="true">font-size: 20pt;</string>
         </property>
@@ -1432,7 +1466,7 @@
         <property name="maximumSize">
          <size>
           <width>200</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="html">
@@ -1659,7 +1693,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="maximumSize">
        <size>
-        <width>30</width>
+        <width>105</width>
         <height>30</height>
        </size>
       </property>
@@ -1670,7 +1704,7 @@ p, li { white-space: pre-wrap; }
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="text">
-       <string>Logout</string>
+       <string>   Logout</string>
       </property>
       <property name="icon">
        <iconset>
@@ -1681,6 +1715,9 @@ p, li { white-space: pre-wrap; }
         <width>30</width>
         <height>30</height>
        </size>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
       </property>
      </widget>
     </item>

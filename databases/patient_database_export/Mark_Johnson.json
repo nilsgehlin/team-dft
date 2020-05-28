@@ -3,42 +3,20 @@
     "password": "0001",
     "first_name": "Mark",
     "last_name": "Johnson",
-    "age": 48,
+    "age": 35,
     "sex": "M",
     "errands": [
         {
             "order_id": "0",
             "date": "2019-12-12",
-            "status": "Complete",
+            "status": "Pending",
             "scan": "MRI",
             "clinic": "MRI clinic",
             "task": "TASK??",
             "data_dir": "sample_dicom/MRI_brain_tumor",
             "report": null,
-            "annotations": [
-                {
-                    "id": "174dea4077c844f6961f7da9bd39a9e2",
-                    "location": "Brain",
-                    "finding": "Tumor",
-                    "color": [
-                        102,
-                        127,
-                        153
-                    ],
-                    "coordinate": [
-                        144,
-                        156,
-                        33
-                    ],
-                    "isSegment": true
-                }
-            ],
-            "impressions": [
-                {
-                    "doctor": "Dr. Bruce, Radiology, Stanford Medicine",
-                    "impression": "Help"
-                }
-            ]
+            "annotations": [],
+            "impressions": []
         }
     ]
 }

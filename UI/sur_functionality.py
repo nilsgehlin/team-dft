@@ -27,8 +27,8 @@ def home_page_setup(app, ui):
 
 
 def patient_errand_page_setup(app, ui):
-    ui.ui_sur.page_sur_view_edit_report = Report(ui.ui_sur.page_sur_view_edit_report_frame, show_segmentation_on_click=False)
-    ui.ui_sur.page_sur_view_edit_report_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_report, 0, 0, 1, 1)
+    ui.ui_sur.page_sur_patient_errand_report = Report(ui.ui_sur.page_sur_patient_errand_report_frame, show_segmentation_on_click=False)
+    ui.ui_sur.page_sur_patient_errand_report_frame_grid.addWidget(ui.ui_sur.page_sur_patient_errand_report, 0, 0, 1, 1)
 
     ui.ui_sur.page_sur_patient_errand_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_home))
     ui.ui_sur.page_sur_patient_errand_button_logout.clicked.connect(lambda: show_logout_popup(ui))
@@ -42,8 +42,8 @@ def patient_errand_page_setup(app, ui):
 
 
 def view_edit_page_setup(app, ui):
-    ui.ui_sur.page_sur_patient_errand_report = Report(ui.ui_sur.page_sur_patient_errand_report_frame)
-    ui.ui_sur.page_sur_patient_errand_report_frame_grid.addWidget(ui.ui_sur.page_sur_patient_errand_report, 0, 0, 1, 1)
+    ui.ui_sur.page_sur_view_edit_report = Report(ui.ui_sur.page_sur_view_edit_report_frame)
+    ui.ui_sur.page_sur_view_edit_report_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_report, 0, 0, 1, 1)
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(ui))
@@ -89,7 +89,7 @@ def go_to_patient_errand_page(app, ui):
         ui.ui_sur.page_sur_patient_errand_button_view.setEnabled(True)
         errand = patient.errands[app.current_errand_id]
         if errand.status.lower() == "complete":
-            ui.ui_sur.page_sur_patient_errand_report.load_report(template_name="patient",
+            ui.ui_sur.page_sur_patient_errand_report.load_report(template_name="radiologist",
                                                             patient=app.pat_dict[app.current_pat_id],
                                                             order_id=app.current_errand_id)
         else:
@@ -115,7 +115,7 @@ def go_to_view_edit_page(app, ui):
     app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
 
     if errand.status.lower() == "complete":
-        ui.ui_sur.page_sur_view_edit_report.load_report(template_name="patient",
+        ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
                                                         patient=app.pat_dict[app.current_pat_id],
                                                         order_id=app.current_errand_id,
                                                         vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,

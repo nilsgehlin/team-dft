@@ -21,7 +21,9 @@ class Report(QTextBrowser):
         self.vtk_widget_2d = None
         self.vtk_widget_3d = None
         self.setOpenLinks(False)
-        self.anchorClicked.connect(self.on_annotation_clicked)
+        if show_segmentation_on_click:
+            print("TRUE")
+            self.anchorClicked.connect(self.on_annotation_clicked)
 
     def update(self):
         file_loader = jinja2.FileSystemLoader(template_dir)

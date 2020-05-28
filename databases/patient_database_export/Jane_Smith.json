@@ -17,38 +17,42 @@
             "report": null,
             "annotations": [
                 {
-                    "id": "d6a68be9c8814d1584b1de1753cfdfcb",
-                    "location": "Brain Parenchyma",
-                    "finding": "T2 hyperintense white matter lesions",
+                    "id": "69ca9b5c5f8b498fb71f3347806a306b",
+                    "location": "Upper body",
+                    "finding": "The blood running through the body",
                     "color": [
-                        255,
+                        51,
                         0,
-                        0
+                        102
                     ],
-                    "coordinate": null,
-                    "isSegment": false
+                    "coordinate": [
+                        270,
+                        188,
+                        23
+                    ],
+                    "isSegment": true
                 },
                 {
-                    "id": "ddc419e05718495c87f1cef518c1b018",
-                    "location": "Skull",
-                    "finding": "Huge fracture",
+                    "id": "34836bb18ef34e949eb266bd4d685afa",
+                    "location": "Stomach",
+                    "finding": "Left kidney",
                     "color": [
-                        0,
-                        255,
-                        0
+                        229,
+                        127,
+                        204
                     ],
-                    "coordinate": null,
-                    "isSegment": false
+                    "coordinate": [
+                        306,
+                        170,
+                        71
+                    ],
+                    "isSegment": true
                 }
             ],
             "impressions": [
                 {
-                    "doctor": "Dr. Bruce, Radiology",
-                    "impression": "Strongly recommend an MRI scan"
-                },
-                {
-                    "doctor": "Dr. Andersson, Surgery",
-                    "impression": "Hmmm..."
+                    "doctor": "Dr. Bruce, Radiology, Stanford Medicine",
+                    "impression": "Patient looks healthy"
                 }
             ]
         },
