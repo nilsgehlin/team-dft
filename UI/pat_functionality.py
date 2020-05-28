@@ -181,15 +181,9 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
-        ui.ui_pat.radio_button_axial.setEnabled(True)
-        ui.ui_pat.radio_button_coronal.setEnabled(True)
-        ui.ui_pat.radio_button_sagittal.setEnabled(True)
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
-        ui.ui_pat.radio_button_axial.setEnabled(False)
-        ui.ui_pat.radio_button_coronal.setEnabled(False)
-        ui.ui_pat.radio_button_sagittal.setEnabled(False)
 
 
 def change_page(ui, new_page):
@@ -285,6 +279,7 @@ def change_segment_transparency(app, ui, slider, widget):
         app.visEngine.SetSegmentationTransparency(widget, [annot], val)
 
 
+# Change how linked slice appears on the 3D window
 def change_link_configuration(app, ui, group):
     show_slice = group.buttons()[0].isChecked()
     crop_3d = not group.buttons()[1].isChecked()

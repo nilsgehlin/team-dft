@@ -225,15 +225,9 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
-        ui.ui_rad.radio_button_axial.setEnabled(True)
-        ui.ui_rad.radio_button_coronal.setEnabled(True)
-        ui.ui_rad.radio_button_sagittal.setEnabled(True)
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
-        ui.ui_rad.radio_button_axial.setEnabled(False)
-        ui.ui_rad.radio_button_coronal.setEnabled(False)
-        ui.ui_rad.radio_button_sagittal.setEnabled(False)
 
 
 def is_patient_diagnosed(app):
@@ -355,20 +349,32 @@ def lock_screen(ui):
     change_page(ui, ui.ui_rad.page_rad_locked)
 
 
+# Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     current_annots = []
     current_measurs =  []
+    # Save the current annotations
     for annot in errand.annotations:
         if app.visEngine.HasSegmentation(widget, annot): 
             current_annots += [annot]
         if app.visEngine.HasMeasurement(widget,annot): 
             current_measurs += [annot]
+    # Clear link if window is actively a master link
+    slaves = None
+    if app.visEngine.LinkedAsMaster(widget):
+        slaves = app.visEngine.GetLinkSlaves()
+        app.visEngine.UnlinkWindows(widget)
+    # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    app.visEngine.AddMeasurements(widget, current_measurs)  
+    app.visEngine.AddMeasurements(widget, current_measurs)
+    # Recreate slaves
+    if slaves is not None:
+        app.visEngine.LinkWindows(widget, slaves)
 
 
+# Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
     tissues = []
     for button in group.buttons():
@@ -397,10 +403,10 @@ def change_segment_transparency(app, ui, slider, widget):
     if annot is not None:
         app.visEngine.SetSegmentationTransparency(widget, [annot], val)
 
-
+# Change how linked slice appears on the 3D window
 def change_link_configuration(app, ui, group):
     show_slice = group.buttons()[0].isChecked()
-    crop_3d = group.buttons()[1].isChecked()
+    crop_3d = not group.buttons()[1].isChecked()
     app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
 
 
