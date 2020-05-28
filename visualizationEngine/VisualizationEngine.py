@@ -45,7 +45,7 @@ class VisualizationEngine(object):
     _masterMPR = None
     _slaves = None
     _showActiveSlice = True
-    _crop3D = True
+    _crop3D = False
     _sliceFrameColor = [1,0,0]
 
     # Slave Render Timer
@@ -240,24 +240,41 @@ class VisualizationEngine(object):
     #               master window is also shown on the 3d volume 
     #       2. crop3D - This determines if the 3D volume is cropped to show the active
     #               position on the master window
-    #   Notes: 
-    #       -ONLY call this before linking windows. Unexpected behaviors when linking is active
+    #   Notes:
     def ConfigureVolumeCuttingPlane(self, showSlice = True, crop3D = True):
         self._showActiveSlice = showSlice
         self._crop3D = crop3D
+        if self._slaves is not None:
+            for slave in self._slaves:
+                renderer = self.__GetRenderer(slave)
+                if renderer.GetInformation().Get(self._rendererTypeKey) == self._volumeRenderer:
+                    if not crop3D:
+                        volumes = renderer.GetVolumes()
+                        volumes.InitTraversal()
+                        volumes.GetNextVolume().GetMapper().CroppingOff()
+                    if not showSlice:
+                        props = renderer.GetViewProps()
+                        for prop in props:
+                            prop_property = prop.GetPropertyKeys()
+                            if prop_property is None: continue
+                            if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                                renderer.RemoveViewProp(prop)
+
+            self.__on_slice_change(self.imageViewers[self._masterID], "None")
+
 
 
     # Links scrolling of master window 'masterWidget' to slave windows in 'args'
     # ONLY a 2D image window can be a master.
     #   Parameters: 
     #       1. vtkWidget - Master
-    #       2,3,4... vtkWidgets - Slaves
+    #       2. a list of vtkWidgets - Slaves
     #   Notes:
     #       -Provide each slave as its own arguments, NOT as an array
     #       -There can be only one master window for any engine instance. You have
     #           to unlink slaves before creating a new set of links.
-    def LinkWindows(self, masterWidget, *args):
-        if self._masterID == None:
+    def LinkWindows(self, masterWidget, args):
+        if self._masterID is None:
             master_renderer_info = self.__GetRenderer(masterWidget).GetInformation()
             self._masterID = master_renderer_info.Get(self._rendererNumKey)
             self._masterMPR = master_renderer_info.Get(self._rendererMPRKey)
@@ -292,6 +309,20 @@ class VisualizationEngine(object):
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
                     self.__CleanUpCuttingPlanePos(slave)
             self._slaves = None
+
+
+    # Checks whether there is an active link
+    def LinkedAsMaster(self, widget):
+        renderer_info = self.__GetRenderer(widget).GetInformation()
+        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            if renderer_info.Get(self._rendererNumKey) == self._masterID:
+                return True
+        return False
+
+
+    # Returns the slaves on the active link
+    def GetLinkSlaves(self):
+        return self._slaves
 
 
     # Performs segmentation for the given
@@ -413,7 +444,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
                         return True
@@ -433,7 +464,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
                         return True
@@ -453,7 +484,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 prop_type = prop_property.Get(self._propTypeKey)
                 if prop_type == self._SegmentationProp or prop_type == self._MeasurementProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
@@ -475,7 +506,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
                         renderer.RemoveViewProp(prop)
@@ -496,7 +527,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
                         renderer.RemoveViewProp(prop)
@@ -517,7 +548,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 prop_type = prop_property.Get(self._propTypeKey)
                 if prop_type == self._SegmentationProp or prop_type == self._MeasurementProp:
                     if prop_property.Get(self._propIDKey) == segment_id:
@@ -535,7 +566,7 @@ class VisualizationEngine(object):
         props = renderer.GetViewProps()
         for prop in props:
             prop_property = prop.GetPropertyKeys()
-            if prop_property == None: continue
+            if prop_property is None: continue
             if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                 renderer.RemoveViewProp(prop)
 
@@ -551,7 +582,7 @@ class VisualizationEngine(object):
         props = renderer.GetViewProps()
         for prop in props:
             prop_property = prop.GetPropertyKeys()
-            if prop_property == None: continue
+            if prop_property is None: continue
             if prop_property.Get(self._propTypeKey) == self._MeasurementProp:
                 renderer.RemoveViewProp(prop)
 
@@ -567,7 +598,7 @@ class VisualizationEngine(object):
         props = renderer.GetViewProps()
         for prop in props:
             prop_property = prop.GetPropertyKeys()
-            if prop_property == None: continue
+            if prop_property is None: continue
             if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                 renderer.RemoveViewProp(prop)
                 continue
@@ -593,7 +624,7 @@ class VisualizationEngine(object):
             props = renderer.GetViewProps()
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                     volume_property = prop.GetProperty()
                     volume_property.SetScalarOpacity(self.__SetSegmentScalarOpacity(transparency))
@@ -618,7 +649,7 @@ class VisualizationEngine(object):
                 props = renderer.GetViewProps()
                 for prop in props:
                     prop_property = prop.GetPropertyKeys()
-                    if prop_property == None: continue
+                    if prop_property is None: continue
                     if prop_property.Get(self._propTypeKey) == self._SegmentationProp:
                         if prop_property.Get(self._propIDKey) == segment_id:
                             volume_property = prop.GetProperty()
@@ -665,7 +696,7 @@ class VisualizationEngine(object):
     ##### 2D IMAGE MANIPULATION #####
 
     # Sets 2D image color properties
-    def SetColor(self, widget, color_window, color_level):
+    def SetImageColor(self, widget, color_window, color_level):
         renderer_info = self.__GetRenderer(widget).GetInformation()
         if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
             viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
@@ -732,8 +763,10 @@ class VisualizationEngine(object):
             if (plane_id == 0): idx = 1
             elif (plane_id == 1): idx = 3
             elif (plane_id == 2): idx = 5
-            
-            volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
+
+            volumes = renderer.GetVolumes()
+            volumes.InitTraversal()
+            volume_mapper = volumes.GetNextVolume().GetMapper()
             if volume_mapper.GetCropping() == 0:
                 volume_mapper.CroppingOn()
                 volume_mapper.SetCroppingRegionFlagsToFence()
@@ -756,12 +789,12 @@ class VisualizationEngine(object):
         image_actor = None
         for prop in props:
             prop_property = prop.GetPropertyKeys()
-            if prop_property == None: continue
+            if prop_property is None: continue
             if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                 image_actor = prop
                 break
 
-        if image_actor == None:
+        if image_actor is None:
             image_actor = vtk.vtkImageActor()
             image_actor.SetInputData(viewer.GetInput())
             image_actor_info = vtk.vtkInformation()
@@ -781,7 +814,7 @@ class VisualizationEngine(object):
         actors = renderer.GetActors()
         for actor in actors:
             actor_property = actor.GetPropertyKeys()
-            if actor_property == None: continue
+            if actor_property is None: continue
             if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                 renderer.RemoveActor(actor)
                 break
@@ -795,16 +828,17 @@ class VisualizationEngine(object):
     # Cleans up 3D window to remove cutting plane 
     def __CleanUpCuttingPlanePos(self, widget):
         renderer = self.__GetRenderer(widget)
-        volume_mapper = renderer.GetVolumes().GetLastProp().GetMapper()
-        volume_mapper.CroppingOff()
+        volumes = renderer.GetVolumes()
+        volumes.InitTraversal()
+        volumes.GetNextVolume().GetMapper().CroppingOff()
         
-        if (self._showActiveSlice):
-            props = renderer.GetViewProps()
-            for prop in props:
-                prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
-                if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
-                    renderer.RemoveViewProp(prop)
+        # if (self._showActiveSlice):
+        props = renderer.GetViewProps()
+        for prop in props:
+            prop_property = prop.GetPropertyKeys()
+            if prop_property is None: continue
+            if prop_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
+                renderer.RemoveViewProp(prop)
 
         widget.GetRenderWindow().Render()
 
@@ -825,7 +859,7 @@ class VisualizationEngine(object):
             actors = renderer.GetActors()
             for actor in actors:
                 actor_property = actor.GetPropertyKeys()
-                if actor_property == None: continue
+                if actor_property is None: continue
                 if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                     renderer.RemoveActor(actor)
                     break
@@ -847,7 +881,7 @@ class VisualizationEngine(object):
         actors = renderer.GetActors()
         for actor in actors:
             actor_property = actor.GetPropertyKeys()
-            if actor_property == None: continue
+            if actor_property is None: continue
             if actor_property.Get(self._propTypeKey) == self._CuttingPlaneProp:
                 renderer.RemoveActor(actor)
                 break
@@ -1063,7 +1097,7 @@ class VisualizationEngine(object):
             # Perform necessary update to props
             for prop in props:
                 prop_property = prop.GetPropertyKeys()
-                if prop_property == None: continue
+                if prop_property is None: continue
                 # Update segmentation prop
                 if prop_property.Get(self._propTypeKey) == self._SegmentationProp:                
                     prop.SetDisplayExtent(list(viewer.GetImageActor().GetDisplayExtent()))

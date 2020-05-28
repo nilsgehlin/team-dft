@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1204</width>
-    <height>891</height>
+    <height>778</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -799,6 +799,140 @@ notifications</string>
   </widget>
   <widget class="QWidget" name="page_pat_view_scan">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="4" column="2">
+     <layout class="QGridLayout" name="page_pat_view_scan_2d_layout_organizer">
+      <item row="1" column="0">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
+        <property name="minimum">
+         <number>-6000</number>
+        </property>
+        <property name="maximum">
+         <number>12000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="value">
+         <number>1800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="minimum">
+         <number>-5000</number>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="sliderPosition">
+         <number>900</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_pat_view_scan_2d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_pat_view_scan_2d_view" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="page_pat_view_scan_label_2d">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
+        </property>
+        <property name="text">
+         <string>2D Images</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="1" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="15">
@@ -1177,141 +1311,27 @@ notifications</string>
       </item>
      </layout>
     </item>
-    <item row="5" column="2">
-     <layout class="QGridLayout" name="page_pat_view_scan_2d_layout_organizer">
-      <item row="1" column="0">
-       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
-        <property name="minimum">
-         <number>-6000</number>
-        </property>
-        <property name="maximum">
-         <number>12000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="value">
-         <number>1800</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>false</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="minimum">
-         <number>-5000</number>
-        </property>
-        <property name="maximum">
-         <number>5000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="sliderPosition">
-         <number>900</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>true</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="2">
-       <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>300</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
-        <property name="lineWidth">
-         <number>0</number>
-        </property>
-        <layout class="QGridLayout" name="page_pat_view_scan_2d_view_frame_grid">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="QWidget" name="page_pat_view_scan_2d_view" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="page_pat_view_scan_label_2d">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font-size: 16pt;</string>
-        </property>
-        <property name="text">
-         <string>2D Images</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    <item row="3" column="1">
+     <widget class="QLabel" name="page_pat_view_scan_label_report">
+      <property name="styleSheet">
+       <string notr="true">font-size: 14pt</string>
+      </property>
+      <property name="text">
+       <string>Report</string>
+      </property>
+     </widget>
     </item>
-    <item row="3" column="1" rowspan="3">
+    <item row="3" column="2">
+     <widget class="QLabel" name="page_pat_view_scan_label_settings">
+      <property name="styleSheet">
+       <string notr="true">font-size: 14pt</string>
+      </property>
+      <property name="text">
+       <string>Advanced Settings</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" rowspan="2">
      <layout class="QGridLayout" name="page_pat_view_scan_report_advance_layout_organizer">
       <item row="1" column="0">
        <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
@@ -1386,7 +1406,7 @@ notifications</string>
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page_pat_view_scan_tools_orientation">
          <property name="geometry">

@@ -33,7 +33,7 @@ class Report(QTextBrowser):
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
 
-    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d, vis_engine):
+    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d, vis_engine, user=None):
         self.patient = patient
         self.errand = patient.errands[order_id]
         self.template_name = template_name
@@ -54,16 +54,27 @@ class Report(QTextBrowser):
     #     #                      "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
     #     #         webbrowser.open(search_url)
 
+    # Callback function for annotation click on the report
     def on_annotation_clicked(self, url_input):
         annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
-        
-        if self.vis_engine.HasAnnotation(self.vtk_widget_2d, annotation_clicked):
-            self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
-        else:
-            self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
-            self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
+
+        # If the user is a patient, no need to toggle annotations
+        if self.template_name == "patient":
             self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
+            if self.vtk_widget_3d is not None: self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
+        # Else toggle the annotations
+        else:
+            if self.vis_engine.HasAnnotation(self.vtk_widget_2d, annotation_clicked):
+                self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
+                if self.vtk_widget_3d is not None: self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
+            else:
+                self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
+                self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
+                self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
+                if self.vtk_widget_3d is not None:
+                    self.vis_engine.AddSegmentations(self.vtk_widget_3d, [annotation_clicked])
+                    self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
 
 
 

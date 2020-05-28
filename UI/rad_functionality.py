@@ -123,7 +123,7 @@ def go_to_patient_page(app, ui):
                 if not impr.reviewed:
                     print("Impression not reviewed")
     app.current_pat_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(0)
-    app.current_errand_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(5)
+    app.current_errand_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(7)
 
     ui.ui_rad.page_rad_patient_page_button_diagnose_patient.setEnabled(not is_patient_diagnosed(app))
 
@@ -225,15 +225,9 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
-        ui.ui_rad.radio_button_axial.setEnabled(True)
-        ui.ui_rad.radio_button_coronal.setEnabled(True)
-        ui.ui_rad.radio_button_sagittal.setEnabled(True)
     elif button.text() == activate_str:
-        app.visEngine.LinkWindows(master_widget, slave_widget)
+        app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
-        ui.ui_rad.radio_button_axial.setEnabled(False)
-        ui.ui_rad.radio_button_coronal.setEnabled(False)
-        ui.ui_rad.radio_button_sagittal.setEnabled(False)
 
 
 def is_patient_diagnosed(app):
@@ -244,7 +238,7 @@ def add_errands(app, ui):
     ui.ui_rad.page_rad_home_patient_information.clear()
     for pat in app.pat_dict.values():
         for errand in pat.errands.values():
-            root_item = QTreeWidgetItem([pat.id, pat.sex, errand.date, errand.scan, errand.status, errand.order_id])
+            root_item = QTreeWidgetItem([pat.id, pat.first_name, pat.last_name, pat.sex, errand.date, errand.scan, errand.status, errand.order_id])
             ui.ui_rad.page_rad_home_patient_information.addTopLevelItem(root_item)
     ui.ui_rad.page_rad_home_patient_information.sortItems(2, Qt.DescendingOrder)
 
@@ -355,20 +349,32 @@ def lock_screen(ui):
     change_page(ui, ui.ui_rad.page_rad_locked)
 
 
+# Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     current_annots = []
     current_measurs =  []
+    # Save the current annotations
     for annot in errand.annotations:
         if app.visEngine.HasSegmentation(widget, annot): 
             current_annots += [annot]
         if app.visEngine.HasMeasurement(widget,annot): 
             current_measurs += [annot]
+    # Clear link if window is actively a master link
+    slaves = None
+    if app.visEngine.LinkedAsMaster(widget):
+        slaves = app.visEngine.GetLinkSlaves()
+        app.visEngine.UnlinkWindows(widget)
+    # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    app.visEngine.AddMeasurements(widget, current_measurs)  
+    app.visEngine.AddMeasurements(widget, current_measurs)
+    # Recreate slaves
+    if slaves is not None:
+        app.visEngine.LinkWindows(widget, slaves)
 
 
+# Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
     tissues = []
     for button in group.buttons():
@@ -397,10 +403,10 @@ def change_segment_transparency(app, ui, slider, widget):
     if annot is not None:
         app.visEngine.SetSegmentationTransparency(widget, [annot], val)
 
-
+# Change how linked slice appears on the 3D window
 def change_link_configuration(app, ui, group):
     show_slice = group.buttons()[0].isChecked()
-    crop_3d = group.buttons()[1].isChecked()
+    crop_3d = not group.buttons()[1].isChecked()
     app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
 
 
@@ -408,6 +414,6 @@ def change_link_configuration(app, ui, group):
 def change_image_color(app,ui,widget):
     color_window = ui.ui_rad.page_rad_diagnose_2d_slider_color_window.value()
     color_level = ui.ui_rad.page_rad_diagnose_2d_slider_color_level.value()
-    app.visEngine.SetColor(widget, color_window, color_level)
+    app.visEngine.SetImageColor(widget, color_window, color_level)
 
 
