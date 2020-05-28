@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
-    <height>768</height>
+    <width>1358</width>
+    <height>751</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,7 +129,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/account.png</normaloff>C:/Users/marti/.designer/backup/icons/account.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/account.png</normaloff>../../../../../../marti/.designer/backup/icons/account.png</iconset>
       </property>
       <property name="checkable">
        <bool>false</bool>
@@ -161,7 +161,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/logout.png</normaloff>C:/Users/marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -193,7 +193,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/forward.png</normaloff>C:/Users/marti/.designer/backup/icons/forward.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/forward.png</normaloff>../../../../../../marti/.designer/backup/icons/forward.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -275,7 +275,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/share.png</normaloff>C:/Users/marti/.designer/backup/icons/share.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/share.png</normaloff>../../../../../../marti/.designer/backup/icons/share.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -301,7 +301,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/status.png</normaloff>C:/Users/marti/.designer/backup/icons/status.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/status.png</normaloff>../../../../../../marti/.designer/backup/icons/status.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -356,7 +356,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/download.png</normaloff>C:/Users/marti/.designer/backup/icons/download.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/download.png</normaloff>../../../../../../marti/.designer/backup/icons/download.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -385,7 +385,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/logout.png</normaloff>C:/Users/marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -417,7 +417,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/account.png</normaloff>C:/Users/marti/.designer/backup/icons/account.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/account.png</normaloff>../../../../../../marti/.designer/backup/icons/account.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -446,7 +446,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/view.png</normaloff>C:/Users/marti/.designer/backup/icons/view.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/view.png</normaloff>../../../../../../marti/.designer/backup/icons/view.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -663,7 +663,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/back.png</normaloff>C:/Users/marti/.designer/backup/icons/back.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -756,7 +756,7 @@ font: 30pt;</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/logout.png</normaloff>C:/Users/marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -770,7 +770,7 @@ font: 30pt;</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/back.png</normaloff>C:/Users/marti/.designer/backup/icons/back.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -791,7 +791,7 @@ notifications</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>C:/Users/marti/.designer/backup/icons/notification.png</normaloff>C:/Users/marti/.designer/backup/icons/notification.png</iconset>
+        <normaloff>../../../../../../marti/.designer/backup/icons/notification.png</normaloff>../../../../../../marti/.designer/backup/icons/notification.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -802,371 +802,7 @@ notifications</string>
   </widget>
   <widget class="QWidget" name="page_pat_view_scan">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer_10">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="11">
-       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_out">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Zoom Out</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/zoom_out.png</normaloff>C:/Users/marti/.designer/backup/icons/zoom_out.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="15">
-       <widget class="QToolButton" name="page_pat_view_scan_button_logout">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text">
-         <string>Logout</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/logout.png</normaloff>C:/Users/marti/.designer/backup/icons/logout.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="12">
-       <widget class="QToolButton" name="page_pat_view_scan_button_3d_fullscreen">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Full Screen</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/full_screen.png</normaloff>C:/Users/marti/.designer/backup/icons/full_screen.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="13">
-       <spacer name="horizontalSpacer_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="5">
-       <widget class="QToolButton" name="page_pat_view_scan_button_next_note">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Next Note</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/next_note.png</normaloff>C:/Users/marti/.designer/backup/icons/next_note.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QToolButton" name="page_pat_view_scan_button_back">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Back</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/back.png</normaloff>C:/Users/marti/.designer/backup/icons/back.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="6">
-       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Next Slice</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/next_slice.png</normaloff>C:/Users/marti/.designer/backup/icons/next_slice.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QToolButton" name="page_pat_view_scan_button_play_pause">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Play/Pause</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/play_pause.png</normaloff>C:/Users/marti/.designer/backup/icons/play_pause.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="10">
-       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_in">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Zoom In</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/zoom_in.png</normaloff>C:/Users/marti/.designer/backup/icons/zoom_in.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Previous Slice</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/previous_slice.png</normaloff>C:/Users/marti/.designer/backup/icons/previous_slice.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Previous Note</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/previous_note.png</normaloff>C:/Users/marti/.designer/backup/icons/previous_note.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="9">
-       <spacer name="horizontalSpacer_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="8">
-       <widget class="QToolButton" name="page_pat_view_scan_button_link_windows">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Activate
-2D-3D Link</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>C:/Users/marti/.designer/backup/icons/link.png</normaloff>C:/Users/marti/.designer/backup/icons/link.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="page_pat_view_scan_label_report">
-      <property name="styleSheet">
-       <string notr="true">font-size: 14pt</string>
-      </property>
-      <property name="text">
-       <string>Report</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
+    <item row="3" column="2">
      <widget class="QLabel" name="page_pat_view_scan_label_settings">
       <property name="styleSheet">
        <string notr="true">font-size: 14pt</string>
@@ -1176,120 +812,7 @@ notifications</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QFrame" name="page_pat_view_scan_3d_view_frame">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>300</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <layout class="QGridLayout" name="page_pat_view_scan_3d_view_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_pat_view_scan_3d_view" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>450</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <layout class="QGridLayout" name="page_pat_view_scan_rad_annotations_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_pat_view_scan_rad_annotations" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="1">
+    <item row="4" column="2">
      <widget class="QToolBox" name="page_pat_view_scan_tools">
       <property name="currentIndex">
        <number>0</number>
@@ -1299,8 +822,8 @@ notifications</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>671</width>
-         <height>219</height>
+         <width>667</width>
+         <height>194</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1350,8 +873,8 @@ notifications</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>671</width>
-         <height>219</height>
+         <width>667</width>
+         <height>194</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1434,8 +957,8 @@ notifications</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>671</width>
-         <height>219</height>
+         <width>667</width>
+         <height>194</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1629,8 +1152,8 @@ notifications</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>671</width>
-         <height>219</height>
+         <width>667</width>
+         <height>194</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1670,8 +1193,484 @@ notifications</string>
       </widget>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
+    <item row="3" column="1">
+     <widget class="QLabel" name="page_pat_view_scan_label_report">
+      <property name="styleSheet">
+       <string notr="true">font-size: 14pt</string>
+      </property>
+      <property name="text">
+       <string>Report</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="11">
+       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_out">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Zoom Out</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/zoom_out.png</normaloff>../../../../../../marti/.designer/backup/icons/zoom_out.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="15">
+       <widget class="QToolButton" name="page_pat_view_scan_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="12">
+       <widget class="QToolButton" name="page_pat_view_scan_button_3d_fullscreen">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Full Screen</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/full_screen.png</normaloff>../../../../../../marti/.designer/backup/icons/full_screen.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="13">
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="5">
+       <widget class="QToolButton" name="page_pat_view_scan_button_next_note">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Next Note</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/next_note.png</normaloff>../../../../../../marti/.designer/backup/icons/next_note.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QToolButton" name="page_pat_view_scan_button_back">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Next Slice</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/next_slice.png</normaloff>../../../../../../marti/.designer/backup/icons/next_slice.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QToolButton" name="page_pat_view_scan_button_play_pause">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Play/Pause</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/play_pause.png</normaloff>../../../../../../marti/.designer/backup/icons/play_pause.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_in">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Zoom In</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/zoom_in.png</normaloff>../../../../../../marti/.designer/backup/icons/zoom_in.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previous Slice</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/previous_slice.png</normaloff>../../../../../../marti/.designer/backup/icons/previous_slice.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previous Note</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/previous_note.png</normaloff>../../../../../../marti/.designer/backup/icons/previous_note.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="8">
+       <widget class="QToolButton" name="page_pat_view_scan_button_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../marti/.designer/backup/icons/link.png</normaloff>../../../../../../marti/.designer/backup/icons/link.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <layout class="QGridLayout" name="page_pat_view_scan_2d_layout_organizer">
+      <item row="0" column="2">
+       <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_pat_view_scan_2d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_pat_view_scan_2d_view" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="minimum">
+         <number>-5000</number>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="sliderPosition">
+         <number>900</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
+        <property name="minimum">
+         <number>-6000</number>
+        </property>
+        <property name="maximum">
+         <number>12000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="value">
+         <number>1800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="2">
+     <widget class="QFrame" name="page_pat_view_scan_3d_view_frame">
       <property name="minimumSize">
        <size>
         <width>300</width>
@@ -1685,12 +1684,12 @@ notifications</string>
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
+       <enum>QFrame::Raised</enum>
       </property>
       <property name="lineWidth">
        <number>0</number>
       </property>
-      <layout class="QGridLayout" name="page_pat_view_scan_2d_view_frame_grid">
+      <layout class="QGridLayout" name="page_pat_view_scan_3d_view_frame_grid">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -1704,12 +1703,76 @@ notifications</string>
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QWidget" name="page_pat_view_scan_2d_view" native="true">
+        <widget class="QWidget" name="page_pat_view_scan_3d_view" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>450</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <layout class="QGridLayout" name="page_pat_view_scan_rad_annotations_frame_grid">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QWidget" name="page_pat_view_scan_rad_annotations" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
@@ -1747,16 +1810,16 @@ notifications</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="page_pat_view_scan_check_group_link">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
   <buttongroup name="page_pat_view_scan_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
-  <buttongroup name="page_pat_view_scan_check_group_link">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
  </buttongroups>
 </ui>

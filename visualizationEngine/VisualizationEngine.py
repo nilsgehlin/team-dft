@@ -152,8 +152,8 @@ class VisualizationEngine(object):
             renderer.GetInformation().Set(self._rendererMPRKey, img_orien)
 
         # Set initial color properties
-        image_viewer.SetColorWindow(9000)
-        image_viewer.SetColorLevel(900)
+        image_viewer.SetColorWindow(1800)
+        image_viewer.SetColorLevel(-170)
 
         # Render the image_viewer
         image_viewer.Render()
@@ -660,7 +660,18 @@ class VisualizationEngine(object):
     # Clears the active annotation
     def ClearActiveAnnotation(self):
         self.activeAnnotation = None
-        
+
+
+    ##### 2D IMAGE MANIPULATION #####
+
+    # Sets 2D image color properties
+    def SetColor(self, widget, color_window, color_level):
+        renderer_info = self.__GetRenderer(widget).GetInformation()
+        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+            viewer.SetColorWindow(color_window)
+            viewer.SetColorLevel(color_level)
+            widget.GetRenderWindow().Render()
 
     ###################################
     ##### Private class functions #####

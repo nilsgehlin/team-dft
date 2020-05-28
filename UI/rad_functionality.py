@@ -59,6 +59,12 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
     ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
 
+    # 2D image options
+    ui.ui_rad.page_rad_diagnose_2d_slider_color_window.valueChanged.connect(
+        lambda: change_image_color(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+    ui.ui_rad.page_rad_diagnose_2d_slider_color_level.valueChanged.connect(
+        lambda: change_image_color(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+
     ui.ui_rad.page_rad_diagnose_radio_group_orientation.buttonClicked.connect(lambda: change_slice_orientation(app, ui, ui.ui_rad.page_rad_diagnose_radio_group_orientation,
                                                                                          ui.ui_rad.page_rad_diagnose_2d_view))
     ui.ui_rad.page_rad_diagnose_check_group_tissue.buttonClicked.connect(lambda: change_volume_tissue(app, ui, ui.ui_rad.page_rad_diagnose_check_group_tissue,
@@ -396,6 +402,12 @@ def change_link_configuration(app, ui, group):
     show_slice = group.buttons()[0].isChecked()
     crop_3d = group.buttons()[1].isChecked()
     app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
-    
+
+
+# Changes the 2D image 'greyscale'
+def change_image_color(app,ui,widget):
+    color_window = ui.ui_rad.page_rad_diagnose_2d_slider_color_window.value()
+    color_level = ui.ui_rad.page_rad_diagnose_2d_slider_color_level.value()
+    app.visEngine.SetColor(widget, color_window, color_level)
 
 
