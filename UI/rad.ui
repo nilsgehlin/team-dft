@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1366</width>
-    <height>813</height>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>2</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -38,6 +38,16 @@
       <column>
        <property name="text">
         <string>Patient ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Fisrt Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Last Name</string>
        </property>
       </column>
       <column>

@@ -415,7 +415,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_check_group_link.addButton(self.checkBox)
         self.horizontalLayout_4.addWidget(self.checkBox)
         self.checkBox_2 = QtWidgets.QCheckBox(self.page_pat_view_scan_tools_link)
-        self.checkBox_2.setChecked(False)
+        self.checkBox_2.setChecked(True)
         self.checkBox_2.setObjectName("checkBox_2")
         self.page_pat_view_scan_check_group_link.addButton(self.checkBox_2)
         self.horizontalLayout_4.addWidget(self.checkBox_2)
@@ -630,7 +630,7 @@ class Ui_pat(object):
 
         self.retranslateUi(pat)
         pat.setCurrentIndex(4)
-        self.page_pat_view_scan_tools.setCurrentIndex(0)
+        self.page_pat_view_scan_tools.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(pat)
         pat.setTabOrder(self.page_pat_view_scan_button_logout, self.page_pat_home_textEdit_search_old)
         pat.setTabOrder(self.page_pat_home_textEdit_search_old, self.page_pat_home_treeWidget_treatment_list_old)

@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_rad(object):
     def setupUi(self, rad):
         rad.setObjectName("rad")
-        rad.resize(1366, 813)
+        rad.resize(1366, 818)
         self.page_rad_home = QtWidgets.QWidget()
         self.page_rad_home.setObjectName("page_rad_home")
         self.gridLayout = QtWidgets.QGridLayout(self.page_rad_home)
@@ -931,7 +931,7 @@ class Ui_rad(object):
         rad.addWidget(self.page_rad_locked)
 
         self.retranslateUi(rad)
-        rad.setCurrentIndex(2)
+        rad.setCurrentIndex(0)
         self.page_rad_diagnose_tools.setCurrentIndex(2)
         self.page_rad_diagnose_tab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(rad)
@@ -961,11 +961,13 @@ class Ui_rad(object):
         rad.setWindowTitle(_translate("rad", "StackedWidget"))
         self.page_rad_home_patient_information.setSortingEnabled(True)
         self.page_rad_home_patient_information.headerItem().setText(0, _translate("rad", "Patient ID"))
-        self.page_rad_home_patient_information.headerItem().setText(1, _translate("rad", "Sex"))
-        self.page_rad_home_patient_information.headerItem().setText(2, _translate("rad", "Order Date"))
-        self.page_rad_home_patient_information.headerItem().setText(3, _translate("rad", "Scan Type"))
-        self.page_rad_home_patient_information.headerItem().setText(4, _translate("rad", "Status"))
-        self.page_rad_home_patient_information.headerItem().setText(5, _translate("rad", "Order ID"))
+        self.page_rad_home_patient_information.headerItem().setText(1, _translate("rad", "Fisrt Name"))
+        self.page_rad_home_patient_information.headerItem().setText(2, _translate("rad", "Last Name"))
+        self.page_rad_home_patient_information.headerItem().setText(3, _translate("rad", "Sex"))
+        self.page_rad_home_patient_information.headerItem().setText(4, _translate("rad", "Order Date"))
+        self.page_rad_home_patient_information.headerItem().setText(5, _translate("rad", "Scan Type"))
+        self.page_rad_home_patient_information.headerItem().setText(6, _translate("rad", "Status"))
+        self.page_rad_home_patient_information.headerItem().setText(7, _translate("rad", "Order ID"))
         self.page_rad_home_search_bar.setHtml(_translate("rad", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

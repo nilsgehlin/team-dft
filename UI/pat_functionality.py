@@ -5,7 +5,6 @@ import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from reportGeneration.Report import Report
 
-from PyQt5 import QtWidgets
 import UI.patient
 import visualizationEngine.annotation.Annotation
 
@@ -123,17 +122,25 @@ def view_scan_page_setup(app, ui):
 def go_to_view_scan_page(app, ui):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir:
+        # Setup UI
         ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
         ui.ui_pat.page_pat_view_scan_2d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_2d_view, 0, 0, 1, 1)
 
         ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
         ui.ui_pat.page_pat_view_scan_3d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_3d_view, 0, 0, 1, 1)
 
+        ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Deactivate\n2D-3D Link")
+
+        # Setup the engine
         app.visEngine.SetDirectory(errand.data_dir)
         app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view, do_segmentation=False)
         app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
+        app.visEngine.LinkWindows(ui.ui_pat.page_pat_view_scan_2d_view, [ui.ui_pat.page_pat_view_scan_3d_view])
 
-        ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Activate\n2D-3D Link")
+        # Add all annotations to the viewers
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -178,7 +185,7 @@ def change_link(app, ui, button, master_widget, slave_widget):
         ui.ui_pat.radio_button_coronal.setEnabled(True)
         ui.ui_pat.radio_button_sagittal.setEnabled(True)
     elif button.text() == activate_str:
-        app.visEngine.LinkWindows(master_widget, slave_widget)
+        app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
         ui.ui_pat.radio_button_axial.setEnabled(False)
         ui.ui_pat.radio_button_coronal.setEnabled(False)
@@ -224,8 +231,10 @@ def select_item(app, ui):
     #     ui.ui_pat.page_pat_home_report.setPlaceholderText("Select a completed errand to see radiology report")
 
 
+# Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    # Save the current annotations
     current_annots = []
     current_measurs =  []
     for annot in errand.annotations:
@@ -233,11 +242,21 @@ def change_slice_orientation(app, ui, group, widget):
             current_annots += [annot]
         if app.visEngine.HasMeasurement(widget,annot): 
             current_measurs += [annot]
+    # Clear link if window is actively a master link
+    slaves = None
+    if app.visEngine.LinkedAsMaster(widget):
+        slaves = app.visEngine.GetLinkSlaves()
+        app.visEngine.UnlinkWindows(widget)
+    # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    app.visEngine.AddMeasurements(widget, current_measurs)  
+    app.visEngine.AddMeasurements(widget, current_measurs)
+    # Recreate slaves
+    if slaves is not None:
+        app.visEngine.LinkWindows(widget, slaves)
 
 
+# Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
     tissues = []
     for button in group.buttons():
@@ -268,7 +287,7 @@ def change_segment_transparency(app, ui, slider, widget):
 
 def change_link_configuration(app, ui, group):
     show_slice = group.buttons()[0].isChecked()
-    crop_3d = group.buttons()[1].isChecked()
+    crop_3d = not group.buttons()[1].isChecked()
     app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
 
 
@@ -276,7 +295,7 @@ def change_link_configuration(app, ui, group):
 def change_image_color(app,ui,widget):
     color_window = ui.ui_pat.page_pat_view_scan_2d_slider_color_window.value()
     color_level = ui.ui_pat.page_pat_view_scan_2d_slider_color_level.value()
-    app.visEngine.SetColor(widget, color_window, color_level)
+    app.visEngine.SetImageColor(widget, color_window, color_level)
 
 
 
