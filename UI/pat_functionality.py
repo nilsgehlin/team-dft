@@ -34,7 +34,7 @@ def setup_functionality(app, ui):
 
 def home_page_setup(app, ui):
     add_errands(app, ui)
-    # add_profile(app, ui)
+    add_profile(app, ui)
 
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
@@ -134,6 +134,8 @@ def go_to_view_scan_page(app, ui):
         app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
 
         ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Activate\n2D-3D Link")
+        change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view,
+                    ui.ui_pat.page_pat_view_scan_3d_view)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],

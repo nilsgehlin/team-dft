@@ -6,6 +6,7 @@ from rad import Ui_rad
 from sur import Ui_sur
 
 
+
 class Ui(Ui_main_window):
     def __init__(self, main_window):
         super(Ui_main_window, self).__init__()

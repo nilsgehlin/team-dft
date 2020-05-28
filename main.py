@@ -86,7 +86,19 @@ class Application(object):
 
 
 if __name__ == "__main__":
+    if os.path.exists("icons"):
+        os.remove("icons")
+        print("Old Symlink for icons removed")
+
+    try:
+        os.symlink(os.path.join("UI", "icons"), "icons")
+    except OSError:
+        raise OSError("Symlink for icons could not be established. Try starting your IDE (e.g. Pycharm) as administrator")
+
     Qapp = QtWidgets.QApplication(sys.argv)
     application = Application()
     application.run()
+    if os.path.exists("icons"):
+        os.remove("icons")
+        print("Symlink for icons has been removed but will be in effect until the program exits")
     sys.exit(Qapp.exec_())

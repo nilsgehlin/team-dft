@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1358</width>
-    <height>751</height>
+    <width>1204</width>
+    <height>891</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,7 +129,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/account.png</normaloff>../../../../../../marti/.designer/backup/icons/account.png</iconset>
+        <normaloff>../../../marti/.designer/backup/icons/account.png</normaloff>../../../marti/.designer/backup/icons/account.png</iconset>
       </property>
       <property name="checkable">
        <bool>false</bool>
@@ -161,7 +161,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>../../../marti/.designer/backup/icons/logout.png</normaloff>../../../marti/.designer/backup/icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -193,7 +193,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/forward.png</normaloff>../../../../../../marti/.designer/backup/icons/forward.png</iconset>
+        <normaloff>../../../marti/.designer/backup/icons/forward.png</normaloff>../../../marti/.designer/backup/icons/forward.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -275,7 +275,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/share.png</normaloff>../../../../../../marti/.designer/backup/icons/share.png</iconset>
+        <normaloff>icons/share.png</normaloff>icons/share.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -301,7 +301,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/status.png</normaloff>../../../../../../marti/.designer/backup/icons/status.png</iconset>
+        <normaloff>icons/status.png</normaloff>icons/status.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -356,7 +356,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/download.png</normaloff>../../../../../../marti/.designer/backup/icons/download.png</iconset>
+        <normaloff>icons/download.png</normaloff>icons/download.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -385,7 +385,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -417,7 +417,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/account.png</normaloff>../../../../../../marti/.designer/backup/icons/account.png</iconset>
+        <normaloff>icons/account.png</normaloff>icons/account.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -446,7 +446,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/view.png</normaloff>../../../../../../marti/.designer/backup/icons/view.png</iconset>
+        <normaloff>icons/view.png</normaloff>icons/view.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -575,9 +575,6 @@ p, li { white-space: pre-wrap; }
          <property name="text">
           <string/>
          </property>
-         <property name="pixmap">
-          <pixmap>../../../Downloads/circle-cropped.png</pixmap>
-         </property>
          <property name="scaledContents">
           <bool>true</bool>
          </property>
@@ -663,7 +660,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
+        <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -756,7 +753,7 @@ font: 30pt;</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
+        <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -770,7 +767,7 @@ font: 30pt;</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
+        <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -791,7 +788,7 @@ notifications</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../../../../../marti/.designer/backup/icons/notification.png</normaloff>../../../../../../marti/.designer/backup/icons/notification.png</iconset>
+        <normaloff>icons/notification.png</normaloff>icons/notification.png</iconset>
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -802,448 +799,8 @@ notifications</string>
   </widget>
   <widget class="QWidget" name="page_pat_view_scan">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="2">
-     <widget class="QLabel" name="page_pat_view_scan_label_settings">
-      <property name="styleSheet">
-       <string notr="true">font-size: 14pt</string>
-      </property>
-      <property name="text">
-       <string>Advanced Settings</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QToolBox" name="page_pat_view_scan_tools">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="page_pat_view_scan_tools_orientation">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>667</width>
-         <height>194</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <attribute name="label">
-        <string>2D Orientation</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QRadioButton" name="radio_button_axial">
-          <property name="text">
-           <string>AXIAL</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_radio_group_orientation</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radio_button_sagittal">
-          <property name="text">
-           <string>SAGITTAL</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_radio_group_orientation</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radio_button_coronal">
-          <property name="text">
-           <string>CORONAL</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_radio_group_orientation</string>
-          </attribute>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_pat_view_scan_tools_tissue">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>667</width>
-         <height>194</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <attribute name="label">
-        <string>3D Tissues</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="checkBox_All">
-          <property name="text">
-           <string>ALL</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_Soft">
-          <property name="text">
-           <string>SOFT</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_Bone">
-          <property name="text">
-           <string>BONE</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_Muscle">
-          <property name="text">
-           <string>MUSCLE</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_Fat">
-          <property name="text">
-           <string>FAT</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_Skin">
-          <property name="styleSheet">
-           <string notr="true">c</string>
-          </property>
-          <property name="text">
-           <string>SKIN</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_tissue</string>
-          </attribute>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_pat_view_scan_tools_transparency">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>667</width>
-         <height>194</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <attribute name="label">
-        <string>3D Transparency</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_volume">
-          <item>
-           <spacer name="verticalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_volume">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="singleStep">
-             <number>1</number>
-            </property>
-            <property name="value">
-             <number>20</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="tickPosition">
-             <enum>QSlider::NoTicks</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="page_pat_view_scan_label_transparency_volume">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>3D Volume</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_segmentation">
-          <item>
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_segmentation">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="value">
-             <number>33</number>
-            </property>
-            <property name="sliderPosition">
-             <number>33</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="page_pat_view_scan_label_transparency_segmentation">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Segmentations</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_active">
-          <item>
-           <spacer name="verticalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSlider" name="page_pat_view_scan_slider_transparency_active">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="value">
-             <number>40</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="page_pat_view_scan_label_transparency_active">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Active Segment</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_pat_view_scan_tools_link">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>667</width>
-         <height>194</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <attribute name="label">
-        <string>3D Link </string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QCheckBox" name="checkBox">
-          <property name="text">
-           <string>Show 2D Image</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_link</string>
-          </attribute>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_2">
-          <property name="text">
-           <string>Show Full 3D Volume</string>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-          <attribute name="buttonGroup">
-           <string notr="true">page_pat_view_scan_check_group_link</string>
-          </attribute>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="page_pat_view_scan_label_report">
-      <property name="styleSheet">
-       <string notr="true">font-size: 14pt</string>
-      </property>
-      <property name="text">
-       <string>Report</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer_10">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="11">
-       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_out">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Zoom Out</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/zoom_out.png</normaloff>../../../../../../marti/.designer/backup/icons/zoom_out.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="15">
        <widget class="QToolButton" name="page_pat_view_scan_button_logout">
         <property name="minimumSize">
@@ -1266,15 +823,18 @@ notifications</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/logout.png</normaloff>../../../../../../marti/.designer/backup/icons/logout.png</iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="12">
-       <widget class="QToolButton" name="page_pat_view_scan_button_3d_fullscreen">
+      <item row="0" column="11">
+       <widget class="QToolButton" name="page_pat_view_scan_button_zoom_out">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1288,32 +848,19 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Full Screen</string>
+         <string>Zoom Out</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/full_screen.png</normaloff>../../../../../../marti/.designer/backup/icons/full_screen.png</iconset>
+          <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="13">
-       <spacer name="horizontalSpacer_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_6">
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_10">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -1327,6 +874,9 @@ notifications</string>
       </item>
       <item row="0" column="5">
        <widget class="QToolButton" name="page_pat_view_scan_button_next_note">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1344,7 +894,7 @@ notifications</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/next_note.png</normaloff>../../../../../../marti/.designer/backup/icons/next_note.png</iconset>
+          <normaloff>icons/next_note.png</normaloff>icons/next_note.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1370,15 +920,18 @@ notifications</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/back.png</normaloff>../../../../../../marti/.designer/backup/icons/back.png</iconset>
+          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
-       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
+      <item row="0" column="12">
+       <widget class="QToolButton" name="page_pat_view_scan_button_3d_fullscreen">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1392,19 +945,48 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Next Slice</string>
+         <string>Full Screen</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/next_slice.png</normaloff>../../../../../../marti/.designer/backup/icons/next_slice.png</iconset>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
-       <widget class="QToolButton" name="page_pat_view_scan_button_play_pause">
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="13">
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1418,11 +1000,40 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Play/Pause</string>
+         <string>Previous Slice</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/play_pause.png</normaloff>../../../../../../marti/.designer/backup/icons/play_pause.png</iconset>
+          <normaloff>icons/previous_slice.png</normaloff>icons/previous_slice.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previous Note</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/previous_note.png</normaloff>icons/previous_note.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1431,6 +1042,9 @@ notifications</string>
       </item>
       <item row="0" column="10">
        <widget class="QToolButton" name="page_pat_view_scan_button_zoom_in">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1456,15 +1070,18 @@ notifications</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/zoom_in.png</normaloff>../../../../../../marti/.designer/backup/icons/zoom_in.png</iconset>
+          <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
+      <item row="0" column="6">
+       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1478,19 +1095,22 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Previous Slice</string>
+         <string>Next Slice</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/previous_slice.png</normaloff>../../../../../../marti/.designer/backup/icons/previous_slice.png</iconset>
+          <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
+      <item row="0" column="4">
+       <widget class="QToolButton" name="page_pat_view_scan_button_play_pause">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -1504,11 +1124,11 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Previous Note</string>
+         <string>Play/Pause</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/previous_note.png</normaloff>../../../../../../marti/.designer/backup/icons/previous_note.png</iconset>
+          <normaloff>icons/play_pause.png</normaloff>icons/play_pause.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1543,12 +1163,12 @@ notifications</string>
          </size>
         </property>
         <property name="text">
-         <string>Activate
+         <string>Deactivate
 2D-3D Link</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../marti/.designer/backup/icons/link.png</normaloff>../../../../../../marti/.designer/backup/icons/link.png</iconset>
+          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1557,9 +1177,68 @@ notifications</string>
       </item>
      </layout>
     </item>
-    <item row="1" column="1">
+    <item row="5" column="2">
      <layout class="QGridLayout" name="page_pat_view_scan_2d_layout_organizer">
-      <item row="0" column="2">
+      <item row="1" column="0">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
+        <property name="minimum">
+         <number>-6000</number>
+        </property>
+        <property name="maximum">
+         <number>12000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="value">
+         <number>1800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="minimum">
+         <number>-5000</number>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="sliderPosition">
+         <number>900</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
        <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
         <property name="minimumSize">
          <size>
@@ -1608,179 +1287,603 @@ notifications</string>
         </layout>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="page_pat_view_scan_label_2d">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
         </property>
-        <property name="minimum">
-         <number>-5000</number>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
         </property>
-        <property name="maximum">
-         <number>5000</number>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
         </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="sliderPosition">
-         <number>900</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>true</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
-        <property name="minimum">
-         <number>-6000</number>
-        </property>
-        <property name="maximum">
-         <number>12000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="value">
-         <number>1800</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>false</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>false</bool>
+        <property name="text">
+         <string>2D Images</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
-    <item row="1" column="2">
-     <widget class="QFrame" name="page_pat_view_scan_3d_view_frame">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>300</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <layout class="QGridLayout" name="page_pat_view_scan_3d_view_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_pat_view_scan_3d_view" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+    <item row="3" column="1" rowspan="3">
+     <layout class="QGridLayout" name="page_pat_view_scan_report_advance_layout_organizer">
+      <item row="1" column="0">
+       <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>1666666</height>
+         </size>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_pat_view_scan_rad_annotations_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_pat_view_scan_rad_annotations" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QToolBox" name="page_pat_view_scan_tools">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="page_pat_view_scan_tools_orientation">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>588</width>
+           <height>92</height>
+          </rect>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
          </property>
+         <attribute name="label">
+          <string>2D Orientation</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radio_button_axial">
+            <property name="text">
+             <string>AXIAL</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radio_button_sagittal">
+            <property name="text">
+             <string>SAGITTAL</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radio_button_coronal">
+            <property name="text">
+             <string>CORONAL</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-      </layout>
-     </widget>
+        <widget class="QWidget" name="page_pat_view_scan_tools_tissue">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>588</width>
+           <height>92</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Tissues</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="checkBox_All">
+            <property name="text">
+             <string>ALL</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Soft">
+            <property name="text">
+             <string>SOFT</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Bone">
+            <property name="text">
+             <string>BONE</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Muscle">
+            <property name="text">
+             <string>MUSCLE</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Fat">
+            <property name="text">
+             <string>FAT</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Skin">
+            <property name="styleSheet">
+             <string notr="true">c</string>
+            </property>
+            <property name="text">
+             <string>SKIN</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_pat_view_scan_tools_transparency">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>588</width>
+           <height>92</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Transparency</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_volume">
+            <item>
+             <spacer name="verticalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_pat_view_scan_slider_transparency_volume">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="singleStep">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>20</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::NoTicks</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_pat_view_scan_label_transparency_volume">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>3D Volume</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_segmentation">
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_pat_view_scan_slider_transparency_segmentation">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>33</number>
+              </property>
+              <property name="sliderPosition">
+               <number>33</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_pat_view_scan_label_transparency_segmentation">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Segmentations</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="page_pat_view_scan_layout_transparency_active">
+            <item>
+             <spacer name="verticalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_pat_view_scan_slider_transparency_active">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>40</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_pat_view_scan_label_transparency_active">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Active Segment</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_pat_view_scan_tools_link">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>588</width>
+           <height>92</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Link </string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Show 2D Image</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_link</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Show Full 3D Volume</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_pat_view_scan_check_group_link</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="page_pat_view_scan_label_settings">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
+        </property>
+        <property name="text">
+         <string>Advanced Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="page_pat_view_scan_label_report">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
+        </property>
+        <property name="text">
+         <string>Report</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="4" column="1">
-     <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>450</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <layout class="QGridLayout" name="page_pat_view_scan_rad_annotations_frame_grid">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QWidget" name="page_pat_view_scan_rad_annotations" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+    <item row="3" column="2">
+     <layout class="QGridLayout" name="page_pat_view_scan_3d_layout_organizer">
+      <item row="1" column="0">
+       <widget class="QFrame" name="page_pat_view_scan_3d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_pat_view_scan_3d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
          </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
+         <property name="topMargin">
+          <number>0</number>
          </property>
-         <property name="styleSheet">
-          <string notr="true"/>
+         <property name="rightMargin">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="page_pat_view_scan_3d_view" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="page_pat_view_scan_label_3d">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
+        </property>
+        <property name="text">
+         <string>3D volume</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -1810,16 +1913,16 @@ notifications</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="page_pat_view_scan_check_group_link">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
   <buttongroup name="page_pat_view_scan_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
+  <buttongroup name="page_pat_view_scan_check_group_link">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
  </buttongroups>
 </ui>
