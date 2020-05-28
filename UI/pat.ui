@@ -1324,16 +1324,6 @@ notifications</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
-     <widget class="QLabel" name="page_pat_view_scan_label_settings">
-      <property name="styleSheet">
-       <string notr="true">font-size: 14pt</string>
-      </property>
-      <property name="text">
-       <string>Advanced Settings</string>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="1" rowspan="2">
      <layout class="QGridLayout" name="page_pat_view_scan_report_advance_layout_organizer">
       <item row="1" column="0">

@@ -6,11 +6,18 @@ from visualizationEngine.annotation.Annotation import Annotation, AnnotationList
 ##### Doctor Class ######
 #########################
 class Doctor(object):
-    next_id = 0
+    rad_next_id = 0
+    sur_next_id = 0
 
     def __init__(self, first_name, last_name, age, sex, title, profession, clinic, department):
-        self.id = str(Doctor.next_id).zfill(4)
-        Doctor.next_id += 1
+        if profession == "Radiologist":
+            self.id = str(Doctor.rad_next_id).zfill(4)
+            Doctor.rad_next_id += 1
+        elif profession == "Surgeon":
+            self.id = str(Doctor.sur_next_id).zfill(4)
+            Doctor.sur_next_id += 1
+        else:
+            self.id = str(9999).zfill(4)
         self.password = self.id
         self.first_name = first_name
         self.last_name = last_name

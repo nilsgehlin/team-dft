@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'rad.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_rad(object):
     def setupUi(self, rad):
@@ -121,15 +119,15 @@ class Ui_rad(object):
         self.horizontalLayout_3.addWidget(self.page_rad_view_only_button_back)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem2)
-        self.page_rad_view_only_button_hide_link_windows = QtWidgets.QToolButton(self.page_rad_view_only)
-        self.page_rad_view_only_button_hide_link_windows.setMinimumSize(QtCore.QSize(100, 0))
-        self.page_rad_view_only_button_hide_link_windows.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.page_rad_view_only_button_link_windows = QtWidgets.QToolButton(self.page_rad_view_only)
+        self.page_rad_view_only_button_link_windows.setMinimumSize(QtCore.QSize(100, 0))
+        self.page_rad_view_only_button_link_windows.setMaximumSize(QtCore.QSize(100, 16777215))
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap("icons/link.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.page_rad_view_only_button_hide_link_windows.setIcon(icon6)
-        self.page_rad_view_only_button_hide_link_windows.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
-        self.page_rad_view_only_button_hide_link_windows.setObjectName("page_rad_view_only_button_hide_link_windows")
-        self.horizontalLayout_3.addWidget(self.page_rad_view_only_button_hide_link_windows)
+        self.page_rad_view_only_button_link_windows.setIcon(icon6)
+        self.page_rad_view_only_button_link_windows.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.page_rad_view_only_button_link_windows.setObjectName("page_rad_view_only_button_link_windows")
+        self.horizontalLayout_3.addWidget(self.page_rad_view_only_button_link_windows)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem3)
         self.page_rad_view_only_button_2d_fullscreen = QtWidgets.QToolButton(self.page_rad_view_only)
@@ -241,7 +239,7 @@ class Ui_rad(object):
         self.page_rad_diagnose_tools = QtWidgets.QToolBox(self.page_rad_diagnose)
         self.page_rad_diagnose_tools.setObjectName("page_rad_diagnose_tools")
         self.page_rad_diagnose__tools_orientation = QtWidgets.QWidget()
-        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 210, 36))
+        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 225, 35))
         self.page_rad_diagnose__tools_orientation.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose__tools_orientation.setObjectName("page_rad_diagnose__tools_orientation")
@@ -264,7 +262,7 @@ class Ui_rad(object):
         self.horizontalLayout_8.addWidget(self.radio_button_coronal)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose__tools_orientation, "")
         self.page_rad_diagnose_tools_tissue = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 307, 36))
+        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 337, 35))
         self.page_rad_diagnose_tools_tissue.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose_tools_tissue.setObjectName("page_rad_diagnose_tools_tissue")
@@ -301,7 +299,7 @@ class Ui_rad(object):
         self.horizontalLayout_9.addWidget(self.checkBox_Skin)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose_tools_tissue, "")
         self.page_rad_diagnose_tools_transparency = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_transparency.setGeometry(QtCore.QRect(0, 0, 668, 144))
+        self.page_rad_diagnose_tools_transparency.setGeometry(QtCore.QRect(0, 0, 232, 73))
         self.page_rad_diagnose_tools_transparency.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b;")
         self.page_rad_diagnose_tools_transparency.setObjectName("page_rad_diagnose_tools_transparency")
@@ -366,7 +364,7 @@ class Ui_rad(object):
         self.horizontalLayout_10.addLayout(self.page_rad_diagnose_layout_transparency_active)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose_tools_transparency, "")
         self.page_rad_diagnose_tools_link = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_link.setGeometry(QtCore.QRect(0, 0, 668, 144))
+        self.page_rad_diagnose_tools_link.setGeometry(QtCore.QRect(0, 0, 243, 35))
         self.page_rad_diagnose_tools_link.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b;")
         self.page_rad_diagnose_tools_link.setObjectName("page_rad_diagnose_tools_link")
@@ -381,7 +379,7 @@ class Ui_rad(object):
         self.page_rad_diagnose_check_group_link.addButton(self.checkBox_slice)
         self.horizontalLayout_11.addWidget(self.checkBox_slice)
         self.checkBox_volume = QtWidgets.QCheckBox(self.page_rad_diagnose_tools_link)
-        self.checkBox_volume.setChecked(True)
+        self.checkBox_volume.setChecked(False)
         self.checkBox_volume.setObjectName("checkBox_volume")
         self.page_rad_diagnose_check_group_link.addButton(self.checkBox_volume)
         self.horizontalLayout_11.addWidget(self.checkBox_volume)
@@ -931,8 +929,8 @@ class Ui_rad(object):
         rad.addWidget(self.page_rad_locked)
 
         self.retranslateUi(rad)
-        rad.setCurrentIndex(2)
-        self.page_rad_diagnose_tools.setCurrentIndex(3)
+        rad.setCurrentIndex(1)
+        self.page_rad_diagnose_tools.setCurrentIndex(2)
         self.page_rad_diagnose_tab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(rad)
         rad.setTabOrder(self.page_rad_diagnose_insert_locations, self.page_rad_diagnose_insert_findings)
@@ -982,7 +980,7 @@ class Ui_rad(object):
         self.label_6.setText(_translate("rad", "CLARITY"))
         self.label.setText(_translate("rad", "Radiology report goes here"))
         self.page_rad_view_only_button_back.setText(_translate("rad", "Back"))
-        self.page_rad_view_only_button_hide_link_windows.setText(_translate("rad", "Activate\n"
+        self.page_rad_view_only_button_link_windows.setText(_translate("rad", "Activate\n"
 "2D-3D Link"))
         self.page_rad_view_only_button_2d_fullscreen.setText(_translate("rad", "Fullscreen 2D"))
         self.page_rad_view_only_button_3d_fullscreen.setText(_translate("rad", "Fullscreen 3D"))
@@ -1078,3 +1076,4 @@ if __name__ == "__main__":
     ui.setupUi(rad)
     rad.show()
     sys.exit(app.exec_())
+
