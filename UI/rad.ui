@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>2</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -723,15 +723,15 @@ font: 30pt;</string>
     <item row="3" column="2">
      <widget class="QToolBox" name="page_rad_diagnose_tools">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_rad_diagnose__tools_orientation">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>210</width>
+         <height>36</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -782,8 +782,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>307</width>
+         <height>36</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1094,7 +1094,7 @@ color: #4fa08b;</string>
            <string>Show Full 3D Volume</string>
           </property>
           <property name="checked">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">page_rad_diagnose_check_group_link</string>

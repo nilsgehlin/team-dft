@@ -64,10 +64,13 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_home))
 
-    # ui.ui_pat.page_pat_view_scan_button_next_note.clicked.connect()# TODO Connect button with image functionality
+    # Annotation navigation buttons
+    ui.ui_pat.page_pat_view_scan_button_next_note.clicked.connect(
+        lambda: go_to_next_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect(
+        lambda: go_to_previous_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     # ui.ui_pat.page_pat_view_scan_button_next_slice.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_play_pause.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_previous_slice.clicked.connect()# TODO Connect button with image functionality
 
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows,
@@ -79,10 +82,18 @@ def view_scan_page_setup(app, ui):
     # ui.ui_pat.page_pat_view_scan_button_left.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_right.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_up.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_zoom_in.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_zoom_out.clicked.connect()# TODO Connect button with image functionality
 
-    # 2D image options
+    # Zooming buttons
+    ui.ui_pat.page_pat_view_scan_button_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_button_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_button_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_button_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
+
+    # 2D image color buttons
     ui.ui_pat.page_pat_view_scan_2d_slider_color_window.valueChanged.connect(
         lambda: change_image_color(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
     ui.ui_pat.page_pat_view_scan_2d_slider_color_level.valueChanged.connect(
@@ -297,5 +308,46 @@ def change_image_color(app,ui,widget):
     app.visEngine.SetImageColor(widget, color_window, color_level)
 
 
+# Focus the windows on the next annotation on the report
+def go_to_next_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        next_annot_idx = 0
+    else:
+        next_annot_idx = annots.index(active_annot) + 1
+        if len(annots) == next_annot_idx: next_annot_idx = 0
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+
+
+# Focus the windows on the previous annotation on the report
+def go_to_previous_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        prev_annot_idx = len(annots) - 1
+    else:
+        prev_annot_idx = annots.index(active_annot) - 1
+        if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
+
+
+# Offer zoom functionality to the widgets
+def start_zoom_in(app, ui, widget):
+    app.visEngine.StartZoomIn(widget)
+
+def start_zoom_out(app, ui, widget):
+    app.visEngine.StartZoomOut(widget)
+
+def stop_zoom(app, ui, widget):
+    app.visEngine.StopZoom(widget)
 
 

@@ -59,7 +59,7 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
     ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
 
-    # 2D image options
+    # 2D image color
     ui.ui_rad.page_rad_diagnose_2d_slider_color_window.valueChanged.connect(
         lambda: change_image_color(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
     ui.ui_rad.page_rad_diagnose_2d_slider_color_level.valueChanged.connect(

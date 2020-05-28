@@ -61,6 +61,13 @@ class VisualizationEngine(object):
     _segmentTransparency = 0.4
     _segmentScalar = 1000
 
+    # Zoom
+    _zoomObserver = None
+    _zoomDir = None
+    _zoomTimerID = None
+    _zoomTimerCount = 0
+    _zoomTimerReset = 10
+
 
     ##### General class functions #####
 
@@ -695,6 +702,7 @@ class VisualizationEngine(object):
                 camera.SetPosition(c[0] + 300, c[1], c[2])
                 camera.SetViewUp(0, 0, -1)
                 widget.update()
+                widget.GetRenderWindow().Render()
         
     
     # Returns the currently active annotative.
@@ -709,6 +717,31 @@ class VisualizationEngine(object):
     # Clears the active annotation in the engine
     def ClearActiveAnnotation(self):
         self.activeAnnotation = None
+
+
+    def StartZoomIn(self, widget):
+        self._zoomDir = "in"
+        if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            widget.SetInteractorStyle(self._volumeInteractorStyle)
+        widget.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
+        self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
+        self._zoomTimerID = widget.CreateOneShotTimer(10)
+
+    def StartZoomOut(self, widget):
+        self._zoomDir = "out"
+        if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            widget.SetInteractorStyle(self._volumeInteractorStyle)
+        widget.InvokeEvent(vtk.vtkCommand.MouseWheelBackwardEvent)
+        self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
+        self._zoomTimerID = widget.CreateOneShotTimer(10)
+
+    def StopZoom(self, widget):
+        self._zoomDir = None
+        widget.DestroyTimer(self._zoomTimerID, "None")
+        widget.RemoveObserver(self._zoomObserver)
+        # if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+        #     widget.SetInteractorStyle(self._imageInteractorStyle)
+
 
 
     ###################################
@@ -1150,6 +1183,18 @@ class VisualizationEngine(object):
                         self._renderTimeCount = 0
                         slave.GetRenderWindow().Render()
                         obj.DestroyTimer(self._renderTimerID)
+
+
+    # Continues the zoom action once it is activated using a counter for the timer
+    def __on_zooming(self, obj, event):
+        if self._zoomTimerCount == self._zoomTimerReset:
+            if self._zoomDir == "in":
+                obj.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
+            elif self._zoomDir == "out":
+                obj.InvokeEvent(vtk.vtkCommand.MouseWheelBackwardEvent)
+            self._zoomTimerCount = 0
+        else:
+            self._zoomTimerCount += 1
 
 
     ##### VOLUME DISPLAY FUNCTIONS #####

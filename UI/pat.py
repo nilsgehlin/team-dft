@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'pat.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_pat(object):
     def setupUi(self, pat):
@@ -292,7 +294,8 @@ class Ui_pat(object):
         self.page_pat_view_scan_2d_slider_color_level.setMaximum(5000)
         self.page_pat_view_scan_2d_slider_color_level.setSingleStep(100)
         self.page_pat_view_scan_2d_slider_color_level.setPageStep(500)
-        self.page_pat_view_scan_2d_slider_color_level.setSliderPosition(900)
+        self.page_pat_view_scan_2d_slider_color_level.setProperty("value", -170)
+        self.page_pat_view_scan_2d_slider_color_level.setSliderPosition(-170)
         self.page_pat_view_scan_2d_slider_color_level.setOrientation(QtCore.Qt.Horizontal)
         self.page_pat_view_scan_2d_slider_color_level.setInvertedAppearance(True)
         self.page_pat_view_scan_2d_slider_color_level.setInvertedControls(True)
@@ -336,7 +339,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_button_logout.setObjectName("page_pat_view_scan_button_logout")
         self.gridLayout_4.addWidget(self.page_pat_view_scan_button_logout, 0, 15, 1, 1)
         self.page_pat_view_scan_button_zoom_out = QtWidgets.QToolButton(self.page_pat_view_scan)
-        self.page_pat_view_scan_button_zoom_out.setEnabled(False)
+        self.page_pat_view_scan_button_zoom_out.setEnabled(True)
         self.page_pat_view_scan_button_zoom_out.setMinimumSize(QtCore.QSize(100, 0))
         self.page_pat_view_scan_button_zoom_out.setMaximumSize(QtCore.QSize(100, 16777215))
         icon11 = QtGui.QIcon()
@@ -348,7 +351,7 @@ class Ui_pat(object):
         spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem9, 0, 7, 1, 1)
         self.page_pat_view_scan_button_next_note = QtWidgets.QToolButton(self.page_pat_view_scan)
-        self.page_pat_view_scan_button_next_note.setEnabled(False)
+        self.page_pat_view_scan_button_next_note.setEnabled(True)
         self.page_pat_view_scan_button_next_note.setMinimumSize(QtCore.QSize(100, 0))
         self.page_pat_view_scan_button_next_note.setMaximumSize(QtCore.QSize(100, 16777215))
         icon12 = QtGui.QIcon()
@@ -389,7 +392,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_button_previous_slice.setObjectName("page_pat_view_scan_button_previous_slice")
         self.gridLayout_4.addWidget(self.page_pat_view_scan_button_previous_slice, 0, 2, 1, 1)
         self.page_pat_view_scan_button_previous_note = QtWidgets.QToolButton(self.page_pat_view_scan)
-        self.page_pat_view_scan_button_previous_note.setEnabled(False)
+        self.page_pat_view_scan_button_previous_note.setEnabled(True)
         self.page_pat_view_scan_button_previous_note.setMinimumSize(QtCore.QSize(100, 0))
         self.page_pat_view_scan_button_previous_note.setMaximumSize(QtCore.QSize(100, 16777215))
         icon15 = QtGui.QIcon()
@@ -399,7 +402,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_button_previous_note.setObjectName("page_pat_view_scan_button_previous_note")
         self.gridLayout_4.addWidget(self.page_pat_view_scan_button_previous_note, 0, 3, 1, 1)
         self.page_pat_view_scan_button_zoom_in = QtWidgets.QToolButton(self.page_pat_view_scan)
-        self.page_pat_view_scan_button_zoom_in.setEnabled(False)
+        self.page_pat_view_scan_button_zoom_in.setEnabled(True)
         self.page_pat_view_scan_button_zoom_in.setMinimumSize(QtCore.QSize(100, 0))
         self.page_pat_view_scan_button_zoom_in.setMaximumSize(QtCore.QSize(100, 16777215))
         font = QtGui.QFont()
@@ -482,7 +485,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_tools.setMaximumSize(QtCore.QSize(16777215, 200))
         self.page_pat_view_scan_tools.setObjectName("page_pat_view_scan_tools")
         self.page_pat_view_scan_tools_orientation = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_orientation.setGeometry(QtCore.QRect(0, 0, 588, 92))
+        self.page_pat_view_scan_tools_orientation.setGeometry(QtCore.QRect(0, 0, 588, 88))
         self.page_pat_view_scan_tools_orientation.setStyleSheet("")
         self.page_pat_view_scan_tools_orientation.setObjectName("page_pat_view_scan_tools_orientation")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_orientation)
@@ -504,7 +507,7 @@ class Ui_pat(object):
         self.horizontalLayout_3.addWidget(self.radio_button_coronal)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_orientation, "")
         self.page_pat_view_scan_tools_tissue = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_tissue.setGeometry(QtCore.QRect(0, 0, 588, 92))
+        self.page_pat_view_scan_tools_tissue.setGeometry(QtCore.QRect(0, 0, 588, 88))
         self.page_pat_view_scan_tools_tissue.setStyleSheet("")
         self.page_pat_view_scan_tools_tissue.setObjectName("page_pat_view_scan_tools_tissue")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_tissue)
@@ -540,7 +543,7 @@ class Ui_pat(object):
         self.horizontalLayout_2.addWidget(self.checkBox_Skin)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_tissue, "")
         self.page_pat_view_scan_tools_transparency = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_transparency.setGeometry(QtCore.QRect(0, 0, 588, 92))
+        self.page_pat_view_scan_tools_transparency.setGeometry(QtCore.QRect(0, 0, 588, 88))
         self.page_pat_view_scan_tools_transparency.setStyleSheet("")
         self.page_pat_view_scan_tools_transparency.setObjectName("page_pat_view_scan_tools_transparency")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_transparency)
@@ -604,7 +607,7 @@ class Ui_pat(object):
         self.horizontalLayout.addLayout(self.page_pat_view_scan_layout_transparency_active)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_transparency, "")
         self.page_pat_view_scan_tools_link = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_link.setGeometry(QtCore.QRect(0, 0, 588, 92))
+        self.page_pat_view_scan_tools_link.setGeometry(QtCore.QRect(0, 0, 588, 88))
         self.page_pat_view_scan_tools_link.setStyleSheet("")
         self.page_pat_view_scan_tools_link.setObjectName("page_pat_view_scan_tools_link")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_link)
@@ -618,7 +621,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_check_group_link.addButton(self.checkBox)
         self.horizontalLayout_4.addWidget(self.checkBox)
         self.checkBox_2 = QtWidgets.QCheckBox(self.page_pat_view_scan_tools_link)
-        self.checkBox_2.setChecked(False)
+        self.checkBox_2.setChecked(True)
         self.checkBox_2.setObjectName("checkBox_2")
         self.page_pat_view_scan_check_group_link.addButton(self.checkBox_2)
         self.horizontalLayout_4.addWidget(self.checkBox_2)
@@ -784,4 +787,3 @@ if __name__ == "__main__":
     ui.setupUi(pat)
     pat.show()
     sys.exit(app.exec_())
-

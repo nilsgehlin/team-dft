@@ -241,7 +241,7 @@ class Ui_rad(object):
         self.page_rad_diagnose_tools = QtWidgets.QToolBox(self.page_rad_diagnose)
         self.page_rad_diagnose_tools.setObjectName("page_rad_diagnose_tools")
         self.page_rad_diagnose__tools_orientation = QtWidgets.QWidget()
-        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 668, 144))
+        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 210, 36))
         self.page_rad_diagnose__tools_orientation.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose__tools_orientation.setObjectName("page_rad_diagnose__tools_orientation")
@@ -264,7 +264,7 @@ class Ui_rad(object):
         self.horizontalLayout_8.addWidget(self.radio_button_coronal)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose__tools_orientation, "")
         self.page_rad_diagnose_tools_tissue = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 668, 144))
+        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 307, 36))
         self.page_rad_diagnose_tools_tissue.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose_tools_tissue.setObjectName("page_rad_diagnose_tools_tissue")
@@ -381,7 +381,7 @@ class Ui_rad(object):
         self.page_rad_diagnose_check_group_link.addButton(self.checkBox_slice)
         self.horizontalLayout_11.addWidget(self.checkBox_slice)
         self.checkBox_volume = QtWidgets.QCheckBox(self.page_rad_diagnose_tools_link)
-        self.checkBox_volume.setChecked(False)
+        self.checkBox_volume.setChecked(True)
         self.checkBox_volume.setObjectName("checkBox_volume")
         self.page_rad_diagnose_check_group_link.addButton(self.checkBox_volume)
         self.horizontalLayout_11.addWidget(self.checkBox_volume)
@@ -931,8 +931,8 @@ class Ui_rad(object):
         rad.addWidget(self.page_rad_locked)
 
         self.retranslateUi(rad)
-        rad.setCurrentIndex(0)
-        self.page_rad_diagnose_tools.setCurrentIndex(2)
+        rad.setCurrentIndex(2)
+        self.page_rad_diagnose_tools.setCurrentIndex(3)
         self.page_rad_diagnose_tab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(rad)
         rad.setTabOrder(self.page_rad_diagnose_insert_locations, self.page_rad_diagnose_insert_findings)

@@ -846,8 +846,11 @@ notifications</string>
         <property name="pageStep">
          <number>500</number>
         </property>
+        <property name="value">
+         <number>-170</number>
+        </property>
         <property name="sliderPosition">
-         <number>900</number>
+         <number>-170</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -967,7 +970,7 @@ notifications</string>
       <item row="0" column="11">
        <widget class="QToolButton" name="page_pat_view_scan_button_zoom_out">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -1009,7 +1012,7 @@ notifications</string>
       <item row="0" column="5">
        <widget class="QToolButton" name="page_pat_view_scan_button_next_note">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -1148,7 +1151,7 @@ notifications</string>
       <item row="0" column="3">
        <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -1177,7 +1180,7 @@ notifications</string>
       <item row="0" column="10">
        <widget class="QToolButton" name="page_pat_view_scan_button_zoom_in">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -1414,7 +1417,7 @@ notifications</string>
            <x>0</x>
            <y>0</y>
            <width>588</width>
-           <height>92</height>
+           <height>88</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1465,7 +1468,7 @@ notifications</string>
            <x>0</x>
            <y>0</y>
            <width>588</width>
-           <height>92</height>
+           <height>88</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1549,7 +1552,7 @@ notifications</string>
            <x>0</x>
            <y>0</y>
            <width>588</width>
-           <height>92</height>
+           <height>88</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1744,7 +1747,7 @@ notifications</string>
            <x>0</x>
            <y>0</y>
            <width>588</width>
-           <height>92</height>
+           <height>88</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1773,7 +1776,7 @@ notifications</string>
              <string>Show Full 3D Volume</string>
             </property>
             <property name="checked">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <attribute name="buttonGroup">
              <string notr="true">page_pat_view_scan_check_group_link</string>
@@ -1933,16 +1936,16 @@ notifications</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="page_pat_view_scan_check_group_link">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
   <buttongroup name="page_pat_view_scan_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
-  <buttongroup name="page_pat_view_scan_check_group_link">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
  </buttongroups>
 </ui>
