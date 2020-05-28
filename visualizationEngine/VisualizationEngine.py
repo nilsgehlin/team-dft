@@ -201,6 +201,18 @@ class VisualizationEngine(object):
         interactor.Initialize()
 
 
+    ##### IMAGE MANIPULATION #####
+
+    # Sets 2D image color properties
+    def SetImageColor(self, widget, color_window, color_level):
+        renderer_info = self.__GetRenderer(widget).GetInformation()
+        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+            viewer.SetColorWindow(color_window)
+            viewer.SetColorLevel(color_level)
+            widget.GetRenderWindow().Render()
+
+
     # Determines what tissue to show given the vtkWidget and the tissue name
     #   Parameters: 
     #       1. vtkWidget
@@ -233,6 +245,8 @@ class VisualizationEngine(object):
         volume.SetProperty(volumeProperty)
         vtkWidget.GetRenderWindow().Render()
 
+
+    ##### SLICE LINKS #####
 
     # Sets the attributes of the cutting plane on a 3D window
     #   Parameters:
@@ -684,25 +698,18 @@ class VisualizationEngine(object):
         
     
     # Returns the currently active annotative.
-    # This is the most recent one added
+    # This is also the most recently added annotation
     def GetActiveAnnotation(self):
         return self.activeAnnotation
 
-    # Clears the active annotation
+    # Sets the active annotation in the engine
+    def SetActiveAnnotation(self, annot):
+        self.activeAnnotation = annot
+
+    # Clears the active annotation in the engine
     def ClearActiveAnnotation(self):
         self.activeAnnotation = None
 
-
-    ##### 2D IMAGE MANIPULATION #####
-
-    # Sets 2D image color properties
-    def SetImageColor(self, widget, color_window, color_level):
-        renderer_info = self.__GetRenderer(widget).GetInformation()
-        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
-            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
-            viewer.SetColorWindow(color_window)
-            viewer.SetColorLevel(color_level)
-            widget.GetRenderWindow().Render()
 
     ###################################
     ##### Private class functions #####

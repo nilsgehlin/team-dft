@@ -24,6 +24,7 @@ def change_style_sheet(app, ui, new_button, filename):
 
 def set_style_sheet(ui, filename):
     with open(os.path.join("UI", "StyleSheets", filename)) as style_sheet_file:
+        ui.main_window.setStyleSheet("")
         ui.main_window.setStyleSheet(style_sheet_file.read())
 
 
