@@ -11,12 +11,12 @@ if __name__ == "reportGeneration.Report":
 
 
 class Report(QTextBrowser):
-    def __init__(self, parent_widget, show_wiki_on_click=True):
+    def __init__(self, parent_widget, show_segmentation_on_click=True):
         super().__init__(parent_widget)
         self.setReadOnly(True)
         self.patient = None
         self.errand = None
-        self.show_wiki_on_click = show_wiki_on_click
+        self.show_segmentation_on_click = show_segmentation_on_click
         self.template_name = None
         self.vtk_widget_2d = None
         self.vtk_widget_3d = None
@@ -33,7 +33,7 @@ class Report(QTextBrowser):
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
 
-    def load_report(self, template_name, patient, order_id, vtk_widget_2d, vtk_widget_3d, vis_engine, user=None):
+    def load_report(self, template_name, patient, order_id, vtk_widget_2d=None, vtk_widget_3d=None, vis_engine=None, user=None):
         self.patient = patient
         self.errand = patient.errands[order_id]
         self.template_name = template_name

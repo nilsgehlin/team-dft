@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
-    <height>818</height>
+    <width>886</width>
+    <height>816</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -371,7 +371,7 @@ font: 30pt;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QToolButton" name="page_rad_view_only_button_hide_link_windows">
+       <widget class="QToolButton" name="page_rad_view_only_button_link_windows">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -730,8 +730,8 @@ font: 30pt;</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>225</width>
+         <height>35</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -782,8 +782,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>337</width>
+         <height>35</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -867,8 +867,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>232</width>
+         <height>73</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1063,8 +1063,8 @@ color: #4fa08b;</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>668</width>
-         <height>144</height>
+         <width>243</width>
+         <height>35</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -2890,16 +2890,16 @@ font: 30pt;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
-  <buttongroup name="page_rad_diagnose_check_group_tissue">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
   <buttongroup name="page_rad_diagnose_check_group_link">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="page_rad_diagnose_check_group_tissue">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
  </buttongroups>
 </ui>

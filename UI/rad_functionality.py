@@ -37,7 +37,7 @@ def view_only_page_setup(app, ui):
     ui.ui_rad.page_rad_view_only_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_view_only_button_back.clicked.connect(lambda: change_page(ui, ui.ui_rad.page_rad_patient_page))
     ui.ui_rad.page_rad_view_only_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui))
-    ui.ui_rad.page_rad_view_only_button_hide_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_view_only_button_hide_link_windows,
+    ui.ui_rad.page_rad_view_only_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_view_only_button_link_windows,
                                                                                               ui.ui_rad.page_rad_view_only_2d_view, ui.ui_rad.page_rad_view_only_3d_view))
     # ui.ui_rad.page_rad_view_only_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_view_only_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
@@ -411,7 +411,7 @@ def change_link_configuration(app, ui, group):
 
 
 # Changes the 2D image 'greyscale'
-def change_image_color(app,ui,widget):
+def change_image_color(app, ui, widget):
     color_window = ui.ui_rad.page_rad_diagnose_2d_slider_color_window.value()
     color_level = ui.ui_rad.page_rad_diagnose_2d_slider_color_level.value()
     app.visEngine.SetImageColor(widget, color_window, color_level)

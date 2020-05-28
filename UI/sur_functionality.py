@@ -1,11 +1,14 @@
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5.QtCore import Qt
+from reportGeneration.Report import Report
+from PyQt5.QtGui import QPixmap
+import os
 
 def setup_functionality(app, ui):
     home_page_setup(app, ui)
     patient_errand_page_setup(app, ui)
-    view_edit_page_setup(ui)
+    view_edit_page_setup(app, ui)
     # diagnose_page_setup(ui)
     # patient_page_setup(ui)
     # report_page_setup(ui)
@@ -16,7 +19,7 @@ def setup_functionality(app, ui):
 def home_page_setup(app, ui):
     add_errands(app, ui)
     ui.ui_sur.page_sur_home_logout.clicked.connect(lambda: show_logout_popup(ui))
-    ui.ui_sur.page_sur_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_my_profile))
+    ui.ui_sur.page_sur_home_button_colleagues.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_my_profile))
     ui.ui_sur.page_sur_home_button_proceed.clicked.connect(lambda: go_to_patient_errand_page(app, ui)) # TODO
     ui.ui_sur.page_sur_home_treatment_list.itemClicked.connect(lambda: ui.ui_sur.page_sur_home_button_proceed.setEnabled(True)) # TODO
     ui.ui_sur.page_sur_home_treatment_list.itemDoubleClicked.connect(
@@ -24,49 +27,37 @@ def home_page_setup(app, ui):
 
 
 def patient_errand_page_setup(app, ui):
+    ui.ui_sur.page_sur_view_edit_report = Report(ui.ui_sur.page_sur_view_edit_report_frame, show_segmentation_on_click=False)
+    ui.ui_sur.page_sur_view_edit_report_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_report, 0, 0, 1, 1)
+
     ui.ui_sur.page_sur_patient_errand_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_home))
     ui.ui_sur.page_sur_patient_errand_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     # ui.ui_sur.page_sur_patient_errand_button_download.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
     # ui.ui_sur.page_sur_patient_errand_button_share.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
     ui.ui_sur.page_sur_patient_errand_button_view.clicked.connect(lambda: go_to_view_edit_page(app, ui))
-    # ui.ui_sur.page_sur_patient_errand_errand_list.itemClicked.connect(lambda: ) # TODO Add to change radiology report
+    ui.ui_sur.page_sur_patient_errand_errand_list.itemClicked.connect(
+        lambda: change_report(app, ui.ui_sur.page_sur_patient_errand_errand_list, ui.ui_sur.page_sur_patient_errand_report))
     ui.ui_sur.page_sur_patient_errand_errand_list.itemDoubleClicked.connect(
-        lambda: go_to_view_edit_page(app, ui)) # TODO
+        lambda: go_to_view_edit_page(app, ui))
 
 
-def view_edit_page_setup(ui):
-    ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
-    ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
+def view_edit_page_setup(app, ui):
+    ui.ui_sur.page_sur_patient_errand_report = Report(ui.ui_sur.page_sur_patient_errand_report_frame)
+    ui.ui_sur.page_sur_patient_errand_report_frame_grid.addWidget(ui.ui_sur.page_sur_patient_errand_report, 0, 0, 1, 1)
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     # ui.ui_sur.page_sur_view_edit_button_preview_report.clicked.connect(lambda: ) # TODO Is this one needed here?
 
-    # 2D
-    # ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_zoom_out.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_play_paus.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_previous_note.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_previous_slice.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_next_note.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_2d_next_slice.clicked.connect(lambda: )
-    #
-    # # 3D
-    # ui.ui_sur.page_sur_view_edit_button_3d_left.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_right.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_up.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_down.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_zoom_in.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_zoom_out.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(lambda: )
-    # ui.ui_sur.page_sur_view_edit_button_3d_hide.clicked.connect(lambda: )
-    #
-    # # Both
-    # ui.ui_sur.page_sur_view_edit_button_3d_toggle_annotations
-    # ui.ui_sur.page_sur_view_edit_button_3d_fullscreen_2
-    # ui.ui_sur.page_sur_view_edit_button_3d_bone_view
-    # ui.ui_sur.page_sur_view_edit_button_3d_tissue_view
+    ui.ui_sur.page_sur_view_edit_button_link_windows.clicked.connect(
+        lambda: change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
+                            ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
+
+    # 2D image options
+    ui.ui_sur.page_sur_view_edit_2d_slider_color_window.valueChanged.connect(
+        lambda: change_image_color(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_2d_slider_color_level.valueChanged.connect(
+        lambda: change_image_color(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
 
 
 ## GO TO FUNCTIONS ##
@@ -91,29 +82,63 @@ def go_to_patient_errand_page(app, ui):
 
     ui.ui_sur.page_sur_patient_errand_errand_list.sortItems(1, Qt.DescendingOrder)
 
-    if app.current_errand_id is not None:
+    if app.current_errand_id is None:
+        ui.ui_sur.page_sur_patient_errand_button_view.setEnabled(False)
+        ui.ui_sur.page_sur_patient_errand_report.setText("Select one of " + patient.first_name + "'s complete scans to see the radiology report")
+    else:
         ui.ui_sur.page_sur_patient_errand_button_view.setEnabled(True)
-        # ui.ui_sur.page_sur_patient_errand_rad_report # TODO Display radiology report here
-        pass
+        errand = patient.errands[app.current_errand_id]
+        if errand.status.lower() == "complete":
+            ui.ui_sur.page_sur_patient_errand_report.load_report(template_name="patient",
+                                                            patient=app.pat_dict[app.current_pat_id],
+                                                            order_id=app.current_errand_id)
+        else:
+            ui.ui_sur.page_sur_patient_errand_report.setText("No radiology report available for this scan")
+
+    add_patient_profile(app, ui)
 
     change_page(ui, ui.ui_sur.page_sur_patient_errand)
 
 
 def go_to_view_edit_page(app, ui):
+    ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
+    ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 0, 0, 1, 1)
+
+    ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
+    ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 0, 0, 1, 1)
+
     app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
 
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     app.visEngine.SetDirectory(errand.data_dir)
     app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
+
+    if errand.status.lower() == "complete":
+        ui.ui_sur.page_sur_view_edit_report.load_report(template_name="patient",
+                                                        patient=app.pat_dict[app.current_pat_id],
+                                                        order_id=app.current_errand_id,
+                                                        vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,
+                                                        vtk_widget_3d=ui.ui_sur.page_sur_view_edit_3d_view,
+                                                        vis_engine=app.visEngine)
+    else:
+        ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
+
     change_page(ui, ui.ui_sur.page_sur_view_edit)
 
 
+# HELP FUNCTIONS #
 
+def change_link(app, ui, button, master_widget, slave_widget):
+    deactivate_str = "Deactivate\n2D-3D Link"
+    activate_str = "Activate\n2D-3D Link"
+    if button.text() == deactivate_str:
+        app.visEngine.UnlinkWindows(master_widget)
+        button.setText(activate_str)
+    elif button.text() == activate_str:
+        app.visEngine.LinkWindows(master_widget, [slave_widget])
+        button.setText(deactivate_str)
 
-
-
-## HELP FUNCTIONS ##
 
 def add_errands(app, ui):
     ui.ui_sur.page_sur_home_treatment_list.clear()
@@ -157,6 +182,38 @@ def show_logout_popup(ui):
     ret = msg.exec_()
     if ret == msg.Yes:
         logout(ui)
+
+
+def change_image_color(app, ui, widget):
+    color_window = ui.ui_sur.page_sur_view_edit_2d_slider_color_window.value()
+    color_level = ui.ui_sur.page_sur_view_edit_2d_slider_color_level.value()
+    app.visEngine.SetImageColor(widget, color_window, color_level)
+
+
+def change_report(app, tree_widget, report_widget):
+    app.current_errand_id = tree_widget.currentItem().text(0)
+    if app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status.lower() == "complete":
+        report_widget.load_report(template_name="patient", patient=app.pat_dict[app.current_pat_id],
+                                  order_id=app.current_errand_id)
+    else:
+        report_widget.setText("No radiology report available for this scan")
+    pass
+
+
+def add_patient_profile(app, ui):
+    patient = app.pat_dict[app.current_pat_id]
+    ui.ui_sur.page_sur_patient_errand_label_patients_scans.setText(patient.first_name + "'s Scans")
+    ui.ui_sur.page_sur_patient_errand_label_patients_profile.setText(patient.first_name + "'s Profile")
+    ui.ui_sur.page_sur_patient_errand_label_name.setText(patient.first_name + " " + patient.last_name)
+    ui.ui_sur.page_sur_patient_errand_label_age.setText(str(patient.age) + " years old")
+    ui.ui_sur.page_sur_patient_errand_label_phone_number.setText("+1 415 201 4987")
+    ui.ui_sur.page_sur_patient_errand_label_address.setText("72 Sunshine St\nSan Francisco, CA 94114, USA")
+    ui.ui_sur.page_sur_patient_errand_label_email.setText(patient.first_name.lower() + "." + patient.last_name.lower() + "@gmail.com")
+    pixmap = QPixmap(os.path.join("databases", "patient_database", patient.first_name.lower() + "_" + patient.last_name.lower() + ".png"))
+    if pixmap.isNull():
+        ui.ui_sur.page_sur_patient_errand_label_profile_picture.setText("No profile picture available")
+    else:
+        ui.ui_sur.page_sur_patient_errand_label_profile_picture.setPixmap(pixmap)
 
 
 # def show_lock_screen_popup(ui):
