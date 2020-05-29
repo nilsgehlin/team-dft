@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'sur.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_sur(object):
     def setupUi(self, sur):
@@ -22,7 +24,7 @@ class Ui_sur(object):
         self.page_sur_view_edit_button_link_windows.setMinimumSize(QtCore.QSize(0, 0))
         self.page_sur_view_edit_button_link_windows.setMaximumSize(QtCore.QSize(30, 30))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icons/link.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("icons/unlink.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.page_sur_view_edit_button_link_windows.setIcon(icon)
         self.page_sur_view_edit_button_link_windows.setIconSize(QtCore.QSize(30, 30))
         self.page_sur_view_edit_button_link_windows.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
@@ -191,16 +193,16 @@ class Ui_sur(object):
         self.page_sur_view_edit_button_2d_previous_note.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
         self.page_sur_view_edit_button_2d_previous_note.setObjectName("page_sur_view_edit_button_2d_previous_note")
         self.gridLayout_5.addWidget(self.page_sur_view_edit_button_2d_previous_note, 0, 2, 1, 1)
-        self.page_sur_view_edit_button_2d_play_paus = QtWidgets.QToolButton(self.page_sur_view_edit)
-        self.page_sur_view_edit_button_2d_play_paus.setMinimumSize(QtCore.QSize(0, 0))
-        self.page_sur_view_edit_button_2d_play_paus.setMaximumSize(QtCore.QSize(30, 30))
+        self.page_sur_view_edit_button_2d_play_pause = QtWidgets.QToolButton(self.page_sur_view_edit)
+        self.page_sur_view_edit_button_2d_play_pause.setMinimumSize(QtCore.QSize(0, 0))
+        self.page_sur_view_edit_button_2d_play_pause.setMaximumSize(QtCore.QSize(30, 30))
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap("icons/play_pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.page_sur_view_edit_button_2d_play_paus.setIcon(icon8)
-        self.page_sur_view_edit_button_2d_play_paus.setIconSize(QtCore.QSize(30, 30))
-        self.page_sur_view_edit_button_2d_play_paus.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
-        self.page_sur_view_edit_button_2d_play_paus.setObjectName("page_sur_view_edit_button_2d_play_paus")
-        self.gridLayout_5.addWidget(self.page_sur_view_edit_button_2d_play_paus, 0, 3, 1, 1)
+        self.page_sur_view_edit_button_2d_play_pause.setIcon(icon8)
+        self.page_sur_view_edit_button_2d_play_pause.setIconSize(QtCore.QSize(30, 30))
+        self.page_sur_view_edit_button_2d_play_pause.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        self.page_sur_view_edit_button_2d_play_pause.setObjectName("page_sur_view_edit_button_2d_play_pause")
+        self.gridLayout_5.addWidget(self.page_sur_view_edit_button_2d_play_pause, 0, 3, 1, 1)
         self.page_sur_view_edit_report_frame = QtWidgets.QFrame(self.page_sur_view_edit)
         self.page_sur_view_edit_report_frame.setMinimumSize(QtCore.QSize(300, 300))
         self.page_sur_view_edit_report_frame.setMaximumSize(QtCore.QSize(600, 16777215))
@@ -551,8 +553,8 @@ class Ui_sur(object):
         self.page_sur_view_edit_button_2d_previous_slice.setText(_translate("sur", "Previous Slice"))
         self.page_sur_view_edit_button_2d_previous_note.setToolTip(_translate("sur", "Go to previous finding"))
         self.page_sur_view_edit_button_2d_previous_note.setText(_translate("sur", "Previous Note"))
-        self.page_sur_view_edit_button_2d_play_paus.setToolTip(_translate("sur", "Play"))
-        self.page_sur_view_edit_button_2d_play_paus.setText(_translate("sur", "Play/Pause"))
+        self.page_sur_view_edit_button_2d_play_pause.setToolTip(_translate("sur", "Play"))
+        self.page_sur_view_edit_button_2d_play_pause.setText(_translate("sur", "Play/Pause"))
         self.textEdit_2.setPlaceholderText(_translate("sur", "Insert findings"))
         self.textEdit.setPlaceholderText(_translate("sur", "Insert location"))
         self.toolButton.setToolTip(_translate("sur", "Add finding"))
@@ -627,4 +629,3 @@ if __name__ == "__main__":
     ui.setupUi(sur)
     sur.show()
     sys.exit(app.exec_())
-

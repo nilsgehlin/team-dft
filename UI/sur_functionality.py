@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5.QtCore import Qt
 from reportGeneration.Report import Report
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 import os
 
 def setup_functionality(app, ui):
@@ -49,11 +49,50 @@ def view_edit_page_setup(app, ui):
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(ui))
     # ui.ui_sur.page_sur_view_edit_button_preview_report.clicked.connect(lambda: ) # TODO Is this one needed here?
 
+    # Annotation and image navigation buttons
+    ui.ui_sur.page_sur_view_edit_button_2d_next_note.clicked.connect(
+        lambda: go_to_next_annot(app, ui, ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_previous_note.clicked.connect(
+        lambda: go_to_previous_annot(app, ui, ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_play_pause.clicked.connect(
+        lambda: toggle_animation(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+
+    # Image slice buttons
+    ui.ui_sur.page_sur_view_edit_button_2d_next_slice.pressed.connect(
+        lambda: change_image_slice(app, ui, ui.ui_sur.page_sur_view_edit_2d_view, 1))
+    ui.ui_sur.page_sur_view_edit_button_2d_next_slice.released.connect(
+        lambda: stop_image_slice(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_previous_slice.pressed.connect(
+        lambda: change_image_slice(app, ui, ui.ui_sur.page_sur_view_edit_2d_view, -1))
+    ui.ui_sur.page_sur_view_edit_button_2d_previous_slice.released.connect(
+        lambda: stop_image_slice(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+
+    # Linking windows
     ui.ui_sur.page_sur_view_edit_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
                             ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
 
-    # 2D image options
+    # Zooming buttons 2D
+    ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+
+    # Zooming buttons 3D
+    ui.ui_sur.page_sur_view_edit_button_3d_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_3d_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_3d_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_3d_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+
+    # 2D image color buttons
     ui.ui_sur.page_sur_view_edit_2d_slider_color_window.valueChanged.connect(
         lambda: change_image_color(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
     ui.ui_sur.page_sur_view_edit_2d_slider_color_level.valueChanged.connect(
@@ -135,9 +174,11 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
+        button.setIcon(QIcon("UI\icons\\unlink.png"))
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
+        button.setIcon(QIcon("UI\icons\\link.png"))
 
 
 def add_errands(app, ui):
@@ -184,6 +225,7 @@ def show_logout_popup(ui):
         logout(ui)
 
 
+# Changes the 2D image 'greyscale'
 def change_image_color(app, ui, widget):
     color_window = ui.ui_sur.page_sur_view_edit_2d_slider_color_window.value()
     color_level = ui.ui_sur.page_sur_view_edit_2d_slider_color_level.value()
@@ -267,3 +309,127 @@ def add_patient_profile(app, ui):
 #
 # def lock_screen(ui):
 #     change_page(ui, ui.ui_rad.page_rad_locked)
+
+
+# Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
+def change_slice_orientation(app, ui, group, widget):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    # Save the current annotations
+    current_annots = []
+    current_measurs =  []
+    for annot in errand.annotations:
+        if app.visEngine.HasSegmentation(widget, annot):
+            current_annots += [annot]
+        if app.visEngine.HasMeasurement(widget,annot):
+            current_measurs += [annot]
+    # Clear link if window is actively a master link
+    slaves = None
+    if app.visEngine.LinkedAsMaster(widget):
+        slaves = app.visEngine.GetLinkSlaves()
+        app.visEngine.UnlinkWindows(widget)
+    # Recreate windows with new orientation
+    app.visEngine.SetupImageUI(widget, group.checkedButton().text())
+    app.visEngine.AddSegmentations(widget, current_annots)
+    app.visEngine.AddMeasurements(widget, current_measurs)
+    # Recreate slaves
+    if slaves is not None:
+        app.visEngine.LinkWindows(widget, slaves)
+
+
+# Changes the active tissue in a 3D volume
+def change_volume_tissue(app, ui, group, widget):
+    tissues = []
+    for button in group.buttons():
+        if button.isChecked():
+            tissues += [button.text()]
+    app.visEngine.SetTissue(widget, tissues)
+
+
+def change_volume_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    app.visEngine.SetTransparency(widget, val)
+
+
+def change_segmentation_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    app.visEngine.SetAllSegmentationTransparency(widget, val)
+
+
+def change_segment_transparency(app, ui, slider, widget):
+    val = slider.value()
+    val = round(val/100, 2)
+    annot = app.visEngine.GetActiveAnnotation()
+    if annot is not None:
+        app.visEngine.SetSegmentationTransparency(widget, [annot], val)
+
+
+# Change how linked slice appears on the 3D window
+def change_link_configuration(app, ui, group):
+    show_slice = group.buttons()[0].isChecked()
+    crop_3d = not group.buttons()[1].isChecked()
+    app.visEngine.ConfigureVolumeCuttingPlane(showSlice=show_slice, crop3D=crop_3d)
+
+
+# Changes the 2D image 'greyscale'
+def change_image_color(app,ui,widget):
+    color_window = ui.ui_sur.page_sur_view_edit_2d_slider_color_window.value()
+    color_level = ui.ui_sur.page_sur_view_edit_2d_slider_color_level.value()
+    app.visEngine.SetImageColor(widget, color_window, color_level)
+
+
+# Focus the windows on the next annotation on the report
+def go_to_next_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        next_annot_idx = 0
+    else:
+        next_annot_idx = annots.index(active_annot) + 1
+        if len(annots) == next_annot_idx: next_annot_idx = 0
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+
+
+# Focus the windows on the previous annotation on the report
+def go_to_previous_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        prev_annot_idx = len(annots) - 1
+    else:
+        prev_annot_idx = annots.index(active_annot) - 1
+        if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
+
+
+# Offer zoom functionality to the widgets
+def start_zoom_in(app, ui, widget):
+    app.visEngine.StartZoomIn(widget)
+
+def start_zoom_out(app, ui, widget):
+    app.visEngine.StartZoomOut(widget)
+
+def stop_zoom(app, ui, widget):
+    app.visEngine.StopZoom(widget)
+
+
+# Offer slice maneuvering functionality to 2D widgets
+def change_image_slice(app, ui, widget, dir_):
+    app.visEngine.StartSliceChange(widget, dir_)
+
+def stop_image_slice(app, ui, widget):
+    app.visEngine.StopSliceChange(widget)
+
+
+# Animate the 2D window slices
+def toggle_animation(app, ui, widget):
+    app.visEngine.ToggleSliceAnnimation(widget)

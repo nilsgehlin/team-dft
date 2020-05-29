@@ -84,6 +84,7 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_previous_slice.released.connect(
         lambda: stop_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
 
+    # Linking windows
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     # ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect()# TODO Connect button with image functionality

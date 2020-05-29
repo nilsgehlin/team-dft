@@ -44,7 +44,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
+          <normaloff>icons/unlink.png</normaloff>icons/unlink.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -629,7 +629,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_paus">
+       <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_pause">
         <property name="minimumSize">
          <size>
           <width>0</width>
