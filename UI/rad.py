@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_rad(object):
     def setupUi(self, rad):
         rad.setObjectName("rad")
-        rad.resize(1366, 818)
+        rad.resize(886, 816)
         self.page_rad_home = QtWidgets.QWidget()
         self.page_rad_home.setObjectName("page_rad_home")
         self.gridLayout = QtWidgets.QGridLayout(self.page_rad_home)
@@ -85,8 +85,7 @@ class Ui_rad(object):
         self.page_rad_home_button_proceed.setObjectName("page_rad_home_button_proceed")
         self.gridLayout.addWidget(self.page_rad_home_button_proceed, 6, 4, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.page_rad_home)
-        self.label_6.setStyleSheet("color: rgb(253, 147, 50);\n"
-"font: 30pt;")
+        self.label_6.setStyleSheet("font: 30pt;")
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 0, 2, 1, 1)
         rad.addWidget(self.page_rad_home)
@@ -239,7 +238,7 @@ class Ui_rad(object):
         self.page_rad_diagnose_tools = QtWidgets.QToolBox(self.page_rad_diagnose)
         self.page_rad_diagnose_tools.setObjectName("page_rad_diagnose_tools")
         self.page_rad_diagnose__tools_orientation = QtWidgets.QWidget()
-        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 225, 35))
+        self.page_rad_diagnose__tools_orientation.setGeometry(QtCore.QRect(0, 0, 426, 149))
         self.page_rad_diagnose__tools_orientation.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose__tools_orientation.setObjectName("page_rad_diagnose__tools_orientation")
@@ -262,7 +261,7 @@ class Ui_rad(object):
         self.horizontalLayout_8.addWidget(self.radio_button_coronal)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose__tools_orientation, "")
         self.page_rad_diagnose_tools_tissue = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 337, 35))
+        self.page_rad_diagnose_tools_tissue.setGeometry(QtCore.QRect(0, 0, 426, 149))
         self.page_rad_diagnose_tools_tissue.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b")
         self.page_rad_diagnose_tools_tissue.setObjectName("page_rad_diagnose_tools_tissue")
@@ -299,7 +298,7 @@ class Ui_rad(object):
         self.horizontalLayout_9.addWidget(self.checkBox_Skin)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose_tools_tissue, "")
         self.page_rad_diagnose_tools_transparency = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_transparency.setGeometry(QtCore.QRect(0, 0, 232, 73))
+        self.page_rad_diagnose_tools_transparency.setGeometry(QtCore.QRect(0, 0, 426, 149))
         self.page_rad_diagnose_tools_transparency.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b;")
         self.page_rad_diagnose_tools_transparency.setObjectName("page_rad_diagnose_tools_transparency")
@@ -364,7 +363,7 @@ class Ui_rad(object):
         self.horizontalLayout_10.addLayout(self.page_rad_diagnose_layout_transparency_active)
         self.page_rad_diagnose_tools.addItem(self.page_rad_diagnose_tools_transparency, "")
         self.page_rad_diagnose_tools_link = QtWidgets.QWidget()
-        self.page_rad_diagnose_tools_link.setGeometry(QtCore.QRect(0, 0, 243, 35))
+        self.page_rad_diagnose_tools_link.setGeometry(QtCore.QRect(0, 0, 426, 149))
         self.page_rad_diagnose_tools_link.setStyleSheet("background-color: #151a1e;\n"
 "color: #4fa08b;")
         self.page_rad_diagnose_tools_link.setObjectName("page_rad_diagnose_tools_link")
@@ -606,8 +605,7 @@ class Ui_rad(object):
         self.page_rad_patient_page_button_back.setObjectName("page_rad_patient_page_button_back")
         self.gridLayout_2.addWidget(self.page_rad_patient_page_button_back, 1, 0, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.page_rad_patient_page)
-        self.label_2.setStyleSheet("color: rgb(253, 147, 50);\n"
-"font: 30pt;")
+        self.label_2.setStyleSheet("font: 30pt;")
         self.label_2.setObjectName("label_2")
         self.gridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
         self.gridLayout_3 = QtWidgets.QGridLayout()
@@ -918,8 +916,7 @@ class Ui_rad(object):
         spacerItem28 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_7.addItem(spacerItem28, 0, 0, 1, 1)
         self.label_7 = QtWidgets.QLabel(self.page_rad_locked)
-        self.label_7.setStyleSheet("color: rgb(253, 147, 50);\n"
-"font: 30pt;")
+        self.label_7.setStyleSheet("font: 30pt;")
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
         self.gridLayout_7.addWidget(self.label_7, 1, 0, 1, 1)
@@ -929,7 +926,7 @@ class Ui_rad(object):
         rad.addWidget(self.page_rad_locked)
 
         self.retranslateUi(rad)
-        rad.setCurrentIndex(1)
+        rad.setCurrentIndex(5)
         self.page_rad_diagnose_tools.setCurrentIndex(2)
         self.page_rad_diagnose_tab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(rad)

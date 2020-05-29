@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>5</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -276,8 +276,7 @@ p, li { white-space: pre-wrap; }
     <item row="0" column="2">
      <widget class="QLabel" name="label_6">
       <property name="styleSheet">
-       <string notr="true">color: rgb(253, 147, 50);
-font: 30pt;</string>
+       <string notr="true">font: 30pt;</string>
       </property>
       <property name="text">
        <string>CLARITY</string>
@@ -730,8 +729,8 @@ font: 30pt;</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>225</width>
-         <height>35</height>
+         <width>426</width>
+         <height>149</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -782,8 +781,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>337</width>
-         <height>35</height>
+         <width>426</width>
+         <height>149</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -867,8 +866,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>232</width>
-         <height>73</height>
+         <width>426</width>
+         <height>149</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1063,8 +1062,8 @@ color: #4fa08b;</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>243</width>
-         <height>35</height>
+         <width>426</width>
+         <height>149</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1830,8 +1829,7 @@ p, li { white-space: pre-wrap; }
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
       <property name="styleSheet">
-       <string notr="true">color: rgb(253, 147, 50);
-font: 30pt;</string>
+       <string notr="true">font: 30pt;</string>
       </property>
       <property name="text">
        <string>CLARITY</string>
@@ -2835,8 +2833,7 @@ p, li { white-space: pre-wrap; }
       <item row="1" column="0">
        <widget class="QLabel" name="label_7">
         <property name="styleSheet">
-         <string notr="true">color: rgb(253, 147, 50);
-font: 30pt;</string>
+         <string notr="true">font: 30pt;</string>
         </property>
         <property name="text">
          <string>CLARITY</string>
@@ -2895,11 +2892,11 @@ font: 30pt;</string>
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
   <buttongroup name="page_rad_diagnose_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
  </buttongroups>
 </ui>

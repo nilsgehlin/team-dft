@@ -319,86 +319,70 @@ QMenu::item:selected {
 QTabWidget {
 	font: 11pt "MS Shell Dlg 2";
 	color:rgb(0,0,0);
-	background-color:#000000;
+	background-color: @box_bg_color;
 }
 QTabWidget::pane {
-		border-color: rgb(223,223,223);
-		background-color:rgb(226,226,226);
+		border-color: @box_border_color;
+		background-color: @main_bg_color;
 		border-style: @border_style;
 		border-width: @large_border_width;
-    	border-radius: 6px;
+    	border-radius: @large_border_radius;
 }
 QTabBar::tab:first {
 	border-style: @border_style;
 	border-left-width:@small_border_width;
-	border-right-width:0px;
+	border-right-width:@small_border_width;
 	border-top-width:@small_border_width;
 	border-bottom-width:@small_border_width;
-	border-top-color: rgb(209,209,209);
-	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-bottom-color: rgb(229,229,229);
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-	color: #000000;
+	border-top-color: @button_border_color;
+	border-right-color: @button_border_color;
+	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_border_color, stop:1 @button_border_color);
+	border-bottom-color: @button_border_color;
+	border-top-left-radius: @small_border_radius;
+	border-bottom-left-radius: @small_border_radius;
+	color: @button_text_color;
 	padding: @small_border_radius;
 	margin-left:0px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(247, 247, 247, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_bg_color, stop:1 @button_bg_color);
 }
 QTabBar::tab:last {
 	border-style: @border_style;
 	border-width:@small_border_width;
-	border-top-color: rgb(209,209,209);
-	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-right-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-bottom-color: rgb(229,229,229);
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-	color: #000000;
+	border-right-color: @button_border_color;
+	border-top-color: @button_border_color;
+	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_border_color, stop:1 @button_border_color);
+	border-bottom-color: @button_border_color;
+	border-top-right-radius: @small_border_radius;
+	border-bottom-right-radius: @small_border_radius;
+	color: @button_text_color;
 	padding: @small_border_radius;
 	margin-left:0px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(247, 247, 247, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_bg_color, stop:1 @button_bg_color);
 }
 QTabBar::tab {
-	border-style: @border_style;
-	border-top-width:@small_border_width;
-	border-bottom-width:@small_border_width;
-	border-left-width:@small_border_width;
-	border-top-color: rgb(209,209,209);
-	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-bottom-color: rgb(229,229,229);
-	color: #000000;
-	padding: @small_border_radius;
-	margin-left:0px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(247, 247, 247, 255), stop:1 rgba(255, 255, 255, 255));
-}
-QTabBar::tab:selected, QTabBar::tab:last:selected, QTabBar::tab:hover {
   	border-style: @border_style;
-  	border-left-width:@small_border_width;
-	border-right-color: transparent;
-	border-top-color: rgb(209,209,209);
-	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-bottom-color: rgb(229,229,229);
-	color: #FFFFFF;
+  	border-left-width: @small_border_width;
+	border-right-color: @button_border_color;
+	border-top-color: @button_border_color;
+	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_border_color, stop:1 @button_border_color);
+	border-bottom-color: @button_border_color;
+	color: @button_text_color;
 	padding: @small_border_radius;
 	margin-left:0px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_bg_color, stop:1 @button_bg_color);
 }
-
-QTabBar::tab:selected, QTabBar::tab:first:selected, QTabBar::tab:hover {
+QTabBar::tab:selected, QTabBar::tab:last:selected, QTabBar::tab:hover{
   	border-style: @border_style;
-  	border-left-width:@small_border_width;
-  	border-bottom-width:@small_border_width;
-  	border-top-width:@small_border_width;
-	border-right-color: transparent;
-	border-top-color: rgb(209,209,209);
-	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(209, 209, 209, 209), stop:1 rgba(229, 229, 229, 229));
-	border-bottom-color: rgb(229,229,229);
-	color: #FFFFFF;
+  	border-left-width: @small_border_width;
+	border-right-color: @button_hover_border_color;
+	border-top-color: @button_hover_border_color;
+	border-left-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_hover_border_color, stop:1 @button_hover_border_color);
+	border-bottom-color: @button_hover_border_color;
+	color: @button_text_color;
 	padding: @small_border_radius;
 	margin-left:0px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_bg_color, stop:1 @button_bg_color);
 }
-
 QCheckBox {
 	color: #000000;
 	padding: @large_border_width;
@@ -546,7 +530,8 @@ QSlider::sub-page:vertical {
 }
 QScrollBar:horizontal {
 	max-height: 20px;
-	border: @small_border_width transparent grey;
+	border-width: @small_border_width;
+	border-color: @box_border_color;
 	margin: 0px 20px 0px 20px;
 	background-color: @main_bg_color;
 }
@@ -590,25 +575,25 @@ QScrollBar::handle:vertical:hover {
 	min-height: 2@large_border_radius;
 }
 QScrollBar::add-line:horizontal {
-   border: @large_border_width transparent grey;
-   border-top-right-radius: 7px;
-   border-bottom-right-radius: 7px;
-   background: rgba(34, 142, 255, 255);
+   border-width: @small_border_width;
+   border-bottom-right-radius: @large_border_radius;
+   border-color: @button_border_color;
+   background-color: @button_bg_color;
    width: 20px;
    subcontrol-position: right;
    subcontrol-origin: margin;
 }
 QScrollBar::add-line:horizontal:pressed {
-   border: @large_border_width transparent grey;
-   border-top-right-radius: 7px;
-   border-bottom-right-radius: 7px;
-   background: rgb(181,181,181);
+   border-width: @small_border_width;
+   border-bottom-right-radius: @large_border_radius;
+   border-color: @button_border_color;
+   background-color: @button_bg_color;
    width: 20px;
    subcontrol-position: right;
    subcontrol-origin: margin;
 }
 QScrollBar::add-line:vertical {
-   border-width: @large_border_width;
+   border-width: @small_border_width;
    border-bottom-left-radius: @large_border_radius;
    border-color: @button_border_color;
    background-color: @button_bg_color;
@@ -617,8 +602,8 @@ QScrollBar::add-line:vertical {
    subcontrol-origin: margin;
 }
 QScrollBar::add-line:vertical:pressed {
-   border-width: @large_border_width;
-   border-bottom-left-radius: @small_border_radius;
+   border-width: @small_border_width;
+   border-bottom-left-radius: @large_border_radius;
    border-color: @button_hover_border_color;
    background-color: @button_hover_border_color;
    height: 20px;
@@ -626,25 +611,25 @@ QScrollBar::add-line:vertical:pressed {
    subcontrol-origin: margin;
 }
 QScrollBar::sub-line:horizontal {
-   border: @large_border_width transparent grey;
-   border-top-left-radius: 7px;
-   border-bottom-left-radius: 7px;
-   background: rgba(34, 142, 255, 255);
+   border-width: @small_border_width;
+   border-bottom-left-radius: @large_border_radius;
+   border-color: @button_border_color;
+   background-color: @button_bg_color;
    width: 20px;
    subcontrol-position: left;
    subcontrol-origin: margin;
 }
 QScrollBar::sub-line:horizontal:pressed {
-   border: @large_border_width transparent grey;
-   border-top-left-radius: 7px;
-   border-bottom-left-radius: 7px;
-   background: rgb(181,181,181);
+   border-width: @small_border_width;
+   border-bottom-left-radius: @large_border_radius;
+   border-color: @button_hover_border_color;
+   background-color: @button_hover_border_color;
    width: 20px;
    subcontrol-position: left;
    subcontrol-origin: margin;
 }
 QScrollBar::sub-line:vertical {
-   border-width: @large_border_width;
+   border-width: @small_border_width;
    border-top-left-radius: @large_border_radius;
    border-color: @button_border_color;
    background-color: @button_bg_color;
@@ -653,8 +638,8 @@ QScrollBar::sub-line:vertical {
    subcontrol-origin: margin;
 }
 QScrollBar::sub-line:vertical:pressed {
-   border-width: @large_border_width;
-   border-top-left-radius: @small_border_radius;
+   border-width: @small_border_width;
+   border-top-left-radius: @large_border_radius;
    border-color: @button_hover_border_color;
    background-color: @button_hover_border_color;
    height: 20px;
@@ -662,33 +647,33 @@ QScrollBar::sub-line:vertical:pressed {
    subcontrol-origin: margin;
 }
 QScrollBar::left-arrow:horizontal {
-   border: @small_border_width transparent grey;
-   border-top-left-radius: @small_border_radius;
-   border-bottom-left-radius: @small_border_radius;
+   border-width: @small_border_width;
+   border-top-left-radius: @large_border_radius;
+   border-bottom-left-radius: @large_border_radius;
    width: 6px;
    height: 6px;
-   background: white;
+   background-color: @button_bg_color;
 }
 QScrollBar::right-arrow:horizontal {
-   border: @small_border_width transparent grey;
-   border-top-right-radius: @small_border_radius;
-   border-bottom-right-radius: @small_border_radius;
+   border-width: @small_border_width;
+   border-top-right-radius: @large_border_radius;
+   border-bottom-right-radius: @large_border_radius;
    width: 6px;
    height: 6px;
-   background: white;
+   background-color: @button_bg_color;
 }
 QScrollBar::up-arrow:vertical {
    border-width: @small_border_width;
-   border-top-left-radius: @small_border_radius;
-   border-top-right-radius: @small_border_radius;
+   border-top-left-radius: @large_border_radius;
+   border-top-right-radius: @large_border_radius;
    width: 6px;
    height: 6px;
    background-color: @button_bg_color;
 }
 QScrollBar::down-arrow:vertical {
    border-width: @small_border_width;
-   border-bottom-left-radius: @small_border_radius;
-   border-bottom-right-radius: @small_border_radius;
+   border-bottom-left-radius: @large_border_radius;
+   border-bottom-right-radius: @large_border_radius;
    width: 6px;
    height: 6px;
    background-color: @button_bg_color;

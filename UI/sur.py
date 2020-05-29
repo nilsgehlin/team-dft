@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'sur.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_sur(object):
     def setupUi(self, sur):
@@ -520,7 +518,7 @@ class Ui_sur(object):
         sur.addWidget(self.page_sur_home)
 
         self.retranslateUi(sur)
-        sur.setCurrentIndex(0)
+        sur.setCurrentIndex(2)
         self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(sur)
 
@@ -629,3 +627,4 @@ if __name__ == "__main__":
     ui.setupUi(sur)
     sur.show()
     sys.exit(app.exec_())
+
