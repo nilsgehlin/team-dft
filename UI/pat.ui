@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>4</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -664,8 +664,17 @@ p, li { white-space: pre-wrap; }
       <property name="value">
        <number>0</number>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
       <property name="textVisible">
-       <bool>false</bool>
+       <bool>true</bool>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="textDirection">
+       <enum>QProgressBar::TopToBottom</enum>
       </property>
      </widget>
     </item>
@@ -1607,8 +1616,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>88</height>
+           <width>225</width>
+           <height>35</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1658,8 +1667,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>88</height>
+           <width>337</width>
+           <height>35</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1742,8 +1751,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>88</height>
+           <width>232</width>
+           <height>73</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1938,7 +1947,7 @@ notifications</string>
            <x>0</x>
            <y>0</y>
            <width>588</width>
-           <height>88</height>
+           <height>92</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -2029,6 +2038,7 @@ notifications</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
   <buttongroup name="page_pat_view_scan_check_group_link">
    <property name="exclusive">
     <bool>false</bool>
@@ -2039,6 +2049,5 @@ notifications</string>
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="page_pat_view_scan_radio_group_orientation"/>
  </buttongroups>
 </ui>

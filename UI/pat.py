@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'pat.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_pat(object):
     def setupUi(self, pat):
@@ -214,7 +212,10 @@ class Ui_pat(object):
         self.page_pat_home_progress_bar.setEnabled(True)
         self.page_pat_home_progress_bar.setMinimumSize(QtCore.QSize(0, 0))
         self.page_pat_home_progress_bar.setProperty("value", 0)
-        self.page_pat_home_progress_bar.setTextVisible(False)
+        self.page_pat_home_progress_bar.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.page_pat_home_progress_bar.setTextVisible(True)
+        self.page_pat_home_progress_bar.setOrientation(QtCore.Qt.Horizontal)
+        self.page_pat_home_progress_bar.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
         self.page_pat_home_progress_bar.setObjectName("page_pat_home_progress_bar")
         self.gridLayout_5.addWidget(self.page_pat_home_progress_bar, 3, 7, 1, 1)
         pat.addWidget(self.page_pat_home)
@@ -544,7 +545,7 @@ class Ui_pat(object):
         self.page_pat_view_scan_tools.setMaximumSize(QtCore.QSize(16777215, 200))
         self.page_pat_view_scan_tools.setObjectName("page_pat_view_scan_tools")
         self.page_pat_view_scan_tools_orientation = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_orientation.setGeometry(QtCore.QRect(0, 0, 588, 88))
+        self.page_pat_view_scan_tools_orientation.setGeometry(QtCore.QRect(0, 0, 225, 35))
         self.page_pat_view_scan_tools_orientation.setStyleSheet("")
         self.page_pat_view_scan_tools_orientation.setObjectName("page_pat_view_scan_tools_orientation")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_orientation)
@@ -566,7 +567,7 @@ class Ui_pat(object):
         self.horizontalLayout_3.addWidget(self.radio_button_coronal)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_orientation, "")
         self.page_pat_view_scan_tools_tissue = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_tissue.setGeometry(QtCore.QRect(0, 0, 588, 88))
+        self.page_pat_view_scan_tools_tissue.setGeometry(QtCore.QRect(0, 0, 337, 35))
         self.page_pat_view_scan_tools_tissue.setStyleSheet("")
         self.page_pat_view_scan_tools_tissue.setObjectName("page_pat_view_scan_tools_tissue")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_tissue)
@@ -602,7 +603,7 @@ class Ui_pat(object):
         self.horizontalLayout_2.addWidget(self.checkBox_Skin)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_tissue, "")
         self.page_pat_view_scan_tools_transparency = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_transparency.setGeometry(QtCore.QRect(0, 0, 588, 88))
+        self.page_pat_view_scan_tools_transparency.setGeometry(QtCore.QRect(0, 0, 232, 73))
         self.page_pat_view_scan_tools_transparency.setStyleSheet("")
         self.page_pat_view_scan_tools_transparency.setObjectName("page_pat_view_scan_tools_transparency")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_transparency)
@@ -666,7 +667,7 @@ class Ui_pat(object):
         self.horizontalLayout.addLayout(self.page_pat_view_scan_layout_transparency_active)
         self.page_pat_view_scan_tools.addItem(self.page_pat_view_scan_tools_transparency, "")
         self.page_pat_view_scan_tools_link = QtWidgets.QWidget()
-        self.page_pat_view_scan_tools_link.setGeometry(QtCore.QRect(0, 0, 588, 88))
+        self.page_pat_view_scan_tools_link.setGeometry(QtCore.QRect(0, 0, 588, 92))
         self.page_pat_view_scan_tools_link.setStyleSheet("")
         self.page_pat_view_scan_tools_link.setObjectName("page_pat_view_scan_tools_link")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.page_pat_view_scan_tools_link)
@@ -696,7 +697,7 @@ class Ui_pat(object):
         pat.addWidget(self.page_pat_view_scan)
 
         self.retranslateUi(pat)
-        pat.setCurrentIndex(4)
+        pat.setCurrentIndex(1)
         self.page_pat_view_scan_tools.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(pat)
         pat.setTabOrder(self.page_pat_view_scan_button_logout, self.page_pat_home_textEdit_search_old)
@@ -812,3 +813,4 @@ if __name__ == "__main__":
     ui.setupUi(pat)
     pat.show()
     sys.exit(app.exec_())
+

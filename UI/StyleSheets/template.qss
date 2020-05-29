@@ -249,16 +249,16 @@ QLCDNumber {
 }
 QProgressBar {
 	text-align: center;
-	color: rgb(240, 240, 240);
+	color: @main_text_color;
 	border-width: @small_border_width;
-	border-radius: 10px;
-	border-color: rgb(230, 230, 230);
+	border-radius: @large_border_radius;
+	border-color: @box_border_color;
 	border-style: @border_style;
-	background-color:rgb(207,207,207);
+	background-color: @box_bg_color;
 }
 QProgressBar::chunk {
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
-	border-radius: 10px;
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_pressed_bg_color, stop:1 @button_pressed_bg_color);
+	border-radius: @large_border_radius;
 }
 QMenuBar {
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @box_bg_color, stop:1 @box_bg_color);
@@ -508,11 +508,11 @@ QScrollArea {
 }
 QSlider::groove:horizontal {
 	height: @large_border_radius;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_pressed_bg_color, stop:1 @button_pressed_bg_color);
 }
 QSlider::groove:vertical {
 	width: @large_border_radius;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_pressed_bg_color, stop:1 @button_pressed_bg_color);
 }
 QSlider::handle:horizontal {
 	background: rgb(253,253,253);
@@ -539,10 +539,10 @@ QSlider::add-page:vertical {
     background: rgb(181,181,181);
 }
 QSlider::sub-page:horizontal {
-    background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+    background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 @button_pressed_bg_color, stop:1 @button_pressed_bg_color);
 }
 QSlider::sub-page:vertical {
-    background-color: qlineargradient(spread:pad, y1:0.5, x1:1, y2:0.5, x2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+    background-color: qlineargradient(spread:pad, y1:0.5, x1:1, y2:0.5, x2:0, stop:0 @button_pressed_bg_color, stop:1 @button_pressed_bg_color);
 }
 QScrollBar:horizontal {
 	max-height: 20px;

@@ -249,16 +249,16 @@ QLCDNumber {
 }
 QProgressBar {
 	text-align: center;
-	color: rgb(240, 240, 240);
+	color: rgb(228,241,238);
 	border-width: 1px;
-	border-radius: 10px;
-	border-color: rgb(230, 230, 230);
+	border-radius: 5px;
+	border-color: rgb(19,38,33);
 	border-style: solid;
-	background-color:rgb(207,207,207);
+	background-color: rgb(12,25,22);
 }
 QProgressBar::chunk {
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
-	border-radius: 10px;
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(79,160,139, 150), stop:1 rgba(79,160,139, 150));
+	border-radius: 5px;
 }
 QMenuBar {
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(12,25,22), stop:1 rgb(12,25,22));
@@ -508,11 +508,11 @@ QScrollArea {
 }
 QSlider::groove:horizontal {
 	height: 5px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(79,160,139, 150), stop:1 rgba(79,160,139, 150));
 }
 QSlider::groove:vertical {
 	width: 5px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(49, 147, 250, 255), stop:1 rgba(34, 142, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(79,160,139, 150), stop:1 rgba(79,160,139, 150));
 }
 QSlider::handle:horizontal {
 	background: rgb(253,253,253);

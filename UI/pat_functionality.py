@@ -289,7 +289,7 @@ def change_slice_orientation(app, ui, group, widget):
     # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    app.visEngine.AddMeasurements(widget, current_measurs)
+    # app.visEngine.AddMeasurements(widget, current_measurs)
     # Recreate slaves
     if slaves is not None:
         app.visEngine.LinkWindows(widget, slaves)
