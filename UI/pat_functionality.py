@@ -35,6 +35,8 @@ def home_page_setup(app, ui):
     add_errands(app, ui)
     add_profile(app, ui)
 
+    ui.ui_pat.page_pat_home_progress_bar.hide()
+
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
     ui.ui_pat.page_pat_home_button_view_status.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_image_status)) # TODO
@@ -148,7 +150,10 @@ def view_scan_page_setup(app, ui):
 def go_to_view_scan_page(app, ui):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir:
+        ui.ui_pat.page_pat_home_progress_bar.show()
+
         # Setup UI
+        ui.ui_pat.page_pat_home_progress_bar.setValue(5)
         ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
         ui.ui_pat.page_pat_view_scan_2d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_2d_view, 0, 0, 1, 1)
 
@@ -158,6 +163,7 @@ def go_to_view_scan_page(app, ui):
         ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Deactivate\n2D-3D Link")
 
         # Setup the engine
+        ui.ui_pat.page_pat_home_progress_bar.setValue(10)
         app.visEngine.SetDirectory(errand.data_dir)
         app.visEngine.SetupImageUI(ui.ui_pat.page_pat_view_scan_2d_view, do_segmentation=False)
         app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
@@ -168,8 +174,11 @@ def go_to_view_scan_page(app, ui):
         #             ui.ui_pat.page_pat_view_scan_3d_view)
 
         # Add all annotations to the viewers
+        ui.ui_pat.page_pat_home_progress_bar.setValue(30)
         app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        ui.ui_pat.page_pat_home_progress_bar.setValue(60)
         app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        ui.ui_pat.page_pat_home_progress_bar.setValue(90)
         app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
@@ -178,6 +187,9 @@ def go_to_view_scan_page(app, ui):
                                                              vtk_widget_2d=ui.ui_pat.page_pat_view_scan_2d_view,
                                                              vtk_widget_3d=ui.ui_pat.page_pat_view_scan_3d_view,
                                                              vis_engine=app.visEngine)
+    ui.ui_pat.page_pat_home_progress_bar.setValue(100)
+    ui.ui_pat.page_pat_home_progress_bar.hide()
+
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
 
