@@ -65,9 +65,10 @@ class VisualizationEngine(object):
     # Zoom
     _zoomObserver = None
     _zoomDir = None
-    _zoomTimerID = None
-    _zoomTimerCount = 0
-    _zoomTimerReset = 10
+
+    # Changing Slices
+    _sliceObserver = None
+    _sliceInc = None
 
     # Animation
     _animSet = False
@@ -76,6 +77,11 @@ class VisualizationEngine(object):
     _animTimerID = None
     _animTimerCount = 0
     _animTimerReset = 15
+
+    # General timer events
+    _generalTimerID = None
+    _generalTimerCount = 0
+    _generalTimerReset = 10
 
 
     ##### General class functions #####
@@ -727,16 +733,16 @@ class VisualizationEngine(object):
     def ClearActiveAnnotation(self):
         self.activeAnnotation = None
 
+
     # Sets up interactor for zooming in and out
+    # Sets a timer and observer
     def StartZoomIn(self, widget):
         self._zoomDir = "in"
         if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
-            widget.SetInteractorStyle(self._volumeInteractorStyle.SafeDownCast(self._imageInteractorStyle))
-            viewer = self.imageViewers[self.__GetRenderer(widget).GetInformation().Get(self._rendererNumKey)]
-            print(viewer.GetInteractorStyle())
+            widget.SetInteractorStyle(self._imageInteractorStyle)
         widget.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
         self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
-        self._zoomTimerID = widget.CreateOneShotTimer(10)
+        self._generalTimerID = widget.CreateOneShotTimer(10)
 
     def StartZoomOut(self, widget):
         self._zoomDir = "out"
@@ -744,13 +750,34 @@ class VisualizationEngine(object):
             widget.SetInteractorStyle(self._volumeInteractorStyle)
         widget.InvokeEvent(vtk.vtkCommand.MouseWheelBackwardEvent)
         self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
-        self._zoomTimerID = widget.CreateOneShotTimer(10)
+        self._generalTimerID = widget.CreateOneShotTimer(10)
 
     def StopZoom(self, widget):
         self._zoomDir = None
-        widget.DestroyTimer(self._zoomTimerID, "None")
         widget.RemoveObserver(self._zoomObserver)
-        self._renderTimerCount = 0
+        if not self._animSet:
+            widget.DestroyTimer(self._generalTimerID, "None")
+            self._renderTimerCount = 0
+
+
+    # Changes slices on 2D window
+    def StartSliceChange(self, widget, inc):
+        if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            viewer = self.imageViewers[self.__GetRenderer(widget).GetInformation().Get(self._rendererNumKey)]
+            viewer.IncrementSlice(inc)
+            self._sliceInc = inc
+            self._sliceObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_slice_increment, 2)
+            self._generalTimerID = widget.CreateOneShotTimer(10)
+            if inc > 0: inc = 1
+            if inc < 0: inc = -1
+            self._animDir = inc
+
+    def StopSliceChange(self, widget):
+        self._sliceInc = None
+        widget.RemoveObserver(self._sliceObserver)
+        if not self._animSet:
+            widget.DestroyTimer(self._generalTimerID, "None")
+            self._renderTimerCount = 0
 
 
     # Toggles a 2D window slice animation
@@ -1206,20 +1233,30 @@ class VisualizationEngine(object):
                     if self._renderTimerCount == self._renderTimerReset:
                         self._renderTimerCount = 0
                         slave.GetRenderWindow().Render()
-                        if not self._animSet:
+                        if not self._animSet and self._sliceInc is None:
                             obj.DestroyTimer(self._renderTimerID)
 
 
     # Continues the zoom action once it is activated using a counter for the timer
     def __on_zooming(self, obj, event):
-        if self._zoomTimerCount == self._zoomTimerReset:
+        if self._generalTimerCount == self._generalTimerReset:
             if self._zoomDir == "in":
                 obj.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
             elif self._zoomDir == "out":
                 obj.InvokeEvent(vtk.vtkCommand.MouseWheelBackwardEvent)
-            self._zoomTimerCount = 0
+            self._generalTimerCount = 0
         else:
-            self._zoomTimerCount += 1
+            self._generalTimerCount += 1
+
+
+    # Incrementing or decrementing the slices based on sliceDir
+    def __on_slice_increment(self, obj, event):
+        if self._generalTimerCount == self._generalTimerReset:
+            viewer = self.imageViewers[self.__GetRenderer(obj).GetInformation().Get(self._rendererNumKey)]
+            viewer.IncrementSlice(self._sliceInc)
+            self._generalTimerCount = 0
+        else:
+            self._generalTimerCount += 1
 
 
     # Animates a 2D image viewer by incrementing and decrementing the slices

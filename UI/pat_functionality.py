@@ -64,21 +64,28 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_view_scan_button_back.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_home))
 
-    # Annotation navigation buttons
+    # Annotation and image navigation buttons
     ui.ui_pat.page_pat_view_scan_button_next_note.clicked.connect(
         lambda: go_to_next_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect(
         lambda: go_to_previous_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
-    # ui.ui_pat.page_pat_view_scan_button_next_slice.clicked.connect()# TODO Connect button with image functionality
     ui.ui_pat.page_pat_view_scan_button_play_pause.clicked.connect(
         lambda: toggle_animation(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
-    # ui.ui_pat.page_pat_view_scan_button_previous_slice.clicked.connect()# TODO Connect button with image functionality
+
+    # Image slice buttons
+    ui.ui_pat.page_pat_view_scan_button_next_slice.pressed.connect(
+        lambda: change_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, 1))
+    ui.ui_pat.page_pat_view_scan_button_next_slice.released.connect(
+        lambda: stop_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_button_previous_slice.pressed.connect(
+        lambda: change_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, -1))
+    ui.ui_pat.page_pat_view_scan_button_previous_slice.released.connect(
+        lambda: stop_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
 
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     # ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect()# TODO Connect button with image functionality
-
 
     # Zooming buttons 2D
     ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.pressed.connect(
@@ -161,9 +168,9 @@ def go_to_view_scan_page(app, ui):
         #             ui.ui_pat.page_pat_view_scan_3d_view)
 
         # Add all annotations to the viewers
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
-        # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -359,6 +366,14 @@ def start_zoom_out(app, ui, widget):
 
 def stop_zoom(app, ui, widget):
     app.visEngine.StopZoom(widget)
+
+
+# Offer slice maneuvering functionality to 2D widgets
+def change_image_slice(app, ui, widget, dir_):
+    app.visEngine.StartSliceChange(widget, dir_)
+
+def stop_image_slice(app, ui, widget):
+    app.visEngine.StopSliceChange(widget)
 
 
 # Animate the 2D window slices
