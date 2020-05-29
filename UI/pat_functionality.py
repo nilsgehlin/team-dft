@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
@@ -70,27 +70,34 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect(
         lambda: go_to_previous_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     # ui.ui_pat.page_pat_view_scan_button_next_slice.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_play_pause.clicked.connect()# TODO Connect button with image functionality
+    ui.ui_pat.page_pat_view_scan_button_play_pause.clicked.connect(
+        lambda: toggle_animation(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
     # ui.ui_pat.page_pat_view_scan_button_previous_slice.clicked.connect()# TODO Connect button with image functionality
 
-    ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows,
-                                                                                         ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
-    # ui.ui_pat.page_pat_view_scan_button_3d_bone_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "BONE"))
+    ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(
+        lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
+    # ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect()# TODO Connect button with image functionality
     # ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_3d_tissue_view.clicked.connect(lambda: app.visEngine.SetTissue(ui.ui_pat.page_pat_view_scan_3d_view, "SOFT"))
-    # ui.ui_pat.page_pat_view_scan_button_down.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_left.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_right.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_up.clicked.connect()# TODO Connect button with image functionality
 
-    # Zooming buttons
-    ui.ui_pat.page_pat_view_scan_button_zoom_in.pressed.connect(
+
+    # Zooming buttons 2D
+    ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_button_2d_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_button_2d_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+
+    # Zooming buttons 3D
+    ui.ui_pat.page_pat_view_scan_button_3d_zoom_in.pressed.connect(
         lambda: start_zoom_in(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_button_zoom_in.released.connect(
+    ui.ui_pat.page_pat_view_scan_button_3d_zoom_in.released.connect(
         lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_button_zoom_out.pressed.connect(
+    ui.ui_pat.page_pat_view_scan_button_3d_zoom_out.pressed.connect(
         lambda: start_zoom_out(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_button_zoom_out.released.connect(
+    ui.ui_pat.page_pat_view_scan_button_3d_zoom_out.released.connect(
         lambda: stop_zoom(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
 
     # 2D image color buttons
@@ -100,17 +107,18 @@ def view_scan_page_setup(app, ui):
         lambda: change_image_color(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
 
     # Advanced options
-    ui.ui_pat.page_pat_view_scan_radio_group_orientation.buttonClicked.connect(lambda: change_slice_orientation(app, ui, ui.ui_pat.page_pat_view_scan_radio_group_orientation,
-                                                                                         ui.ui_pat.page_pat_view_scan_2d_view))
-    ui.ui_pat.page_pat_view_scan_check_group_tissue.buttonClicked.connect(lambda: change_volume_tissue(app, ui, ui.ui_pat.page_pat_view_scan_check_group_tissue,
-                                                                                         ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_check_group_link.buttonClicked.connect(lambda: change_link_configuration(app, ui, ui.ui_pat.page_pat_view_scan_check_group_link))
-    ui.ui_pat.page_pat_view_scan_slider_transparency_volume.valueChanged.connect(lambda: change_volume_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_volume,
-                                                                                         ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_slider_transparency_segmentation.valueChanged.connect(lambda: change_segmentation_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_segmentation,
-                                                                                         ui.ui_pat.page_pat_view_scan_3d_view))
-    ui.ui_pat.page_pat_view_scan_slider_transparency_active.valueChanged.connect(lambda: change_segment_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_active,
-                                                                                         ui.ui_pat.page_pat_view_scan_3d_view))                                                                                    
+    ui.ui_pat.page_pat_view_scan_radio_group_orientation.buttonClicked.connect(
+        lambda: change_slice_orientation(app, ui, ui.ui_pat.page_pat_view_scan_radio_group_orientation, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_check_group_tissue.buttonClicked.connect(
+        lambda: change_volume_tissue(app, ui, ui.ui_pat.page_pat_view_scan_check_group_tissue, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_check_group_link.buttonClicked.connect(
+        lambda: change_link_configuration(app, ui, ui.ui_pat.page_pat_view_scan_check_group_link))
+    ui.ui_pat.page_pat_view_scan_slider_transparency_volume.valueChanged.connect(
+        lambda: change_volume_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_volume, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_slider_transparency_segmentation.valueChanged.connect(
+        lambda: change_segmentation_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_segmentation, ui.ui_pat.page_pat_view_scan_3d_view))
+    ui.ui_pat.page_pat_view_scan_slider_transparency_active.valueChanged.connect(
+        lambda: change_segment_transparency(app, ui, ui.ui_pat.page_pat_view_scan_slider_transparency_active, ui.ui_pat.page_pat_view_scan_3d_view))
 
 
 # GO TO FUNCTIONS #
@@ -153,9 +161,9 @@ def go_to_view_scan_page(app, ui):
         #             ui.ui_pat.page_pat_view_scan_3d_view)
 
         # Add all annotations to the viewers
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
-        app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -196,9 +204,11 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
+        button.setIcon(QIcon("UI\icons\\unlink.png"))
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
+        button.setIcon(QIcon("UI\icons\\link.png"))
 
 
 def change_page(ui, new_page):
@@ -349,5 +359,10 @@ def start_zoom_out(app, ui, widget):
 
 def stop_zoom(app, ui, widget):
     app.visEngine.StopZoom(widget)
+
+
+# Animate the 2D window slices
+def toggle_animation(app, ui, widget):
+    app.visEngine.ToggleSliceAnnimation(widget)
 
 

@@ -48,9 +48,10 @@ class VisualizationEngine(object):
     _crop3D = False
     _sliceFrameColor = [1,0,0]
 
-    # Slave Render Timer
+    # Master Render Timer
     _renderTimerID = 0
-    _renderTimeCount = 0
+    _renderTimerCount = 0
+    _renderTimerReset = 15
 
     # 2d image viewers array
     imageViewers = []
@@ -67,6 +68,14 @@ class VisualizationEngine(object):
     _zoomTimerID = None
     _zoomTimerCount = 0
     _zoomTimerReset = 10
+
+    # Animation
+    _animSet = False
+    _animObserver = None
+    _animDir = 1
+    _animTimerID = None
+    _animTimerCount = 0
+    _animTimerReset = 15
 
 
     ##### General class functions #####
@@ -701,7 +710,7 @@ class VisualizationEngine(object):
                 camera.SetFocalPoint(c[0], c[1], c[2])
                 camera.SetPosition(c[0] + 300, c[1], c[2])
                 camera.SetViewUp(0, 0, -1)
-                widget.update()
+                # widget.update()
                 widget.GetRenderWindow().Render()
         
     
@@ -718,11 +727,13 @@ class VisualizationEngine(object):
     def ClearActiveAnnotation(self):
         self.activeAnnotation = None
 
-
+    # Sets up interactor for zooming in and out
     def StartZoomIn(self, widget):
         self._zoomDir = "in"
         if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
-            widget.SetInteractorStyle(self._volumeInteractorStyle)
+            widget.SetInteractorStyle(self._volumeInteractorStyle.SafeDownCast(self._imageInteractorStyle))
+            viewer = self.imageViewers[self.__GetRenderer(widget).GetInformation().Get(self._rendererNumKey)]
+            print(viewer.GetInteractorStyle())
         widget.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
         self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
         self._zoomTimerID = widget.CreateOneShotTimer(10)
@@ -739,8 +750,21 @@ class VisualizationEngine(object):
         self._zoomDir = None
         widget.DestroyTimer(self._zoomTimerID, "None")
         widget.RemoveObserver(self._zoomObserver)
-        # if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
-        #     widget.SetInteractorStyle(self._imageInteractorStyle)
+        self._renderTimerCount = 0
+
+
+    # Toggles a 2D window slice animation
+    def ToggleSliceAnnimation(self, widget):
+        if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            if self._animSet:
+                self._animSet = False
+                widget.DestroyTimer(self._animTimerID, "None")
+                widget.RemoveObserver(self._animObserver)
+                self._renderTimerCount = 0
+            else:
+                self._animSet = True
+                self._animObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_animate, 2)
+                self._animTimerID = widget.CreateOneShotTimer(10)
 
 
 
@@ -1166,7 +1190,7 @@ class VisualizationEngine(object):
         active_slice = self.imageViewers[self._masterID].GetSlice()
         mpr = self._masterMPR
 
-        if self._renderTimeCount == 0:
+        if self._renderTimerCount == 0:
             self._renderTimerID = obj.CreateOneShotTimer(10)
 
         for slave in self._slaves:
@@ -1178,11 +1202,12 @@ class VisualizationEngine(object):
                 self.__UpdateCuttingPlanePos(slave, active_slice, mpr)
 
                 if(event == "TimerEvent"):
-                    self._renderTimeCount += 1
-                    if self._renderTimeCount == 10:
-                        self._renderTimeCount = 0
+                    self._renderTimerCount += 1
+                    if self._renderTimerCount == self._renderTimerReset:
+                        self._renderTimerCount = 0
                         slave.GetRenderWindow().Render()
-                        obj.DestroyTimer(self._renderTimerID)
+                        if not self._animSet:
+                            obj.DestroyTimer(self._renderTimerID)
 
 
     # Continues the zoom action once it is activated using a counter for the timer
@@ -1195,6 +1220,19 @@ class VisualizationEngine(object):
             self._zoomTimerCount = 0
         else:
             self._zoomTimerCount += 1
+
+
+    # Animates a 2D image viewer by incrementing and decrementing the slices
+    def __on_animate(self, obj, event):
+        if self._animTimerCount == self._animTimerReset:
+            viewer = self.imageViewers[self.__GetRenderer(obj).GetInformation().Get(self._rendererNumKey)]
+            current_slice = viewer.GetSlice()
+            if current_slice == viewer.GetSliceMin(): self._animDir = 1
+            if current_slice == viewer.GetSliceMax(): self._animDir = -1
+            viewer.IncrementSlice(self._animDir)
+            self._animTimerCount = 0
+        else:
+            self._animTimerCount += 1
 
 
     ##### VOLUME DISPLAY FUNCTIONS #####
