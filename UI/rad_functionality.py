@@ -381,7 +381,6 @@ def change_volume_tissue(app, ui, group, widget):
         if button.isChecked():
             tissues += [button.text()]
     app.visEngine.SetTissue(widget, tissues)
-    print(tissues)
 
 
 def change_volume_transparency(app, ui, slider, widget):
@@ -415,5 +414,61 @@ def change_image_color(app, ui, widget):
     color_window = ui.ui_rad.page_rad_diagnose_2d_slider_color_window.value()
     color_level = ui.ui_rad.page_rad_diagnose_2d_slider_color_level.value()
     app.visEngine.SetImageColor(widget, color_window, color_level)
+
+
+# Focus the windows on the next annotation on the report
+def go_to_next_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        next_annot_idx = 0
+    else:
+        next_annot_idx = annots.index(active_annot) + 1
+        if len(annots) == next_annot_idx: next_annot_idx = 0
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+
+
+# Focus the windows on the previous annotation on the report
+def go_to_previous_annot(app, ui, widget_2d, widget_3d):
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    annots = errand.annotations
+    if not annots: return
+    active_annot = app.visEngine.GetActiveAnnotation()
+    if active_annot is None:
+        prev_annot_idx = len(annots) - 1
+    else:
+        prev_annot_idx = annots.index(active_annot) - 1
+        if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
+    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
+    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
+    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
+
+
+# Offer zoom functionality to the widgets
+def start_zoom_in(app, ui, widget):
+    app.visEngine.StartZoomIn(widget)
+
+def start_zoom_out(app, ui, widget):
+    app.visEngine.StartZoomOut(widget)
+
+def stop_zoom(app, ui, widget):
+    app.visEngine.StopZoom(widget)
+
+
+# Offer slice maneuvering functionality to 2D widgets
+def change_image_slice(app, ui, widget, dir_):
+    app.visEngine.StartSliceChange(widget, dir_)
+
+def stop_image_slice(app, ui, widget):
+    app.visEngine.StopSliceChange(widget)
+
+
+# Animate the 2D window slices
+def toggle_animation(app, ui, widget):
+    app.visEngine.ToggleSliceAnnimation(widget)
 
 
