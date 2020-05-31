@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>4</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -1119,36 +1119,7 @@ notifications</string>
     </item>
     <item row="4" column="2">
      <layout class="QGridLayout" name="page_pat_view_scan_2d_layout_organizer">
-      <item row="0" column="8">
-       <widget class="QToolButton" name="page_pat_view_scan_button_2d_fullscreen">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Expand 2D view</string>
-        </property>
-        <property name="text">
-         <string>2D Full Screen</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="8">
+      <item row="2" column="1" colspan="9">
        <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
         <property name="toolTip">
          <string>Slide to change 2D image color levels</string>
@@ -1277,8 +1248,11 @@ notifications</string>
         </property>
        </spacer>
       </item>
-      <item row="0" column="4">
-       <widget class="QToolButton" name="page_pat_view_scan_button_link_windows">
+      <item row="0" column="9">
+       <widget class="QToolButton" name="page_pat_view_scan_button_2d_fullscreen">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>30</width>
@@ -1292,48 +1266,18 @@ notifications</string>
          </size>
         </property>
         <property name="toolTip">
-         <string>Toggle link between 2D and 3D views to track slice location</string>
+         <string>Expand 2D view</string>
         </property>
         <property name="text">
-         <string>Deactivate
-2D-3D Link</string>
+         <string>2D Full Screen</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
+          <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
-       <widget class="QToolButton" name="page_pat_view_scan_button_2d_zoom_in">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Zoom in on 2D slice</string>
-        </property>
-        <property name="text">
-         <string>Zoom In</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="8">
+      <item row="1" column="1" colspan="9">
        <widget class="QFrame" name="page_pat_view_scan_2d_view_frame">
         <property name="minimumSize">
          <size>
@@ -1388,6 +1332,62 @@ notifications</string>
         </layout>
        </widget>
       </item>
+      <item row="0" column="7">
+       <widget class="QToolButton" name="page_pat_view_scan_button_2d_zoom_in">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Zoom in on 2D slice</string>
+        </property>
+        <property name="text">
+         <string>Zoom In</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QToolButton" name="page_pat_view_scan_button_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Toggle link between 2D and 3D views to track slice location</string>
+        </property>
+        <property name="text">
+         <string>Deactivate
+2D-3D Link</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/link.png</normaloff>icons/link.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="3">
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
@@ -1401,11 +1401,37 @@ notifications</string>
         </property>
        </spacer>
       </item>
+      <item row="0" column="8">
+       <widget class="QToolButton" name="page_pat_view_scan_button_2d_reset">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Reset the 2D view</string>
+        </property>
+        <property name="text">
+         <string>Reset 2D</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="3" column="2">
      <layout class="QGridLayout" name="page_pat_view_scan_3d_layout_organizer">
-      <item row="1" column="0" colspan="5">
+      <item row="1" column="0" colspan="6">
        <widget class="QFrame" name="page_pat_view_scan_3d_view_frame">
         <property name="minimumSize">
          <size>
@@ -1460,7 +1486,7 @@ notifications</string>
         </layout>
        </widget>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="5">
        <widget class="QToolButton" name="page_pat_view_scan_button_3d_fullscreen">
         <property name="enabled">
          <bool>true</bool>
@@ -1583,6 +1609,32 @@ notifications</string>
         </property>
         <property name="text">
          <string>3D Volume</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QToolButton" name="page_pat_view_scan_button_3d_reset">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>30</horstretch>
+          <verstretch>31</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Reset the 3D view</string>
+        </property>
+        <property name="text">
+         <string>Reset 3D</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
         </property>
        </widget>
       </item>

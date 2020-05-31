@@ -802,6 +802,18 @@ class VisualizationEngine(object):
                 self._animTimerID = widget.CreateOneShotTimer(10)
 
 
+    # Resets the camera on the widget
+    def ResetWidgetCamera(self, widget):
+        renderer = self.__GetRenderer(widget)
+        if renderer.GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            renderer.ResetCamera()
+            widget.GetRenderWindow().Render()
+            return [1800, -170]
+        if renderer.GetInformation().Get(self._rendererTypeKey) == self._volumeRenderer:
+            renderer.ResetCamera()
+            widget.GetRenderWindow().Render()
+            return [0, 0]
+
 
     ###################################
     ##### Private class functions #####

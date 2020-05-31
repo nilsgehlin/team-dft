@@ -84,13 +84,17 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_previous_slice.released.connect(
         lambda: stop_image_slice(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
 
-    # Linking windows
+    # Windows
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect(
         lambda: toggle2DSplit(app, ui, ui.ui_pat.page_pat_view_scan_button_2d_fullscreen));
     ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect(
         lambda: toggle3DSplit(app, ui, ui.ui_pat.page_pat_view_scan_button_3d_fullscreen))
+    ui.ui_pat.page_pat_view_scan_button_2d_reset.clicked.connect(
+        lambda: resetView(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+    ui.ui_pat.page_pat_view_scan_button_3d_reset.clicked.connect(
+        lambda: resetView(app, ui, ui.ui_pat.page_pat_view_scan_3d_view))
 
     # Zooming buttons 2D
     ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.pressed.connect(
@@ -472,3 +476,10 @@ def toggle2DSplit(app, ui, button):
         ui.ui_pat.page_pat_view_scan_button_3d_zoom_in.hide()
         ui.ui_pat.page_pat_view_scan_button_3d_zoom_out.hide()
         ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.hide()
+
+
+# Reset the camera on the views
+def resetView(app, ui, widget):
+    [w, l] = app.visEngine.ResetWidgetCamera(widget)
+    if w: ui.ui_pat.page_pat_view_scan_2d_slider_color_window.setValue(w)
+    if l: ui.ui_pat.page_pat_view_scan_2d_slider_color_level.setValue(l)
