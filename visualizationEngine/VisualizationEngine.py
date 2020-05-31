@@ -711,19 +711,22 @@ class VisualizationEngine(object):
         if(annot.isSegment()):
             segment_coordinate = annot.GetCoordinate()
 
+            self.SetActiveAnnotation(annot)
+
             if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
                 viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
                 viewer.SetSlice(segment_coordinate[viewer.GetSliceOrientation()])
                 self.__on_slice_change(viewer, "None")
     
             elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                camera = renderer.GetActiveCamera()
-                c = segment_coordinate
-                camera.SetFocalPoint(c[0], c[1], c[2])
-                camera.SetPosition(c[0] + 500, c[1], c[2])
-                camera.SetViewUp(0, 0, -1)
-                widget.update()
-                widget.GetRenderWindow().Render()
+                # camera = renderer.GetActiveCamera()
+                # c = segment_coordinate
+                # camera.SetFocalPoint(c[0], c[1], c[2])
+                # camera.SetPosition(c[0] + 500, c[1], c[2])
+                # camera.SetViewUp(0, 0, -1)
+                # widget.update()
+                # widget.GetRenderWindow().Render()
+                self.ResetWidgetCamera(widget)
         
     
     # Returns the currently active annotative.
