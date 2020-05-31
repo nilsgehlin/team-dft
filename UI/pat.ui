@@ -219,20 +219,6 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </item>
-    <item row="3" column="5">
-     <widget class="QToolButton" name="page_pat_home_button_share">
-      <property name="text">
-       <string>Share</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>icons/share.png</normaloff>icons/share.png</iconset>
-      </property>
-      <property name="toolButtonStyle">
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="3" colspan="8">
      <widget class="QTreeWidget" name="page_pat_home_treeWidget_errand_list">
       <property name="minimumSize">
@@ -1622,8 +1608,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>92</height>
+           <width>210</width>
+           <height>36</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1673,8 +1659,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>92</height>
+           <width>307</width>
+           <height>36</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1757,8 +1743,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>92</height>
+           <width>238</width>
+           <height>63</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1952,8 +1938,8 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>588</width>
-           <height>92</height>
+           <width>240</width>
+           <height>36</height>
           </rect>
          </property>
          <property name="styleSheet">
