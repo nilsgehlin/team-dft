@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>4</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -458,6 +458,9 @@ p, li { white-space: pre-wrap; }
         <width>100</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="toolTip">
+       <string/>
       </property>
       <property name="text">
        <string>View</string>

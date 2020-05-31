@@ -775,7 +775,7 @@ class VisualizationEngine(object):
     def StopSliceChange(self, widget):
         self._sliceInc = None
         widget.RemoveObserver(self._sliceObserver)
-        if not self._animSet:
+        if not self._animSet and not self.LinkedAsMaster(widget):
             widget.DestroyTimer(self._generalTimerID, "None")
             self._renderTimerCount = 0
 

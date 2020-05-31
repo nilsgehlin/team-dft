@@ -139,6 +139,7 @@ class Ui_pat(object):
         self.page_pat_home_button_view.setEnabled(False)
         self.page_pat_home_button_view.setMinimumSize(QtCore.QSize(100, 0))
         self.page_pat_home_button_view.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.page_pat_home_button_view.setToolTip("")
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap("icons/view.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.page_pat_home_button_view.setIcon(icon6)
@@ -703,7 +704,7 @@ class Ui_pat(object):
         pat.addWidget(self.page_pat_view_scan)
 
         self.retranslateUi(pat)
-        pat.setCurrentIndex(4)
+        pat.setCurrentIndex(1)
         self.page_pat_view_scan_tools.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(pat)
         pat.setTabOrder(self.page_pat_view_scan_button_logout, self.page_pat_home_textEdit_search_old)

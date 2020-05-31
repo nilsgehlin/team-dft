@@ -176,17 +176,13 @@ def go_to_view_scan_page(app, ui):
         app.visEngine.SetupVolumeUI(ui.ui_pat.page_pat_view_scan_3d_view)
         app.visEngine.LinkWindows(ui.ui_pat.page_pat_view_scan_2d_view, [ui.ui_pat.page_pat_view_scan_3d_view])
 
-        ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Deactivate\n2D-3D Link")
-        # change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view,
-        #             ui.ui_pat.page_pat_view_scan_3d_view)
-
         # Add all annotations to the viewers
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
         app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(60)
         # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
