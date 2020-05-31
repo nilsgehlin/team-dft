@@ -739,7 +739,7 @@ class VisualizationEngine(object):
     def StartZoomIn(self, widget):
         self._zoomDir = "in"
         if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
-            widget.SetInteractorStyle(self._imageInteractorStyle)
+            widget.SetShiftKey(1)
         widget.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
         self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
         self._generalTimerID = widget.CreateOneShotTimer(10)
@@ -747,13 +747,15 @@ class VisualizationEngine(object):
     def StartZoomOut(self, widget):
         self._zoomDir = "out"
         if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
-            widget.SetInteractorStyle(self._volumeInteractorStyle)
+            widget.SetShiftKey(1)
         widget.InvokeEvent(vtk.vtkCommand.MouseWheelBackwardEvent)
         self._zoomObserver = widget.AddObserver(vtk.vtkCommand.TimerEvent, self.__on_zooming, 2)
         self._generalTimerID = widget.CreateOneShotTimer(10)
 
     def StopZoom(self, widget):
         self._zoomDir = None
+        if self.__GetRenderer(widget).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+            widget.SetShiftKey(0)
         widget.RemoveObserver(self._zoomObserver)
         if not self._animSet:
             widget.DestroyTimer(self._generalTimerID, "None")
@@ -1233,13 +1235,15 @@ class VisualizationEngine(object):
                     if self._renderTimerCount == self._renderTimerReset:
                         self._renderTimerCount = 0
                         slave.GetRenderWindow().Render()
-                        if not self._animSet and self._sliceInc is None:
+                        if not self._animSet and self._sliceInc is None and self._zoomDir is None:
                             obj.DestroyTimer(self._renderTimerID)
 
 
     # Continues the zoom action once it is activated using a counter for the timer
     def __on_zooming(self, obj, event):
         if self._generalTimerCount == self._generalTimerReset:
+            if self.__GetRenderer(obj).GetInformation().Get(self._rendererTypeKey) == self._imageRenderer:
+                obj.SetShiftKey(1)
             if self._zoomDir == "in":
                 obj.InvokeEvent(vtk.vtkCommand.MouseWheelForwardEvent)
             elif self._zoomDir == "out":
