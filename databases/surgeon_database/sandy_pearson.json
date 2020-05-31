@@ -1,10 +1,10 @@
 {
     "id": "0000",
     "password": "0000",
-    "first_name": "Sarah",
-    "last_name": "Kent",
+    "first_name": "Sandy",
+    "last_name": "Pearson",
     "age": 39,
-    "sex": "F",
+    "sex": "M",
 	"title": "Dr",
 	"profession": "Surgeon",
 	"clinic": "Stanford Medicine",

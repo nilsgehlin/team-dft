@@ -55,6 +55,7 @@ class Application(object):
     def init_pat(self):
         self.visEngine = VisualizationEngine()
         f_pat.setup_functionality(self, self.ui)
+        # self.export_data("patient_database", self.pat_dict)
 
     def init_rad(self):
         self.visEngine = VisualizationEngine()

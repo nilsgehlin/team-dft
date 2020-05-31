@@ -52,8 +52,6 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
                                                                                               ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
     # ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
-    # ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.clicked.connect(lambda: )# TODO Connect button with image functionality
-    # ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
@@ -75,7 +73,29 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation.valueChanged.connect(lambda: change_segmentation_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation,
                                                                                          ui.ui_rad.page_rad_diagnose_3d_view))
     ui.ui_rad.page_rad_diagnose_slider_transparency_active.valueChanged.connect(lambda: change_segment_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_active,
-                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))                                                                                                                                                                         
+                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
+
+    # Zooming buttons 2D
+    ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+    ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+
+    ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+    ui.ui_rad.page_rad_diagnose_button_2d_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
+
+    # Zooming buttons 3D
+    ui.ui_rad.page_rad_diagnose_button_3d_zoom_in.pressed.connect(
+        lambda: start_zoom_in(app, ui, ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_button_3d_zoom_in.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_rad.page_rad_diagnose_3d_view))
+
+    ui.ui_rad.page_rad_diagnose_button_3d_zoom_out.pressed.connect(
+        lambda: start_zoom_out(app, ui, ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_button_3d_zoom_out.released.connect(
+        lambda: stop_zoom(app, ui, ui.ui_rad.page_rad_diagnose_3d_view))
 
 
 def report_page_setup(app, ui):
@@ -136,10 +156,10 @@ def go_to_patient_page(app, ui):
 
 def go_to_view_only_page(app, ui):
     ui.ui_rad.page_rad_view_only_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_2d_view_frame)
-    ui.ui_rad.page_rad_view_only_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_2d_view, 0, 0, 1, 1)
+    ui.ui_rad.page_rad_view_only_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_2d_view, 0, 0, 4, 1)
 
     ui.ui_rad.page_rad_view_only_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_view_only_3d_view_frame)
-    ui.ui_rad.page_rad_view_only_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_3d_view, 0, 0, 1, 1)
+    ui.ui_rad.page_rad_view_only_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_view_only_3d_view, 0, 0, 4, 1)
 
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_view_only_2d_view)
@@ -154,10 +174,10 @@ def go_to_view_only_page(app, ui):
 
 def go_to_diagnose_page(app, ui):
     ui.ui_rad.page_rad_diagnose_2d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_2d_view_frame)
-    ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 1, 1)
+    ui.ui_rad.page_rad_diagnose_2d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_2d_view, 0, 0, 4, 3)
 
     ui.ui_rad.page_rad_diagnose_3d_view = QVTKRenderWindowInteractor(ui.ui_rad.page_rad_diagnose_3d_view_frame)
-    ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 0, 1, 1)
+    ui.ui_rad.page_rad_diagnose_3d_view_frame_grid.addWidget(ui.ui_rad.page_rad_diagnose_3d_view, 0, 1, 4, 1)
 
     app.visEngine.SetDirectory(app.pat_dict[app.current_pat_id].errands[app.current_errand_id].data_dir)
     app.visEngine.SetupImageUI(ui.ui_rad.page_rad_diagnose_2d_view)
@@ -470,5 +490,4 @@ def stop_image_slice(app, ui, widget):
 # Animate the 2D window slices
 def toggle_animation(app, ui, widget):
     app.visEngine.ToggleSliceAnnimation(widget)
-
 

@@ -166,10 +166,10 @@ def go_to_view_scan_page(app, ui):
         # Setup UI
         ui.ui_pat.page_pat_home_progress_bar.setValue(5)
         ui.ui_pat.page_pat_view_scan_2d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_2d_view_frame)
-        ui.ui_pat.page_pat_view_scan_2d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_2d_view, 0, 0, 1, 1)
+        ui.ui_pat.page_pat_view_scan_2d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_2d_view, 0, 0, 5, 1)
 
         ui.ui_pat.page_pat_view_scan_3d_view = QVTKRenderWindowInteractor(ui.ui_pat.page_pat_view_scan_3d_view_frame)
-        ui.ui_pat.page_pat_view_scan_3d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_3d_view, 0, 0, 1, 1)
+        ui.ui_pat.page_pat_view_scan_3d_view_frame_grid.addWidget(ui.ui_pat.page_pat_view_scan_3d_view, 0, 0, 5, 1)
 
         ui.ui_pat.page_pat_view_scan_button_link_windows.setText("Deactivate\n2D-3D Link")
 

@@ -141,10 +141,10 @@ def go_to_patient_errand_page(app, ui):
 
 def go_to_view_edit_page(app, ui):
     ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
-    ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 0, 0, 1, 1)
+    ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 4)
 
     ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
-    ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 0, 0, 1, 1)
+    ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 1, 0, 1, 4)
 
     app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
 
