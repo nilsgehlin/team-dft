@@ -22,8 +22,7 @@ class Report(QTextBrowser):
         self.vtk_widget_3d = None
         self.setOpenLinks(False)
         if show_segmentation_on_click:
-            print("TRUE")
-            self.anchorClicked.connect(self.on_annotation_clicked)
+            self.anchorClicked.connect(self.on_link_clicked)
 
     def update(self):
         file_loader = jinja2.FileSystemLoader(template_dir)
@@ -35,48 +34,64 @@ class Report(QTextBrowser):
         output = template.render(errand=self.errand, patient=self.patient)
         self.setHtml(output)
 
-    def load_report(self, template_name, patient, order_id, vtk_widget_2d=None, vtk_widget_3d=None, vis_engine=None, user=None):
+    def load_report(self, template_name, patient, order_id, vtk_widget_2d=None, vtk_widget_3d=None, vis_engine=None, status_bar=None):
         self.patient = patient
         self.errand = patient.errands[order_id]
         self.template_name = template_name
         self.vtk_widget_2d = vtk_widget_2d
         self.vtk_widget_3d = vtk_widget_3d
         self.vis_engine = vis_engine
+        self.status_bar = status_bar
         self.update()
         # with open(os.path.join(template_dir, self.template_name + ".css")) as style_sheet_file:
         #     self.setStyleSheet(style_sheet_file.read())
 
 
-    # def on_annotation_clicked(self, url_input):
-    #     #     annotation_id = url_input.toString()
-    #     #     annotation_clicked = self.errand.get_annotation(annotation_id)
-    #     #     if self.show_wiki_on_click:
-    #     #         search_term = annotation_clicked.GetLocation().replace(" ", "+")
-    #     #         search_url = "https://en.wikipedia.org/w/index.php?cirrusUserTesting" \
-    #     #                      "=glent_m0&search={}&title=Special%3ASearch&go=Go&ns0=1".format(search_term)
-    #     #         webbrowser.open(search_url)
+    # Goes to the clicked website link or the annotation
+    def on_link_clicked(self, url_input):
+        url = url_input.toString()
+        if url[0:4] == "web:":
+            search_url = url.split(':',1)[1]
+            if search_url[0:4] != "http:" or search_url[0:5] != "https:":
+                search_url = "http://www.google.com/search?q=" + search_url
+            webbrowser.open(search_url)
+        else:
+            self.on_annotation_clicked(url_input)
+
 
     # Callback function for annotation click on the report
     def on_annotation_clicked(self, url_input):
         annotation_id = url_input.toString()
         annotation_clicked = self.errand.get_annotation(annotation_id)
 
-        # If the user is a patient, no need to toggle annotations
+        # If the user is a patient, no need to toggle 3D annotations only
         if self.template_name == "patient":
-            self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
-            if self.vtk_widget_3d is not None: self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
+            if self.vis_engine.HasAnnotation(self.vtk_widget_3d, annotation_clicked):
+                self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
+                if self.status_bar is not None: self.status_bar.clearMessage()
+            else:
+                self.status_bar("Activating finding...")
+                self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
+                self.vis_engine.AddSegmentations(self.vtk_widget_3d, [annotation_clicked])
+                self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
+                if self.status_bar is not None: self.status_bar.showMessage(
+                    "Active finding: " + annotation_clicked.GetLocation())
         # Else toggle the annotations
         else:
             if self.vis_engine.HasAnnotation(self.vtk_widget_2d, annotation_clicked):
                 self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
                 if self.vtk_widget_3d is not None: self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
+                if self.status_bar is not None: self.status_bar.clearMessage()
             else:
+                self.status_bar("Activating finding...")
                 self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
                 if self.vtk_widget_3d is not None:
                     self.vis_engine.AddSegmentations(self.vtk_widget_3d, [annotation_clicked])
                     self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
+                if self.status_bar is not None: self.status_bar.showMessage(
+                    "Active finding: " + annotation_clicked.GetLocation())
 
 
 

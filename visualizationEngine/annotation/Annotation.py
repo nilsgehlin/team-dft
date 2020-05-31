@@ -25,6 +25,8 @@ class Annotation(vtkInformation):
     # Clinical
     _anatomicalLocation = None
     _color = None
+    _physicianNote = None
+    _webLink = None
 
     ##### General class functions #####
 
@@ -38,8 +40,6 @@ class Annotation(vtkInformation):
         self.annot_id = uuid.uuid4().hex
 
         self.Set(self._annotInstance.DATA_TYPE_NAME(), self._dataTypeName)
-        self.Enable()
-        self.Show()
         self.SetSegmentFlag(False)
         self.reviewed = False
     
@@ -74,7 +74,7 @@ class Annotation(vtkInformation):
 
     # Sets the opacity on the annotation object. 
     def SetCoordinate(self, loc):
-        if loc != None:
+        if loc is not None:
             loc = list(map(int, loc))
             self.Set(self._locationKey, loc, 3)
 
@@ -107,34 +107,36 @@ class Annotation(vtkInformation):
     def SetOpacity(self, opacity):
         self.Set(self._annotInstance.OPACITY(), opacity)
 
-    # Enables the annotation
-    def Enable(self):
-        self.Set(self._annotInstance.ENABLE(), 1)
+    # Add the physician note to the annotation
+    def AddNote(self, note):
+        self._physicianNote = note
 
-    # Disables the annotation
-    def Disable(self):
-        self.Set(self._annotInstance.ENABLE(), 0)
+    # Returns the physician note on the annotation
+    def GetNote(self):
+        return self._physicianNote
 
-    # Whether or not annotation is enabled or disabled
-    def isActive(self):
-        return self.Get(self._annotInstance.ENABLE())
+    # Whether or not annotation has a physician note
+    def HasNote(self):
+        if self._physicianNote is not None: return True
+        return False
 
-    # Activates the annotation show flag
-    def Show(self):
-        self.Set(self._annotInstance.HIDE(), 1)
+    # Adds a web link to the annotation
+    def AddWebLink(self, link):
+        self._webLink = link
 
-    # Deactivates the annotation show flag
-    def Hide(self):
-        self.Set(self._annotInstance.HIDE(), 0)
+    # Returns the weblink on the annotation
+    def GetWebLink(self):
+        return self._webLink
 
-    # Whether or not annotation is shown or hidden
-    def isVisible(self, text):
-        return self.Get(self._annotInstance.HIDE())
+    # Whether or not annotation has a web link attached to it
+    def HasWebLink(self):
+        if self._webLink is not None: return True
+        return False
 
     # Flag to know that the annotation is a segmentation
     def SetSegmentFlag(self, state, *seg_data):
         self.Set(self._annotInstance.ICON_INDEX(), int(state))
-        if(len(seg_data) > 0):
+        if len(seg_data) > 0:
             self._segmentData = seg_data[0]
 
     # Add segmentation array data to annotation

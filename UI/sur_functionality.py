@@ -48,8 +48,13 @@ def view_edit_page_setup(app, ui):
     # ui.ui_sur.page_sur_view_edit_2d_view = None
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
+
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     # ui.ui_sur.page_sur_view_edit_button_preview_report.clicked.connect(lambda: ) # TODO Is this one needed here?
+
+    ui.ui_sur.page_sur_view_edit_button_add_note.clicked.connect(lambda: add_note(app, ui))
+    ui.ui_sur.page_sur_view_edit_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
+
 
     # Annotation and image navigation buttons
     ui.ui_sur.page_sur_view_edit_button_2d_next_note.clicked.connect(
@@ -156,25 +161,56 @@ def go_to_view_edit_page(app, ui):
 
         app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
 
-        errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
-        app.visEngine.SetDirectory(errand.data_dir)
-        app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
-        app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
 
-        if errand.status.lower() == "complete":
-            ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
-                                                            patient=app.pat_dict[app.current_pat_id],
-                                                            order_id=app.current_errand_id,
-                                                            vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,
-                                                            vtk_widget_3d=ui.ui_sur.page_sur_view_edit_3d_view,
-                                                            vis_engine=app.visEngine)
-        else:
-            ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
+    errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+    app.visEngine.SetDirectory(errand.data_dir)
+    app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
+    app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
+
+    if errand.status.lower() == "complete":
+        ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
+                                                        patient=app.pat_dict[app.current_pat_id],
+                                                        order_id=app.current_errand_id,
+                                                        vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,
+                                                        vtk_widget_3d=ui.ui_sur.page_sur_view_edit_3d_view,
+                                                        vis_engine=app.visEngine,
+                                                        status_bar= ui.status_bar)
+    else:
+        ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
+
 
     change_page(ui, ui.ui_sur.page_sur_view_edit)
 
 
 # HELP FUNCTIONS #
+def add_impression(app, ui):
+    if ui.ui_sur.page_sur_view_edit_insert_impression.toPlainText() != "":
+        app.pat_dict[app.current_pat_id].errands[app.current_errand_id].add_impression(app.sur_dict[app.current_sur_id].get_signature(),
+                                                                                       ui.ui_sur.page_sur_view_edit_insert_impression.toPlainText()) # TODO Add doctor title
+        ui.ui_sur.page_sur_view_edit_insert_impression.setPlainText("")
+        ui.ui_sur.page_sur_view_edit_report.update()
+    else:
+        ui.status_bar.showMessage("Could not add empty impression")
+
+
+def add_note(app, ui):
+    annotation = app.visEngine.GetActiveAnnotation()
+    if annotation is not None:
+        if ui.ui_sur.page_sur_view_edit_insert_note.toPlainText() != "" \
+                or ui.ui_sur.page_sur_view_edit_insert_link.toPlainText() !="":
+            if ui.ui_sur.page_sur_view_edit_insert_note.toPlainText() != "":
+                annotation.AddNote(ui.ui_sur.page_sur_view_edit_insert_note.toPlainText())
+            if ui.ui_sur.page_sur_view_edit_insert_link.toPlainText() != "":
+                annotation.AddWebLink(ui.ui_sur.page_sur_view_edit_insert_link.toPlainText())
+
+            ui.ui_sur.page_sur_view_edit_insert_note.setPlainText("")
+            ui.ui_sur.page_sur_view_edit_insert_link.setPlainText("")
+            ui.ui_sur.page_sur_view_edit_report.update()
+        else:
+            ui.status_bar.showMessage("Could not add empty link or note")
+    else:
+        ui.status_bar.showMessage("No active finding, please select a finding to add notes")
+
 
 def unlink_views(app, ui):
     if isinstance(ui.ui_sur.page_sur_view_edit_2d_view, QVTKRenderWindowInteractor):
@@ -215,6 +251,7 @@ def add_errands(app, ui):
 #
 #
 def change_page(ui, new_page, change_prev_page=True):
+    ui.status_bar.clearMessage()
     if change_prev_page:
         ui.prev_page = ui.stacked_sur.currentWidget()
     ui.stacked_sur.setCurrentWidget(new_page)

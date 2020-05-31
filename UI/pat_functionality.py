@@ -36,6 +36,9 @@ def home_page_setup(app, ui):
     add_profile(app, ui)
 
     ui.ui_pat.page_pat_home_progress_bar.hide()
+    ui.ui_pat.page_pat_home_button_download.hide()
+
+    ui.ui_pat.page_pat_home_label_info.setText("")
 
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
@@ -143,20 +146,6 @@ def view_scan_page_setup(app, ui):
 # GO TO FUNCTIONS #
 
 
-# DEPRECATED
-# def go_to_errand_page(app, ui):
-#     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_treatment_list.currentItem().text(2)
-#     ui.ui_pat.page_pat_errand_treeWidget_errand_list.clear()
-#     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
-#     root_item = QTreeWidgetItem([errand.task, errand.date, errand.scan, errand.status, errand.clinic])
-#     ui.ui_pat.page_pat_errand_treeWidget_errand_list.addTopLevelItem(root_item)
-#     ui.ui_pat.page_pat_errand_button_view.setEnabled(True if errand.status == "Complete" else False)
-
-#     # ui.ui_pat.page_pat_errand_report # TODO show radiology report here
-
-#     change_page(ui, ui.ui_pat.page_pat_errand)
-
-
 def go_to_view_scan_page(app, ui):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir:
@@ -193,10 +182,10 @@ def go_to_view_scan_page(app, ui):
                                                              order_id=app.current_errand_id,
                                                              vtk_widget_2d=ui.ui_pat.page_pat_view_scan_2d_view,
                                                              vtk_widget_3d=ui.ui_pat.page_pat_view_scan_3d_view,
-                                                             vis_engine=app.visEngine)
+                                                             vis_engine=app.visEngine,
+                                                             status_bar = ui.status_bar)
     ui.ui_pat.page_pat_home_progress_bar.setValue(100)
     ui.ui_pat.page_pat_home_progress_bar.hide()
-    ui.status_bar.clearMessage()
 
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
@@ -239,6 +228,7 @@ def change_link(app, ui, button, master_widget, slave_widget):
 
 
 def change_page(ui, new_page):
+    ui.status_bar.clearMessage()
     ui.prev_page = ui.stacked_pat.currentWidget()
     ui.stacked_pat.setCurrentWidget(new_page)
 
@@ -359,7 +349,7 @@ def go_to_next_annot(app, ui, widget_2d, widget_3d):
         if len(annots) == next_annot_idx: next_annot_idx = 0
     if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
     if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+    ui.status_bar.showMessage("Active finding: " + annots[next_annot_idx].GetLocation())
 
 
 # Focus the windows on the previous annotation on the report
@@ -375,7 +365,6 @@ def go_to_previous_annot(app, ui, widget_2d, widget_3d):
         if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
     if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
     if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
 
 
 # Offer zoom functionality to the widgets
