@@ -151,6 +151,7 @@ def view_scan_page_setup(app, ui):
 def go_to_view_scan_page(app, ui):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir:
+        ui.status_bar.showMessage("Loading report, please wait...")
         ui.ui_pat.page_pat_home_progress_bar.show()
 
         # Setup UI
@@ -178,7 +179,7 @@ def go_to_view_scan_page(app, ui):
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
         app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(60)
-        app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
         app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
@@ -190,6 +191,7 @@ def go_to_view_scan_page(app, ui):
                                                              vis_engine=app.visEngine)
     ui.ui_pat.page_pat_home_progress_bar.setValue(100)
     ui.ui_pat.page_pat_home_progress_bar.hide()
+    ui.status_bar.clearMessage()
 
     change_page(ui, ui.ui_pat.page_pat_view_scan)
 
@@ -263,11 +265,10 @@ def select_item(app, ui):
     app.current_errand_id = ui.ui_pat.page_pat_home_treeWidget_errand_list.currentItem().text(0)
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     ui.ui_pat.page_pat_home_button_view.setEnabled(True if errand.status == "Complete" else False)
-    # if errand.status == "Complete":
-    #     ui.ui_pat.page_pat_home_report.setText("Show patient report here")
-    # else:
-    #     ui.ui_pat.page_pat_home_report.clear()
-    #     ui.ui_pat.page_pat_home_report.setPlaceholderText("Select a completed errand to see radiology report")
+    if errand.status == "Complete":
+        ui.ui_pat.page_pat_home_label_info.setText("Double-click order or click 'View' see report")
+    else:
+        ui.ui_pat.page_pat_home_label_info.setText("This scan is waiting for diagnosis, please select a scan with status 'Complete'")
 
 
 # Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
