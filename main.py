@@ -43,6 +43,9 @@ class Application(object):
         self.current_sur_id = None
         self.current_theme_button_pressed = self.ui.menu_bar_theme_button_night_mode
 
+        self.pat_initialized = False
+        self.rad_initialized = False
+        self.sur_initialized = False
         self.setup_functionality()
 
     def run(self):
@@ -54,16 +57,22 @@ class Application(object):
 
     def init_pat(self):
         self.visEngine = VisualizationEngine()
-        f_pat.setup_functionality(self, self.ui)
+        if not self.pat_initialized:
+            f_pat.setup_functionality(self, self.ui)
+            self.pat_initialized = True
         # self.export_data("patient_database", self.pat_dict)
 
     def init_rad(self):
         self.visEngine = VisualizationEngine()
-        f_rad.setup_functionality(self, self.ui)
+        if not self.rad_initialized:
+            f_rad.setup_functionality(self, self.ui)
+            self.rad_initialized = True
 
     def init_sur(self):
         self.visEngine = VisualizationEngine()
-        f_sur.setup_functionality(self, self.ui)
+        if not self.sur_initialized:
+            f_sur.setup_functionality(self, self.ui)
+            self.sur_initialized = True
 
     def import_data(self, dir_, class_):
         dict_ = {}

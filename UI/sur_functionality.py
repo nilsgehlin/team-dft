@@ -18,7 +18,7 @@ def setup_functionality(app, ui):
 
 def home_page_setup(app, ui):
     add_errands(app, ui)
-    ui.ui_sur.page_sur_home_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_sur.page_sur_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_sur.page_sur_home_button_colleagues.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_my_profile))
     ui.ui_sur.page_sur_home_button_proceed.clicked.connect(lambda: go_to_patient_errand_page(app, ui)) # TODO
     ui.ui_sur.page_sur_home_treatment_list.itemClicked.connect(lambda: ui.ui_sur.page_sur_home_button_proceed.setEnabled(True)) # TODO
@@ -30,8 +30,8 @@ def patient_errand_page_setup(app, ui):
     ui.ui_sur.page_sur_patient_errand_report = Report(ui.ui_sur.page_sur_patient_errand_report_frame, show_segmentation_on_click=False)
     ui.ui_sur.page_sur_patient_errand_report_frame_grid.addWidget(ui.ui_sur.page_sur_patient_errand_report, 0, 0, 1, 1)
 
-    ui.ui_sur.page_sur_patient_errand_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_home))
-    ui.ui_sur.page_sur_patient_errand_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_sur.page_sur_patient_errand_button_back.clicked.connect(lambda: go_back_from_patient_errand_page(app, ui))
+    ui.ui_sur.page_sur_patient_errand_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     # ui.ui_sur.page_sur_patient_errand_button_download.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
     # ui.ui_sur.page_sur_patient_errand_button_share.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
     ui.ui_sur.page_sur_patient_errand_button_view.clicked.connect(lambda: go_to_view_edit_page(app, ui))
@@ -45,8 +45,10 @@ def view_edit_page_setup(app, ui):
     ui.ui_sur.page_sur_view_edit_report = Report(ui.ui_sur.page_sur_view_edit_report_frame)
     ui.ui_sur.page_sur_view_edit_report_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_report, 0, 0, 1, 1)
 
+    # ui.ui_sur.page_sur_view_edit_2d_view = None
+
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
-    ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(ui))
+    ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     # ui.ui_sur.page_sur_view_edit_button_preview_report.clicked.connect(lambda: ) # TODO Is this one needed here?
 
     # Annotation and image navigation buttons
@@ -100,6 +102,9 @@ def view_edit_page_setup(app, ui):
 
 
 ## GO TO FUNCTIONS ##
+def go_back_from_patient_errand_page(app, ui):
+    change_page(ui, ui.ui_sur.page_sur_home)
+    unlink_views(app, ui)
 
 def go_to_patient_errand_page(app, ui):
     current_item = ui.ui_sur.page_sur_home_treatment_list.currentItem()
@@ -140,45 +145,57 @@ def go_to_patient_errand_page(app, ui):
 
 
 def go_to_view_edit_page(app, ui):
-    ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
-    ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 4)
-
-    ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
-    ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 1, 0, 1, 4)
-
-    app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
-
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
-    app.visEngine.SetDirectory(errand.data_dir)
-    app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
-    app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
+    if app.visEngine.GetDirectory() is not errand.data_dir or not isinstance(ui.ui_sur.page_sur_view_edit_2d_view,
+                                                                             QVTKRenderWindowInteractor):
+        ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
+        ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 4)
 
-    if errand.status.lower() == "complete":
-        ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
-                                                        patient=app.pat_dict[app.current_pat_id],
-                                                        order_id=app.current_errand_id,
-                                                        vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,
-                                                        vtk_widget_3d=ui.ui_sur.page_sur_view_edit_3d_view,
-                                                        vis_engine=app.visEngine)
-    else:
-        ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
+        ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
+        ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 1, 0, 1, 4)
+
+        app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
+
+        errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
+        app.visEngine.SetDirectory(errand.data_dir)
+        app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
+        app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
+
+        if errand.status.lower() == "complete":
+            ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
+                                                            patient=app.pat_dict[app.current_pat_id],
+                                                            order_id=app.current_errand_id,
+                                                            vtk_widget_2d=ui.ui_sur.page_sur_view_edit_2d_view,
+                                                            vtk_widget_3d=ui.ui_sur.page_sur_view_edit_3d_view,
+                                                            vis_engine=app.visEngine)
+        else:
+            ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
 
     change_page(ui, ui.ui_sur.page_sur_view_edit)
 
 
 # HELP FUNCTIONS #
 
-def change_link(app, ui, button, master_widget, slave_widget):
+def unlink_views(app, ui):
+    if isinstance(ui.ui_sur.page_sur_view_edit_2d_view, QVTKRenderWindowInteractor):
+        print("UNLINK")
+        change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
+                    ui.ui_sur.page_sur_view_edit_2d_view, force="Deactivate\n2D-3D Link")
+
+def change_link(app, ui, button, master_widget, slave_widget=None, force=None):
+    if force is not None:
+        button.setText(force)
     deactivate_str = "Deactivate\n2D-3D Link"
     activate_str = "Activate\n2D-3D Link"
+    print(button.text())
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
-        button.setIcon(QIcon("UI\icons\\unlink.png"))
+        button.setIcon(QIcon(os.path.join("UI", "icons", "unlink.png")))
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
-        button.setIcon(QIcon("UI\icons\\link.png"))
+        button.setIcon(QIcon(os.path.join("UI", "icons", "link.png")))
 
 
 def add_errands(app, ui):
@@ -203,14 +220,16 @@ def change_page(ui, new_page, change_prev_page=True):
     ui.stacked_sur.setCurrentWidget(new_page)
 
 
-def logout(ui):
+def logout(app, ui):
+    unlink_views(app, ui)
     ui.current_sur_id = None
     ui.prev_page = None
     ui.stacked_sur.setCurrentWidget(ui.ui_sur.page_sur_home)
     ui.stacked_main.setCurrentWidget(ui.page_login)
 
 
-def show_logout_popup(ui):
+def show_logout_popup(app, ui):
+    print("LOGOUT")
     msg = QMessageBox()
     msg.setWindowTitle("Logout")
     msg.setText("Are you sure you want to logout?")
@@ -222,7 +241,7 @@ def show_logout_popup(ui):
 
     ret = msg.exec_()
     if ret == msg.Yes:
-        logout(ui)
+        logout(app, ui)
 
 
 # Changes the 2D image 'greyscale'

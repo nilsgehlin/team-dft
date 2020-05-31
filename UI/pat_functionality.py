@@ -231,11 +231,11 @@ def change_link(app, ui, button, master_widget, slave_widget):
     if button.text() == deactivate_str:
         app.visEngine.UnlinkWindows(master_widget)
         button.setText(activate_str)
-        button.setIcon(QIcon("UI\icons\\unlink.png"))
+        button.setIcon(QIcon(os.path.join("UI", "icons", "unlink.png")))
     elif button.text() == activate_str:
         app.visEngine.LinkWindows(master_widget, [slave_widget])
         button.setText(deactivate_str)
-        button.setIcon(QIcon("UI\icons\\link.png"))
+        button.setIcon(QIcon(os.path.join("UI", "icons", "link.png")))
 
 
 def change_page(ui, new_page):

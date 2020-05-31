@@ -122,6 +122,8 @@ class VisualizationEngine(object):
         return self._dir
 
 
+
+
     # Sets up a 2D image window for the given widget
     #   Parameters: 
     #       1. vtkWidget, 
@@ -138,6 +140,7 @@ class VisualizationEngine(object):
             image_viewer = vtk.vtkResliceImageViewer()
             image_viewer.SetInputData(self.reader.GetOutput())
             image_viewer.SetRenderWindow(vtkWidget.GetRenderWindow())
+
 
             # Connecting interactor to image viewer
             image_viewer.SetupInteractor(interactor)
@@ -190,17 +193,17 @@ class VisualizationEngine(object):
     #       -This initial setup does not do any tissue selection
     def SetupVolumeUI(self, vtkWidget):
         renderer = vtk.vtkRenderer()
-        renderer.GetInformation().Set(self._rendererTypeKey,self._volumeRenderer)
-        
+        renderer.GetInformation().Set(self._rendererTypeKey, self._volumeRenderer)
+
         vtkWidget.GetRenderWindow().AddRenderer(renderer)
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
-        
+
         volume_mapper = vtk.vtkSmartVolumeMapper()
-        volume_mapper.SetInputConnection(self.reader.GetOutputPort())        
+        volume_mapper.SetInputConnection(self.reader.GetOutputPort())
         volume_mapper.SetBlendModeToComposite()
-        
+
         volume_property = self.__SetVolumeProperties(self._3DTissue)
-    
+
         # The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
         # and orientation of the volume in world coordinates.
         volume = vtk.vtkVolume()
@@ -221,6 +224,9 @@ class VisualizationEngine(object):
 
         interactor.SetInteractorStyle(self._volumeInteractorStyle)
         interactor.Initialize()
+
+
+
 
 
     ##### IMAGE MANIPULATION #####
