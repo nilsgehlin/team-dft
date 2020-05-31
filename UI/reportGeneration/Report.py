@@ -70,7 +70,7 @@ class Report(QTextBrowser):
                 self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
                 if self.status_bar is not None: self.status_bar.clearMessage()
             else:
-                self.status_bar("Activating finding...")
+                self.status_bar.showMessage("Activating finding...")
                 self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
                 self.vis_engine.AddSegmentations(self.vtk_widget_3d, [annotation_clicked])
                 self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
@@ -83,7 +83,7 @@ class Report(QTextBrowser):
                 if self.vtk_widget_3d is not None: self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
                 if self.status_bar is not None: self.status_bar.clearMessage()
             else:
-                self.status_bar("Activating finding...")
+                self.status_bar.showMessage("Activating finding...")
                 self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
