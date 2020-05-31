@@ -87,8 +87,10 @@ def view_scan_page_setup(app, ui):
     # Linking windows
     ui.ui_pat.page_pat_view_scan_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_pat.page_pat_view_scan_button_link_windows, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
-    # ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect()# TODO Connect button with image functionality
-    # ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect()# TODO Connect button with image functionality
+    ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.clicked.connect(
+        lambda: toggle2DSplit(app, ui, ui.ui_pat.page_pat_view_scan_button_2d_fullscreen));
+    ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.clicked.connect(
+        lambda: toggle3DSplit(app, ui, ui.ui_pat.page_pat_view_scan_button_3d_fullscreen))
 
     # Zooming buttons 2D
     ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.pressed.connect(
@@ -180,11 +182,11 @@ def go_to_view_scan_page(app, ui):
 
         # Add all annotations to the viewers
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(60)
         # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -408,6 +410,7 @@ def toggle_animation(app, ui, button, widget):
     app.visEngine.ToggleSliceAnnimation(widget)
 
 
+# Toggle advanced setting on the app
 def toggleSettings(app, ui, button):
     hide_str = "Hide Advanced Tools"
     show_str = "Show Advanced Tools"
@@ -420,3 +423,54 @@ def toggleSettings(app, ui, button):
         ui.ui_pat.page_pat_view_scan_tools.show()
         button.setToolTip("Hide advanced functionality for image manipulation")
 
+
+# Toggle 3D view spilt screen
+def toggle3DSplit(app, ui, button):
+    full_str = "3D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 3D view")
+        ui.ui_pat.page_pat_view_scan_label_2d.show()
+        ui.ui_pat.page_pat_view_scan_2d_view_frame.show()
+        ui.ui_pat.page_pat_view_scan_2d_slider_color_window.show()
+        ui.ui_pat.page_pat_view_scan_2d_slider_color_level.show()
+        ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.show()
+        ui.ui_pat.page_pat_view_scan_button_2d_zoom_out.show()
+        ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_pat.page_pat_view_scan_label_2d.hide()
+        ui.ui_pat.page_pat_view_scan_2d_view_frame.hide()
+        ui.ui_pat.page_pat_view_scan_2d_slider_color_window.hide()
+        ui.ui_pat.page_pat_view_scan_2d_slider_color_level.hide()
+        ui.ui_pat.page_pat_view_scan_button_2d_zoom_in.hide()
+        ui.ui_pat.page_pat_view_scan_button_2d_zoom_out.hide()
+        ui.ui_pat.page_pat_view_scan_button_2d_fullscreen.hide()
+
+
+# Toggle 2D view spilt screen
+def toggle2DSplit(app, ui, button):
+    full_str = "2D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 2D view")
+        ui.ui_pat.page_pat_view_scan_label_3d.show()
+        ui.ui_pat.page_pat_view_scan_3d_view_frame.show()
+        ui.ui_pat.page_pat_view_scan_button_3d_zoom_in.show()
+        ui.ui_pat.page_pat_view_scan_button_3d_zoom_out.show()
+        ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_pat.page_pat_view_scan_label_3d.hide()
+        ui.ui_pat.page_pat_view_scan_3d_view_frame.hide()
+        ui.ui_pat.page_pat_view_scan_button_3d_zoom_in.hide()
+        ui.ui_pat.page_pat_view_scan_button_3d_zoom_out.hide()
+        ui.ui_pat.page_pat_view_scan_button_3d_fullscreen.hide()
