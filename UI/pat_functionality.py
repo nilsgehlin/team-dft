@@ -274,6 +274,7 @@ def select_item(app, ui):
 
 # Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
+    ui.status_bar.showMessage("Changing slice orientation, please wait...")
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     # Save the current annotations
     current_annots = []
@@ -291,10 +292,11 @@ def change_slice_orientation(app, ui, group, widget):
     # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    # app.visEngine.AddMeasurements(widget, current_measurs)
+    app.visEngine.AddMeasurements(widget, current_measurs)
     # Recreate slaves
     if slaves is not None:
         app.visEngine.LinkWindows(widget, slaves)
+    ui.status_bar.clearMessage()
 
 
 # Changes the active tissue in a 3D volume

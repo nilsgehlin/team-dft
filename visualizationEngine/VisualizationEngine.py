@@ -448,23 +448,29 @@ class VisualizationEngine(object):
 
         for annot in annots:
             if(annot.isSegment()):
-                segment_id = annot.GetID()
-                segment_array = annot.GetSegmentData()
-                segment_color = annot.GetVtkColor()
+                try:
+                    segment_id = annot.GetID()
+                    segment_array = annot.GetSegmentData()
+                    segment_color = annot.GetVtkColor()
 
-                # Create segmentation array if loading from file
-                if segment_array is None:
-                    segment_array = self.__CreateSegmentation(annot.GetCoordinate()).GetScalars()
-                    annot.AddSegmentData(segment_array)
-                
-                measurement = Measurement(segment_array, segment_color, self._pixelSpacing)
+                    # Create segmentation array if loading from file
+                    if segment_array is None:
+                        segment_array = self.__CreateSegmentation(annot.GetCoordinate()).GetScalars()
+                        annot.AddSegmentData(segment_array)
 
-                if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
-                    viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
-                    measurement_info = measurement.GetInfo(viewer.GetSliceOrientation())
-                    measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], measurement_info['color'], segment_id)
-                    renderer.AddActor(measurement_actor)            
-                    self.__on_slice_change(viewer, "None")
+                    measurement = annot.GetMeasurement()
+                    if measurement is None:
+                        measurement = Measurement(segment_array, segment_color, self._pixelSpacing)
+                        annot.AddMeasurement(measurement)
+
+                    if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+                        viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+                        measurement_info = measurement.GetInfo(viewer.GetSliceOrientation())
+                        measurement_actor = self.__CreateMeasurementLine(measurement_info['startPoint'], measurement_info['endPoint'], measurement_info['color'], segment_id)
+                        renderer.AddActor(measurement_actor)
+                        self.__on_slice_change(viewer, "None")
+                except:
+                    pass
 
 
     # Checks whether the annotation's segment is shown on the widget window
@@ -714,9 +720,9 @@ class VisualizationEngine(object):
                 camera = renderer.GetActiveCamera()
                 c = segment_coordinate
                 camera.SetFocalPoint(c[0], c[1], c[2])
-                camera.SetPosition(c[0] + 300, c[1], c[2])
+                camera.SetPosition(c[0] + 500, c[1], c[2])
                 camera.SetViewUp(0, 0, -1)
-                # widget.update()
+                widget.update()
                 widget.GetRenderWindow().Render()
         
     

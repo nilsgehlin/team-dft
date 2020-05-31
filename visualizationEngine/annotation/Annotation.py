@@ -20,6 +20,8 @@ class Annotation(vtkInformation):
 
     _segmentData = None
 
+    _measurement = None
+
     # Clinical
     _anatomicalLocation = None
     _color = None
@@ -146,6 +148,14 @@ class Annotation(vtkInformation):
     # Check whether this annotation is a segmentation or not
     def isSegment(self):
         return bool(self.Get(self._annotInstance.ICON_INDEX()))
+
+    # Add measurement to annotation, only for speed optimization
+    def AddMeasurement(self, measurement):
+        self._measurement = measurement
+
+    # Return the measurement
+    def GetMeasurement(self):
+        return self._measurement
 
     # Get this annotation's key for engine functionality
     def GetVtkKey(self):
