@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>4</number>
   </property>
   <widget class="QWidget" name="page_pat_home_old">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -333,6 +333,11 @@ p, li { white-space: pre-wrap; }
       <column>
        <property name="text">
         <string>Clinic</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Physician</string>
        </property>
       </column>
      </widget>
@@ -853,7 +858,7 @@ notifications</string>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="5">
+      <item row="0" column="7">
        <widget class="QToolButton" name="page_pat_view_scan_button_next_note">
         <property name="enabled">
          <bool>true</bool>
@@ -870,70 +875,15 @@ notifications</string>
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Focus views on the next annotation on the report</string>
+        </property>
         <property name="text">
-         <string>Next Note</string>
+         <string>Next Finding</string>
         </property>
         <property name="icon">
          <iconset>
           <normaloff>icons/next_note.png</normaloff>icons/next_note.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Previous Slice</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/previous_slice.png</normaloff>icons/previous_slice.png</iconset>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Previous Note</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/previous_note.png</normaloff>icons/previous_note.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -953,8 +903,21 @@ notifications</string>
         </property>
        </spacer>
       </item>
-      <item row="0" column="6">
-       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
+      <item row="0" column="9">
+       <spacer name="horizontalSpacer_10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_note">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -970,19 +933,22 @@ notifications</string>
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Focus views on the previous annotation on the report</string>
+        </property>
         <property name="text">
-         <string>Next Slice</string>
+         <string>Prev. Finding</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
+          <normaloff>icons/previous_note.png</normaloff>icons/previous_note.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="5">
        <widget class="QToolButton" name="page_pat_view_scan_button_play_pause">
         <property name="enabled">
          <bool>true</bool>
@@ -999,12 +965,15 @@ notifications</string>
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Play slice animation on 2D images</string>
+        </property>
         <property name="text">
-         <string>Play/Pause</string>
+         <string>Play Slices</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/play_pause.png</normaloff>icons/play_pause.png</iconset>
+          <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1025,6 +994,9 @@ notifications</string>
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Go back to home page</string>
+        </property>
         <property name="text">
          <string>Back</string>
         </property>
@@ -1037,20 +1009,7 @@ notifications</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer_10">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="13">
+      <item row="0" column="15">
        <widget class="QToolButton" name="page_pat_view_scan_button_logout">
         <property name="minimumSize">
          <size>
@@ -1073,6 +1032,70 @@ notifications</string>
         <property name="icon">
          <iconset>
           <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QToolButton" name="page_pat_view_scan_button_previous_slice">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Move to previous 2D slice. Hold to keep scrolling</string>
+        </property>
+        <property name="text">
+         <string>Previous Slice</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/previous_slice.png</normaloff>icons/previous_slice.png</iconset>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QToolButton" name="page_pat_view_scan_button_next_slice">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Move to next 2D slice. Hold to keep scrolling</string>
+        </property>
+        <property name="text">
+         <string>Next Slice</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
         </property>
         <property name="toolButtonStyle">
          <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -1121,6 +1144,9 @@ notifications</string>
       </item>
       <item row="2" column="1" colspan="8">
        <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_level">
+        <property name="toolTip">
+         <string>Slide to change 2D image color levels</string>
+        </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
@@ -1167,6 +1193,9 @@ notifications</string>
           <height>30</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Zoom out of 2D slice</string>
+        </property>
         <property name="text">
          <string>Zoom Out</string>
         </property>
@@ -1178,6 +1207,9 @@ notifications</string>
       </item>
       <item row="1" column="0">
        <widget class="QSlider" name="page_pat_view_scan_2d_slider_color_window">
+        <property name="toolTip">
+         <string>Slide to change 2D image color levels</string>
+        </property>
         <property name="minimum">
          <number>-6000</number>
         </property>
@@ -1253,6 +1285,9 @@ notifications</string>
           <height>30</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Toggle link between 2D and 3D views to track slice location</string>
+        </property>
         <property name="text">
          <string>Deactivate
 2D-3D Link</string>
@@ -1280,6 +1315,9 @@ notifications</string>
           <height>30</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Zoom in on 2D slice</string>
+        </property>
         <property name="text">
          <string>Zoom In</string>
         </property>
@@ -1296,6 +1334,9 @@ notifications</string>
           <width>300</width>
           <height>300</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Scroll to advance through the images. Right-click and drag to zoom in and out</string>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
@@ -1330,6 +1371,9 @@ notifications</string>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string/>
+           </property>
            <property name="styleSheet">
             <string notr="true"/>
            </property>
@@ -1363,6 +1407,9 @@ notifications</string>
           <height>300</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Click and drag to move the volume. Scroll to zoom in and out of the volume</string>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -1395,6 +1442,9 @@ notifications</string>
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string/>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
@@ -1455,6 +1505,9 @@ notifications</string>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Zoom in on 3D volume</string>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -1487,6 +1540,9 @@ notifications</string>
           <height>30</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Zoom out of 3D volume</string>
+        </property>
         <property name="text">
          <string>Zoom Out</string>
         </property>
@@ -1517,7 +1573,7 @@ notifications</string>
          <string notr="true">font-size: 16pt;</string>
         </property>
         <property name="text">
-         <string>3D volume</string>
+         <string>3D Volume</string>
         </property>
        </widget>
       </item>
@@ -1525,6 +1581,28 @@ notifications</string>
     </item>
     <item row="3" column="1" rowspan="2">
      <layout class="QGridLayout" name="page_pat_view_scan_report_advance_layout_organizer">
+      <item row="0" column="0">
+       <widget class="QLabel" name="page_pat_view_scan_label_report">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 16pt;</string>
+        </property>
+        <property name="text">
+         <string>Report</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QFrame" name="page_pat_view_scan_rad_annotations_frame">
         <property name="minimumSize">
@@ -1538,6 +1616,9 @@ notifications</string>
           <width>16777215</width>
           <height>1666666</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Click on a finding to see it in the volume and images</string>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -1589,35 +1670,16 @@ notifications</string>
         </layout>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="page_pat_view_scan_label_report">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font-size: 16pt;</string>
-        </property>
-        <property name="text">
-         <string>Report</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
+      <item row="4" column="0">
        <widget class="QToolBox" name="page_pat_view_scan_tools">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
           <height>200</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string/>
         </property>
         <property name="currentIndex">
          <number>3</number>
@@ -1627,9 +1689,12 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>210</width>
-           <height>36</height>
+           <width>588</width>
+           <height>88</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the 2D view image orientation</string>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
@@ -1640,6 +1705,9 @@ notifications</string>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QRadioButton" name="radio_button_axial">
+            <property name="toolTip">
+             <string>Top-down view of the scan</string>
+            </property>
             <property name="text">
              <string>AXIAL</string>
             </property>
@@ -1653,6 +1721,9 @@ notifications</string>
           </item>
           <item>
            <widget class="QRadioButton" name="radio_button_sagittal">
+            <property name="toolTip">
+             <string>Left-right view of the scan</string>
+            </property>
             <property name="text">
              <string>SAGITTAL</string>
             </property>
@@ -1663,6 +1734,9 @@ notifications</string>
           </item>
           <item>
            <widget class="QRadioButton" name="radio_button_coronal">
+            <property name="toolTip">
+             <string>Front-back view of the scan</string>
+            </property>
             <property name="text">
              <string>CORONAL</string>
             </property>
@@ -1678,9 +1752,12 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>307</width>
-           <height>36</height>
+           <width>588</width>
+           <height>88</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the type of tissues shown on the scan</string>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
@@ -1762,9 +1839,12 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>238</width>
-           <height>63</height>
+           <width>588</width>
+           <height>88</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the transparency of objects of the 3D view</string>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
@@ -1790,6 +1870,9 @@ notifications</string>
             </item>
             <item>
              <widget class="QSlider" name="page_pat_view_scan_slider_transparency_volume">
+              <property name="toolTip">
+               <string>Change the transparency of the 3D volume</string>
+              </property>
               <property name="maximum">
                <number>100</number>
               </property>
@@ -1852,6 +1935,9 @@ notifications</string>
             </item>
             <item>
              <widget class="QSlider" name="page_pat_view_scan_slider_transparency_segmentation">
+              <property name="toolTip">
+               <string>Change the transparency of all segmentations</string>
+              </property>
               <property name="maximum">
                <number>100</number>
               </property>
@@ -1911,6 +1997,9 @@ notifications</string>
             </item>
             <item>
              <widget class="QSlider" name="page_pat_view_scan_slider_transparency_active">
+              <property name="toolTip">
+               <string>Change the transparency of the current finding segment</string>
+              </property>
               <property name="maximum">
                <number>100</number>
               </property>
@@ -1957,9 +2046,12 @@ notifications</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>240</width>
-           <height>36</height>
+           <width>588</width>
+           <height>88</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>Select how the linked 2D slice is shown on the 3D view</string>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
@@ -1970,6 +2062,9 @@ notifications</string>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QCheckBox" name="checkBox">
+            <property name="toolTip">
+             <string>Show the 2D image slice on the 3D view when linked</string>
+            </property>
             <property name="text">
              <string>Show 2D Image</string>
             </property>
@@ -1983,6 +2078,9 @@ notifications</string>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_2">
+            <property name="toolTip">
+             <string>Show the full 3D volume when or crop the volume at the active slice when linked</string>
+            </property>
             <property name="text">
              <string>Show Full 3D Volume</string>
             </property>
@@ -1999,24 +2097,18 @@ notifications</string>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="page_pat_view_scan_label_settings">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>25</height>
-         </size>
+       <widget class="QToolButton" name="page_pat_view_scan_button_tools">
+        <property name="toolTip">
+         <string>Show or hide more functionality for image manipulation</string>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>25</height>
-         </size>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-size: 16pt;</string>
+         <string notr="true">background-color: rgba(255, 255, 255,0)</string>
         </property>
         <property name="text">
-         <string>Advanced Settings</string>
+         <string>Show Advanced Tools</string>
         </property>
        </widget>
       </item>
@@ -2041,10 +2133,8 @@ notifications</string>
   <tabstop>page_pat_image_status_button_request_notification</tabstop>
   <tabstop>page_pat_image_status_button_logout</tabstop>
   <tabstop>page_pat_view_scan_button_previous_note</tabstop>
-  <tabstop>page_pat_view_scan_button_previous_slice</tabstop>
   <tabstop>page_pat_view_scan_button_play_pause</tabstop>
   <tabstop>page_pat_view_scan_button_next_note</tabstop>
-  <tabstop>page_pat_view_scan_button_next_slice</tabstop>
  </tabstops>
  <resources/>
  <connections/>

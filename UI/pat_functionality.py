@@ -72,7 +72,7 @@ def view_scan_page_setup(app, ui):
     ui.ui_pat.page_pat_view_scan_button_previous_note.clicked.connect(
         lambda: go_to_previous_annot(app, ui, ui.ui_pat.page_pat_view_scan_2d_view, ui.ui_pat.page_pat_view_scan_3d_view))
     ui.ui_pat.page_pat_view_scan_button_play_pause.clicked.connect(
-        lambda: toggle_animation(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
+        lambda: toggle_animation(app, ui, ui.ui_pat.page_pat_view_scan_button_play_pause, ui.ui_pat.page_pat_view_scan_2d_view))
 
     # Image slice buttons
     ui.ui_pat.page_pat_view_scan_button_next_slice.pressed.connect(
@@ -117,6 +117,9 @@ def view_scan_page_setup(app, ui):
         lambda: change_image_color(app, ui, ui.ui_pat.page_pat_view_scan_2d_view))
 
     # Advanced options
+    ui.ui_pat.page_pat_view_scan_tools.hide()
+    ui.ui_pat.page_pat_view_scan_button_tools.clicked.connect(
+        lambda: toggleSettings(app, ui, ui.ui_pat.page_pat_view_scan_button_tools))
     ui.ui_pat.page_pat_view_scan_radio_group_orientation.buttonClicked.connect(
         lambda: change_slice_orientation(app, ui, ui.ui_pat.page_pat_view_scan_radio_group_orientation, ui.ui_pat.page_pat_view_scan_2d_view))
     ui.ui_pat.page_pat_view_scan_check_group_tissue.buttonClicked.connect(
@@ -177,11 +180,11 @@ def go_to_view_scan_page(app, ui):
 
         # Add all annotations to the viewers
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(60)
         # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -391,7 +394,29 @@ def stop_image_slice(app, ui, widget):
 
 
 # Animate the 2D window slices
-def toggle_animation(app, ui, widget):
+def toggle_animation(app, ui, button, widget):
+    pause_str = "Pause Slices"
+    play_str = "Play Slices"
+    if button.text() == pause_str:
+        button.setText(play_str)
+        button.setIcon(QIcon("UI\icons\\play.png"))
+        button.setToolTip("Play slice animation on 2D images")
+    elif button.text() == play_str:
+        button.setText(pause_str)
+        button.setIcon(QIcon("UI\icons\\pause.png"))
+        button.setToolTip("Pause slice animation on 2D images")
     app.visEngine.ToggleSliceAnnimation(widget)
 
+
+def toggleSettings(app, ui, button):
+    hide_str = "Hide Advanced Tools"
+    show_str = "Show Advanced Tools"
+    if button.text() == hide_str:
+        button.setText(show_str)
+        ui.ui_pat.page_pat_view_scan_tools.hide()
+        button.setToolTip("Show advanced functionality for image manipulation")
+    elif button.text() == show_str:
+        button.setText(hide_str)
+        ui.ui_pat.page_pat_view_scan_tools.show()
+        button.setToolTip("Hide advanced functionality for image manipulation")
 
