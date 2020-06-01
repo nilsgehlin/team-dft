@@ -14,19 +14,62 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="page_sur_view_edit">
    <layout class="QGridLayout" name="gridLayout_4">
+    <item row="1" column="8" rowspan="3">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QToolButton" name="page_sur_view_edit_button_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Toggle link between 2D and 3D views to track slice location</string>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/unlink.png</normaloff>icons/unlink.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="1" column="9" rowspan="3">
      <layout class="QGridLayout" name="page_sur_view_edit_3d_layout">
-      <item row="2" column="0" colspan="5">
+      <item row="1" column="0" colspan="4">
        <widget class="QFrame" name="page_sur_view_edit_3d_view_frame">
         <property name="minimumSize">
          <size>
-          <width>300</width>
+          <width>350</width>
           <height>250</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Click and drag to move the volume. Scroll to zoom in and out of the volume</string>
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
@@ -59,38 +102,10 @@
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="page_sur_view_edit_button_3d_fullscreen">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Fullscreen - 2D</string>
-           </property>
-           <property name="text">
-            <string>Fullscreen 3D</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
+         <item row="1" column="0" colspan="4">
+          <widget class="QWidget" name="page_sur_view_edit_3d_view" native="true">
+           <property name="styleSheet">
+            <string notr="true"/>
            </property>
           </widget>
          </item>
@@ -109,7 +124,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Zoom in - 3D</string>
+            <string>Zoom in on 3D view</string>
            </property>
            <property name="text">
             <string>Zoom In</string>
@@ -144,7 +159,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Zoom out - 3D</string>
+            <string>Zoom out on 3D view</string>
            </property>
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
@@ -167,153 +182,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="4">
-          <widget class="QWidget" name="page_sur_view_edit_3d_view" native="true">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="8" rowspan="3">
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QToolButton" name="page_sur_view_edit_button_link_windows">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Activate
-2D-3D Link</string>
-        </property>
-        <property name="text">
-         <string>Activate
-2D-3D Link</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/unlink.png</normaloff>icons/unlink.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="7" rowspan="3">
-     <layout class="QGridLayout" name="page_sur_view_edit_2d_layout">
-      <item row="1" column="1" colspan="5">
-       <widget class="QFrame" name="page_sur_view_edit_2d_view_frame">
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>250</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 0, 0);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <property name="lineWidth">
-         <number>0</number>
-        </property>
-        <layout class="QGridLayout" name="page_sur_view_edit_2d_view_frame_grid">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="0" column="1">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_zoom_in">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Zoom in - 2D</string>
-           </property>
-           <property name="text">
-            <string>Zoom In</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="2">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_fullscreen">
+          <widget class="QToolButton" name="page_sur_view_edit_button_3d_fullscreen">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -327,10 +197,10 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Fullscreen - 3D</string>
+            <string>Expand 3D view</string>
            </property>
            <property name="text">
-            <string>Fullscreen 2D</string>
+            <string>3D Full Screen</string>
            </property>
            <property name="icon">
             <iconset>
@@ -347,227 +217,11 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_zoom_out">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Zoom out - 2D</string>
-           </property>
-           <property name="text">
-            <string>Zoom Out</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" colspan="8">
-          <widget class="QWidget" name="page_sur_view_edit_2d_view" native="true">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="5">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_pause">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Play</string>
-           </property>
-           <property name="text">
-            <string>Play/Pause</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/play_pause.png</normaloff>icons/play_pause.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <spacer name="horizontalSpacer_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="6">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_slice">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Go to next slice</string>
-           </property>
-           <property name="text">
-            <string>Next Slice</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_slice">
-           <property name="minimumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Go to previous slice</string>
-           </property>
-           <property name="text">
-            <string>Previous Slice</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/previous_slice.png</normaloff>icons/previous_slice.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
-      <item row="2" column="1" colspan="5">
-       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_level">
-        <property name="toolTip">
-         <string>Change color level</string>
-        </property>
-        <property name="minimum">
-         <number>-5000</number>
-        </property>
-        <property name="maximum">
-         <number>5000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="value">
-         <number>-170</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>true</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_window">
-        <property name="toolTip">
-         <string>Change window color</string>
-        </property>
-        <property name="minimum">
-         <number>-6000</number>
-        </property>
-        <property name="maximum">
-         <number>12000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-        <property name="pageStep">
-         <number>500</number>
-        </property>
-        <property name="value">
-         <number>1800</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_5">
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_6">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -621,7 +275,7 @@
     </item>
     <item row="0" column="0" rowspan="4">
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="3" column="0">
+      <item row="4" column="0">
        <widget class="QToolButton" name="page_sur_view_edit_button_back">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -642,7 +296,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Go back</string>
+         <string>Go back to patient page</string>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -671,7 +325,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="7">
+      <item row="2" column="0" colspan="4">
        <widget class="QTabWidget" name="page_sure_view_edit_tab">
         <property name="minimumSize">
          <size>
@@ -696,14 +350,14 @@
           <item row="1" column="0" colspan="3">
            <widget class="QTextEdit" name="page_sur_view_edit_insert_link">
             <property name="placeholderText">
-             <string>Insert weblink</string>
+             <string>Insert weblink or search term for patient</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0" colspan="3">
            <widget class="QTextEdit" name="page_sur_view_edit_insert_note">
             <property name="placeholderText">
-             <string>Insert note to patient</string>
+             <string>Insert note to patient about finding</string>
             </property>
            </widget>
           </item>
@@ -722,7 +376,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>Add finding</string>
+             <string>Add note or link</string>
             </property>
             <property name="text">
              <string>Add Annotation</string>
@@ -775,13 +429,6 @@
           <string>Impression</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0" colspan="3">
-           <widget class="QTextEdit" name="page_sur_view_edit_insert_impression">
-            <property name="placeholderText">
-             <string>Insert impression</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <spacer name="horizontalSpacer_8">
             <property name="orientation">
@@ -843,40 +490,62 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0" colspan="3">
+           <widget class="QTextEdit" name="page_sur_view_edit_insert_impression">
+            <property name="placeholderText">
+             <string>Insert impression</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
       </item>
-      <item row="0" column="6">
-       <spacer name="horizontalSpacer_12">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="4" column="3">
+       <widget class="QToolButton" name="page_sur_view_edit_button_save_report">
+        <property name="enabled">
+         <bool>false</bool>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
-       </spacer>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_11">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+        <property name="maximumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
-       </spacer>
+        <property name="toolTip">
+         <string>Save report changes</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="1">
        <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_note">
         <property name="minimumSize">
          <size>
@@ -891,7 +560,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Go to previous finding</string>
+         <string>Go to previous finding on the report</string>
         </property>
         <property name="text">
          <string>Previous Note</string>
@@ -911,7 +580,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="2">
        <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_note">
         <property name="minimumSize">
          <size>
@@ -926,7 +595,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Go to next finding</string>
+         <string>Go to next finding on the report</string>
         </property>
         <property name="text">
          <string>Next Note</string>
@@ -946,7 +615,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="7">
+      <item row="1" column="0" colspan="4">
        <widget class="QFrame" name="page_sur_view_edit_report_frame">
         <property name="minimumSize">
          <size>
@@ -988,52 +657,820 @@
         </layout>
        </widget>
       </item>
-      <item row="3" column="6">
-       <widget class="QToolButton" name="page_sur_view_edit_button_save_report">
-        <property name="enabled">
-         <bool>false</bool>
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_12">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-        <property name="minimumSize">
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>30</width>
-          <height>30</height>
+          <width>100</width>
+          <height>20</height>
          </size>
         </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_11">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>100</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0" colspan="4">
+       <widget class="QToolBox" name="page_sur_view_edit_tools">
         <property name="maximumSize">
          <size>
-          <width>30</width>
-          <height>30</height>
+          <width>16777215</width>
+          <height>200</height>
          </size>
         </property>
         <property name="toolTip">
-         <string>Preview Report</string>
+         <string/>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="page_sur_view_edit_tools_orientation">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>364</width>
+           <height>69</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the 2D view image orientation</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>2D Orientation</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radio_button_axial">
+            <property name="toolTip">
+             <string>Top-down view of the scan</string>
+            </property>
+            <property name="text">
+             <string>AXIAL</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radio_button_sagittal">
+            <property name="toolTip">
+             <string>Left-right view of the scan</string>
+            </property>
+            <property name="text">
+             <string>SAGITTAL</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radio_button_coronal">
+            <property name="toolTip">
+             <string>Front-back view of the scan</string>
+            </property>
+            <property name="text">
+             <string>CORONAL</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_radio_group_orientation</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_sur_view_edit_tools_tissue">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>378</width>
+           <height>69</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the type of tissues shown on the scan</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Tissues</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="checkBox_All">
+            <property name="text">
+             <string>ALL</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Soft">
+            <property name="text">
+             <string>SOFT</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Bone">
+            <property name="text">
+             <string>BONE</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Muscle">
+            <property name="text">
+             <string>MUSCLE</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Fat">
+            <property name="text">
+             <string>FAT</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_Skin">
+            <property name="styleSheet">
+             <string notr="true">c</string>
+            </property>
+            <property name="text">
+             <string>SKIN</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_tissue</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_sur_view_edit_tools_transparency">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>347</width>
+           <height>74</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Change the transparency of objects of the 3D view</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Transparency</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="page_sur_view_edit_layout_transparency_volume">
+            <item>
+             <spacer name="verticalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_sur_view_edit_slider_transparency_volume">
+              <property name="toolTip">
+               <string>Change the transparency of the 3D volume</string>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="singleStep">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>20</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::NoTicks</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_sur_view_edit_label_transparency_volume">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>3D Volume</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="page_sur_view_edit_layout_transparency_segmentation">
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_sur_view_edit_slider_transparency_segmentation">
+              <property name="toolTip">
+               <string>Change the transparency of all segmentations</string>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>33</number>
+              </property>
+              <property name="sliderPosition">
+               <number>33</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_sur_view_edit_label_transparency_segmentation">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Segmentations</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="page_sur_view_edit_layout_transparency_active">
+            <item>
+             <spacer name="verticalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QSlider" name="page_sur_view_edit_slider_transparency_active">
+              <property name="toolTip">
+               <string>Change the transparency of the current finding segment</string>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>40</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="page_sur_view_edit_label_transparency_active">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Active Segment</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_sur_view_edit_tools_link">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>364</width>
+           <height>69</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Select how the linked 2D slice is shown on the 3D view</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <attribute name="label">
+          <string>3D Link </string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="toolTip">
+             <string>Show the 2D image slice on the 3D view when linked</string>
+            </property>
+            <property name="text">
+             <string>Show 2D Image</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_link</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="toolTip">
+             <string>Show the full 3D volume when or crop the volume at the active slice when linked</string>
+            </property>
+            <property name="text">
+             <string>Show Full 3D Volume</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">page_sur_view_edit_check_group_link</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2">
+       <widget class="QToolButton" name="page_sur_view_edit_button_tools">
+        <property name="toolTip">
+         <string>Show advanced functionality for image manipulation</string>
         </property>
         <property name="layoutDirection">
          <enum>Qt::RightToLeft</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: none;</string>
+         <string notr="true">background-color: rgba(255, 255, 255,0)</string>
         </property>
         <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
+         <string>Show Advanced Tools</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1" colspan="5">
-       <spacer name="horizontalSpacer_16">
+     </layout>
+    </item>
+    <item row="1" column="7" rowspan="3">
+     <layout class="QGridLayout" name="page_sur_view_edit_2d_layout">
+      <item row="1" column="0">
+       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_window">
+        <property name="toolTip">
+         <string>Slide to change 2D image color window</string>
+        </property>
+        <property name="minimum">
+         <number>-6000</number>
+        </property>
+        <property name="maximum">
+         <number>12000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="value">
+         <number>1800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="5">
+       <widget class="QFrame" name="page_sur_view_edit_2d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>350</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Scroll to advance through the images. Right-click and drag to zoom in and out</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_sur_view_edit_2d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_zoom_out">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Zoom out on 2D view</string>
+           </property>
+           <property name="text">
+            <string>Zoom Out</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_fullscreen">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Expand 2D view</string>
+           </property>
+           <property name="text">
+            <string>2D Full Screen</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_zoom_in">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Zoom in on 2D view</string>
+           </property>
+           <property name="text">
+            <string>Zoom In</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_slice">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Go to next slice. Hold to keep scrolling</string>
+           </property>
+           <property name="text">
+            <string>Next Slice</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_pause">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Play slice animation</string>
+           </property>
+           <property name="text">
+            <string>Play Slices</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_slice">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Go to previous slice. Hold to keep scrolling</string>
+           </property>
+           <property name="text">
+            <string>Previous Slice</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/previous_slice.png</normaloff>icons/previous_slice.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="8">
+          <widget class="QWidget" name="page_sur_view_edit_2d_view" native="true">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="5">
+       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_level">
+        <property name="toolTip">
+         <string>Slide to change 2D image color level</string>
+        </property>
+        <property name="minimum">
+         <number>-5000</number>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="pageStep">
+         <number>500</number>
+        </property>
+        <property name="value">
+         <number>-170</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_5">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -1237,11 +1674,8 @@
     </item>
     <item row="5" column="2" colspan="4">
      <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="2">
-       <widget class="QToolButton" name="page_sur_patient_errand_button_download">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+      <item row="0" column="0">
+       <widget class="QToolButton" name="page_sur_patient_errand_button_back">
         <property name="minimumSize">
          <size>
           <width>30</width>
@@ -1250,19 +1684,19 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>30</width>
+          <width>75</width>
           <height>30</height>
          </size>
         </property>
         <property name="toolTip">
-         <string>Download report</string>
+         <string>Go back</string>
         </property>
         <property name="text">
-         <string>Download</string>
+         <string>Back</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/download.png</normaloff>icons/download.png</iconset>
+          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1270,7 +1704,23 @@
           <height>30</height>
          </size>
         </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
        </widget>
+      </item>
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer_13">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="0" column="5">
        <widget class="QToolButton" name="page_sur_patient_errand_button_view">
@@ -1307,41 +1757,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="page_sur_patient_errand_button_share">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Share patient file</string>
-        </property>
-        <property name="text">
-         <string>Share</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/share.png</normaloff>icons/share.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -1358,21 +1773,11 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="4">
-       <spacer name="horizontalSpacer_13">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_sur_patient_errand_button_download">
+        <property name="enabled">
+         <bool>false</bool>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0">
-       <widget class="QToolButton" name="page_sur_patient_errand_button_back">
         <property name="minimumSize">
          <size>
           <width>30</width>
@@ -1381,19 +1786,19 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>75</width>
+          <width>30</width>
           <height>30</height>
          </size>
         </property>
         <property name="toolTip">
-         <string>Go back</string>
+         <string>Download report</string>
         </property>
         <property name="text">
-         <string>Back</string>
+         <string>Download</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/back.png</normaloff>icons/back.png</iconset>
+          <normaloff>icons/download.png</normaloff>icons/download.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1401,8 +1806,12 @@
           <height>30</height>
          </size>
         </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QProgressBar" name="page_sur_patient_errand_progress_bar">
+        <property name="value">
+         <number>24</number>
         </property>
        </widget>
       </item>
@@ -1432,6 +1841,38 @@
     </item>
     <item row="2" column="3" colspan="3">
      <layout class="QGridLayout" name="gridLayout_11">
+      <item row="1" column="0" colspan="2">
+       <widget class="QTreeWidget" name="page_sur_patient_errand_errand_list">
+        <property name="toolTip">
+         <string>Double-click on a completed scan to view radiology report</string>
+        </property>
+        <column>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Date</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Scan</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Clinic</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Status</string>
+         </property>
+        </column>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="page_sur_patient_errand_label_patients_scans">
         <property name="minimumSize">
@@ -1472,35 +1913,6 @@ p, li { white-space: pre-wrap; }
         <property name="placeholderText">
          <string>Search...</string>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QTreeWidget" name="page_sur_patient_errand_errand_list">
-        <column>
-         <property name="text">
-          <string>ID</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Date</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Scan</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Clinic</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Status</string>
-         </property>
-        </column>
        </widget>
       </item>
      </layout>
@@ -1614,6 +2026,9 @@ p, li { white-space: pre-wrap; }
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="1" colspan="3">
      <widget class="QTreeWidget" name="page_sur_home_treatment_list">
+      <property name="toolTip">
+       <string>Double-click on a scan order to see more information</string>
+      </property>
       <property name="sortingEnabled">
        <bool>true</bool>
       </property>
@@ -1818,4 +2233,9 @@ p, li { white-space: pre-wrap; }
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="page_sur_view_edit_radio_group_orientation"/>
+  <buttongroup name="page_sur_view_edit_check_group_tissue"/>
+  <buttongroup name="page_sur_view_edit_check_group_link"/>
+ </buttongroups>
 </ui>

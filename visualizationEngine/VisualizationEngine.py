@@ -748,6 +748,18 @@ class VisualizationEngine(object):
         self.activeAnnotation = None
 
 
+    # Gets the measurement length on the slide
+    def GetSliceMeasurement(self, widget, annot):
+        renderer_info = self.__GetRenderer(widget).GetInformation()
+        if renderer_info.Get(self._rendererTypeKey) == self._imageRenderer:
+            viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
+            try:
+                measurement_info = annot.GetMeasurement().GetInfo(viewer.GetSliceOrientation())
+                return measurement_info['volume']*self._pixelSpacing[viewer.GetSliceOrientation()]
+            except:
+                return 0
+
+
     # Sets up interactor for zooming in and out
     # Sets a timer and observer
     def StartZoomIn(self, widget):

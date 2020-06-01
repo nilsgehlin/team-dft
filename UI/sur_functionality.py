@@ -27,13 +27,15 @@ def home_page_setup(app, ui):
 
 
 def patient_errand_page_setup(app, ui):
+    ui.ui_sur.page_sur_patient_errand_progress_bar.hide()
+    ui.ui_sur.page_sur_patient_errand_button_download.hide()
+
     ui.ui_sur.page_sur_patient_errand_report = Report(ui.ui_sur.page_sur_patient_errand_report_frame, show_segmentation_on_click=False)
     ui.ui_sur.page_sur_patient_errand_report_frame_grid.addWidget(ui.ui_sur.page_sur_patient_errand_report, 0, 0, 1, 1)
 
     ui.ui_sur.page_sur_patient_errand_button_back.clicked.connect(lambda: go_back_from_patient_errand_page(app, ui))
     ui.ui_sur.page_sur_patient_errand_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     # ui.ui_sur.page_sur_patient_errand_button_download.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
-    # ui.ui_sur.page_sur_patient_errand_button_share.clicked.connect(lambda: pass) # TODO Not sure if we need this atm
     ui.ui_sur.page_sur_patient_errand_button_view.clicked.connect(lambda: go_to_view_edit_page(app, ui))
     ui.ui_sur.page_sur_patient_errand_errand_list.itemClicked.connect(
         lambda: change_report(app, ui.ui_sur.page_sur_patient_errand_errand_list, ui.ui_sur.page_sur_patient_errand_report))
@@ -48,13 +50,11 @@ def view_edit_page_setup(app, ui):
     # ui.ui_sur.page_sur_view_edit_2d_view = None
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
-
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    # ui.ui_sur.page_sur_view_edit_button_preview_report.clicked.connect(lambda: ) # TODO Is this one needed here?
+    # ui.ui_sur.page_sur_view_edit_button_save_report.clicked.connect(lambda: ) # TODO Is this one needed here?
 
     ui.ui_sur.page_sur_view_edit_button_add_note.clicked.connect(lambda: add_note(app, ui))
     ui.ui_sur.page_sur_view_edit_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
-
 
     # Annotation and image navigation buttons
     ui.ui_sur.page_sur_view_edit_button_2d_next_note.clicked.connect(
@@ -62,7 +62,7 @@ def view_edit_page_setup(app, ui):
     ui.ui_sur.page_sur_view_edit_button_2d_previous_note.clicked.connect(
         lambda: go_to_previous_annot(app, ui, ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
     ui.ui_sur.page_sur_view_edit_button_2d_play_pause.clicked.connect(
-        lambda: toggle_animation(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+        lambda: toggle_animation(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_play_pause, ui.ui_sur.page_sur_view_edit_2d_view))
 
     # Image slice buttons
     ui.ui_sur.page_sur_view_edit_button_2d_next_slice.pressed.connect(
@@ -74,10 +74,18 @@ def view_edit_page_setup(app, ui):
     ui.ui_sur.page_sur_view_edit_button_2d_previous_slice.released.connect(
         lambda: stop_image_slice(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
 
-    # Linking windows
+    # Windows
     ui.ui_sur.page_sur_view_edit_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
                             ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
+        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen));
+    ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
+        lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
+    # ui.ui_sur.page_sur_view_edit_button_2d_reset.clicked.connect(
+    #     lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    # ui.ui_sur.page_sur_view_edit_button_3d_reset.clicked.connect(
+    #     lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
 
     # Zooming buttons 2D
     ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.pressed.connect(
@@ -104,6 +112,28 @@ def view_edit_page_setup(app, ui):
         lambda: change_image_color(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
     ui.ui_sur.page_sur_view_edit_2d_slider_color_level.valueChanged.connect(
         lambda: change_image_color(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+
+    # Advanced options
+    ui.ui_sur.page_sur_view_edit_tools.hide()
+    ui.ui_sur.page_sur_view_edit_button_tools.clicked.connect(
+        lambda: toggleSettings(app, ui, ui.ui_sur.page_sur_view_edit_button_tools))
+    ui.ui_sur.page_sur_view_edit_radio_group_orientation.buttonClicked.connect(
+        lambda: change_slice_orientation(app, ui, ui.ui_sur.page_sur_view_edit_radio_group_orientation,
+                                         ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_check_group_tissue.buttonClicked.connect(
+        lambda: change_volume_tissue(app, ui, ui.ui_sur.page_sur_view_edit_check_group_tissue,
+                                     ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_check_group_link.buttonClicked.connect(
+        lambda: change_link_configuration(app, ui, ui.ui_sur.page_sur_view_edit_check_group_link))
+    ui.ui_sur.page_sur_view_edit_slider_transparency_volume.valueChanged.connect(
+        lambda: change_volume_transparency(app, ui, ui.ui_sur.page_sur_view_edit_slider_transparency_volume,
+                                           ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_slider_transparency_segmentation.valueChanged.connect(
+        lambda: change_segmentation_transparency(app, ui, ui.ui_sur.page_sur_view_edit_slider_transparency_segmentation,
+                                                 ui.ui_sur.page_sur_view_edit_3d_view))
+    ui.ui_sur.page_sur_view_edit_slider_transparency_active.valueChanged.connect(
+        lambda: change_segment_transparency(app, ui, ui.ui_sur.page_sur_view_edit_slider_transparency_active,
+                                            ui.ui_sur.page_sur_view_edit_3d_view))
 
 
 ## GO TO FUNCTIONS ##
@@ -153,6 +183,11 @@ def go_to_view_edit_page(app, ui):
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir or not isinstance(ui.ui_sur.page_sur_view_edit_2d_view,
                                                                              QVTKRenderWindowInteractor):
+        ui.status_bar.showMessage("Loading report, please wait...")
+        ui.ui_sur.page_sur_patient_errand_progress_bar.show()
+
+        # Setup UI
+        ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(5)
         ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
         ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 4)
 
@@ -167,6 +202,22 @@ def go_to_view_edit_page(app, ui):
     app.visEngine.SetupImageUI(ui.ui_sur.page_sur_view_edit_2d_view)
     app.visEngine.SetupVolumeUI(ui.ui_sur.page_sur_view_edit_3d_view)
 
+    # Load all annotations to the viewers and then remove them, for optimization on click
+    app.visEngine.AddSegmentations(ui.ui_sur.page_sur_view_edit_2d_view, errand.annotations)
+    ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(25)
+    app.visEngine.AddMeasurements(ui.ui_sur.page_sur_view_edit_2d_view, errand.annotations)
+    ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(50)
+    app.visEngine.AddSegmentations(ui.ui_sur.page_sur_view_edit_3d_view, errand.annotations)
+    ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(75)
+    app.visEngine.RemoveAllAnnotations(ui.ui_sur.page_sur_view_edit_2d_view)
+    app.visEngine.RemoveAllAnnotations(ui.ui_sur.page_sur_view_edit_3d_view)
+    ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(90)
+
+    # Reset the views
+    resetView(app, ui, ui.ui_sur.page_sur_view_edit_2d_view)
+    resetView(app, ui, ui.ui_sur.page_sur_view_edit_3d_view)
+
+
     if errand.status.lower() == "complete":
         ui.ui_sur.page_sur_view_edit_report.load_report(template_name="radiologist",
                                                         patient=app.pat_dict[app.current_pat_id],
@@ -178,7 +229,8 @@ def go_to_view_edit_page(app, ui):
     else:
         ui.ui_sur.page_sur_view_edit_report.setText("No Radiology Report Available")
 
-
+    ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(100)
+    ui.ui_sur.page_sur_patient_errand_progress_bar.hide()
     change_page(ui, ui.ui_sur.page_sur_view_edit)
 
 
@@ -369,6 +421,7 @@ def add_patient_profile(app, ui):
 
 # Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
+    ui.status_bar.showMessage("Changing slice orientation, please wait...")
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     # Save the current annotations
     current_annots = []
@@ -390,15 +443,22 @@ def change_slice_orientation(app, ui, group, widget):
     # Recreate slaves
     if slaves is not None:
         app.visEngine.LinkWindows(widget, slaves)
+    ui.status_bar.clearMessage()
 
 
 # Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
-    tissues = []
-    for button in group.buttons():
-        if button.isChecked():
-            tissues += [button.text()]
-    app.visEngine.SetTissue(widget, tissues)
+    if group.checkedButton().text() == "ALL":
+        for button in group.buttons():
+            if button.text() != "ALL": button.setChecked(False)
+        app.visEngine.SetTissue(widget, ["ALL"])
+    else:
+        ui.ui_pat.checkBox_All.setChecked(False)
+        tissues = []
+        for button in group.buttons():
+            if button.isChecked():
+                tissues += [button.text()]
+        app.visEngine.SetTissue(widget, tissues)
 
 
 def change_volume_transparency(app, ui, slider, widget):
@@ -446,9 +506,18 @@ def go_to_next_annot(app, ui, widget_2d, widget_3d):
     else:
         next_annot_idx = annots.index(active_annot) + 1
         if len(annots) == next_annot_idx: next_annot_idx = 0
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+    next_annot = annots[next_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_2d)
+        app.visEngine.AddSegmentations(widget_2d, [next_annot])
+        app.visEngine.AddMeasurements(widget_2d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_3d)
+        app.visEngine.AddSegmentations(widget_3d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    measurement = app.visEngine.GetSliceMeasurement(widget_2d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation() + ", volume: " + str(measurement) + " mm3")
 
 
 # Focus the windows on the previous annotation on the report
@@ -462,9 +531,18 @@ def go_to_previous_annot(app, ui, widget_2d, widget_3d):
     else:
         prev_annot_idx = annots.index(active_annot) - 1
         if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
+    next_annot = annots[prev_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_2d)
+        app.visEngine.AddSegmentations(widget_2d, [next_annot])
+        app.visEngine.AddMeasurements(widget_2d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_3d)
+        app.visEngine.AddSegmentations(widget_3d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    measurement = app.visEngine.GetSliceMeasurement(widget_2d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation() + ", volume: " + str(measurement) + " mm3")
 
 
 # Offer zoom functionality to the widgets
@@ -487,5 +565,72 @@ def stop_image_slice(app, ui, widget):
 
 
 # Animate the 2D window slices
-def toggle_animation(app, ui, widget):
+def toggle_animation(app, ui, button, widget):
+    pause_str = "Pause Slices"
+    play_str = "Play Slices"
+    if button.text() == pause_str:
+        button.setText(play_str)
+        button.setIcon(QIcon("UI\icons\\play.png"))
+        button.setToolTip("Play slice animation ")
+    elif button.text() == play_str:
+        button.setText(pause_str)
+        button.setIcon(QIcon("UI\icons\\pause.png"))
+        button.setToolTip("Pause slice animation")
     app.visEngine.ToggleSliceAnnimation(widget)
+
+
+# Toggle advanced setting on the app
+def toggleSettings(app, ui, button):
+    hide_str = "Hide Advanced Tools"
+    show_str = "Show Advanced Tools"
+    if button.text() == hide_str:
+        button.setText(show_str)
+        ui.ui_sur.page_sur_view_edit_tools.hide()
+        button.setToolTip("Show advanced functionality for image manipulation")
+    elif button.text() == show_str:
+        button.setText(hide_str)
+        ui.ui_sur.page_sur_view_edit_tools.show()
+        button.setToolTip("Hide advanced functionality for image manipulation")
+
+
+# Toggle 3D view spilt screen
+def toggle3DSplit(app, ui, button):
+    full_str = "3D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 3D view")
+        ui.ui_sur.page_sur_view_edit_2d_view_frame.show()
+        ui.ui_sur.page_sur_view_edit_2d_slider_color_window.show()
+        ui.ui_sur.page_sur_view_edit_2d_slider_color_level.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_sur.page_sur_view_edit_2d_view_frame.hide()
+        ui.ui_sur.page_sur_view_edit_2d_slider_color_window.hide()
+        ui.ui_sur.page_sur_view_edit_2d_slider_color_level.hide()
+
+
+# Toggle 2D view spilt screen
+def toggle2DSplit(app, ui, button):
+    full_str = "2D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 2D view")
+        ui.ui_sur.page_sur_view_edit_3d_view_frame.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_sur.page_sur_view_edit_3d_view_frame.hide()
+
+
+# Reset the camera on the views
+def resetView(app, ui, widget):
+    [w, l] = app.visEngine.ResetWidgetCamera(widget)
+    if w: ui.ui_sur.page_sur_view_edit_2d_slider_color_window.setValue(w)
+    if l: ui.ui_sur.page_sur_view_edit_2d_slider_color_level.setValue(l)

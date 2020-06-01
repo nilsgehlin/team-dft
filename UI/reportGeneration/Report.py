@@ -70,6 +70,7 @@ class Report(QTextBrowser):
         if self.template_name == "patient":
             if self.vis_engine.HasAnnotation(self.vtk_widget_3d, annotation_clicked):
                 self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
+                self.vis_engine.ClearActiveAnnotation()
                 if self.status_bar is not None: self.status_bar.clearMessage()
             else:
                 self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
@@ -82,17 +83,18 @@ class Report(QTextBrowser):
             if self.vis_engine.HasAnnotation(self.vtk_widget_2d, annotation_clicked):
                 self.vis_engine.RemoveAnnotations(self.vtk_widget_2d, [annotation_clicked])
                 if self.vtk_widget_3d is not None: self.vis_engine.RemoveAnnotations(self.vtk_widget_3d, [annotation_clicked])
+                self.vis_engine.ClearActiveAnnotation()
                 if self.status_bar is not None: self.status_bar.clearMessage()
             else:
-                self.status_bar.showMessage("Activating finding...")
                 self.vis_engine.AddSegmentations(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.AddMeasurements(self.vtk_widget_2d, [annotation_clicked])
                 self.vis_engine.GoToAnnotation(self.vtk_widget_2d, annotation_clicked)
                 if self.vtk_widget_3d is not None:
                     self.vis_engine.AddSegmentations(self.vtk_widget_3d, [annotation_clicked])
                     self.vis_engine.GoToAnnotation(self.vtk_widget_3d, annotation_clicked)
+                measurement = self.vis_engine.GetSliceMeasurement(self.vtk_widget_2d, annotation_clicked)
                 if self.status_bar is not None: self.status_bar.showMessage(
-                    "Active finding: " + annotation_clicked.GetLocation())
+                    "Active finding: " + annotation_clicked.GetLocation() + ", volume: " + str(measurement) + " mm3")
 
 
 

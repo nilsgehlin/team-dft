@@ -12,10 +12,10 @@
     <b><a href={{ annotation.GetID() }} style="color: rgb{{ annotation.GetColor() }}">{{ annotation.GetLocation() }}</a>:</b> <br/>
     <b>{{ annotation.GetFinding() }}</b><br/>
     {% if annotation.HasNote() %}
-        'Doctor's note: {{annotation.GetNote()}}<br/>
+        Doctor's note: {{annotation.GetNote()}}<br/>
     {% endif %}
     {% if annotation.HasWebLink() %}
-    <a href= {{ "web:" ~ annotation.GetWebLink() }} style="color: rgb{{ annotation.GetColor() }}">More Info</a></b>
+        <a href={{ "web:" ~ annotation.GetWebLink() }} style="color: rgb{{ annotation.GetColor() }}">More Info</a></b>
     {% endif %}
 </p>
 {%- endfor %}

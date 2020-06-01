@@ -152,12 +152,12 @@ def go_to_view_scan_page(app, ui):
         app.visEngine.LinkWindows(ui.ui_pat.page_pat_view_scan_2d_view, [ui.ui_pat.page_pat_view_scan_3d_view])
 
         # Add all annotations to the viewers
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
-        ui.ui_pat.page_pat_home_progress_bar.setValue(60)
         # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        ui.ui_pat.page_pat_home_progress_bar.setValue(60)
+        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
-        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
 
         # Reset the views
         resetView(app, ui, ui.ui_pat.page_pat_view_scan_2d_view)
@@ -272,7 +272,7 @@ def change_slice_orientation(app, ui, group, widget):
     # Recreate windows with new orientation
     app.visEngine.SetupImageUI(widget, group.checkedButton().text())
     app.visEngine.AddSegmentations(widget, current_annots)
-    app.visEngine.AddMeasurements(widget, current_measurs)
+    # app.visEngine.AddMeasurements(widget, current_measurs)
     # Recreate slaves
     if slaves is not None:
         app.visEngine.LinkWindows(widget, slaves)
@@ -346,7 +346,7 @@ def go_to_next_annot(app, ui, widget_2d, widget_3d):
         if app.visEngine.HasAnnotation(widget_3d, next_annot):
             pass
         else:
-            app.visEngine.RemoveAnnotations(widget_3d, [next_annot])
+            app.visEngine.RemoveAnnotations(widget_3d, [active_annot])
             app.visEngine.AddSegmentations(widget_3d, [next_annot])
             app.visEngine.GoToAnnotation(widget_3d, next_annot)
     ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation())
@@ -370,7 +370,7 @@ def go_to_previous_annot(app, ui, widget_2d, widget_3d):
         if app.visEngine.HasAnnotation(widget_3d, next_annot):
             pass
         else:
-            app.visEngine.RemoveAnnotations(widget_3d, [next_annot])
+            app.visEngine.RemoveAnnotations(widget_3d, [active_annot])
             app.visEngine.AddSegmentations(widget_3d, [next_annot])
             app.visEngine.GoToAnnotation(widget_3d, next_annot)
     ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation())
