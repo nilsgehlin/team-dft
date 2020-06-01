@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1077</width>
-    <height>816</height>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -884,15 +884,15 @@ p, li { white-space: pre-wrap; }
     <item row="3" column="2">
      <widget class="QToolBox" name="page_rad_diagnose_tools">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_rad_diagnose__tools_orientation">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>225</width>
-         <height>35</height>
+         <width>523</width>
+         <height>144</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -943,8 +943,8 @@ color: #4fa08b</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>337</width>
-         <height>35</height>
+         <width>523</width>
+         <height>144</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1029,7 +1029,7 @@ color: #4fa08b</string>
          <x>0</x>
          <y>0</y>
          <width>523</width>
-         <height>149</height>
+         <height>144</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1224,8 +1224,8 @@ color: #4fa08b;</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>243</width>
-         <height>35</height>
+         <width>523</width>
+         <height>144</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1255,7 +1255,7 @@ color: #4fa08b;</string>
            <string>Show Full 3D Volume</string>
           </property>
           <property name="checked">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">page_rad_diagnose_check_group_link</string>
@@ -3212,11 +3212,11 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
   <buttongroup name="page_rad_diagnose_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
  </buttongroups>
 </ui>

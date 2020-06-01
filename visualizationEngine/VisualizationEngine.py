@@ -36,10 +36,6 @@ class VisualizationEngine(object):
     _propTypeKey = None
     _propIDKey = None
 
-    # Interactor styles
-    _imageInteractorStyle = None
-    _volumeInteractorStyle = None
-
     # Slice control
     _masterID = None
     _masterMPR = None
@@ -96,10 +92,6 @@ class VisualizationEngine(object):
         self._propTypeKey = vtk.vtkDataObject().DATA_TYPE_NAME()
         self._propIDKey = keys.MakeKey(keys.StringKey, "ANNOTATION_ID", 'Engine')
 
-        # Set the default interactor styles
-        self._imageInteractorStyle = vtk.vtkInteractorStyleImage()
-        self._volumeInteractorStyle = vtk.vtkInteractorStyleTrackballCamera()
-
     
     ##################################
     ##### Public class functions #####
@@ -134,6 +126,7 @@ class VisualizationEngine(object):
         interactor = vtkWidget.GetRenderWindow().GetInteractor()
 
         if renderer is None:
+            print('new image')
             # Creating image viewer
             image_viewer = vtk.vtkResliceImageViewer()
             image_viewer.SetInputData(self.reader.GetOutput())
@@ -190,6 +183,7 @@ class VisualizationEngine(object):
     #   Notes:
     #       -This initial setup does not do any tissue selection
     def SetupVolumeUI(self, vtkWidget):
+        print('new ivol')
         renderer = vtk.vtkRenderer()
         renderer.GetInformation().Set(self._rendererTypeKey, self._volumeRenderer)
 
@@ -220,7 +214,7 @@ class VisualizationEngine(object):
         camera.SetPosition(c[0] + 1000, c[1], c[2])
         camera.SetViewUp(0, 0, -1)
 
-        interactor.SetInteractorStyle(self._volumeInteractorStyle)
+        interactor.SetInteractorStyle(vtk.vtkInteractorStyleTrackballCamera())
         interactor.Initialize()
 
 

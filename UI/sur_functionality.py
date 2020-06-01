@@ -79,7 +79,7 @@ def view_edit_page_setup(app, ui):
         lambda: change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
                             ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
     ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
-        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen));
+        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen))
     ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
         lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
     # ui.ui_sur.page_sur_view_edit_button_2d_reset.clicked.connect(
@@ -92,6 +92,7 @@ def view_edit_page_setup(app, ui):
         lambda: start_zoom_in(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
     ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.released.connect(
         lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+
     ui.ui_sur.page_sur_view_edit_button_2d_zoom_out.pressed.connect(
         lambda: start_zoom_out(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
     ui.ui_sur.page_sur_view_edit_button_2d_zoom_out.released.connect(
@@ -102,6 +103,7 @@ def view_edit_page_setup(app, ui):
         lambda: start_zoom_in(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
     ui.ui_sur.page_sur_view_edit_button_3d_zoom_in.released.connect(
         lambda: stop_zoom(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+
     ui.ui_sur.page_sur_view_edit_button_3d_zoom_out.pressed.connect(
         lambda: start_zoom_out(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
     ui.ui_sur.page_sur_view_edit_button_3d_zoom_out.released.connect(

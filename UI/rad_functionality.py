@@ -76,13 +76,20 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_diagnose_button_back.clicked.connect(lambda: go_back_from_diagnose_page(app, ui))
     ui.ui_rad.page_rad_diagnose_button_preview_report.clicked.connect(lambda: go_to_report_page(app, ui))
-    ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
-                                                                                              ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(
+        lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
+                            ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
     # ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
     ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
+
+    # Windows full vs split
+    ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
+        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen))
+    ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
+        lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
 
     # 2D image color
     ui.ui_rad.page_rad_diagnose_2d_slider_color_window.valueChanged.connect(
@@ -90,17 +97,24 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_2d_slider_color_level.valueChanged.connect(
         lambda: change_image_color(app, ui, ui.ui_rad.page_rad_diagnose_2d_view))
 
-    ui.ui_rad.page_rad_diagnose_radio_group_orientation.buttonClicked.connect(lambda: change_slice_orientation(app, ui, ui.ui_rad.page_rad_diagnose_radio_group_orientation,
-                                                                                         ui.ui_rad.page_rad_diagnose_2d_view))
-    ui.ui_rad.page_rad_diagnose_check_group_tissue.buttonClicked.connect(lambda: change_volume_tissue(app, ui, ui.ui_rad.page_rad_diagnose_check_group_tissue,
-                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
-    ui.ui_rad.page_rad_diagnose_check_group_link.buttonClicked.connect(lambda: change_link_configuration(app, ui, ui.ui_rad.page_rad_diagnose_check_group_link))
-    ui.ui_rad.page_rad_diagnose_slider_transparency_volume.valueChanged.connect(lambda: change_volume_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_volume,
-                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
-    ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation.valueChanged.connect(lambda: change_segmentation_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation,
-                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
-    ui.ui_rad.page_rad_diagnose_slider_transparency_active.valueChanged.connect(lambda: change_segment_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_active,
-                                                                                         ui.ui_rad.page_rad_diagnose_3d_view))
+    # Advanced options
+    ui.ui_rad.page_rad_diagnose_radio_group_orientation.buttonClicked.connect(
+        lambda: change_slice_orientation(app, ui, ui.ui_rad.page_rad_diagnose_radio_group_orientation,
+                                         ui.ui_rad.page_rad_diagnose_2d_view))
+    ui.ui_rad.page_rad_diagnose_check_group_tissue.buttonClicked.connect(
+        lambda: change_volume_tissue(app, ui, ui.ui_rad.page_rad_diagnose_check_group_tissue,
+                                     ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_check_group_link.buttonClicked.connect(
+        lambda: change_link_configuration(app, ui, ui.ui_rad.page_rad_diagnose_check_group_link))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_volume.valueChanged.connect(
+        lambda: change_volume_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_volume,
+                                           ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation.valueChanged.connect(
+        lambda: change_segmentation_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_segmentation,
+                                                 ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_slider_transparency_active.valueChanged.connect(
+        lambda: change_segment_transparency(app, ui, ui.ui_rad.page_rad_diagnose_slider_transparency_active,
+                                            ui.ui_rad.page_rad_diagnose_3d_view))
 
     # Zooming buttons 2D
     ui.ui_rad.page_rad_diagnose_button_2d_zoom_in.pressed.connect(
@@ -259,11 +273,15 @@ def go_to_report_page(app, ui):
 
 def unlink_views(app, ui):
     if isinstance(ui.ui_rad.page_rad_view_only_2d_view, QVTKRenderWindowInteractor):
-        change_link(app, ui, ui.ui_rad.page_rad_view_only_button_link_windows,
-                    ui.ui_rad.page_rad_view_only_2d_view, force="Deactivate\n2D-3D Link")
+        if app.visEngine.LinkedAsMaster(ui.ui_rad.page_rad_view_only_2d_view):
+            print("view linked as")
+            change_link(app, ui, ui.ui_rad.page_rad_view_only_button_link_windows,
+                        ui.ui_rad.page_rad_view_only_2d_view, force="Deactivate\n2D-3D Link")
     if isinstance(ui.ui_rad.page_rad_diagnose_2d_view, QVTKRenderWindowInteractor):
-        change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
-                    ui.ui_rad.page_rad_diagnose_2d_view, force="Deactivate\n2D-3D Link")
+        if app.visEngine.LinkedAsMaster(ui.ui_rad.page_rad_diagnose_2d_view):
+            print("diag linked as")
+            change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
+                        ui.ui_rad.page_rad_diagnose_2d_view, force="Deactivate\n2D-3D Link")
 
 def add_impression(app, ui):
     if ui.ui_rad.page_rad_diagnose_insert_impression.toPlainText() != "":
@@ -434,6 +452,7 @@ def lock_screen(ui):
 
 # Changes the 2D window slice orientation to AXIAL, SAGITALL or CORONAL
 def change_slice_orientation(app, ui, group, widget):
+    ui.status_bar.showMessage("Changing slice orientation, please wait...")
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     current_annots = []
     current_measurs =  []
@@ -455,15 +474,24 @@ def change_slice_orientation(app, ui, group, widget):
     # Recreate slaves
     if slaves is not None:
         app.visEngine.LinkWindows(widget, slaves)
+    ui.status_bar.clearMessage()
 
 
 # Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
-    tissues = []
-    for button in group.buttons():
-        if button.isChecked():
-            tissues += [button.text()]
-    app.visEngine.SetTissue(widget, tissues)
+    if group.checkedButton() is None:
+        app.visEngine.SetTissue(widget, [])
+    elif group.checkedButton().text() == "ALL":
+        for button in group.buttons():
+            if button.text() != "ALL": button.setChecked(False)
+        app.visEngine.SetTissue(widget, ["ALL"])
+    else:
+        ui.ui_rad.checkBox_All.setChecked(False)
+        tissues = []
+        for button in group.buttons():
+            if button.isChecked():
+                tissues += [button.text()]
+        app.visEngine.SetTissue(widget, tissues)
 
 
 def change_volume_transparency(app, ui, slider, widget):
@@ -510,9 +538,18 @@ def go_to_next_annot(app, ui, widget_2d, widget_3d):
     else:
         next_annot_idx = annots.index(active_annot) + 1
         if len(annots) == next_annot_idx: next_annot_idx = 0
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[next_annot_idx])
+    next_annot = annots[next_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_2d)
+        app.visEngine.AddSegmentations(widget_2d, [next_annot])
+        app.visEngine.AddMeasurements(widget_2d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_3d)
+        app.visEngine.AddSegmentations(widget_3d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    measurement = app.visEngine.GetSliceMeasurement(widget_2d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation() + ", volume: " + str(measurement) + " mm3")
 
 
 # Focus the windows on the previous annotation on the report
@@ -526,9 +563,18 @@ def go_to_previous_annot(app, ui, widget_2d, widget_3d):
     else:
         prev_annot_idx = annots.index(active_annot) - 1
         if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
-    app.visEngine.SetActiveAnnotation(annots[prev_annot_idx])
+    next_annot = annots[prev_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_2d)
+        app.visEngine.AddSegmentations(widget_2d, [next_annot])
+        app.visEngine.AddMeasurements(widget_2d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        app.visEngine.RemoveAllAnnotations(widget_3d)
+        app.visEngine.AddSegmentations(widget_3d, [next_annot])
+        app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    measurement = app.visEngine.GetSliceMeasurement(widget_2d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation() + ", volume: " + str(measurement) + " mm3")
 
 
 # Offer zoom functionality to the widgets
@@ -551,6 +597,73 @@ def stop_image_slice(app, ui, widget):
 
 
 # Animate the 2D window slices
-def toggle_animation(app, ui, widget):
+def toggle_animation(app, ui, button, widget):
+    pause_str = "Pause Slices"
+    play_str = "Play Slices"
+    if button.text() == pause_str:
+        button.setText(play_str)
+        button.setIcon(QIcon("UI\icons\\play.png"))
+        button.setToolTip("Play slice animation ")
+    elif button.text() == play_str:
+        button.setText(pause_str)
+        button.setIcon(QIcon("UI\icons\\pause.png"))
+        button.setToolTip("Pause slice animation")
     app.visEngine.ToggleSliceAnnimation(widget)
+
+
+# Toggle advanced setting on the app
+def toggleSettings(app, ui, button):
+    hide_str = "Hide Advanced Tools"
+    show_str = "Show Advanced Tools"
+    if button.text() == hide_str:
+        button.setText(show_str)
+        ui.ui_rad.page_rad_diagnose_tools.hide()
+        button.setToolTip("Show advanced functionality for image manipulation")
+    elif button.text() == show_str:
+        button.setText(hide_str)
+        ui.ui_rad.page_rad_diagnose_tools.show()
+        button.setToolTip("Hide advanced functionality for image manipulation")
+
+
+# Toggle 3D view spilt screen
+def toggle3DSplit(app, ui, button):
+    full_str = "3D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 3D view")
+        ui.ui_rad.page_rad_diagnose_2d_view_frame.show()
+        ui.ui_rad.page_rad_diagnose_2d_slider_color_window.show()
+        ui.ui_rad.page_rad_diagnose_2d_slider_color_level.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_rad.page_rad_diagnose_2d_view_frame.hide()
+        ui.ui_rad.page_rad_diagnose_2d_slider_color_window.hide()
+        ui.ui_rad.page_rad_diagnose_2d_slider_color_level.hide()
+
+
+# Toggle 2D view spilt screen
+def toggle2DSplit(app, ui, button):
+    full_str = "2D Full Screen"
+    half_str = "Split Screen"
+    if button.text() == half_str:
+        button.setText(full_str)
+        button.setIcon(QIcon("UI\icons\\full_screen.png"))
+        button.setToolTip("Expand 2D view")
+        ui.ui_rad.page_rad_diagnose_3d_view_frame.show()
+    elif button.text() == full_str:
+        button.setText(half_str)
+        button.setIcon(QIcon("UI\icons\\restore.png"))
+        button.setToolTip("Return to split view")
+        ui.ui_rad.page_rad_diagnose_3d_view_frame.hide()
+
+
+# Reset the camera on the views
+def resetView(app, ui, widget):
+    [w, l] = app.visEngine.ResetWidgetCamera(widget)
+    if w: ui.ui_rad.page_rad_diagnose_2d_slider_color_window.setValue(w)
+    if l: ui.ui_rad.page_rad_diagnose_2d_slider_color_level.setValue(l)
 
