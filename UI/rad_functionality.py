@@ -85,11 +85,11 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_add_annotation.clicked.connect(lambda: add_annotation(app, ui))
     ui.ui_rad.page_rad_diagnose_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
 
-    # Windows full vs split
-    ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
-        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen))
-    ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
-        lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
+    # Windows full vs split (rad diagnose)
+    ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(
+        lambda: toggle2DSplit(app, ui, ui.ui_rad.page_rad_diagnose_button_2d_fullscreen))
+    ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(
+        lambda: toggle3DSplit(app, ui, ui.ui_rad.page_rad_diagnose_button_3d_fullscreen))
 
     # 2D image color
     ui.ui_rad.page_rad_diagnose_2d_slider_color_window.valueChanged.connect(
