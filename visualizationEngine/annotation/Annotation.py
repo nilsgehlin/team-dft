@@ -11,16 +11,15 @@ class Annotation(vtkInformation):
     
     # vtkCompatibility
     _annotInstance = None
-
     _dataTypeName = "ANNOTATION"
-
     _locationKey = None
-
     _vtkKey = None
 
+    # Optimization
     _segmentData = None
-
     _measurement = None
+    _imageActor = None
+    _volume = None
 
     # Clinical
     _anatomicalLocation = None
@@ -158,6 +157,14 @@ class Annotation(vtkInformation):
     # Return the measurement
     def GetMeasurement(self):
         return self._measurement
+
+    # Add volume actor to anotation, only for speed optimization
+    def AddVolume(self, volume):
+        self._volume = volume
+
+    # Return the volume actor
+    def GetVolume(self):
+        return self._volume
 
     # Get this annotation's key for engine functionality
     def GetVtkKey(self):

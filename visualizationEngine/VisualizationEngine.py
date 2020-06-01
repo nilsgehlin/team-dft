@@ -122,8 +122,6 @@ class VisualizationEngine(object):
         return self._dir
 
 
-
-
     # Sets up a 2D image window for the given widget
     #   Parameters: 
     #       1. vtkWidget, 
@@ -224,8 +222,6 @@ class VisualizationEngine(object):
 
         interactor.SetInteractorStyle(self._volumeInteractorStyle)
         interactor.Initialize()
-
-
 
 
 
@@ -434,10 +430,13 @@ class VisualizationEngine(object):
                     segment_image_actor = self.__CreateSegmentationActor(segment_array, segment_color, segment_id)
                     renderer.AddActor(segment_image_actor)
                     viewer = self.imageViewers[renderer_info.Get(self._rendererNumKey)]
-                    self.__on_slice_change(viewer, "None")           
+                    self.__on_slice_change(viewer, "None")
         
                 elif renderer_info.Get(self._rendererTypeKey) == self._volumeRenderer:
-                    volume = self.__CreateSegmentationVolume(segment_array, segment_color, segment_id)
+                    volume = annot.GetVolume()
+                    if volume is None:
+                        volume = self.__CreateSegmentationVolume(segment_array, segment_color, segment_id)
+                        annot.AddVolume(volume)
                     renderer.AddViewProp(volume)
                     widget.GetRenderWindow().Render()
 
@@ -951,8 +950,7 @@ class VisualizationEngine(object):
         volumes = renderer.GetVolumes()
         volumes.InitTraversal()
         volumes.GetNextVolume().GetMapper().CroppingOff()
-        
-        # if (self._showActiveSlice):
+
         props = renderer.GetViewProps()
         for prop in props:
             prop_property = prop.GetPropertyKeys()
@@ -1135,7 +1133,7 @@ class VisualizationEngine(object):
         lookupTable.SetNumberOfTableValues(2)
         lookupTable.SetRange(0.0, 1.0)
         lookupTable.SetTableValue(0, 1.0, 0.0, 0.0, 0.0)  # label 0 is transparent
-        lookupTable.SetTableValue(1, color+[1.0])  # label 1 is opaque
+        lookupTable.SetTableValue(1, color+[1.0])  # label scalar is opaque
         lookupTable.Build()
 
         mapTransparency = vtk.vtkImageMapToColors()
@@ -1161,7 +1159,7 @@ class VisualizationEngine(object):
     def __CreateSegmentationVolume(self, segmentation, color, ID):
         r, c, d = segmentation.shape
 
-        # Copnvert numpy array to a vtkArray
+        # Convert numpy array to a vtkArray
         segmentation = segmentation.transpose(2,1,0)
         segment_data_array = numpy_support.numpy_to_vtk(segmentation.ravel(), deep=True)
         segment_data_array.SetNumberOfComponents(1)

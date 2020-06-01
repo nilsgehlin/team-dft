@@ -384,7 +384,7 @@ QTabBar::tab:selected, QTabBar::tab:last:selected, QTabBar::tab:hover{
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(79,160,139, 50), stop:1 rgba(79,160,139, 50));
 }
 QCheckBox {
-	color: #000000;
+	color: #277863;
 	padding: 2px;
 }
 QCheckBox:disabled {
@@ -408,9 +408,12 @@ QCheckBox::indicator:checked {
 	width: 10px;
 	border-style:solid;
 	border-width: 1px;
-	border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
-	color: #000000;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
+	border-color: #277863;
+	color: #277863;
+	background-color:#4fa08b;
+	/* border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
+	/* color: #000000; */
+	/* background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
 }
 QCheckBox::indicator:unchecked {
 
@@ -418,11 +421,13 @@ QCheckBox::indicator:unchecked {
 	width: 10px;
 	border-style:solid;
 	border-width: 1px;
-	border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
-	color: #000000;
+	border-color: #277863;
+	color: #277863;
+	/* border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
+	/* color: #000000; */
 }
 QRadioButton {
-	color: 000000;
+	color: #277863;
 	padding: 1px;
 }
 QRadioButton::indicator:checked {
@@ -431,9 +436,12 @@ QRadioButton::indicator:checked {
 	border-style:solid;
 	border-radius:5px;
 	border-width: 1px;
-	border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
-	color: #a9b7c6;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
+	border-color: #277863;
+	color: #277863;
+	background-color:#4fa08b;
+	/* border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
+	/* color: #a9b7c6; */
+	/* background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
 }
 QRadioButton::indicator:!checked {
 	height: 10px;
@@ -441,8 +449,10 @@ QRadioButton::indicator:!checked {
 	border-style:solid;
 	border-radius:5px;
 	border-width: 1px;
-	border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255));
-	color: #a9b7c6;
+	border-color: #277863;
+	color: #277863;
+	/* border-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(0, 113, 255, 255), stop:1 rgba(91, 171, 252, 255)); */
+	/* color: #a9b7c6; */
 	background-color: transparent;
 }
 QStatusBar {
@@ -475,16 +485,20 @@ QDateEdit {
 }
 
 QToolBox {
-	color: #a9b7c6;
-	background-color:#000000;
+	/* color: #a9b7c6; */
+	background-color:rgba(0,0,0,0);
 }
 QToolBox::tab {
-	color: #a9b7c6;
-	background-color:#000000;
+	color: rgb(39,120,99);
+	background-color:rgba(0,0,0,0);
+	border-width: 0px;
+	/* color: #a9b7c6; */
 }
 QToolBox::tab:selected {
-	color: #FFFFFF;
-	background-color:#000000;
+	color: rgb(39,120,99);
+	padding: 2px;
+	background-color: rgba(79,160,139, 50);
+	/* color: #FFFFFF; */
 }
 QScrollArea {
 	color: #FFFFFF;

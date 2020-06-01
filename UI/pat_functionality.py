@@ -1,13 +1,8 @@
-from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 import os
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from reportGeneration.Report import Report
-
-import UI.patient
-import visualizationEngine.annotation.Annotation
-
 
 # SETUP FUNCTIONS #
 
@@ -17,18 +12,6 @@ def setup_functionality(app, ui):
     my_profile_page_setup(ui)
     image_status_page_setup(app, ui)
     view_scan_page_setup(app, ui)
-
-
-# DEPRECATED
-# def home_page_setup(app, ui):
-#     add_errands(app, ui)
-
-#     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-#     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
-#     ui.ui_pat.page_pat_home_button_proceed.clicked.connect(lambda: go_to_errand_page(app, ui))
-#     ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemClicked.connect(lambda: ui.ui_pat.page_pat_home_button_proceed.setEnabled(True))
-#     ui.ui_pat.page_pat_home_treeWidget_treatment_list.itemDoubleClicked.connect(
-#         lambda: go_to_errand_page(app, ui))
 
 
 def home_page_setup(app, ui):
@@ -43,7 +26,6 @@ def home_page_setup(app, ui):
     ui.ui_pat.page_pat_home_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_pat.page_pat_home_button_my_profile.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_my_profile))
     ui.ui_pat.page_pat_home_button_view_status.clicked.connect(lambda: change_page(ui, ui.ui_pat.page_pat_image_status)) # TODO
-    # ui.ui_pat.page_pat_home_button_share.clicked.connect() # TODO
     # ui.ui_pat.page_pat_home_button_download.clicked.connect() # TODO
     ui.ui_pat.page_pat_home_button_view.clicked.connect(lambda: go_to_view_scan_page(app, ui))
     ui.ui_pat.page_pat_home_treeWidget_errand_list.itemClicked.connect(lambda: select_item(app, ui))
@@ -171,11 +153,15 @@ def go_to_view_scan_page(app, ui):
 
         # Add all annotations to the viewers
         ui.ui_pat.page_pat_home_progress_bar.setValue(30)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(60)
-        app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
+        # app.visEngine.AddMeasurements(ui.ui_pat.page_pat_view_scan_2d_view, errand.annotations)
         ui.ui_pat.page_pat_home_progress_bar.setValue(90)
-        app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+        # app.visEngine.AddSegmentations(ui.ui_pat.page_pat_view_scan_3d_view, errand.annotations)
+
+        # Reset the views
+        resetView(app, ui, ui.ui_pat.page_pat_view_scan_2d_view)
+        resetView(app, ui, ui.ui_pat.page_pat_view_scan_3d_view)
 
     ui.ui_pat.page_pat_view_scan_rad_annotations.load_report(template_name="patient",
                                                              patient=app.pat_dict[app.current_pat_id],
@@ -183,7 +169,7 @@ def go_to_view_scan_page(app, ui):
                                                              vtk_widget_2d=ui.ui_pat.page_pat_view_scan_2d_view,
                                                              vtk_widget_3d=ui.ui_pat.page_pat_view_scan_3d_view,
                                                              vis_engine=app.visEngine,
-                                                             status_bar = ui.status_bar)
+                                                             status_bar=ui.status_bar)
     ui.ui_pat.page_pat_home_progress_bar.setValue(100)
     ui.ui_pat.page_pat_home_progress_bar.hide()
 
@@ -347,9 +333,17 @@ def go_to_next_annot(app, ui, widget_2d, widget_3d):
     else:
         next_annot_idx = annots.index(active_annot) + 1
         if len(annots) == next_annot_idx: next_annot_idx = 0
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[next_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[next_annot_idx])
-    ui.status_bar.showMessage("Active finding: " + annots[next_annot_idx].GetLocation())
+    next_annot = annots[next_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        if app.visEngine.HasAnnotation(widget_3d, next_annot):
+            pass
+        else:
+            app.visEngine.RemoveAnnotations(widget_3d, [next_annot])
+            app.visEngine.AddSegmentations(widget_3d, [next_annot])
+            app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation())
 
 
 # Focus the windows on the previous annotation on the report
@@ -363,8 +357,18 @@ def go_to_previous_annot(app, ui, widget_2d, widget_3d):
     else:
         prev_annot_idx = annots.index(active_annot) - 1
         if prev_annot_idx < 0: prev_annot_idx = len(annots) - 1
-    if widget_2d is not None: app.visEngine.GoToAnnotation(widget_2d, annots[prev_annot_idx])
-    if widget_3d is not None: app.visEngine.GoToAnnotation(widget_3d, annots[prev_annot_idx])
+    next_annot = annots[prev_annot_idx]
+    if widget_2d is not None:
+        app.visEngine.GoToAnnotation(widget_2d, next_annot)
+    if widget_3d is not None:
+        if app.visEngine.HasAnnotation(widget_3d, next_annot):
+            pass
+        else:
+            app.visEngine.RemoveAnnotations(widget_3d, [next_annot])
+            app.visEngine.AddSegmentations(widget_3d, [next_annot])
+            app.visEngine.GoToAnnotation(widget_3d, next_annot)
+    ui.status_bar.showMessage("Active finding: " + next_annot.GetLocation())
+
 
 
 # Offer zoom functionality to the widgets
