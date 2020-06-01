@@ -281,11 +281,17 @@ def change_slice_orientation(app, ui, group, widget):
 
 # Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
-    tissues = []
-    for button in group.buttons():
-        if button.isChecked():
-            tissues += [button.text()]
-    app.visEngine.SetTissue(widget, tissues)
+    if group.checkedButton().text() == "ALL":
+        for button in group.buttons():
+            if button.text() != "ALL": button.setChecked(False)
+        app.visEngine.SetTissue(widget, ["ALL"])
+    else:
+        ui.ui_pat.checkBox_All.setChecked(False)
+        tissues = []
+        for button in group.buttons():
+            if button.isChecked():
+                tissues += [button.text()]
+        app.visEngine.SetTissue(widget, tissues)
 
 
 def change_volume_transparency(app, ui, slider, widget):
