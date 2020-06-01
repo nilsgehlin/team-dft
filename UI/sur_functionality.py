@@ -78,14 +78,14 @@ def view_edit_page_setup(app, ui):
     ui.ui_sur.page_sur_view_edit_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_sur.page_sur_view_edit_button_link_windows,
                             ui.ui_sur.page_sur_view_edit_2d_view, ui.ui_sur.page_sur_view_edit_3d_view))
-    ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
-        lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen))
-    ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
-        lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
-    # ui.ui_sur.page_sur_view_edit_button_2d_reset.clicked.connect(
-    #     lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
-    # ui.ui_sur.page_sur_view_edit_button_3d_reset.clicked.connect(
-    #     lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
+    # ui.ui_sur.page_sur_view_edit_button_2d_fullscreen.clicked.connect(
+    #     lambda: toggle2DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_2d_fullscreen))
+    # ui.ui_sur.page_sur_view_edit_button_3d_fullscreen.clicked.connect(
+    #     lambda: toggle3DSplit(app, ui, ui.ui_sur.page_sur_view_edit_button_3d_fullscreen))
+    ui.ui_sur.page_sur_view_edit_button_2d_reset.clicked.connect(
+        lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_2d_view))
+    ui.ui_sur.page_sur_view_edit_button_3d_reset.clicked.connect(
+        lambda: resetView(app, ui, ui.ui_sur.page_sur_view_edit_3d_view))
 
     # Zooming buttons 2D
     ui.ui_sur.page_sur_view_edit_button_2d_zoom_in.pressed.connect(
@@ -191,10 +191,10 @@ def go_to_view_edit_page(app, ui):
         # Setup UI
         ui.ui_sur.page_sur_patient_errand_progress_bar.setValue(5)
         ui.ui_sur.page_sur_view_edit_2d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_2d_view_frame)
-        ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 4)
+        ui.ui_sur.page_sur_view_edit_2d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_2d_view, 1, 0, 1, 8)
 
         ui.ui_sur.page_sur_view_edit_3d_view = QVTKRenderWindowInteractor(ui.ui_sur.page_sur_view_edit_3d_view_frame)
-        ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 1, 0, 1, 4)
+        ui.ui_sur.page_sur_view_edit_3d_view_frame_grid.addWidget(ui.ui_sur.page_sur_view_edit_3d_view, 1, 0, 1, 5)
 
         app.current_errand_id = ui.ui_sur.page_sur_patient_errand_errand_list.currentItem().text(0)
 

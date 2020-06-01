@@ -1,0 +1,72 @@
+{
+    "id": "0000",
+    "password": "0000",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "age": 26,
+    "sex": "F",
+    "errands": [
+        {
+            "order_id": "0",
+            "date": "2020-01-01",
+            "status": "Complete",
+            "scan": "CT",
+            "clinic": "GP",
+            "task": "TASK??",
+            "data_dir": "sample_dicom/chestDICOM",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "69ca9b5c5f8b498fb71f3347806a306b",
+                    "location": "Upper body",
+                    "finding": "The blood running through the body",
+                    "color": [
+                        51,
+                        0,
+                        102
+                    ],
+                    "coordinate": [
+                        270,
+                        188,
+                        23
+                    ],
+                    "isSegment": true
+                },
+                {
+                    "id": "34836bb18ef34e949eb266bd4d685afa",
+                    "location": "Stomach",
+                    "finding": "Left kidney",
+                    "color": [
+                        229,
+                        127,
+                        204
+                    ],
+                    "coordinate": [
+                        306,
+                        170,
+                        71
+                    ],
+                    "isSegment": true
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "Dr. Bruce, Radiology, Stanford Medicine",
+                    "impression": "Patient looks healthy"
+                }
+            ]
+        },
+        {
+            "order_id": "1",
+            "date": "2020-03-03",
+            "status": "Pending",
+            "scan": "MRI",
+            "clinic": "Hospital",
+            "task": "TASK??",
+            "data_dir": "sample_dicom/chestDICOM",
+            "report": null,
+            "annotations": [],
+            "impressions": []
+        }
+    ]
+}

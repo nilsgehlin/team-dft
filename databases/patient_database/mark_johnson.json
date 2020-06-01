@@ -10,10 +10,10 @@
             "order_id": "0",
             "date": "2019-12-12",
             "status": "Pending",
-            "scan": "MRI",
+            "scan": "CT",
             "clinic": "MRI clinic",
-            "task": "TASK??",
-            "data_dir": "sample_dicom/MRI_brain_tumor",
+            "task": "Chest scan",
+            "data_dir": "sample_dicom/chestDICOM",
             "report": null,
             "annotations": [],
 			"impressions": []

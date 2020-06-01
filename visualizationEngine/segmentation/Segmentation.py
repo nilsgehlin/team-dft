@@ -41,7 +41,13 @@ class Segmentation:
         """
         # Attribute initializationss
         if color is None:
-            self.color = (round(random.random(),1), round(random.random(),1), round(random.random(),1))
+            color_list = []
+            color_list += [round(random.uniform(0.0, 1.0), 2)]
+            color_list += [round(random.uniform(0.65, 1.0), 2)]
+            color_list += [round(random.uniform(0.0, 0.35), 2)]
+            random.shuffle(color_list)
+            self.color = (color_list[0], color_list[1], color_list[2])
+
         else:
             self.color = color
         self.segmentation = np.zeros_like(volume, dtype=np.bool)

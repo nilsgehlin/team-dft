@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1180</width>
+    <width>1235</width>
     <height>806</height>
    </rect>
   </property>
@@ -18,263 +18,24 @@
   </property>
   <widget class="QWidget" name="page_sur_view_edit">
    <layout class="QGridLayout" name="gridLayout_4">
-    <item row="1" column="8" rowspan="3">
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QToolButton" name="page_sur_view_edit_button_link_windows">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Toggle link between 2D and 3D views to track slice location</string>
-        </property>
-        <property name="text">
-         <string>Activate
-2D-3D Link</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/unlink.png</normaloff>icons/unlink.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="9" rowspan="3">
-     <layout class="QGridLayout" name="page_sur_view_edit_3d_layout">
-      <item row="1" column="0" colspan="4">
-       <widget class="QFrame" name="page_sur_view_edit_3d_view_frame">
-        <property name="minimumSize">
-         <size>
-          <width>350</width>
-          <height>250</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Click and drag to move the volume. Scroll to zoom in and out of the volume</string>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 0, 0);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <property name="lineWidth">
-         <number>0</number>
-        </property>
-        <layout class="QGridLayout" name="page_sur_view_edit_3d_view_frame_grid">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="1" column="0" colspan="4">
-          <widget class="QWidget" name="page_sur_view_edit_3d_view" native="true">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QToolButton" name="page_sur_view_edit_button_3d_zoom_in">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Zoom in on 3D view</string>
-           </property>
-           <property name="text">
-            <string>Zoom In</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="page_sur_view_edit_button_3d_zoom_out">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Zoom out on 3D view</string>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Zoom Out</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="page_sur_view_edit_button_3d_fullscreen">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Expand 3D view</string>
-           </property>
-           <property name="text">
-            <string>3D Full Screen</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="9">
-     <widget class="QToolButton" name="page_sur_view_edit_button_logout">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>105</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Logout</string>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>   Logout</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle">
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0" rowspan="4">
      <layout class="QGridLayout" name="gridLayout_5">
+      <item row="4" column="1" colspan="2">
+       <widget class="QToolButton" name="page_sur_view_edit_button_tools">
+        <property name="toolTip">
+         <string>Show advanced functionality for image manipulation</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(255, 255, 255,0)</string>
+        </property>
+        <property name="text">
+         <string>Show Advanced Tools</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="0">
        <widget class="QToolButton" name="page_sur_view_edit_button_back">
         <property name="sizePolicy">
@@ -501,50 +262,6 @@
         </widget>
        </widget>
       </item>
-      <item row="4" column="3">
-       <widget class="QToolButton" name="page_sur_view_edit_button_save_report">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Save report changes</string>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border: none;</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_note">
         <property name="minimumSize">
@@ -568,41 +285,6 @@
         <property name="icon">
          <iconset>
           <normaloff>icons/previous_note.png</normaloff>icons/previous_note.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_note">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Go to next finding on the report</string>
-        </property>
-        <property name="text">
-         <string>Next Note</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/next_note.png</normaloff>icons/next_note.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -657,8 +339,52 @@
         </layout>
        </widget>
       </item>
-      <item row="0" column="3">
-       <spacer name="horizontalSpacer_12">
+      <item row="4" column="3">
+       <widget class="QToolButton" name="page_sur_view_edit_button_save_report">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Save report changes</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_11">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -673,8 +399,8 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_11">
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_12">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -708,7 +434,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>364</width>
+           <width>387</width>
            <height>69</height>
           </rect>
          </property>
@@ -771,7 +497,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>364</width>
+           <width>433</width>
            <height>69</height>
           </rect>
          </property>
@@ -858,8 +584,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>347</width>
-           <height>63</height>
+           <width>416</width>
+           <height>73</height>
           </rect>
          </property>
          <property name="toolTip">
@@ -1065,7 +791,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>364</width>
+           <width>433</width>
            <height>69</height>
           </rect>
          </property>
@@ -1115,19 +841,78 @@
         </widget>
        </widget>
       </item>
-      <item row="4" column="1" colspan="2">
-       <widget class="QToolButton" name="page_sur_view_edit_button_tools">
+      <item row="0" column="2">
+       <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_note">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="toolTip">
-         <string>Show advanced functionality for image manipulation</string>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgba(255, 255, 255,0)</string>
+         <string>Go to next finding on the report</string>
         </property>
         <property name="text">
-         <string>Show Advanced Tools</string>
+         <string>Next Note</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/next_note.png</normaloff>icons/next_note.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="8" rowspan="3">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QToolButton" name="page_sur_view_edit_button_link_windows">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Toggle link between 2D and 3D views to track slice location</string>
+        </property>
+        <property name="text">
+         <string>Activate
+2D-3D Link</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/unlink.png</normaloff>icons/unlink.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
         </property>
        </widget>
       </item>
@@ -1135,16 +920,16 @@
     </item>
     <item row="1" column="7" rowspan="3">
      <layout class="QGridLayout" name="page_sur_view_edit_2d_layout">
-      <item row="1" column="0">
-       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_window">
+      <item row="2" column="1" colspan="5">
+       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_level">
         <property name="toolTip">
-         <string>Slide to change 2D image color window</string>
+         <string>Slide to change 2D image color level</string>
         </property>
         <property name="minimum">
-         <number>-6000</number>
+         <number>-5000</number>
         </property>
         <property name="maximum">
-         <number>12000</number>
+         <number>5000</number>
         </property>
         <property name="singleStep">
          <number>100</number>
@@ -1153,10 +938,16 @@
          <number>500</number>
         </property>
         <property name="value">
-         <number>1800</number>
+         <number>-170</number>
         </property>
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -1240,41 +1031,6 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_fullscreen">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Expand 2D view</string>
-           </property>
-           <property name="text">
-            <string>2D Full Screen</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="1">
           <widget class="QToolButton" name="page_sur_view_edit_button_2d_zoom_in">
            <property name="minimumSize">
@@ -1310,8 +1066,8 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="6">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_slice">
+         <item row="0" column="3">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_fullscreen">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -1325,14 +1081,14 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Go to next slice. Hold to keep scrolling</string>
+            <string>Expand 2D view</string>
            </property>
            <property name="text">
-            <string>Next Slice</string>
+            <string>2D Full Screen</string>
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
+             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -1346,41 +1102,6 @@
           </widget>
          </item>
          <item row="0" column="5">
-          <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_pause">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Play slice animation</string>
-           </property>
-           <property name="text">
-            <string>Play Slices</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle">
-            <enum>Qt::ToolButtonIconOnly</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
           <widget class="QToolButton" name="page_sur_view_edit_button_2d_previous_slice">
            <property name="minimumSize">
             <size>
@@ -1396,6 +1117,9 @@
            </property>
            <property name="toolTip">
             <string>Go to previous slice. Hold to keep scrolling</string>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
            </property>
            <property name="text">
             <string>Previous Slice</string>
@@ -1415,6 +1139,82 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="7">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_next_slice">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Go to next slice. Hold to keep scrolling</string>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
+           </property>
+           <property name="text">
+            <string>Next Slice</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/next_slice.png</normaloff>icons/next_slice.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_play_pause">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Play slice animation</string>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
+           </property>
+           <property name="text">
+            <string>Play Slices</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="0" colspan="8">
           <widget class="QWidget" name="page_sur_view_edit_2d_view" native="true">
            <property name="styleSheet">
@@ -1422,32 +1222,51 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
-          <spacer name="horizontalSpacer_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+         <item row="0" column="2">
+          <widget class="QToolButton" name="page_sur_view_edit_button_2d_reset">
+           <property name="minimumSize">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>30</width>
+             <height>30</height>
             </size>
            </property>
-          </spacer>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Reset view - 2D</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
-      <item row="2" column="1" colspan="5">
-       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_level">
+      <item row="1" column="0">
+       <widget class="QSlider" name="page_sur_view_edit_2d_slider_color_window">
         <property name="toolTip">
-         <string>Slide to change 2D image color level</string>
+         <string>Slide to change 2D image color window</string>
         </property>
         <property name="minimum">
-         <number>-5000</number>
+         <number>-6000</number>
         </property>
         <property name="maximum">
-         <number>5000</number>
+         <number>12000</number>
         </property>
         <property name="singleStep">
          <number>100</number>
@@ -1456,21 +1275,262 @@
          <number>500</number>
         </property>
         <property name="value">
-         <number>-170</number>
+         <number>1800</number>
         </property>
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>true</bool>
-        </property>
-        <property name="invertedControls">
-         <bool>true</bool>
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="9">
+     <widget class="QToolButton" name="page_sur_view_edit_button_logout">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>105</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>Logout</string>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>   Logout</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextBesideIcon</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="9" rowspan="3">
+     <layout class="QGridLayout" name="page_sur_view_edit_3d_layout">
+      <item row="1" column="0" colspan="4">
+       <widget class="QFrame" name="page_sur_view_edit_3d_view_frame">
+        <property name="minimumSize">
+         <size>
+          <width>350</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Click and drag to move the volume. Scroll to zoom in and out of the volume</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <layout class="QGridLayout" name="page_sur_view_edit_3d_view_frame_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QToolButton" name="page_sur_view_edit_button_3d_zoom_out">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Zoom out on 3D view</string>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Zoom Out</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/zoom_out.png</normaloff>icons/zoom_out.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QToolButton" name="page_sur_view_edit_button_3d_fullscreen">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Expand 3D view</string>
+           </property>
+           <property name="text">
+            <string>3D Full Screen</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/full_screen.png</normaloff>icons/full_screen.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QToolButton" name="page_sur_view_edit_button_3d_zoom_in">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Zoom in on 3D view</string>
+           </property>
+           <property name="text">
+            <string>Zoom In</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/zoom_in.png</normaloff>icons/zoom_in.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="5">
+          <widget class="QWidget" name="page_sur_view_edit_3d_view" native="true">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QToolButton" name="page_sur_view_edit_button_3d_reset">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Reset view - 3D</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_6">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -2239,11 +2299,11 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="page_sur_view_edit_radio_group_orientation"/>
   <buttongroup name="page_sur_view_edit_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="page_sur_view_edit_radio_group_orientation"/>
  </buttongroups>
 </ui>
