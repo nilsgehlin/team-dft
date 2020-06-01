@@ -448,12 +448,14 @@ def change_slice_orientation(app, ui, group, widget):
 
 # Changes the active tissue in a 3D volume
 def change_volume_tissue(app, ui, group, widget):
-    if group.checkedButton().text() == "ALL":
+    if group.checkedButton() is None:
+        app.visEngine.SetTissue(widget, [])
+    elif group.checkedButton().text() == "ALL":
         for button in group.buttons():
             if button.text() != "ALL": button.setChecked(False)
         app.visEngine.SetTissue(widget, ["ALL"])
     else:
-        ui.ui_pat.checkBox_All.setChecked(False)
+        ui.ui_sur.checkBox_All.setChecked(False)
         tissues = []
         for button in group.buttons():
             if button.isChecked():
