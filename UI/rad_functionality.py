@@ -22,9 +22,10 @@ def home_page_setup(app, ui):
     ui.ui_rad.page_rad_home_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
     ui.ui_rad.page_rad_home_button_lock_screen.clicked.connect(lambda: show_lock_screen_popup(ui))
     # ui.ui_rad.page_rad_home_button_view_profile.clicked.connect(lambda: change_page(ui, )) # TODO add profile page
-    ui.ui_rad.page_rad_home_button_proceed.clicked.connect(lambda: go_to_patient_page(app, ui)) # TODO
-    ui.ui_rad.page_rad_home_patient_information.itemClicked.connect(lambda: select_item(ui)) # TODO
-    ui.ui_rad.page_rad_home_patient_information.itemDoubleClicked.connect(lambda: go_to_patient_page(app, ui)) # TODO
+    ui.ui_rad.page_rad_home_button_diagnose.clicked.connect(lambda: go_to_diagnose_page(app, ui)) # TODO
+    ui.ui_rad.page_rad_home_patient_information.itemClicked.connect(lambda: select_item(app, ui)) # TODO
+    ui.ui_rad.page_rad_home_patient_information.itemDoubleClicked.connect(lambda: home_page_double_clicked(app, ui)) # TODO
+    ui.ui_rad.page_rad_home_button_view_scan.clicked.connect(lambda: go_to_view_only_page(app, ui))
 
 
 def patient_page_setup(app, ui):
@@ -160,7 +161,7 @@ def locked_page_setup(ui):
 
 def go_back_from_view_only_page(app, ui):
     unlink_views(app, ui)
-    change_page(ui, ui.ui_rad.page_rad_patient_page)
+    change_page(ui, ui.ui_rad.page_rad_home)
 
 
 def go_back_from_diagnose_page(app, ui):
@@ -172,8 +173,8 @@ def go_back_from_diagnose_page(app, ui):
 
     if ui.prev_page is ui.ui_rad.page_rad_view_only:
         go_to_view_only_page(app, ui)
-    elif ui.prev_page is ui.ui_rad.page_rad_patient_page:
-        go_to_patient_page(app, ui)
+    # elif ui.prev_page is ui.ui_rad.page_rad_patient_page:
+    #     go_to_patient_page(app, ui)
     else:
         change_page(ui, ui.prev_page)
 
@@ -230,7 +231,6 @@ def go_to_view_only_page(app, ui):
 
 
 def go_to_diagnose_page(app, ui):
-
     errand = app.pat_dict[app.current_pat_id].errands[app.current_errand_id]
     if app.visEngine.GetDirectory() is not errand.data_dir or not isinstance(ui.ui_rad.page_rad_diagnose_2d_view,
                                                                              QVTKRenderWindowInteractor):
@@ -270,6 +270,12 @@ def go_to_report_page(app, ui):
 
 
 # HELP FUNCTIONS #
+
+def home_page_double_clicked(app, ui):
+    if ui.ui_rad.page_rad_home_button_diagnose.isEnabled():
+        go_to_diagnose_page(app, ui)
+    else:
+        go_to_view_only_page(app, ui)
 
 def unlink_views(app, ui):
     if isinstance(ui.ui_rad.page_rad_view_only_2d_view, QVTKRenderWindowInteractor):
@@ -431,9 +437,29 @@ def show_send_report_popup(app, ui):
         add_errands(app, ui)  # Update errands list
         change_page(ui, ui.ui_rad.page_rad_home)
 
+def add_patient_profile(app, ui):
+    patient = app.pat_dict[app.current_pat_id]
+    ui.ui_rad.page_rad_home_label_patients_profile.setText(patient.first_name + "'s Profile")
+    ui.ui_rad.page_rad_home_label_name.setText(patient.first_name + " " + patient.last_name)
+    ui.ui_rad.page_rad_home_label_age.setText(str(patient.age) + " years old")
+    ui.ui_rad.page_rad_home_label_phone_number.setText("+1 415 201 4987")
+    ui.ui_rad.page_rad_home_label_address.setText("72 Sunshine St\nSan Francisco, CA 94114, USA")
+    ui.ui_rad.page_rad_home_label_email.setText(patient.first_name.lower() + "." + patient.last_name.lower() + "@gmail.com")
+    pixmap = QPixmap(os.path.join("databases", "patient_database", patient.first_name.lower() + "_" + patient.last_name.lower() + ".png"))
+    if pixmap.isNull():
+        ui.ui_rad.page_rad_home_label_profile_picture.setText("No profile picture available")
+    else:
+        ui.ui_rad.page_rad_home_label_profile_picture.setPixmap(pixmap)
 
-def select_item(ui):
-    ui.ui_rad.page_rad_home_button_proceed.setEnabled(True)
+def select_item(app, ui):
+    app.current_pat_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(0)
+    app.current_errand_id = ui.ui_rad.page_rad_home_patient_information.currentItem().text(7)
+    add_patient_profile(app, ui)
+    ui.ui_rad.page_rad_home_button_view_scan.setEnabled(True)
+    if app.pat_dict[app.current_pat_id].errands[app.current_errand_id].status.lower() == "pending":
+        ui.ui_rad.page_rad_home_button_diagnose.setEnabled(True)
+    else:
+        ui.ui_rad.page_rad_home_button_diagnose.setEnabled(False)
 
 
 def login(ui):
