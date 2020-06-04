@@ -51,7 +51,8 @@ def view_edit_page_setup(app, ui):
 
     ui.ui_sur.page_sur_view_edit_button_back.clicked.connect(lambda: change_page(ui, ui.ui_sur.page_sur_patient_errand))
     ui.ui_sur.page_sur_view_edit_button_logout.clicked.connect(lambda: show_logout_popup(app, ui))
-    # ui.ui_sur.page_sur_view_edit_button_save_report.clicked.connect(lambda: ) # TODO Is this one needed here?
+    # ui.ui_sur.page_sur_view_edit_button_save_report.setEnabled(True)
+    ui.ui_sur.page_sur_view_edit_button_save_report.clicked.connect(lambda: save_report(app,ui))
 
     ui.ui_sur.page_sur_view_edit_button_add_note.clicked.connect(lambda: add_note(app, ui))
     ui.ui_sur.page_sur_view_edit_button_add_impression.clicked.connect(lambda: add_impression(app, ui))
@@ -638,3 +639,8 @@ def resetView(app, ui, widget):
     [w, l] = app.visEngine.ResetWidgetCamera(widget)
     if w: ui.ui_sur.page_sur_view_edit_2d_slider_color_window.setValue(w)
     if l: ui.ui_sur.page_sur_view_edit_2d_slider_color_level.setValue(l)
+
+
+def save_report(app,ui):
+    app.export_data("patient_database", app.pat_dict)
+    print("changes saved")

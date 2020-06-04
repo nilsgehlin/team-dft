@@ -10,13 +10,71 @@
             "order_id": "0",
             "date": "2019-12-12",
             "status": "Pending",
-            "scan": "CT",
-            "clinic": "MRI clinic",
-            "task": "Chest scan",
-            "data_dir": "sample_dicom/chestDICOM",
+            "scan": "MRI",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Head scan",
+            "data_dir": "sample_dicom/MRI_brain_tumor",
             "report": null,
             "annotations": [],
-			"impressions": []
+            "impressions": []
+        },
+        {
+            "order_id": "1",
+            "date": "2019-12-12",
+            "status": "Complete",
+            "scan": "MRI",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Head scan",
+            "data_dir": "sample_dicom/MRI_brain_tumor",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "1842e9a9fccf456daf284f8b521440a7",
+                    "location": "Periventricular white matter",
+                    "finding": "High-grade astrocytoma in the left periventricular white matter. Comparison shows tumor cross-section remains 19mm at max",
+                    "color": [
+                        79,
+                        142,
+                        226
+                    ],
+                    "coordinate": [
+                        144,
+                        155,
+                        38
+                    ],
+                    "isSegment": true,
+                    "note": "Tumor size has not grown for the past 5 months",
+                    "webLink": "https://blogs.scientificamerican.com/news-blog/dont-cure-cancer-stabilize-it-2009-05-27/"
+                },
+                {
+                    "id": "f384eb49b5fd4231aba8cb5b9e4d37f6",
+                    "location": "White Matter",
+                    "finding": "Reduced volume. Myelination is delayed for age",
+                    "color": [
+                        79,
+                        240,
+                        126
+                    ],
+                    "coordinate": [
+                        109,
+                        105,
+                        36
+                    ],
+                    "isSegment": true,
+                    "note": null,
+                    "webLink": null
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "Dr. Anderson, Radiology, Stanford Medicine",
+                    "impression": "Combination of abnormal basal ganglia, malformations of cortical development, microcephaly, and a small cerebellum/brainstem are compatible with a tublinopathy"
+                },
+                {
+                    "doctor": "Dr. Pearson, Surgery, Stanford Medicine",
+                    "impression": "Stabilized tumor, patient will not need chemotherapy now, standby for radiotherapy"
+                }
+            ]
         }
     ]
 }

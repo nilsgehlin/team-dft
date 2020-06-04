@@ -54,7 +54,7 @@ class Report(QTextBrowser):
         url = url_input.toString()
         if url[0:4] == "web:":
             search_url = url.split(':',1)[1]
-            if search_url[0:4] != "http:" or search_url[0:5] != "https:":
+            if search_url[0:5] != "http:" and search_url[0:6] != "https:":
                 search_url = "http://www.google.com/search?q=" + search_url
             webbrowser.open(search_url)
         else:

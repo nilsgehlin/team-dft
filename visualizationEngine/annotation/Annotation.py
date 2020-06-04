@@ -177,7 +177,9 @@ class Annotation(vtkInformation):
                      finding = self.GetFinding(),
                      color = self.GetColor(),
                      coordinate = self.GetCoordinate(),
-                     isSegment = self.isSegment()
+                     isSegment = self.isSegment(),
+                     note = self.GetNote(),
+                     webLink = self.GetWebLink()
                      )
         return json
 
@@ -191,6 +193,8 @@ class Annotation(vtkInformation):
         annot.SetCoordinate(data['coordinate'])
         annot.SetSegmentFlag(data['isSegment'])
         annot.reviewed = True
+        annot.AddNote(data['note'])
+        annot.AddWebLink(data['webLink'])
         return annot
 
     # String conversion

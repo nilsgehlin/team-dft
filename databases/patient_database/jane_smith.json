@@ -11,12 +11,52 @@
             "date": "2020-05-05",
             "status": "Pending",
             "scan": "CT",
-            "clinic": "Stanford Medicine",
-            "task": "Knee injury",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Knee scan",
             "data_dir": "sample_dicom/CT_knee",
             "report": null,
             "annotations": [],
             "impressions": []
+        },
+        {
+            "order_id": "1",
+            "date": "2020-05-05",
+            "status": "Complete",
+            "scan": "CT",
+            "clinic": "Stanford Imaging Clininc",
+            "task": "Knee scan",
+            "data_dir": "sample_dicom/CT_knee",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "58fde688f89741f0a67e0d631e74ebca",
+                    "location": "Patella",
+                    "finding": "Consequent tibiofemoral dislocation of the knee joint. Extra-articular fluid/hematoma on the medial \naspect with suspected communication with the haemarhtrosis raising the possibility of disrupted \njoint capsule. Both the PCL and ACL are completely disrupted ",
+                    "color": [
+                        76,
+                        229,
+                        127
+                    ],
+                    "coordinate": [
+                        655,
+                        646,
+                        7
+                    ],
+                    "isSegment": true,
+                    "note": "This injury requires knee surgery for complete recovery",
+                    "webLink": "https://www.healthline.com/health/tibiofemoral-dislocation"
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "Dr. Anderson, Radiology, Stanford Medicine",
+                    "impression": "Tibiofemoral dislocation of the knee joint"
+                },
+                {
+                    "doctor": "Dr. Pearson, Surgery, Stanford Medicine",
+                    "impression": "Severe dislocation but full recovery is expected"
+                }
+            ]
         }
     ]
 }

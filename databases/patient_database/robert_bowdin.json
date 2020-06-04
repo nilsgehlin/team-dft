@@ -1,0 +1,98 @@
+{
+    "id": "0003",
+    "password": "0003",
+    "first_name": "Robert",
+    "last_name": "Bowdin",
+    "age": 27,
+    "sex": "M",
+    "errands": [
+        {
+            "order_id": "0",
+            "date": "2020-2-19",
+            "status": "Pending",
+            "scan": "CT",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Ankle scan",
+            "data_dir": "sample_dicom/CT_ankle",
+            "report": null,
+            "annotations": [],
+            "impressions": []
+        },
+        {
+            "order_id": "1",
+            "date": "2020-2-19",
+            "status": "Complete",
+            "scan": "CT",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Ankle scan",
+            "data_dir": "sample_dicom/CT_ankle",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "3f99ecf224344427a093cb0cee66e63c",
+                    "location": "Bones, marrow, and cartilage",
+                    "finding": "Mild to moderate patchy nonspecific bone marrow edema within the body and neck of the talus (6/14). Subtle, tiny nonacute chondral injury at the medial aspect of the talar dome. No loose or displaced osteochondral fragment demonstrated. Minimal peripheral edema within the distal lateral fibula (5/20). Elsewhere, bone marrow signal is within normal limits. ",
+                    "color": [
+                        188,
+                        81,
+                        35
+                    ],
+                    "coordinate": [
+                        282,
+                        240,
+                        125
+                    ],
+                    "isSegment": true,
+                    "note": "I recommend avoiding pain triggered exercise for now. Do ice massage and take ibuprofen for swelling as we discussed. ",
+                    "webLink": null
+                },
+                {
+                    "id": "208ed683d4694bbd946c566848780c99",
+                    "location": "Ligaments",
+                    "finding": "The anterior and posterior tibiofibular ligaments appear intact. Subtle scarring in the anterior talofibular ligament, consistent with a nonacute sprain. No acute or discrete tear demonstrated in the lateral collateral ligamentous complex. The lateral ankle ligaments are intact. Slight increased signal is present interspersed within the deep fibers of the deltoid ligament complex (5/23). No discrete fiber discontinuity is evident. The spring ligament is intact.",
+                    "color": [
+                        20,
+                        226,
+                        73
+                    ],
+                    "coordinate": [
+                        214,
+                        160,
+                        71
+                    ],
+                    "isSegment": true,
+                    "note": " I recommend home ankle exercise for your low grade ankle sprain.",
+                    "webLink": "https://www.summitmedicalgroup.com/library/pediatric_health/sma_ankle_sprain_exercises/"
+                },
+                {
+                    "id": "ef386002a3dc4db8a23267678405f855",
+                    "location": "Tendons",
+                    "finding": "Physiologic fluid surrounding the flexor tendons. The extensor and peroneal tendons are intact. The Achilles tendon is intact.",
+                    "color": [
+                        56,
+                        100,
+                        200
+                    ],
+                    "coordinate": [
+                        262,
+                        62,
+                        54
+                    ],
+                    "isSegment": true,
+                    "note": null,
+                    "webLink": null
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "Dr. Anderson, Radiology, Stanford Medicine",
+                    "impression": "Mild to moderate patchy bone edema in the talus, consistent with a bone contusion in the setting of trauma. No stress fracture."
+                },
+                {
+                    "doctor": "Dr. Anderson, Radiology, Stanford Medicine",
+                    "impression": "Nonacute low-grade ankle ligament sprain. No acute or discrete ligament tear demonstrated"
+                }
+            ]
+        }
+    ]
+}

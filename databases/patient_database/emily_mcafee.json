@@ -1,0 +1,58 @@
+{
+    "id": "0004",
+    "password": "0004",
+    "first_name": "Emily",
+    "last_name": "McAfee",
+    "age": 38,
+    "sex": "F",
+    "errands": [
+        {
+            "order_id": "0",
+            "date": "2020-04-10",
+            "status": "Pending",
+            "scan": "Mammography",
+            "clinic": "Stanford Imaging Clinic",
+            "task": "Mammography",
+            "data_dir": "sample_dicom/Mamm_tumor",
+            "report": null,
+            "annotations": [],
+            "impressions": []
+        },
+        {
+            "order_id": "1",
+            "date": "2020-04-10",
+            "status": "Complete",
+            "scan": "Mammography",
+            "clinic": "Stanford Imaging Clininc",
+            "task": "Mammography",
+            "data_dir": "sample_dicom/Mamm_tumor",
+            "report": null,
+            "annotations": [
+                {
+                    "id": "caefc26ba0354e62b6cbc086a94f080f",
+                    "location": "Left Breast",
+                    "finding": "1.Invasive ductal carcinoma\n Grade 2 tumor of size 1.2x1.1x0.9cm\n 2. Ductal calcification in-situ with calcifications.",
+                    "color": [
+                        214,
+                        25,
+                        181
+                    ],
+                    "coordinate": [
+                        220,
+                        229,
+                        36
+                    ],
+                    "isSegment": true,
+                    "note": "null",
+                    "webLink": "Understanding Your Mammogram Report"
+                }
+            ],
+            "impressions": [
+                {
+                    "doctor": "Dr. Anderson, Radiology, Stanford Medicine",
+                    "impression": "Let's see"
+                }
+            ]
+        }
+    ]
+}

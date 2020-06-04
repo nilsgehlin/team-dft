@@ -80,6 +80,8 @@ def diagnose_page_setup(app, ui):
     ui.ui_rad.page_rad_diagnose_button_link_windows.clicked.connect(
         lambda: change_link(app, ui, ui.ui_rad.page_rad_diagnose_button_link_windows,
                             ui.ui_rad.page_rad_diagnose_2d_view, ui.ui_rad.page_rad_diagnose_3d_view))
+    ui.ui_rad.page_rad_diagnose_button_update_3d.clicked.connect(
+        lambda: update_3d(app, ui, ui.ui_rad.page_rad_diagnose_3d_view))
     # ui.ui_rad.page_rad_diagnose_button_2d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_3d_fullscreen.clicked.connect(lambda: )# TODO Connect button with image functionality
     # ui.ui_rad.page_rad_diagnose_button_hide_3d.clicked.connect(lambda: )# TODO Connect button with image functionality
@@ -693,3 +695,10 @@ def resetView(app, ui, widget):
     if w: ui.ui_rad.page_rad_diagnose_2d_slider_color_window.setValue(w)
     if l: ui.ui_rad.page_rad_diagnose_2d_slider_color_level.setValue(l)
 
+
+# Update the 3d view to add the new annotation
+def update_3d(app, ui, widget):
+    active_annot = app.visEngine.GetActiveAnnotation()
+    app.visEngine.RemoveAllAnnotations(widget)
+    if active_annot is not None:
+        app.visEngine.AddSegmentations(widget, [active_annot])

@@ -7,9 +7,10 @@ from visualizationEngine.annotation.Annotation import Annotation, AnnotationList
 class Patient(object):
     next_id = 0
 
-    def __init__(self, first_name, last_name, age, sex="N/A"):
-        self.id = str(Patient.next_id).zfill(4)
-        Patient.next_id += 1
+    def __init__(self, id_, first_name, last_name, age, sex="N/A"):
+        # self.id = str(Patient.next_id).zfill(4)
+        # Patient.next_id += 1
+        self.id = id_
         self.password = self.id
         self.errands = {}
         # self.errands = {"0": Errand("0", "2020-01-01", "Complete", "CT", "GP", "TASK??", os.path.join("sample_dicom", "chestDICOM")),
@@ -56,7 +57,7 @@ class Patient(object):
     # Deserializes the items needed to instantiate the class from JSON dictionary
     @staticmethod
     def fromJson(data):
-        patient = Patient(data['first_name'], data['last_name'], data['age'], data['sex'])
+        patient = Patient(data['id'], data['first_name'], data['last_name'], data['age'], data['sex'])
 
         errands_data = data['errands']
         for errand_data in errands_data:

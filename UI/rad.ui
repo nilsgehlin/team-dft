@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>2</number>
   </property>
   <widget class="QWidget" name="page_rad_home">
    <layout class="QGridLayout" name="gridLayout">
@@ -1125,7 +1125,7 @@
          <x>0</x>
          <y>0</y>
          <width>510</width>
-         <height>174</height>
+         <height>170</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1177,7 +1177,7 @@ color: #4fa08b</string>
          <x>0</x>
          <y>0</y>
          <width>510</width>
-         <height>174</height>
+         <height>170</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1262,7 +1262,7 @@ color: #4fa08b</string>
          <x>0</x>
          <y>0</y>
          <width>510</width>
-         <height>174</height>
+         <height>170</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1458,7 +1458,7 @@ color: #4fa08b;</string>
          <x>0</x>
          <y>0</y>
          <width>510</width>
-         <height>174</height>
+         <height>170</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1504,6 +1504,44 @@ color: #4fa08b;</string>
       <property name="topMargin">
        <number>0</number>
       </property>
+      <item row="0" column="11">
+       <widget class="QToolButton" name="page_rad_diagnose_button_logout">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>12121</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>   Logout</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="5">
        <widget class="QToolButton" name="page_rad_diagnose_button_link_windows">
         <property name="minimumSize">
@@ -1578,46 +1616,34 @@ color: #4fa08b;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="10">
-       <widget class="QToolButton" name="page_rad_diagnose_button_logout">
-        <property name="minimumSize">
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_22">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>12121</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text">
-         <string>   Logout</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/logout.png</normaloff>icons/logout.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
+       </spacer>
       </item>
-      <item row="0" column="9">
+      <item row="0" column="10">
        <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer_4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -1643,30 +1669,33 @@ color: #4fa08b;</string>
        </spacer>
       </item>
       <item row="0" column="6">
-       <spacer name="horizontalSpacer_22">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+       <widget class="QToolButton" name="page_rad_diagnose_button_update_3d">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
-       </spacer>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+        <property name="maximumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>30</width>
+          <height>30</height>
          </size>
         </property>
-       </spacer>
+        <property name="text">
+         <string>Update</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -3482,11 +3511,11 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
   <buttongroup name="page_rad_diagnose_check_group_tissue">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="page_rad_diagnose_radio_group_orientation"/>
  </buttongroups>
 </ui>
